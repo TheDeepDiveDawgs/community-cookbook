@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title> Conceptual Model </title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h1> Conceptual Model </h1>
+<h2> Enities and Attirbutes </h2>
+<h3>user</h3>
+<ul>
+	<li>userId (primary key)</li>
+	<li>userName</li>
+	<li>userEmail</li>
+	<li>userActivationToken</li>
+	<li>userUsername</li>
+	<li>userHash</li>
+</ul>
+<h3>recipe</h3>
+<ul>
+	<li>recipeId (primary key)</li>
+	<li>recipeUserId (foreign key)</li>
+	<li>recipeSubmissionDate</li>
+	<li>recipeName</li>
+	<li>recipeMinutes</li>
+	<li>recipeTags</li>
+	<li>recipeNutrition</li>
+	<li>recipeNumberSteps</li>
+	<li>recipeSteps</li>
+	<li>recipeDescription</li>
+	<li>recipeIngredients</li>
+	<li>recipeNumberIngredients</li>
+	<li>recipeRating</li>
+</ul>
+<h3>interaction</h3>
+<ul>
+	<li>interactionUserId (foreign key)</li>
+	<li>interactionRecipeId (foreign key)</li>
+	<li>interactionDate</li>
+	<li>interactionRating</li>
+</ul>
+<h3>category</h3>
+<ul>
+	<li>categoryId (primary key)</li>
+	<li>categoryRecipeId (foreign key)</li>
+	<li>categoryName</li>
+</ul>
+</body>
+</html>
