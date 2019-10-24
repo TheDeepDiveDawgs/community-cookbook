@@ -1,0 +1,25 @@
+img {
+	width: 773px;
+	position: relative;
+}
+
+div {
+	background-color: dimgrey;
+	margin: 150px;
+	padding: 200px;
+}
+
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.headerFont {
+	color: white;
+	position: relative;
+	text-align: center;
+}
+
+#mobileimages {
+	position: relative;
+	width: 274px;
+}
