@@ -7,11 +7,11 @@ drop table if exists  interaction;
 -- creating new table called user
 create table user(
 	userId BINARY(16) not null,
-	userName,
-	userEmail,
 	userActivationToken,
-	userUsername,
-	userHash,
+	userEmail,
+	userHandle,
+	userHash ,
+	userName ,
 	unique(userEmail),
 	primary key(userId)
 );
@@ -19,29 +19,28 @@ create table user(
 -- create new table called recipe
 create table recipe(
 	recipeId,
+	receipeCategoryId,
 	recipeUserId,
-	recipeSubmissionDate,
-	recipeName,
-	recipeMinutes,
-	recipeTags,
-	recipeNutrition,
-	recipeNumberSteps,
-	recipeSteps,
 	recipeDescription,
 	recipeIngredients,
+	recipeMinutes,
+	recipeName,
+	recipeNutrition,
 	recipeNumberIngredients,
 	recipeRating,
+	recipeSteps,
+	recipeSubmissionDate,
+	recipeTags,
 	primary key(recipeId),
-	foreign key(recipeUserId) references user(userId)
+	foreign key(recipeUserId) references user(userId),
+	foreign key(receipeCategoryId) references category(categoryId)
 );
 
 -- create new table called category
 create table category(
-	categoryId,
-	categoryRecipeId,
+	categoryId BINARY,
 	categoryName,
-	primary key(categoryId),
-	foreign key(categoryRecipeId) references recipe(recipeId)
+	primary key(categoryId)
 );
 
 -- create new table called interaction
