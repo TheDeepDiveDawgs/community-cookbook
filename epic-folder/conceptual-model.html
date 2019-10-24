@@ -10,27 +10,28 @@
 <h3>user</h3>
 <ul>
 	<li>userId (primary key)</li>
-	<li>userName</li>
-	<li>userEmail</li>
 	<li>userActivationToken</li>
-	<li>userUsername</li>
+	<li>userEmail</li>
+	<li>userHandle</li>
 	<li>userHash</li>
+	<li>userName</li>
 </ul>
 <h3>recipe</h3>
 <ul>
 	<li>recipeId (primary key)</li>
+	<li>recipeCategoryId (foreign key)</li>
 	<li>recipeUserId (foreign key)</li>
-	<li>recipeSubmissionDate</li>
-	<li>recipeName</li>
-	<li>recipeMinutes</li>
-	<li>recipeTags</li>
-	<li>recipeNutrition</li>
-	<li>recipeNumberSteps</li>
-	<li>recipeSteps</li>
 	<li>recipeDescription</li>
+	<li>recipeImage</li>
 	<li>recipeIngredients</li>
+	<li>recipeMinutes</li>
+	<li>recipeName</li>
 	<li>recipeNumberIngredients</li>
+	<li>recipeNutrition</li>
 	<li>recipeRating</li>
+	<li>recipeSteps</li>
+	<li>recipeSubmissionDate</li>
+	<li>recipeTags</li>
 </ul>
 <h3>interaction</h3>
 <ul>
@@ -42,7 +43,6 @@
 <h3>category</h3>
 <ul>
 	<li>categoryId (primary key)</li>
-	<li>categoryRecipeId (foreign key)</li>
 	<li>categoryName</li>
 </ul>
 </body>
