@@ -9,10 +9,12 @@ create table user(
 	userId BINARY(16) not null,
 	userActivationToken,
 	userEmail,
+	userFullName ,
 	userHandle,
-	userHash ,
-	userName ,
+	userHash,
+	-- making attribute unique to ensure emails do not duplicate
 	unique(userEmail),
+	-- this officiates the primary key for this table
 	primary key(userId)
 );
 
@@ -27,12 +29,13 @@ create table recipe(
 	recipeName,
 	recipeNutrition,
 	recipeNumberIngredients,
-	recipeRating,
 	recipeSteps,
 	recipeSubmissionDate,
-	recipeTags,
+	-- this officiates the primary key for this table
 	primary key(recipeId),
+	-- this creates th e foreign key to improve join performance between recipe and user table
 	foreign key(recipeUserId) references user(userId),
+	-- this creates th e foreign key to improve join performance between recipe and category table
 	foreign key(receipeCategoryId) references category(categoryId)
 );
 
@@ -40,6 +43,7 @@ create table recipe(
 create table category(
 	categoryId BINARY,
 	categoryName,
+	-- this officiates the primary key for this table
 	primary key(categoryId)
 );
 
@@ -49,6 +53,8 @@ create table interaction(
 	interactionRecipeId,
 	interactionDate,
 	interactionRating,
+	-- this creates th e foreign key to improve join performance between interaction and user table
 	foreign key(interactionUserId) references user(userId),
+	-- this creates th e foreign key to improve join performance between interaction and receipe table
 	foreign key(interactionRecipeId) references recipe(recipeId)
 );
