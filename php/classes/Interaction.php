@@ -1,21 +1,37 @@
 <?php
+namespace DanielCoderHernandez\Community;
 
+require_once("autoload.php");
+require_once(dirname(__DIR__) . "/vendor/autoload.php");
+
+use Ramsey\Uuid\Uuid;
 	/**
  	* cross section of of interaction class
+	 *
+	 * @author Daniel Hernandez
+	 * @version 0.0.1
  	**/
 
 	class interaction {
 
-		/**foreign key**/
+		/**foreign key
+		 * @var uuid $interactionUserId
+		 **/
 		private $interactionUserId;
 
-		/**foreign key**/
+		/**foreign key
+		 * @var uuid $interactionRecipeId
+		 **/
 		private $interactionRecipeId;
 
-		/**Date of rating**/
+		/**Date of rating
+		 * @var dateType $interactionDate
+		 **/
 		private $interactionDate;
 
-		/**user rating of recipe**/
+		/**user rating of recipe
+		 * @var string $interactionRating
+		 **/
 		private $interactionRating;
 
 		/**accessor method for interactionUserId
@@ -47,30 +63,32 @@
 
 		/**
 		 * accessor method for interactionRecipeId
-		 * @returns string value of interactionRecipeId
+		 * @returns Uuid value of interactionRecipeId
 		 */
 
-		public function getInteractionRecipeId():string{
+		public function getInteractionRecipeId(): Uuid {
 			return ($this->interactionRecipeId);
 		}
 
 		/**
-		 * mutator method for interaction recipe id
-		 * @param string $newInteractionRecipeId new value of interaction user id
-		 * @throws \InvalidArgumentException if $newInteractionRecipeId is not a string
-		 * @throws \TypeError if $newInteractionRecipeId is not a string
-		 */
+		 * mutator method for interactionRecipeId
+		 * @param uuid | string $newInteractionRecipeId value of new interaction user id
+		 * @throws \RangeException if the $interactionRecipeId is not positive
+		 * @throws \TypeError if $interactionRecipeId is not positive
+		 * */
 
-		public function setInteractionRecipeId(string $newInteractionRecipeId): void {
-		//if $interactionRecipeId is null return it right away
-			if($newInteractionRecipeId === null) {
-				$this->interactionRecipeId = null;
-				return;
+		public function setInteractionRecipeId($newInteractionRecipeId): void {
+			try {
+				$uuid = self::validateUuid($newInteractionRecipeId);
+			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception){
+				$exceptionType = get_class($exception);
+				throw(new $exceptionType($exception->getMessage(), 0, $exception));
 			}
-			//store the interaction recipe id
-			$this->interactionRecipeId =$newInteractionRecipeId;
-		}
 
+			//convert and store interactionRecipeId
+			$this->interactionRecipeId = $uuid;
+
+		}
 		/**
 		 * accessor method for interaction date
 		 */
