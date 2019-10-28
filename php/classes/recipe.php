@@ -81,11 +81,20 @@ class Recipe implements \JsonSerializable {
 	 **/
 	private $recipeName;
 	/**
-	 * phone number for this recipe
-	 * @var string $recipePhone
+	 * number of ingredients for this recipe
+	 * @var string $recipeNumberIngredients
 	 **/
-	private $recipeIngredients;
-
+	private $recipeNumberIngredients;
+	/**
+	 * nutrition for this recipe
+	 * @var string $recipeNutrition
+	 **/
+	private $recipeNutrition;
+	/**
+	 * steps in this recipe
+	 * @var string $recipeSteps
+	 **/
+	private $recipeSteps;
 	/**
 	 * constructor for this recipe
 	 * @param Uuid | string $newRecipeId new user id
@@ -101,11 +110,17 @@ class Recipe implements \JsonSerializable {
 	public function __construct($newRecipeId, $newRecipecategoryId, $newRecipeUserId, $newRecipeDescription, $newRecipeImageUrl, $newRecipeIngredients) {
 		try {
 			$this->setRecipeId($newRecipeId);
-			$this->setRecipecategoryId($newRecipecategoryId);
+			$this->setRecipecategoryId($newRecipeCategoryId);
 			$this->setRecipeUserId($newRecipeUserId);
 			$this->setRecipeDescription($newRecipeDescription);
 			$this->setRecipeImageUrl($newRecipeImageUrl);
 			$this->setRecipeIngredients($newRecipeIngredients);
+			$this->setRecipeMinutes($newRecipeMinutes);
+			$this->setRecipeMinutes($newRecipeName);
+			$this->setRecipeMinutes($newRecipeNumberIngredients);
+			$this->setRecipeMinutes($newRecipeNutrition);
+			$this->setRecipeMinutes($newRecipeSteps);
+			$this->setRecipeMinutes($newRecipeSubmissionDate);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 
 			//deturmine what exeption type was thrown
@@ -373,6 +388,93 @@ class Recipe implements \JsonSerializable {
 		}
 		// store the name
 		$this->recipeName = $newRecipeName;
+	}
+
+	/**
+	 * accessor method for recipeNumberIngredients
+	 *
+	 * @return string value of recipeNumberIngredients
+	 **/
+	public function getRecipeNumberIngredients(): string {
+		return ($this->recipeNumberIngredients);
+	}
+
+	/**
+	 * mutator method for recipeNumberIngredients
+	 *
+	 * @param string $newrRecipeNumberIngredients
+	 **/
+	public function setRecipeNumberIngredients(string $newrRecipeNumberIngredients): string {
+		// verify the name is secure
+		$newrRecipeNumberIngredients = trim($newrRecipeNumberIngredients);
+		$newrRecipeNumberIngredients = filter_var($newrRecipeNumberIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newrRecipeNumberIngredients) === true) {
+			throw(new \InvalidArgumentException("number of ingreadients field is empty"));
+		}
+		// verify the at handle will fit in the database
+		if(strlen($newrRecipeNumberIngredients) > 32) {
+			throw(new \RangeException("Number of ingredients is too long"));
+		}
+		// store the number of ingredients
+		$this->recipeNumberIngredients = $newrRecipeNumberIngredients;
+	}
+
+	/**
+	 * accessor method for recipeNutrition
+	 *
+	 * @return string value of recipeNutrition
+	 **/
+	public function getRecipeNutrition(): string {
+		return ($this->recipeNutrition);
+	}
+
+	/**
+	 * mutator method for recipeNutrition
+	 *
+	 * @param string $newrRecipeNutrition
+	 **/
+	public function setRecipeNutrition(string $newrRecipeNutrition): string {
+		// verify the nutrition data is secure
+		$newrRecipeNutrition = trim($newrRecipeNutrition);
+		$newrRecipeNutrition = filter_var($newrRecipeNutrition, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newrRecipeNutrition) === true) {
+			throw(new \InvalidArgumentException("nutritional info field is empty"));
+		}
+		// verify the at handle will fit in the database
+		if(strlen($newrRecipeNutrition) > 32) {
+			throw(new \RangeException("Nutrition info is too long"));
+		}
+		// store the nutritional facts
+		$this->recipeNutrition = $newrRecipeNutrition;
+	}
+
+	/**
+	 * accessor method for recipeSteps
+	 *
+	 * @return string value of recipeSteps
+	 **/
+	public function getRecipeSteps(): string {
+		return ($this->recipeSteps);
+	}
+
+	/**
+	 * mutator method for recipeSteps
+	 *
+	 * @param string $newrRecipeSteps
+	 **/
+	public function setRecipeSteps(string $newrRecipeSteps): string {
+		// verify the steps data is secure
+		$newrRecipeSteps = trim($newrRecipeSteps);
+		$newrRecipeSteps = filter_var($newrRecipeSteps, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newrRecipeSteps) === true) {
+			throw(new \InvalidArgumentException("steps must be added"));
+		}
+		// verify the at handle will fit in the database
+		if(strlen($newrRecipeSteps) > 32) {
+			throw(new \RangeException(" too many steps"));
+		}
+		// store the recipe steps
+		$this->recipeSteps = $newrRecipeSteps;
 	}
 
 	public function jsonSerialize() {
