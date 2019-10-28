@@ -93,5 +93,27 @@ use Ramsey\Uuid\Uuid;
 		}
 		/**
 		 * accessor method for interaction date
+		 *
+		 * @return \DateTime value of interaction date
 		 */
+
+		public function getInteractionDate() : \DateTime {
+			return($this->interactionDate);
+		}
+
+	/**
+	 *mutator method for interaction date
+	 *
+	 * @param \DateTime|string|null $newInteractionDate interaction date as  a datetime object or string ( or null to load to current)
+	 * @throws \InvalidArgumentException if $newInteractionDate is not a valid object or string
+	 * @throws \RangeException if $newInteractionDate is a date that does not exist
+	 */
+		public function setInteractionDate($newInteractionDate = null) : void{
+			//base case: if the date is null,  use the current date and time 
+			if($newInteractionDate === null) {
+				$this->interactionDate = new \DateTime();
+				return;
+			}
+			}
+		}
 	}
