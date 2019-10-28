@@ -1,9 +1,11 @@
 img {
 	width: 773px;
 	position: relative;
+
 }
 
 div {
+	position: relative;
 	background-color: dimgrey;
 	margin: 150px;
 	padding: 200px;
