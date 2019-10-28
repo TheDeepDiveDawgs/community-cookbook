@@ -14,6 +14,8 @@ create table user(
 	userHash CHAR(97) not null,
 	-- making attribute unique to ensure emails do not duplicate
 	unique(userEmail),
+	-- making attribute unique to ensure user names do not duplicate
+	unique(userHandle),
 	-- this officiates the primary key for this table
 	primary key(userId)
 );
@@ -22,6 +24,8 @@ create table user(
 create table category(
 	categoryId BINARY(16) not null,
 	categoryName VARCHAR(24) not null,
+	-- making attribute unique to ensure every category does not duplicate
+	unique(categoryName),
 	-- this officiates the primary key for this table
 	primary key(categoryId)
 );
@@ -31,10 +35,13 @@ create table interaction(
 	interactionUserId BINARY(16) not null,
 	interactionRecipeId BINARY(16) not null,
 	interactionDate DATETIME not null,
-	interactionRating INT(4) not null,
-	-- this creates th e foreign key to improve join performance between interaction and user table
+	interactionRating DECIMAL(1,2) not null,
+	-- index the foreign keys
+	index(interactionUserId),
+	index (interactionRecipeId),
+	-- this creates the foreign key to improve join performance between interaction and user table
 	foreign key(interactionUserId) references user(userId),
-	-- this creates th e foreign key to improve join performance between interaction and receipe table
+	-- this creates the foreign key to improve join performance between interaction and recipe table
 	foreign key(interactionRecipeId) references recipe(recipeId)
 );
 
@@ -45,13 +52,16 @@ create table recipe(
 	recipeUserId BINARY(16) not null,
 	recipeDescription VARCHAR(500),
 	recipeImageUrl VARCHAR(255),
-	recipeIngredients VARCHAR(3000) not null,
-	recipeMinutes INT(5) not null,
+	recipeIngredients VARCHAR(2000) not null,
+	recipeMinutes SMALLINT not null,
 	recipeName VARCHAR(100) not null,
 	recipeNutrition VARCHAR(255),
 	recipeNumberIngredients INT(4) not null,
-	recipeStep VARCHAR(4000) not null,
+	recipeStep VARCHAR(3000) not null,
 	recipeSubmissionDate DATETIME not null,
+	-- index the foreign keys
+	index(recipeCategoryId),
+	index(recipeUserId),
 	-- this officiates the primary key for this table
 	primary key(recipeId),
 	-- this creates th e foreign key to improve join performance between recipe and user table
