@@ -114,6 +114,13 @@ use Ramsey\Uuid\Uuid;
 				$this->interactionDate = new \DateTime();
 				return;
 			}
+			//store the interaction date using the ValidateDate trait
+			try {
+						$newInteractionDate = self::validateDateTime($newInteractionDate);
+			} catch(\InvalidArgumentException | \RangeException $exception) {
+						$exceptionType =get_class($exception);
+						throw (new $exceptionType($exception->getMessage(), 0, $exception));
 			}
+			$this->interactionDate = $newInteractionDate;
 		}
 	}
