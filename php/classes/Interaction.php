@@ -58,6 +58,20 @@
 		 * mutator method for interaction recipe id
 		 * @param string $newInteractionRecipeId new value of interaction user id
 		 * @throws \InvalidArgumentException if $newInteractionRecipeId is not a string
-		 * @throws \RangeException if $newInteractionRecipeId is > than
+		 * @throws \TypeError if $newInteractionRecipeId is not a string
+		 */
+
+		public function setInteractionRecipeId(string $newInteractionRecipeId): void {
+		//if $interactionRecipeId is null return it right away
+			if($newInteractionRecipeId === null) {
+				$this->interactionRecipeId = null;
+				return;
+			}
+			//store the interaction recipe id
+			$this->interactionRecipeId =$newInteractionRecipeId;
+		}
+
+		/**
+		 * accessor method for interaction date
 		 */
 	}
