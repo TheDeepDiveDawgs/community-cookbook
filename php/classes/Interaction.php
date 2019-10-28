@@ -12,20 +12,22 @@ use Ramsey\Uuid\Uuid;
 	 * @version 0.0.1
  	**/
 
-	class interaction {
+	Class Interaction implements \JsonSerializable {
+		use ValidateDate;
+		use ValidateUuid;
 
 		/**foreign key
-		 * @var uuid $interactionUserId
+		 * @var Uuid $interactionUserId
 		 **/
 		private $interactionUserId;
 
 		/**foreign key
-		 * @var uuid $interactionRecipeId
+		 * @var Uuid $interactionRecipeId
 		 **/
 		private $interactionRecipeId;
 
-		/**Date of rating
-		 * @var dateType $interactionDate
+		/**Date and time interaction takes place, in a php datetime object
+		 * @var \DateTime $interactionDate
 		 **/
 		private $interactionDate;
 
