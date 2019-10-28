@@ -42,12 +42,12 @@ create table recipe(
 	recipeUserId BINARY(16) not null,
 	recipeDescription VARCHAR(500),
 	recipeImageUrl VARCHAR(255),
-	recipeIngredients VARCHAR(2000) not null,
+	recipeIngredients VARCHAR(300) not null,
 	recipeMinutes SMALLINT not null,
 	recipeName VARCHAR(100) not null,
 	recipeNutrition VARCHAR(255),
-	recipeNumberIngredients INT(4) not null,
-	recipeStep VARCHAR(3000) not null,
+	recipeNumberIngredients INT(2) not null,
+	recipeStep VARCHAR(1000) not null,
 	recipeSubmissionDate DATETIME not null,
 	-- index the foreign keys
 	index(recipeCategoryId),
@@ -67,7 +67,7 @@ create table interaction(
 	-- foreign key
 	interactionRecipeId BINARY(16) not null,
 	interactionDate DATETIME not null,
-	interactionRating DECIMAL(1,2) not null,
+	interactionRating INT(1) not null,
 	-- index the foreign keys
 	index(interactionUserId),
 	index (interactionRecipeId),
