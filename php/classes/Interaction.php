@@ -123,4 +123,36 @@ use Ramsey\Uuid\Uuid;
 			}
 			$this->interactionDate = $newInteractionDate;
 		}
+
+		/**
+		 * accessor method for interaction rating
+		 *
+		 * @return string value of interaction rating
+		 */
+
+		public function getInteractionRating() : string {
+			return($this->interactionRating);
+		}
+
+		/**
+		 * mutator method for interaction rating
+		 *
+		 * @param string $newInteractionRating new value of interaction rating
+		 * @throws \InvalidArgumentException if $newInteractionRating is not a string or insecure
+		 * @throws \TypeError if $newInteractionRating is not a string
+		 *
+		 **/
+
+		public function setInteractionRating(string $newInteractionRating) : void {
+			//verifies string interaction rating is secure
+			$newInteractionRating = trim($newInteractionRating);
+			$newInteractionRating = filter_var($newInteractionRating, filter_sanitize_string, filter_flag_no_encode_quoutes);
+			if(empty($newInteractionRating) === true) {
+				throw(new \InvalidArgumentException("rating is empty or insecure"));
+			}
+
+			//store the interaction rating
+			$this->interactionRating = $newInteractionRating;
+
+		}
 	}
