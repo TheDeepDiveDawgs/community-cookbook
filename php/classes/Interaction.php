@@ -4,6 +4,8 @@ namespace DanielCoderHernandez\Community;
 require_once("autoload.php");
 require_once(dirname(__DIR__) . "/vendor/autoload.php");
 
+use http\Exception\InvalidArgumentException;
+use mysql_xdevapi\Exception;
 use Ramsey\Uuid\Uuid;
 	/**
  	* cross section of of interaction class
@@ -35,6 +37,28 @@ use Ramsey\Uuid\Uuid;
 		 * @var string $interactionRating
 		 **/
 		private $interactionRating;
+
+		/**
+		 * constructor for interaction
+		 *
+		 * @param string|Uuid $newInteractionUserId user id of this interaction  or null if new interaction
+		 * @param string|Uuid $newInteractionRecipeId recipe id of this interaction or null if new interaction
+		 * @param \DateTime|string|null $newInteractionDate date and time of interaction was submitted or null if set to current date and time
+		 * @param \int $newInteractionRating rating of interaction
+		 * @throws \InvalidArgumentException if data types not Invalid
+		 * @throws \RangeException if data values are out of bounds
+		 * @throws \TypeError if data violates type hints
+		 * @throws \Exception if some other Exception occurs
+		 */
+
+		public function __construct($newInteractionUserId, $newInteractionRecipeId, $newInteractionDate, $newInteractionRating = null) {
+			try {
+				$this->setInteractionUserId($newInteractionUserId);
+				$this->setInteractionRecipeId($newInteractionRecipeId);
+				$this->setInteractionDate($newInteractionDate);
+				$this->setInteractionRating($newInteractionRating);
+			}
+		}
 
 		/**accessor method for interactionUserId
 		 *@return Uuid value of interactionUserId
@@ -108,7 +132,8 @@ use Ramsey\Uuid\Uuid;
 	 * @throws \InvalidArgumentException if $newInteractionDate is not a valid object or string
 	 * @throws \RangeException if $newInteractionDate is a date that does not exist
 	 */
-		public function setInteractionDate($newInteractionDate = null) : void{
+
+		public function setInteractionDate($newInteractionDate = null) : void {
 			//base case: if the date is null,  use the current date and time 
 			if($newInteractionDate === null) {
 				$this->interactionDate = new \DateTime();
@@ -127,26 +152,26 @@ use Ramsey\Uuid\Uuid;
 		/**
 		 * accessor method for interaction rating
 		 *
-		 * @return string value of interaction rating
+		 * @return int value of interaction rating
 		 */
 
-		public function getInteractionRating() : string {
+		public function getInteractionRating() : int {
 			return($this->interactionRating);
 		}
 
 		/**
 		 * mutator method for interaction rating
 		 *
-		 * @param string $newInteractionRating new value of interaction rating
-		 * @throws \InvalidArgumentException if $newInteractionRating is not a string or insecure
-		 * @throws \TypeError if $newInteractionRating is not a string
+		 * @param integer $newInteractionRating new value of interaction rating
+		 * @throws \InvalidArgumentException if $newInteractionRating is not a integer or insecure
+		 * @throws \TypeError if $newInteractionRating is not a integer
 		 *
 		 **/
 
-		public function setInteractionRating(string $newInteractionRating) : void {
-			//verifies string interaction rating is secure
+		public function setInteractionRating(int $newInteractionRating) : void {
+			//verifies int interaction rating is secure
 			$newInteractionRating = trim($newInteractionRating);
-			$newInteractionRating = filter_var($newInteractionRating, filter_sanitize_string, filter_flag_no_encode_quoutes);
+			$newInteractionRating = filter_var($newInteractionRating, filter_has_var());
 			if(empty($newInteractionRating) === true) {
 				throw(new \InvalidArgumentException("rating is empty or insecure"));
 			}
