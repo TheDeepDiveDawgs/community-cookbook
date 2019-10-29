@@ -107,5 +107,5 @@ class Category implements \JsonSerializable {
 		$this->categoryName = $newCategoryName;
 	}
 
-	
+
 }
