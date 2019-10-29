@@ -491,7 +491,7 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * accessor method for recipeSubmissionDate
 	 *
-	 * @return string value of recipeSubmissionDate
+	 * @return \DateTime value of recipeSubmissionDate
 	 **/
 	public function getRecipeSubmissionDate(): datetime {
 		return $this->recipeSubmissionDate;
@@ -499,21 +499,24 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeSubmissionDate
-	 * @throws \InvalidArgumentException if the recipeSubmissionDate is not secure
-	 * @throws \RangeException if the recipeSubmissionDate is not 128 characters
-	 * @throws \TypeError if recipeSubmissionDate is not a string
-	 * @param string $newrRecipeSubmissionDate
+	 *
+	 * @param \DateTime |string|null $newrRecipeSubmissionDate interaction date as a datetime object or string (or null tp load current)
+	 * @throws \InvalidArgumentException if $recipeSubmissionDate is not a valid object or string
+	 * @throws \RangeException if the $recipeSubmissionDate is a date that does not exist
 	 **/
-	public function setRecipeSubmissionDate(string $newRecipeSubmissionDate): datetime {
-		// verify the submission data is secure
-		$newRecipeSubmissionDate = trim($newRecipeSubmissionDate);
-		$newRecipeSubmissionDate = filter_var($newRecipeSubmissionDate, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newRecipeSubmissionDate) === true) {
-			throw(new \InvalidArgumentException("date time error"));
+
+	public function setRecipeSubmissionDate($newRecipeSubmissionDate = null): void {
+		// if date is null, use the current date and time
+		if($newRecipeSubmissionDate === null) {
+			$this->recipeSubmissionDate = new \DateTime();
+			return;
 		}
-		// verify the at handle will fit in the database
-		if(strlen($newRecipeSubmissionDate) > 32) {
-			throw(new \RangeException("date time error"));
+		// store the submission date with ValidateDate trait
+		try {
+			$newRecipeSubmissionDate = self::validateDateTime($newRecipeSubmissionDate);
+		}	catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw (new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		// store the recipe submission date
 		$this->recipeSubmissionDate = $newRecipeSubmissionDate;
