@@ -28,7 +28,6 @@ recipeSteps varchar 3000 not null
 recipeSubmissionDate datetime not null
  * 
  * This is going to br the PDO getters and setters for recipes on our cookbook capstone.
- * @recipe Damian Arya <darya@cnm.edu>
  */
 namespace Darya\recipesCapstone;
 
@@ -51,7 +50,7 @@ class Recipe implements \JsonSerializable {
 	private $recipeId;
 	/**
 	 *  to identify recipe type for sorting and searching purposes.
-	 * @var Binary $recipecategoryId
+	 * @var Binary $recipeCategoryId
 	 **/
 	private $recipeCategoryId;
 	/**
@@ -107,7 +106,7 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * constructor for this recipe
 	 * @param Binary $newRecipeId new user id
-	 * @param Binary $newRecipecategoryId
+	 * @param Binary $newRecipeCategoryId
 	 * @param Binary $newRecipeUserId
 	 * @param string $newRecipeDescription address
 	 * @param string $newRecipeImageUrl new password
@@ -122,10 +121,10 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \InvalidArgumentException if data types are not valid
 	 **/
-	public function __construct($newRecipeId, $newRecipeCategoryId, $newRecipeUserId, $newRecipeDescription, $newRecipeImageUrl, $newRecipeIngredients, $newRecipeMinutes, $newRecipeName, $newRecipeNumberIngredients, $newRecipeNutrition, $newRecipeSteps, $newRecipeSubmissionDate) {
+	public function __construct($newRecipeId,string $newRecipeCategoryId,string $newRecipeUserId,string $newRecipeDescription,string $newRecipeImageUrl,string $newRecipeIngredients,string $newRecipeMinutes,string $newRecipeName,string $newRecipeNumberIngredients,string $newRecipeNutrition,string $newRecipeSteps,string $newRecipeSubmissionDate) {
 		try {
 			$this->setRecipeId($newRecipeId);
-			$this->setRecipecategoryId($newRecipeCategoryId);
+			$this->setRecipeCategoryId($newRecipeCategoryId);
 			$this->setRecipeUserId($newRecipeUserId);
 			$this->setRecipeDescription($newRecipeDescription);
 			$this->setRecipeImageUrl($newRecipeImageUrl);
@@ -140,7 +139,7 @@ class Recipe implements \JsonSerializable {
 
 			//determine what exception type was thrown
 			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 97, $exception));
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
 	/**
@@ -156,9 +155,8 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return  Uuid value of recipe id (or null if new recipe)
 	 * */
-	public function getRecipeId(): Uuid {
-		return
-		$this->recipeId;
+	public function getRecipeId(): void {
+		return $this->recipeId;
 	}
 
 	/**
@@ -168,10 +166,10 @@ class Recipe implements \JsonSerializable {
 	 * @throws \RangeException if $newrecipeId is not positive
 	 * @throws \TypeError if the recipe Id is not
 	 **/
-	public function setRecipeId($newRecipeId): Uuid\ {
+	public function setRecipeId($newRecipeId): void {
 		try {
 			$uuid = self::validateUuid($newRecipeId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+		} catch($InvalidArgumentException | \$RangeException | \$Exception | \$TypeError \$exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -184,8 +182,8 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return string value of the recipeCategoryId
 	 */
-	public function getRecipeCategoryId(): Uuid {
-		return ($this->recipeCategoryId);
+	public function getRecipeCategoryId(): void {
+		return $this->recipeCategoryId;
 	}
 
 	/**
@@ -196,28 +194,28 @@ class Recipe implements \JsonSerializable {
 	 * @throws \RangeException if the recipeCategoryId is not exactly 16 characters
 	 * @throws \TypeError if the recipeCategoryId is not a string
 	 */
-	public function setRecipecategoryId(Uuid $newRecipecategoryId): Uuid {
-		if($newRecipecategoryId === null) {
-		return $this->recipecategoryId = null;
+	public function setRecipeCategoryId($newRecipeCategoryId): void {
+		if($newRecipeCategoryId === null) {
+		return $this->recipeCategoryId = null;
 		}
-		$newRecipeCategoryId = strtolower(trim($newRecipecategoryId));
-		if(ctype_xdigit($newRecipecategoryId) === false) {
+		$newRecipeCategoryId = strtolower(trim($newRecipeCategoryId));
+		if(ctype_xdigit($newRecipeCategoryId) === false) {
 			throw(new\RangeException("recipe id is not valid"));
 		}
 		//make sure recipeCategoryId is only 16 characters
-		if(strlen($newRecipecategoryId) !== 16) {
+		if(strlen($newRecipeCategoryId) !== 0) {
 			throw(new\RangeException(" category type invalid"));
 		}
-		$this->recipecategoryId = $newRecipecategoryId;
+		$this->recipeCategoryId = $newRecipeCategoryId;
 	}
 
 	/**
 	 *
 	 * accessor method for at recipeUserId
 	 *
-	 * @return string value of at recipeUserId
+	 * @return Uuid value of at recipeUserId
 	 **/
-	public function getRecipeUserId(): string {
+	public function getRecipeUserId(): void {
 	return $this->recipeUserId;
 	}
 
@@ -228,10 +226,10 @@ class Recipe implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newRecipeUserId is not a valid recipeUserId or insecure
 	 * @throws \RangeException if $newRecipeUserId is > 16 characters
 	 * @throws \TypeError if $newRecipeUserId is not a Uuid
-	 *@return  string value of avatar or null
+	 *@return  string value of recipeUserId or null
 	 * */
-	public function getRecipeUserId(): Uuid\ {
-		return ($this->recipeUserId);
+	public function getRecipeUserId(): void {
+		return $this->recipeUserId;
 	}
 
 	/**
@@ -239,13 +237,13 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @throws \TypeError if $newAvatar is not a string
 	 **/
-	public function setRecipeUserId(string $newRecipeUserId): Uuid\ {
+	public function setRecipeUserId($newRecipeUserId): void {
 		// if $recipeUserId is null return it right away
 		If($newRecipeUserId === null) {
 			$this->recipeUserId = null;
 			return;
 		}
-// verify the recipeUserId is secure
+// verify the recipeUserId isecure
 		$newRecipeUserId = trim($newRecipeUserId);
 		$newRecipeUserId = filter_var($newRecipeUserId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeUserId) === true) {
@@ -297,7 +295,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string for recipeImageUrl
 	 */
 	public function getRecipeImageUrl(): string {
-		return ($this->recipeImageUrl);
+		return $this->recipeImageUrl;
 	}
 
 	/**
@@ -334,7 +332,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeIngredients
 	 **/
 	public function getRecipeIngredients(): string {
-		return ($this->recipeIngredients);
+		return $this->recipeIngredients;
 	}
 
 	/**
@@ -366,7 +364,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of minutes
 	 **/
 	public function getRecipeMinutes(): int {
-		return ($this->recipeMinutes);
+		return $this->recipeMinutes;
 	}
 
 	/**
@@ -397,7 +395,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeName
 	 **/
 	public function getRecipeName(): string {
-		return ($this->recipeName);
+		return $this->recipeName;
 	}
 
 	/**
@@ -427,7 +425,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeNumberIngredients
 	 **/
 	public function getRecipeNumberIngredients(): string {
-		return ($this->recipeNumberIngredients);
+		return $this->recipeNumberIngredients;
 	}
 
 	/**
@@ -458,7 +456,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeNutrition
 	 **/
 	public function getRecipeNutrition(): string {
-		return ($this->recipeNutrition);
+		return $this->recipeNutrition;
 	}
 
 	/**
@@ -489,7 +487,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeSteps
 	 **/
 	public function getRecipeSteps(): string {
-		return ($this->recipeSteps);
+		return $this->recipeSteps;
 	}
 
 	/**
@@ -520,7 +518,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeSubmissionDate
 	 **/
 	public function getRecipeSubmissionDate(): datetime {
-		return ($this->recipeSubmissionDate);
+		return $this->recipeSubmissionDate;
 	}
 
 	/**
