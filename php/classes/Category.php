@@ -3,7 +3,6 @@ namespace TheDeepDiveDawgs\communitycookbook;
 require_once("autoload.php");
 require_once (dirname(__DIR__) . "/vendor/autoload.php");
 
-use http\Exception\BadQueryStringException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -85,7 +84,7 @@ class Category implements \JsonSerializable {
 	 * @return string value for category name
 	 */
 
-	public function getCategoryName() : strong {
+	public function getCategoryName() : string {
 		return ($this->categoryName);
 	}
 
@@ -109,8 +108,7 @@ class Category implements \JsonSerializable {
 
 	public function jsonSerialize() : array {
 		$fields = get_obeject_vars($this);
-		$fields[] = $this->categoryId-> toString();
-		unset($fields["categoryName"]);
-		return ($fields);
+		$fields["categoryId"] = $this->categoryId-> toString();
+		$fields["categoryName"] = $this->categoryName->toString();
 	}
 }
