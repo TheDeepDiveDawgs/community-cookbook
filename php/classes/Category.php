@@ -55,4 +55,26 @@ class Category implements \JsonSerializable {
 	 *
 	 * @return Uuid value of category id.
 	 */
+
+	public function getCategoryId(): Uuid {
+		return($this->categoryId);
+	}
+
+	/**
+	 * mutator for category id
+	 *
+	 * @param Uuid | string $newCategoryId new value for category id
+	 * @throws \RangeException if $newCategoryId is not positive
+	 * @throws \TypeError if Category Id is not a uuid or string
+	 */
+
+	public function setCategoryId($newCategoryId): void {
+		try {
+			$uuid = self::validateUuid($newCategoryId);
+		} catch(\InvalidArgumentException |\RangeException |\Exception |\TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->categoryId = $uuid;
+	}
 }
