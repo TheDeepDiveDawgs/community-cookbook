@@ -15,14 +15,12 @@
 			  Fullscreen-wireframe.png is our Fullscreen view for our site
 			  added additional page wireframes-->
 		<div>
-			<img src= "wireframe-images/wireframe-capstone-mobile.png" alt="Mobile index Wireframe">
-			<img src= "wireframe-images/fullscreen-capstone-wireframe.png" alt="Fullscreen index Wireframe">
-			<img src="wireframe-images/search-results.png" alt="Search Results' page Wireframe">
-			<img src="wireframe-images/about-us.jpg" alt="About Us page Wireframe">
-			<img src="wireframe-images/FAQ.jpg" alt="FAQ page Wireframe">
-			<img id="mobileimages" src="wireframe-images/search-results-mobile-wireframe.jpg" alt="Search Results' mobile page Wireframe">
-			<img id="mobileimages" src="wireframe-images/about-us-mobile-wireframe.jpg" alt="About Us Mobile Page Wireframe">
-			<img id="mobileimages" src="wireframe-images/faq-mobile-wireframe.jpg" alt="FAQ mobile page wireframes">
+			<img src="wireframes-images/homeScreenWireframeCapstone.png" alt="Mobile index Wireframe">
+			<img src="wireframes-images/homeScreenWireframeCapstoneFullscreen.png" alt="Fullscreen index Wireframe">
+			<img src="wireframes-images/searchScreenMobileWireframe.png" alt="Search Results' page Wireframe">
+			<img src="wireframes-images/searchScreenFullscreenWireframe.png" alt="Search Results' page Wireframe">
+			<img src="wireframes-images/submitRecipeMobile.png" alt="Submission page and Profile recipes' wireframe">
+			<img src="wireframes-images/submitRecipeFullscreen.png" alt="Submission page and Profile recipes' wireframe">
 		</div>
 	</body>
 </html>
