@@ -3,6 +3,7 @@ namespace TheDeepDiveDawgs\communitycookbook;
 require_once("autoload.php");
 require_once (dirname(__DIR__) . "/vendor/autoload.php");
 
+use http\Exception\BadQueryStringException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -77,4 +78,34 @@ class Category implements \JsonSerializable {
 		}
 		$this->categoryId = $uuid;
 	}
+
+	/**
+	 * accessor method for category name
+	 *
+	 * @return string value for category name
+	 */
+
+	public function getCategoryName() : strong {
+		return ($this->categoryName);
+	}
+
+	/**
+	 * mutator method for category name
+	 *
+	 * @param string $newCategoryName new value for category name
+	 * @throws \InvalidArgumentException if $newCategoryName is not a BadQueryStringException
+	 * @throws \RangeException if the $newCategoryName is > 24 characters
+	 * @throws \TypeError if $newCategoryName is not a string
+	 */
+
+	public function setCategoryName(string $newCategoryName): void {
+		$newCategoryName = trim($newCategoryName);
+		$newCategoryName = filter_var($newCategoryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newCategoryName) === true) {
+			throw (new\InvalidArgumentException("category name is empty or insecure"));
+		}
+		$this->categoryName = $newCategoryName;
+	}
+
+	
 }
