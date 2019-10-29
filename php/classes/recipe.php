@@ -162,19 +162,19 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for recipe id
 	 *
-	 * @param Uuid| string $newrecipeId value of new recipe id
+	 * @param void| string $newrecipeId value of new recipe id
 	 * @throws \RangeException if $newrecipeId is not positive
 	 * @throws \TypeError if the recipe Id is not
 	 **/
 	public function setRecipeId($newRecipeId): void {
 		try {
 			$uuid = self::validateUuid($newRecipeId);
-		} catch($InvalidArgumentException | \$RangeException | \$Exception | \$TypeError \$exception) {
-			$exceptionType = get_class($exception);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class ($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		// convert and store the recipe id
-		$this->recipeId = $uuid;
+		$this->recipeId = $newRecipeId;
 	}
 
 	/**
@@ -189,23 +189,18 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for recipeCategoryId
 	 *
-	 * @param string $newRecipeCategoryId
-	 * @throws \InvalidArgumentException  if the recipeCategoryId is not a string or insecure
-	 * @throws \RangeException if the recipeCategoryId is not exactly 16 characters
-	 * @throws \TypeError if the recipeCategoryId is not a string
-	 */
+	 * @param void| string $newrecipeCategoryId value of new recipe id
+	 * @throws \RangeException if $newRecipeCategoryId is not positive
+	 * @throws \TypeError if the recipeCategoryId is not
+	 **/
 	public function setRecipeCategoryId($newRecipeCategoryId): void {
-		if($newRecipeCategoryId === null) {
-		return $this->recipeCategoryId = null;
+		try {
+			$uuid = self::validateUuid($newRecipeCategoryId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class ($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		$newRecipeCategoryId = strtolower(trim($newRecipeCategoryId));
-		if(ctype_xdigit($newRecipeCategoryId) === false) {
-			throw(new\RangeException("recipe id is not valid"));
-		}
-		//make sure recipeCategoryId is only 16 characters
-		if(strlen($newRecipeCategoryId) !== 0) {
-			throw(new\RangeException(" category type invalid"));
-		}
+		// convert and store the recipeCategoryId
 		$this->recipeCategoryId = $newRecipeCategoryId;
 	}
 
@@ -213,7 +208,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * accessor method for at recipeUserId
 	 *
-	 * @return Uuid value of at recipeUserId
+	 * @return void value of at recipeUserId
 	 **/
 	public function getRecipeUserId(): void {
 	return $this->recipeUserId;
@@ -221,41 +216,22 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeUserId
-	 * 	 *
-	 * @param string $newRecipeUserId new value of recipeUserId
-	 * @throws \InvalidArgumentException if $newRecipeUserId is not a valid recipeUserId or insecure
-	 * @throws \RangeException if $newRecipeUserId is > 16 characters
-	 * @throws \TypeError if $newRecipeUserId is not a Uuid
-	 *@return  string value of recipeUserId or null
-	 * */
-	public function getRecipeUserId(): void {
-		return $this->recipeUserId;
-	}
-
-	/**
-	 * mutator method for recipe user id
 	 *
-	 * @throws \TypeError if $newAvatar is not a string
+	 * @param void| string $newrecipeUserId value of new recipeUserId
+	 * @throws \RangeException if $newRecipeUserId is not positive
+	 * @throws \TypeError if the recipeUserId is not valid
 	 **/
 	public function setRecipeUserId($newRecipeUserId): void {
-		// if $recipeUserId is null return it right away
-		If($newRecipeUserId === null) {
-			$this->recipeUserId = null;
-			return;
+		try {
+			$uuid = self::validateUuid($newRecipeUserId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class ($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-// verify the recipeUserId isecure
-		$newRecipeUserId = trim($newRecipeUserId);
-		$newRecipeUserId = filter_var($newRecipeUserId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newRecipeUserId) === true) {
-			throw(new \InvalidArgumentException("Recipe URL is empty or insecure"));
-		}
-		// verify the avatar will fit in the database
-		if(strlen($newRecipeUserId) > 16) {
-			throw(new \RangeException("user id is incorrect"));
-		}
-		// store the Avatar
+		// convert and store the recipeUserId
 		$this->recipeUserId = $newRecipeUserId;
 	}
+
 		/**
 		 *
 		 * accessor method for Description
