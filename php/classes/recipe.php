@@ -337,7 +337,7 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * accessor method for minutes
 	 *
-	 * @return string value of minutes
+	 * @return int value of minutes
 	 **/
 	public function getRecipeMinutes(): int {
 		return $this->recipeMinutes;
@@ -345,23 +345,24 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for Minutes
-	 *	 * @throws \InvalidArgumentException if the recipeMinutes is not secure
-	 * @throws \RangeException if the recipeMinutes is not 4 characters
-	 * @throws \TypeError if recipeMinutes imageUrl is not a string
-	 * @param string $newRecipeMinutes
+	 *
+	 * * @param integer $newRecipeMinutes new value of minutes
+	 *	 * @throws \InvalidArgumentException if  $recipeMinutes is not a interger or insecure
+	 * @throws \RangeException if the $recipeMinutes is not a integer
+	 * @throws \TypeError if $recipeMinutes is not a integer
+	 *
 	 **/
-	public function setRecipeMinutes(string $newRecipeMinutes): int {
+	public function setRecipeMinutes(int $newRecipeMinutes): void {
 		// verify the minutes is secure
-		$newRecipeIngredients = trim($newRecipeMinutes);
-		$newRecipeMinutes = filter_var($newRecipeMinutes, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newRecipeMinutes = filter_var($newRecipeMinutes, FILTER_VALIDATE_INT);
 		if(empty($newRecipeMinutes) === true) {
 			throw(new \InvalidArgumentException("Minutes field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeMinutes) > 32) {
+		if($newRecipeMinutes) <=0 or $newRecipeMinutes >1000) {
 			throw(new \RangeException("Too many digits in minutes field"));
 		}
-		// store the Minutes
+		// store the minutes
 		$this->recipeMinutes = $newRecipeMinutes;
 	}
 
@@ -398,32 +399,31 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * accessor method for recipeNumberIngredients
 	 *
-	 * @return string value of recipeNumberIngredients
+	 * @return int value of recipeNumberIngredients
 	 **/
-	public function getRecipeNumberIngredients(): string {
+	public function getRecipeNumberIngredients(): int {
 		return $this->recipeNumberIngredients;
 	}
 
 	/**
 	 * mutator method for recipeNumberIngredients
-	 *	 *	 * @throws \InvalidArgumentException if the recipeName is not secure
-	 * @throws \RangeException if the recipeNumberIngredients is more then 32 characters
-	 * @throws \TypeError if recipeNumberIngredients is not a string
-	 * @param string $newrRecipeNumberIngredients
+	 *  @param integer $newrRecipeNumberIngredients new value of recipeNumberIngredients
+	 * @throws \InvalidArgumentException if $recipeNumberIngredients is not a integer or insecure
+	 * @throws \RangeException if $recipeNumberIngredients is  les then one or more then 40 characters
+	 * @throws \TypeError if $recipeNumberIngredients is not a integer
 	 **/
-	public function setRecipeNumberIngredients(string $newrRecipeNumberIngredients): string {
-		// verify the name is secure
-		$newrRecipeNumberIngredients = trim($newrRecipeNumberIngredients);
-		$newrRecipeNumberIngredients = filter_var($newrRecipeNumberIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newrRecipeNumberIngredients) === true) {
+	public function setRecipeNumberIngredients(int $newRecipeNumberIngredients): int {
+		// verify the number of ingredients is secure
+		$newRecipeNumberIngredients = filter_var($newRecipeNumberIngredients, FILTER_VALIDATE_INT);
+		if(empty($newRecipeNumberIngredients) === true) {
 			throw(new \InvalidArgumentException("number of ingredients field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if(strlen($newrRecipeNumberIngredients) > 32) {
+		if($newRecipeNumberIngredients <0 or $newRecipeNumberIngredients >40) {
 			throw(new \RangeException("Too many ingredients"));
 		}
 		// store the number of ingredients
-		$this->recipeNumberIngredients = $newrRecipeNumberIngredients;
+		$this->recipeNumberIngredients = $newRecipeNumberIngredients;
 	}
 
 	/**
