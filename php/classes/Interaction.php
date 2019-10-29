@@ -1,12 +1,10 @@
 <?php
 
-namespace DanielCoderHernandez\Community;
+namespace TheDeepDiveDawgs\communitycookbook;
 
 require_once("autoload.php");
-require_once(dirname(__DIR__) . "/vendor/autoload.php");
+require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 
-use http\Exception\InvalidArgumentException;
-use mysql_xdevapi\Exception;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -15,7 +13,8 @@ use Ramsey\Uuid\Uuid;
  * @author Daniel Hernandez
  * @version 0.0.1
  **/
-Class Interaction implements \JsonSerializable {
+
+class Interaction implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
@@ -35,7 +34,7 @@ Class Interaction implements \JsonSerializable {
 	private $interactionDate;
 
 	/**user rating of recipe
-	 * @var string $interactionRating
+	 * @var int $interactionRating
 	 **/
 	private $interactionRating;
 
@@ -171,19 +170,37 @@ Class Interaction implements \JsonSerializable {
 	 * @param integer $newInteractionRating new value of interaction rating
 	 * @throws \InvalidArgumentException if $newInteractionRating is not a integer or insecure
 	 * @throws \TypeError if $newInteractionRating is not a integer
+	 * @throws \RangeException if less than 1 or greater than 5
 	 *
 	 **/
 
 	public function setInteractionRating(int $newInteractionRating): void {
 		//verifies int interaction rating is secure
-		$newInteractionRating = trim($newInteractionRating);
-		$newInteractionRating = filter_var($newInteractionRating, filter_has_var());
+		$newInteractionRating = filter_var($newInteractionRating, FILTER_VALIDATE_INT);
 		if(empty($newInteractionRating) === true) {
-			throw(new \InvalidArgumentException("rating is empty or insecure"));
+			throw(new \InvalidArgumentException("Rating is empty or insecure"));
+		}
+
+		if($newInteractionRating <=0 or $newInteractionRating >5) {
+			throw(new \RangeException("Integer needs to be a value 1 thru 5"));
 		}
 
 		//store the interaction rating
 		$this->interactionRating = $newInteractionRating;
 
 	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+
+
+	public function jsonSerialize(): array {
+		$fields = get_object_vars($this);
+		$fields["interactionUserId"] = $this->interactionUserId->toString();
+		return ($fields);
+	}
+
 }
