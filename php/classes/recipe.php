@@ -521,7 +521,7 @@ class Recipe implements \JsonSerializable {
 		// store the recipe submission date
 		$this->recipeSubmissionDate = $newRecipeSubmissionDate;
 	}
-// THIS IS WHERE TO ADD THE PDO STUFF, pick up here when starting back with PDO creation.
+// THIS IS WHERE TO ADD THE PDO STUFF
 
 	/**
 	 * inserts recipe into mysql
@@ -540,14 +540,14 @@ class Recipe implements \JsonSerializable {
 			"recipeCategoryId" => $this->recipeCategoryId,
 			"recipeUserId" => $this->recipeUserId,
 			"recipeDescription" => $this->recipeDescription,
-			"recipeImageUrl" => $this->recipeUsername,
+			"recipeImageUrl" => $this->recipeImageUrl,
 			"recipeIngredients" =>$this->recipeIngredients,
 			"recipeMinutes" =>$this->recipeMinutes,
 			"recipeName" =>$this->recipeName,
 			"recipeNumberIngredients" =>$this->recipeNumberIngredients,
 			"recipeNutrition" =>$this->recipeNutrition,
 			"recipeSteps" =>$this->recipeSteps,
-			"recipeSubmissionDate" =>$this->recipeSubmissionDate,]
+			"recipeSubmissionDate" =>$this->recipeSubmissionDate,];
 		$statement->execute($parameters);
 	}
 
@@ -572,102 +572,57 @@ class Recipe implements \JsonSerializable {
 	 * update recipe in mysql database
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mysql related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
+	 * @param $thisRecipeId
 	 */
-	public function  update(\PDO $pdo): void {
+	public function  update(\PDO $pdo, $thisRecipeId): void {
 		//create query template
-		$query = "UPDATE recipe SET recipeId = :recipeId, recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients WHERE recipeId = :recipeId";
+		$query = "UPDATE recipe SET recipeId = :recipeId, recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeSteps = :recipeSteps, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
 		$statement = $pdo->prepare($query);
 		//creates relationship between php state variables and pdo/mysql variables
 		$parameters = [
-			"recipeId" => $thisrecipeId->getBytes(),
-			"recipeActivationToken" => $this->recipeActivationToken,
+			"recipeId" => $this->recipeId->getBytes(),
 			"recipeCategoryId" => $this->recipeCategoryId,
 			"recipeUserId" => $this->recipeUserId,
 			"recipeDescription" => $this->recipeDescription,
-			"recipeUsername" => $this->recipeUsername];
+			"recipeImageUrl" => $this->recipeImageUrl,
+			"recipeIngredients" =>$this->recipeIngredients,
+			"recipeMinutes" =>$this->recipeMinutes,
+			"recipeName" =>$this->recipeName,
+			"recipeNumberIngredients" =>$this->recipeNumberIngredients,
+			"recipeNutrition" =>$this->recipeNutrition,
+			"recipeSteps" =>$this->recipeSteps,
+			"recipeSubmissionDate" =>$this->recipeSubmissionDate,];
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * function returns recipe username when querying by recipe Id
+	 * gets all Recipes
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $recipeId to search for
-	 * @return Author|null recipe found or null if not found
-	 * @throws \PDOException when mysql related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 */
-	public function getAuthorUsernameByAuthorId(\PDO $pdo, $recipeId) {
-		//sanitizes the recipeId befor querying
-		try {
-			$recipeId = self::validateUuid($recipeId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-		}
-		//creates query template that SELECTs Author WHERE recipeId is :recipeId
-		$query = "SELECT recipeId, recipeActivationToken, recipeCategoryId, recipeUserId, recipeDescription, recipeUsername FROM recipe WHERE recipeId = :recipeId";
+	 * @return \SplFixedArray SplFixedArray of recipe found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllRecipe(\PDO $pdo) : \SPLFixedArray {
+		// create query template
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeSteps, recipeSubmissionDate FROM recipe";
 		$statement = $pdo->prepare($query);
-		//creates relationship between php recipeId and PDO/mysql recipeId
-		$parameters = ["recipeId" => $recipeId->getBytes()];
-		$statement->execute($parameters);
-		//grab recipeUsername from mysql
-		try {
-			$recipe = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$recipe = new Author($row["recipeId"], $row["recipeActivationToken"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeUsername"]);
+		$statement->execute();
 
-			}
-		} catch(\Exception $exception) {
-			//if row couldent be converted, rethrow it
-			throw (new \PDOException($exception->getMessage(), 0, $exception));
-		};
-		return  ($recipe);
-
-	}
-
-	/**
-	 * function returnes an array of recipes containing the string in their username
-	 *
-	 * @param  \PDO $pdo PDO connection object
-	 * @param  Uuid|string $recipeUsername to search for
-	 * @return \SplFixedArray of recipes found
-	 * @throws \PDOException when mysql related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 */
-	public function getAuthorByAuthorUsername(\PDO $pdo, string $recipeUsername): \SplFixedArray {
-		//sanitize recipeUsername string
-		$recipeUsername = trim($recipeUsername);
-		$recipeUsername = filter_var($recipeUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeUsername) === true) {
-			throw (new \PDOException("content invalid fool"));
-		}
-		//escape any wildcards
-		$recipeUsername = str_replace("_", "\\_", str_replace("%", "\\%", $recipeUsername));
-		//create query templates that select recipes from recipe where recipeUsername contains %string%
-		$query = "SELECT recipeId, recipeActivationToken, recipeCategoryId, recipeUserId, recipeDescription, recipeUsername FROM recipe WHERE recipeUsername LIKE :recipeUsername";
-		$statement = $pdo->prepare($query);
-		//creates relationship between mysql %string% query and placeholder
-		$recipeUsername = "%recipeUsername%";
-		$parameters = ["recipeUsername" => $recipeUsername];
-		//execute() function passes $parameters to prepare() 'd function and runs the $query with $parameters
-		$statement->execute($parameters);
-		//build and array of recipes
-		$recipes = new \SplFixedArray($statement->rowCount());
+		// build an array of recipes
+		$recipe = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$recipe = new Author($row["recipeId"], $row["recipeActivationToken"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeUsername"]);
-				$recipes[$recipes->key()] = $recipe;
-				$recipes->next();
+				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeSteps"], $row["recipeSubmissionDate"]);
+				$recipe[$recipe->key()] = $recipe;
+				$recipe->next();
 			} catch(\Exception $exception) {
-				//if the row couldent be converted, rethrow it
-				throw (new \PDOException($exception->getMessage(), 0, $exception));
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return  ($recipes);
+		return ($recipe);
 	}
 
 	/**
