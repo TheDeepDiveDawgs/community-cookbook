@@ -279,7 +279,7 @@ class User implements \JsonSerializable {
 
 		//bind the member variables to the place holders in the template
 		$parameters = ["userId" => $this->userId->getBytes(),
-			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userHash" => $this->userHash,
+			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userFullName" => $this->userFullName, "userHash" => $this->userHash,
 			"userHandle" => $this->userHandle];
 		$statement->execute($parameters);
 	}
@@ -314,7 +314,7 @@ class User implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["userId" => $this->userId->getBytes(),
-			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userHandle" => $this->userHandle,
+			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userFullName" => $this->userFullName, "userHandle" => $this->userHandle,
 			"userHash" => $this->userHash];
 		$statement->execute($parameters);
 	}
