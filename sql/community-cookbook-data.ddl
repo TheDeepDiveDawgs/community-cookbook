@@ -44,8 +44,6 @@ create table recipe(
 	recipeImageUrl VARCHAR(255),
 	recipeIngredients VARCHAR(300) not null,
 	recipeMinutes INT(1000) not null,
-
-
 	recipeName VARCHAR(100) not null,
 	recipeNutrition VARCHAR(255),
 	recipeNumberIngredients INT(2) not null,
@@ -76,5 +74,6 @@ create table interaction(
 	-- this creates the foreign key to improve join performance between interaction and user table
 	foreign key(interactionUserId) references user(userId),
 	-- this creates the foreign key to improve join performance between interaction and recipe table
-	foreign key(interactionRecipeId) references recipe(recipeId)
+	foreign key(interactionRecipeId) references recipe(recipeId),
+	primary key (interactionUserId, interactionRecipeId)
 );
