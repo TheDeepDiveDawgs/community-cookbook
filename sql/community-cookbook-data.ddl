@@ -43,7 +43,9 @@ create table recipe(
 	recipeDescription VARCHAR(500),
 	recipeImageUrl VARCHAR(255),
 	recipeIngredients VARCHAR(300) not null,
-	recipeMinutes SMALLINT not null,
+	recipeMinutes INT(1000) not null,
+
+
 	recipeName VARCHAR(100) not null,
 	recipeNutrition VARCHAR(255),
 	recipeNumberIngredients INT(2) not null,
