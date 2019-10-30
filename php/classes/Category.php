@@ -155,11 +155,12 @@ class Category implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 */
-	
+
 	public function jsonSerialize() : array {
 		$fields = get_obeject_vars($this);
+
 		$fields["categoryId"] = $this->categoryId-> toString();
-		$fields["categoryName"] = $this->categoryName->toString();
+		return ($fields);
 	}
 }
 
