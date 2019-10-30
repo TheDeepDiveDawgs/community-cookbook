@@ -9,8 +9,8 @@ create table user(
    -- primary key
 	userId BINARY(16) not null,
 	userActivationToken CHAR(32) not null,
-	userFullName VARCHAR(255) not null,
 	userEmail VARCHAR(128) not null,
+	userFullName VARCHAR(255) not null,
 	userHandle VARCHAR(32) not null,
 	userHash CHAR(97) not null,
 	-- making attribute unique to ensure emails do not duplicate
@@ -69,7 +69,7 @@ create table interaction(
 	-- foreign key
 	interactionRecipeId BINARY(16) not null,
 	interactionDate DATETIME not null,
-	interactionRating INT(1) not null,
+	interactionRating INT(1),
 	-- index the foreign keys
 	index(interactionUserId),
 	index (interactionRecipeId),
