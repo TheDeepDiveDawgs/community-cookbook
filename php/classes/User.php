@@ -273,8 +273,8 @@ class User implements \JsonSerializable {
 	 */
 	public function insert(\PDO $pdo): void {
 		//create query template
-		$query = "INSERT INTO user (userId, userActivationToken, userEmail, userHandle, userHash)
-		VALUES (:userId, :userActivationToken, :userEmail, :userHash, :userHandle)";
+		$query = "INSERT INTO user (userId, userActivationToken, userEmail, userFullName, userHandle, userHash)
+		VALUES (:userId, :userActivationToken, :userEmail, :userFullName, :userHash, :userHandle)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
@@ -310,7 +310,7 @@ class User implements \JsonSerializable {
 	public function update(\PDO $pdo): void {
 
 		// create query template
-		$query = "UPDATE user SET userId = :userId, userActivationToken = :userActivationToken, userEmail = :userEmail, userHandle = :userHandle, userHash = :userHash WHERE userId = :userId";
+		$query = "UPDATE user SET userActivationToken = :userActivationToken, userEmail = :userEmail, userFullName = :userFullName, userHandle = :userHandle, userHash = :userHash WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["userId" => $this->userId->getBytes(),
@@ -335,7 +335,7 @@ class User implements \JsonSerializable {
 		}
 		//create query template
 
-		$query = "SELECT userId, userActivationToken, userEmail, userHandle, userHash FROM user WHERE userEmail = :userEmail";
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userEmail = :userEmail";
 		$statement = $pdo->prepare($query);
 
 		//bind the user id to the place holder in the template
@@ -348,7 +348,7 @@ class User implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userHandle"], $row["userHash"]);
+				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -376,7 +376,7 @@ class User implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT userActivationToken, userProfileId, userContent, userDate FROM user WHERE userActivationToken = :userActivationToken";
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userID";
 		$statement = $pdo->prepare($query);
 
 		// bind the user id to the place holder in the template
@@ -389,7 +389,7 @@ class User implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new user($row["userActivationToken"], $row["userProfileId"], $row["userContent"], $row["userDate"]);
+				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -408,7 +408,7 @@ class User implements \JsonSerializable {
 	 **/
 	public static function getAllUsers(\PDO $pdo): \SPLFixedArray {
 		// create query template
-		$query = "SELECT userId, userActivationToken, userEmail, userHandle, userHash FROM user";
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -417,7 +417,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userHandle"], $row["userHash"]);
+				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
