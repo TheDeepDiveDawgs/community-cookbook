@@ -1,5 +1,5 @@
 <?php
-namespace TheDeepDiveDawgs\communitycookbook;
+namespace TheDeepDiveDawgs\CommunityCookbook;
 require_once("autoload.php");
 require_once (dirname(__DIR__) . "/vendor/autoload.php");
 
@@ -128,7 +128,7 @@ class Category implements \JsonSerializable {
 	 * @throws \TypeError if the $pdo is not a PDO connection object
 	 */
 	public function update(\PDO $pdo) : void {
-		$query = "UPDATE category SET categoryId=:categoryId, categoryName=:categoryName WHERE categoryId = :categoryId";
+		$query = "UPDATE category SET categoryName=:categoryName WHERE categoryId = :categoryId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["categoryId"=> $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
