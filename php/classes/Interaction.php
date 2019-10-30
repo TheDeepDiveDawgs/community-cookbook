@@ -13,7 +13,6 @@ use Ramsey\Uuid\Uuid;
  * @author Daniel Hernandez
  * @version 0.0.1
  **/
-
 class Interaction implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
@@ -181,7 +180,7 @@ class Interaction implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Rating is empty or insecure"));
 		}
 
-		if($newInteractionRating <=0 or $newInteractionRating >5) {
+		if($newInteractionRating <= 0 or $newInteractionRating > 5) {
 			throw(new \RangeException("Integer needs to be a value 1 thru 5"));
 		}
 
@@ -189,6 +188,10 @@ class Interaction implements \JsonSerializable {
 		$this->interactionRating = $newInteractionRating;
 
 	}
+
+	/** COMMENTED ALL FOLLOWING CODE OUT DUE TO NOT NEEDING FOO BY BAR METHODS FOR THE INTERACTION CLASS AT THIS TIME 103019
+	 *NOTE LINE 450 AND ABOVE NOT COMMENTED OUT DUE TO BEING THE JSON
+	 */
 
 	/**
 	 * inserts this interaction in mySQL
@@ -198,6 +201,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection subject
 	 */
 
+	/**
 	public function insert(\PDO $pdo): void {
 		//create query template
 		$query = "INSERT INTO interaction (interactionUserId, interactionRecipeId, interactionDateId, interactionRatingId)
@@ -218,6 +222,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
 
+	/**
 	public function delete(\PDO $pdo): void {
 		//create query template
 		$query = "DELETE FROM interaction WHERE interactionUserId = :interactionUserId";
@@ -232,10 +237,11 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
 
+	/**
 	public function update(\PDO $pdo): void {
 
 		//creates query template
-		$query ="UPDATE interaction SET interactionUserId = :interactionUserId, interactionRecipeId = :interactionRecipeId, interactionDate = :interactionDate, 
+		$query = "UPDATE interaction SET interactionUserId = :interactionUserId, interactionRecipeId = :interactionRecipeId, interactionDate = :interactionDate,
     						interactionRating = :interactionRating WHERE interactionUserId = :interactionUserId";
 		$statement = $pdo->prepare($query);
 
@@ -253,6 +259,8 @@ class Interaction implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
+
+	/**
 	public static function getInteractionByInteractionUserId(\PDO $pdo, $interactionUserId): interaction {
 		//sanitize the interactionUserId before searching
 		try {
@@ -293,6 +301,8 @@ class Interaction implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
+
+	/**
 	public static function getInteractionByInteractionRecipeId(\PDO $pdo, $interactionRecipeId): interaction {
 		//sanitize the interactionRecipeId before searching
 		try {
@@ -333,6 +343,8 @@ class Interaction implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
+
+	/**
 	public static function getInteractionByInteractionDate(\PDO $pdo, $interactionDate): interaction {
 		//sanitize the interactionDate before searching
 		try {
@@ -373,6 +385,8 @@ class Interaction implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
+
+	/**
 	public static function getInteractionByInteractionRating(\PDO $pdo, $interactionRating): interaction {
 		//sanitize the interactionRating before searching
 		try {
@@ -413,11 +427,13 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
 
+	/**
 	public static function getAllInteractions(\PDO $pdo): \SPLFixedArray {
 		// create query template
 		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating FROM interaction";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
+
 		// build an array of interactions
 		$interactions = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -444,6 +460,7 @@ class Interaction implements \JsonSerializable {
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 		$fields["interactionUserId"] = $this->interactionUserId->toString();
+		$fields["interactionRecipeId"] = $this->interactionRecipeId->toString();
 		return ($fields);
 	}
 
