@@ -106,9 +106,61 @@ class Category implements \JsonSerializable {
 		$this->categoryName = $newCategoryName;
 	}
 
+	/**insert this category into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param \PDOException when mySQL related errors occur
+	 * @throws \TypeError if the $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo) : void {
+		$query = "INSERT INTO category(categoryId, categoryName) VALUES(:categoryId, :categoryName)";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["categoryId" => $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates category in MySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param \PDOException when mySQL related errors occur
+	 * @throws \TypeError if the $pdo is not a PDO connection object
+	 */
+	public function update(\PDO $pdo) : void {
+		$query = "UPDATE category SET categoryId=:categoryId, categoryName=:categoryName WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["categoryId"=> $this->categoryId->getBytes(), "categoryName" => $this->categoryName];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * deletes category from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param \PDOException when mySQL related errors occur
+	 * @throws \TypeError if the $pdo is not a PDO connection object
+	 */
+
+	public function delete(\PDO $pdo) : void {
+		$query = "DELETE FROM category WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["categoryId" => $this->categoryId->getBytes()];
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 */
+	
 	public function jsonSerialize() : array {
 		$fields = get_obeject_vars($this);
 		$fields["categoryId"] = $this->categoryId-> toString();
 		$fields["categoryName"] = $this->categoryName->toString();
 	}
 }
+
+
