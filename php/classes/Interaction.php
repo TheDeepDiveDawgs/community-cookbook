@@ -191,6 +191,58 @@ class Interaction implements \JsonSerializable {
 	}
 
 	/**
+	 * inserts this interaction in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL has a failed connection
+	 * @throws \TypeError if $pdo is not a PDO connection subject
+	 */
+
+	public function insert(\PDO $pdo): void {
+		//create query template
+		$query = "INSERT INTO interaction (interactionUserId, interactionRecipeId, interactionDateId, interactionRatingId)
+		VALUES (:interactionUserId, :interactionRecipeId, :interactionDateId, :interactionRatingId)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["interactionUserId" => $this->interactionUserId, "interactionRecipeId" => $this->interactionRecipeId, "interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
+		$statement->execute($parameters);
+
+	}
+
+	/**
+	 * deletes this interaction from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+
+	public function delete(\PDO $pdo): void {
+		//create query template
+		$query = "DELETE FROM interaction WHERE interactionUserId = :interactionUserId";
+		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this interaction in mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+
+	public function update(\PDO $pdo): void {
+
+		//creates query template
+		$query ="UPDATE interaction SET interactionUserId = :interactionUserId, interactionRecipeId = :interactionRecipeId, interactionDateId = :interactionDateId, interactionRatingId = :interactionRatingId WHERE interactionUserId = :interactionUserId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(),
+			"interactionRecipeId" => $this->interactionRecipeId, "interactionDate, => $this->interactionDate"]
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
