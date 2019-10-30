@@ -201,7 +201,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection subject
 	 */
 
-	/**
+
 	public function insert(\PDO $pdo): void {
 		//create query template
 		$query = "INSERT INTO interaction (interactionUserId, interactionRecipeId, interactionDateId, interactionRatingId)
@@ -222,7 +222,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
 
-	/**
+
 	public function delete(\PDO $pdo): void {
 		//create query template
 		$query = "DELETE FROM interaction WHERE interactionUserId = :interactionUserId";
@@ -237,7 +237,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
 
-	/**
+
 	public function update(\PDO $pdo): void {
 
 		//creates query template
@@ -260,7 +260,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
 
-	/**
+
 	public static function getInteractionByInteractionUserId(\PDO $pdo, $interactionUserId): interaction {
 		//sanitize the interactionUserId before searching
 		try {
@@ -302,7 +302,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
 
-	/**
+
 	public static function getInteractionByInteractionRecipeId(\PDO $pdo, $interactionRecipeId): interaction {
 		//sanitize the interactionRecipeId before searching
 		try {
@@ -334,121 +334,6 @@ class Interaction implements \JsonSerializable {
 		return ($interaction);
 	}
 
-	/**
-	 * gets interaction by interactionDate
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $interactionDate to search for
-	 * @return User|null interaction found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when a variable are not the correct data type
-	 */
-
-	/**
-	public static function getInteractionByInteractionDate(\PDO $pdo, $interactionDate): interaction {
-		//sanitize the interactionDate before searching
-		try {
-			$interactionDate = self::validateUuid($interactionDate);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		//create query template
-
-		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating FROM interaction WHERE interactionDate = :interactionDate";
-		$statement = $pdo->prepare($query);
-
-		//bind the interaction Date to the place holder in the template
-		$parameters = ["interactionDate" => $interactionDate->getBytes()];
-		$statement->execute($parameters);
-
-		//grab the interaction from mySQL
-		try {
-			$interaction = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$interaction = new interaction ($row["interactionUserId"], $row["interactionRecipeId"], $row["interactionDate"], $row["interactionRating"]);
-			}
-		} catch(\Exception $exception) {
-			//if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($interaction);
-	}
-
-	/**
-	 * gets interaction by interactionRating
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $interactionRating to search for
-	 * @return User|null interaction found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when a variable are not the correct data type
-	 */
-
-	/**
-	public static function getInteractionByInteractionRating(\PDO $pdo, $interactionRating): interaction {
-		//sanitize the interactionRating before searching
-		try {
-			$interactionRating = self::validateUuid($interactionRating);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		//create query template
-
-		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating FROM interaction WHERE interactionRating = :interactionRating";
-		$statement = $pdo->prepare($query);
-
-		//bind the interaction Rating to the place holder in the template
-		$parameters = ["interactionRating" => $interactionRating->getBytes()];
-		$statement->execute($parameters);
-
-		//grab the interaction from mySQL
-		try {
-			$interaction = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$interaction = new interaction ($row["interactionUserId"], $row["interactionRecipeId"], $row["interactionDate"], $row["interactionRating"]);
-			}
-		} catch(\Exception $exception) {
-			//if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($interaction);
-	}
-
-	/**
-	 * gets all Interactions
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of interactions found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-
-	/**
-	public static function getAllInteractions(\PDO $pdo): \SPLFixedArray {
-		// create query template
-		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating FROM interaction";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		// build an array of interactions
-		$interactions = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$interactions = new interaction($row["interactionUserId"], $row["interactionRecipeId"], $row["interactionDate"], $row["interactionRating"]);
-				$interactions[$interactions->key()] = $interactions;
-				$interactions->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($interactions);
-	}
 
 	/**
 	 * formats the state variables for JSON serialization
