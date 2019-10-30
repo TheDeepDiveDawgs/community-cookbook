@@ -1,6 +1,6 @@
 <?php
 
-namespace TheDeepDiveDawgs\communitycookbook;
+namespace TheDeepDiveDawgs\CommunityCookbook;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
@@ -189,9 +189,6 @@ class Interaction implements \JsonSerializable {
 
 	}
 
-	/** COMMENTED ALL FOLLOWING CODE OUT DUE TO NOT NEEDING FOO BY BAR METHODS FOR THE INTERACTION CLASS AT THIS TIME 103019
-	 *NOTE LINE 450 AND ABOVE NOT COMMENTED OUT DUE TO BEING THE JSON
-	 */
 
 	/**
 	 * inserts this interaction in mySQL
@@ -241,7 +238,7 @@ class Interaction implements \JsonSerializable {
 	public function update(\PDO $pdo): void {
 
 		//creates query template
-		$query = "UPDATE interaction SET interactionUserId = :interactionUserId, interactionRecipeId = :interactionRecipeId, interactionDate = :interactionDate,
+		$query = "UPDATE interaction SET interactionRecipeId = :interactionRecipeId, interactionDate = :interactionDate,
     						interactionRating = :interactionRating WHERE interactionUserId = :interactionUserId";
 		$statement = $pdo->prepare($query);
 
