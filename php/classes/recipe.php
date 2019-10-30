@@ -42,6 +42,7 @@ use MongoDB\BSON\Binary;
 use Ramsey\Uuid\Uuid;
 /** docblock section of recipe setting up the classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
+	use ValidateDate;
 	use ValidateUuid;
 	/**
 	 * id for this recipe; this is the primary key
@@ -253,7 +254,7 @@ class Recipe implements \JsonSerializable {
 	public function setRecipeDescription(string $newRecipeDescription): string  {
 		// verify the description is secure
 		$newRecipeDescription = trim($newRecipeDescription);
-		$newRecipeDescription = filter_var($newRecipeDescription, FILTER_VALIDATE_EMAIL);
+		$newRecipeDescription = filter_var($newRecipeDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeDescription) === true) {
 			throw(new \InvalidArgumentException("recipe description is empty or insecure"));
 		}
@@ -359,8 +360,8 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Minutes field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if($newRecipeMinutes <=0 or $newRecipeMinutes >1000) {
-			throw(new \RangeException("Too many digits in minutes field"));
+		if($newRecipeMinutes <=0 or $newRecipeMinutes =>1000) {
+			throw(new \RangeException("Minutes entered invalid, negative or too many"));
 		}
 		// store the minutes
 		$this->recipeMinutes = $newRecipeMinutes;
@@ -419,7 +420,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("number of ingredients field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if($newRecipeNumberIngredients <0 or $newRecipeNumberIngredients >40) {
+		if($newRecipeNumberIngredients <=0 or $newRecipeNumberIngredients =>40) {
 			throw(new \RangeException("Too many ingredients"));
 		}
 		// store the number of ingredients
@@ -513,7 +514,7 @@ class Recipe implements \JsonSerializable {
 		}
 		// store the submission date with ValidateDate trait
 		try {
-			$newRecipeSubmissionDate = self::validateDateTime($newRecipeSubmissionDate);
+			$newRecipeSubmissionDate = self::validateDate($newRecipeSubmissionDate);
 		}	catch(\InvalidArgumentException | \RangeException $exception) {
 			$exceptionType = get_class($exception);
 			throw (new $exceptionType($exception->getMessage(), 0, $exception));
