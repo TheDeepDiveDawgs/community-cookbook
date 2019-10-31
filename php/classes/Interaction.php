@@ -247,7 +247,7 @@ class Interaction implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes(),
-			 "interactionRating" => $this->interactionRating];
+			"interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
 		$statement->execute($parameters);
 	}
 
@@ -262,7 +262,7 @@ class Interaction implements \JsonSerializable {
 	 */
 
 
-	public static function getInteractionByInteractionUserId(\PDO $pdo, $interactionUserId): interaction {
+	public static function getInteractionByInteractionUserId(\PDO $pdo, $interactionUserId): ?Interaction {
 		//sanitize the interactionUserId before searching
 		try {
 			$interactionUserId = self::validateUuid($interactionUserId);
