@@ -50,13 +50,14 @@ class Interaction implements \JsonSerializable {
 	 * @throws \Exception if some other Exception occurs
 	 */
 
-	public function __construct($newInteractionUserId, $newInteractionRecipeId, $newInteractionDate, $newInteractionRating = null) {
+	public function __construct($newInteractionUserId, $newInteractionRecipeId, $newInteractionDate = null, $newInteractionRating = null) {
 		try {
 			$this->setInteractionUserId($newInteractionUserId);
 			$this->setInteractionRecipeId($newInteractionRecipeId);
 			$this->setInteractionDate($newInteractionDate);
 			$this->setInteractionRating($newInteractionRating);
-		} //determine what exception type is thrown
+		}
+		//determine what exception type is thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -137,12 +138,14 @@ class Interaction implements \JsonSerializable {
 	 * @throws \RangeException if $newInteractionDate is a date that does not exist
 	 */
 
-	public function setInteractionDate($newInteractionDate = null): void {
+	public function setInteractionDate($newInteractionDate): void {
+
 		//base case: if the date is null,  use the current date and time
 		if($newInteractionDate === null) {
 			$this->interactionDate = new \DateTime();
 			return;
 		}
+
 		//store the interaction date using the ValidateDate trait
 		try {
 			$newInteractionDate = self::validateDateTime($newInteractionDate);
@@ -159,7 +162,7 @@ class Interaction implements \JsonSerializable {
 	 * @return int value of interaction rating
 	 */
 
-	public function getInteractionRating(): int {
+	public function getInteractionRating(): ?int {
 		return ($this->interactionRating);
 	}
 
@@ -173,7 +176,7 @@ class Interaction implements \JsonSerializable {
 	 *
 	 **/
 
-	public function setInteractionRating(int $newInteractionRating): void {
+	public function setInteractionRating(?int $newInteractionRating): void {
 		//verifies int interaction rating is secure
 		$newInteractionRating = filter_var($newInteractionRating, FILTER_VALIDATE_INT);
 		if(empty($newInteractionRating) === true) {
@@ -238,12 +241,11 @@ class Interaction implements \JsonSerializable {
 	public function update(\PDO $pdo): void {
 
 		//creates query template
-		$query = "UPDATE interaction SET interactionRecipeId = :interactionRecipeId, interactionDate = :interactionDate,
-    						interactionRating = :interactionRating WHERE interactionUserId = :interactionUserId";
+		$query = "UPDATE interaction SET interactionRating = :interactionRating WHERE interactionUserId = :interactionUserId and interactionRecipeId = :interactionRecipeId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(),
-			"interactionRecipeId" => $this->interactionRecipeId, "interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
+		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes(),
+			 "interactionRating" => $this->interactionRating];
 		$statement->execute($parameters);
 	}
 
@@ -265,9 +267,11 @@ class Interaction implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
+
 		//create query template
 
-		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating FROM interaction WHERE interactionUserId = :interactionUserId";
+		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating 
+						FROM interaction WHERE interactionUserId = :interactionUserId";
 		$statement = $pdo->prepare($query);
 
 		//bind the interaction User Id to the place holder in the template
@@ -331,6 +335,47 @@ class Interaction implements \JsonSerializable {
 		return ($interaction);
 	}
 
+	/**
+	 * gets interactionRating by interactionRecipeId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $interactionRecipeId to search for
+	 * @return User|null interactionRating found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 */
+
+
+	public static function getInteractionRatingByInteractionRecipeId(\PDO $pdo, $interactionRecipeId): interactionRating {
+		//sanitize the interactionRecipeId before searching
+		try {
+			$interactionRecipeId = self::validateUuid($interactionRecipeId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		//create query template
+
+		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate FROM interactionRating WHERE interactionRecipeId = :interactionRecipeId";
+		$statement = $pdo->prepare($query);
+
+		//bind the interaction Recipe Id to the place holder in the template
+		$parameters = ["interactionRecipeId" => $interactionRecipeId->getBytes()];
+		$statement->execute($parameters);
+
+		//grab the interaction from mySQL
+		try {
+			$interactionRating = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$interactionRating = new interactionRating ($row["interactionUserId"], $row["interactionRecipeId"], $row["interactionDate"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($interactionRating);
+	}
 
 	/**
 	 * formats the state variables for JSON serialization
