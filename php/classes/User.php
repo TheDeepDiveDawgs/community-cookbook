@@ -4,7 +4,6 @@ namespace TheDeepDiveDawgs\CommunityCookbook;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 
-use http\Params;
 use Ramsey\Uuid\Uuid;
 /**
  * Cross section of a user
@@ -277,13 +276,16 @@ class User implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 		//create query template
 		$query = "INSERT INTO user (userId, userActivationToken, userEmail, userFullName, userHandle, userHash)
-		VALUES (:userId, :userActivationToken, :userEmail, :userFullName, :userHash, :userHandle)";
+		VALUES (:userId, :userActivationToken, :userEmail, :userFullName, :userHandle, :userHash)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
 		$parameters = ["userId" => $this->userId->getBytes(),
-			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userFullName" => $this->userFullName, "userHash" => $this->userHash,
-			"userHandle" => $this->userHandle];
+			"userActivationToken" => $this->userActivationToken,
+			"userEmail" => $this->userEmail,
+			"userFullName" => $this->userFullName,
+			"userHandle" => $this->userHandle,
+			"userHash" => $this->userHash];
 		$statement->execute($parameters);
 	}
 
@@ -317,7 +319,10 @@ class User implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["userId" => $this->userId->getBytes(),
-			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userFullName" => $this->userFullName, "userHandle" => $this->userHandle,
+			"userActivationToken" => $this->userActivationToken,
+			"userEmail" => $this->userEmail,
+			"userFullName" => $this->userFullName,
+			"userHandle" => $this->userHandle,
 			"userHash" => $this->userHash];
 		$statement->execute($parameters);
 	}
@@ -446,7 +451,7 @@ class User implements \JsonSerializable {
 	 * formats the state variables for JSON serialization
 	 * @return array resulting state variables to serialize
 	 */
-	public function jsonSerialize(): array {
+	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 
 		$fields["userId"] = $this->userId->toString();
