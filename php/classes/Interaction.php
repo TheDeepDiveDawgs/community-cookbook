@@ -40,8 +40,8 @@ class Interaction implements \JsonSerializable {
 	/**
 	 * constructor for interaction
 	 *
-	 * @param string|Uuid $newInteractionUserId user id of this interaction  or null if new interaction
-	 * @param string|Uuid $newInteractionRecipeId recipe id of this interaction or null if new interaction
+	 * @param string|Uuid $newInteractionUserId user id of this interaction
+	 * @param string|Uuid $newInteractionRecipeId recipe id of this interaction
 	 * @param \DateTime|string|null $newInteractionDate date and time of interaction was submitted or null if set to current date and time
 	 * @param \int $newInteractionRating rating of interaction
 	 * @throws \InvalidArgumentException if data types not Invalid
