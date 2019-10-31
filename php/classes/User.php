@@ -199,39 +199,6 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for userHash
-	 *
-	 * @return string for userHash hashed password
-	 */
-	public function getUserHash(): string {
-		return $this->userHash;
-	}
-
-	/**
-	 * mutator method for user hash
-	 *
-	 * @params string $newUserHash value of new user hashed password
-	 * @param string $newUserHash
-	 */
-	public function setUserHash(string $newUserHash): void {
-		//enforce that the hash is properly formatted
-		$newUserHash = trim($newUserHash);
-		if(empty($newUserHash) === true) {
-			throw(new \InvalidArgumentException("User password hash empty or insecure"));
-		}
-		//enforce the hash is really an Argon hash
-		$userHashInfo = password_get_info($newUserHash);
-		if($userHashInfo["algoName"] !== "argon2i") {
-			throw(new \InvalidArgumentException("User hash is not a valid hash"));
-		}
-		//enforce that the hash is exactly 97 characters.
-		if(strlen($newUserHash) !== 97) {
-			throw(new \RangeException("User hash must be 97 characters"));
-		}
-		//store the hash
-		$this->userHash = $newUserHash;
-	}
-	/**
 	 * accessor method for user Handle
 	 * @return string value of Handle
 	 */
@@ -265,6 +232,41 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for userHash
+	 *
+	 * @return string for userHash hashed password
+	 */
+	public function getUserHash(): string {
+		return $this->userHash;
+	}
+
+	/**
+	 * mutator method for user hash
+	 *
+	 * @param string $newUserHash value of new user hashed password
+	 * @throws \InvalidArgumentException if password is empty or insecure
+	 * @throws \InvalidArgumentException if user hash is not a valid hash
+	 * @throws \RangeException if user hash is not 97 characters
+	 */
+	public function setUserHash(string $newUserHash): void {
+		//enforce that the hash is properly formatted
+		$newUserHash = trim($newUserHash);
+		if(empty($newUserHash) === true) {
+			throw(new \InvalidArgumentException("User password hash empty or insecure"));
+		}
+		//enforce the hash is really an Argon hash
+		$userHashInfo = password_get_info($newUserHash);
+		if($userHashInfo["algoName"] !== "argon2i") {
+			throw(new \InvalidArgumentException("User hash is not a valid hash"));
+		}
+		//enforce that the hash is exactly 97 characters.
+		if(strlen($newUserHash) !== 97) {
+			throw(new \RangeException("User hash must be 97 characters"));
+		}
+		//store the hash
+		$this->userHash = $newUserHash;
+	}
+	/**
 	 * inserts this user into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -274,13 +276,16 @@ class User implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 		//create query template
 		$query = "INSERT INTO user (userId, userActivationToken, userEmail, userFullName, userHandle, userHash)
-		VALUES (:userId, :userActivationToken, :userEmail, :userFullName, :userHash, :userHandle)";
+		VALUES (:userId, :userActivationToken, :userEmail, :userFullName, :userHandle, :userHash)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
 		$parameters = ["userId" => $this->userId->getBytes(),
-			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userFullName" => $this->userFullName, "userHash" => $this->userHash,
-			"userHandle" => $this->userHandle];
+			"userActivationToken" => $this->userActivationToken,
+			"userEmail" => $this->userEmail,
+			"userFullName" => $this->userFullName,
+			"userHandle" => $this->userHandle,
+			"userHash" => $this->userHash];
 		$statement->execute($parameters);
 	}
 
@@ -314,32 +319,39 @@ class User implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["userId" => $this->userId->getBytes(),
-			"userActivationToken" => $this->userActivationToken, "userEmail" => $this->userEmail, "userFullName" => $this->userFullName, "userHandle" => $this->userHandle,
+			"userActivationToken" => $this->userActivationToken,
+			"userEmail" => $this->userEmail,
+			"userFullName" => $this->userFullName,
+			"userHandle" => $this->userHandle,
 			"userHash" => $this->userHash];
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * gets the user by userEmail
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param $userEmail
-	 * @return User|null User found or null if not found
+	 * gets the user by user email
+	 * @param \PDO $pdo PDO connection to object
+	 * @param string for $userEmail
+	 * @return user | null user found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable is not the correct data type
 	 */
-	public static function getUserByUserEmail(\PDO $pdo, $userEmail): ?user {
-		//sanitize the userEmail before searching
+	public static function getUserByUserEmail(\PDO $pdo, $userEmail) : ?User {
+		//sanitize the email before searching
 		$userEmail = trim($userEmail);
-		$userEmail = filter_var($userEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$userEmail = filter_var($userEmail, FILTER_VALIDATE_EMAIL);
 		if(empty($userEmail) === true) {
-			throw(new \PDOException("Email address is invalid"));
+			throw(new \PDOException("User email is invalid"));
 		}
-		//create query template
+		//escape any mySQL wild cards
+		$userEmail = str_replace("_", "\\_", str_replace("%", "\\%", $userEmail));
 
+		//create query template
 		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userEmail = :userEmail";
 		$statement = $pdo->prepare($query);
 
-		//bind the user id to the place holder in the template
-		$parameters = ["userEmail" => $userEmail->getBytes()];
+		//bind the user email to the place holder in the template
+		$userEmail = "%$userEmail%";
+		$parameters = ["userEmail" => $userEmail];
 		$statement->execute($parameters);
 
 		//grab the user from mySQL
@@ -348,92 +360,98 @@ class User implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
 			}
 		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($user);
-	}
-
-	/**
-	 * gets the User by Activation Token
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param string $userActivationToken
-	 * @return \SplFixedArray SplFixedArray of Users found
-	 */
-	public static function getUserByUserActivationToken(\PDO $pdo, $userActivationToken) : ?user {
-		// sanitize the userActivationToken before searching
-		$userActivationToken = strtolower(trim($userActivationToken));
-		if(ctype_xdigit($userActivationToken) === false) {
-			throw(new \RangeException("Activation Token is not valid"));
-		}
-		//make sure user activation token is only 32 characters
-		if(strlen($userActivationToken) !== 32) {
-			throw(new \RangeException("Activation token has to be 32 characters"));
-		}
-
-		// create query template
-		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userID";
-		$statement = $pdo->prepare($query);
-
-		// bind the user id to the place holder in the template
-		$parameters = ["userActivationToken" => $userActivationToken->getBytes()];
-		$statement->execute($parameters);
-
-		// grab the user from mySQL
-		try {
-			$user = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
-			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
+			//if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($user);
 	}
 
 	/**
-	 * gets all users
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of Users found or null if not found
+	 * gets the user by userActivationToken
+	 * @param \PDO $pdo PDO connection to object
+	 * @param string for $userActivationToken
+	 * @return User | null User found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-	public static function getAllUsers(\PDO $pdo): \SPLFixedArray {
-		// create query template
-		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
+	 * @throws \TypeError when a variable is not the correct data type
+	 */
+	public static function getUserByUserActivationToken(\PDO $pdo, $userActivationToken) : ?User {
+	$userActivationToken = strtolower(trim($userActivationToken));
+	if(ctype_xdigit($userActivationToken) === false) {
+		throw (new\RangeException("user activation is not valid"));
+	}
+	//escape any mySQL wild cards
+	$userActivationToken = str_replace("_", "\\_", str_replace("%", "\\%", $userActivationToken));
 
-		// build an array of users
-		$users = new \SplFixedArray($statement->rowCount());
+	//create query template
+	$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userActivationToken = :userActivationToken";
+	$statement = $pdo->prepare($query);
+
+	// bind the user id to the place holder in the template
+	$parameters = ["userActivationToken" => $userActivationToken->getBytes()];
+	$statement->execute($parameters);
+
+	// grab the user from mySQL
+	try {
+		$user = null;
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
-				$users[$users->key()] = $user;
-				$users->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
+		$row = $statement->fetch();
+		if($row !== false) {
+			$user = new User($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"],
+			$row["userHandle"], $row["userHash"]);
 		}
-		return ($users);
+	}catch(\Exception $exception) {
+		// if the row couldn't be converted, rethrow it
+		throw(new \PDOException($exception->getMessage(), 0, $exception));
+	}
+	return($user);
+}
+
+	/**
+	 * gets the user by user Id
+	 * @param \PDO $pdo PDO connection to object
+	 * @param Uuid for $userId
+	 * @return User | null User found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable is not the correct data type
+	 */
+	public static function getUserByUserId(\PDO $pdo, $userId) : ?User {
+		//sanitize the userId before searching
+		try{
+			$userId = self::validateUuid($userId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw (new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		//create query template
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+
+		//bind the user id to the place holder in the template
+		$parameters = ["userId" => $userId->getBytes()];
+		$statement->execute($parameters);
+
+		//grab the user from mySQL
+		try {
+			$user = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($user);
 	}
 
 	/**
 	 * formats the state variables for JSON serialization
-	 *
 	 * @return array resulting state variables to serialize
 	 */
-	public function jsonSerialize(): array {
+	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 
 		$fields["userId"] = $this->userId->toString();
