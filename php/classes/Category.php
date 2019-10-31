@@ -168,7 +168,7 @@ class Category implements \JsonSerializable {
 		$query = "SELECT categoryId, categoryName FROM category WHERE categoryId = :categoryId";
 		$statement = $pdo->prepare($query);
 		// bind the category id to the sql query
-		$parameters = ["categoryId" = $categoryId->getBytes()];
+		$parameters = ["categoryId" => $categoryId->getBytes()];
 		$statement->execute($parameters);
 
 		//grab the category from mySQL
@@ -177,7 +177,7 @@ class Category implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$category = new Category($row[$categoryId], $row[$categoryName]);
+				$category = new Category($row["categoryId"], $row["categoryName"]);
 			}
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
