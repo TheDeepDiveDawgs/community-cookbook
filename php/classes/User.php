@@ -3,7 +3,6 @@ namespace TheDeepDiveDawgs\CommunityCookbook;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
-
 use Ramsey\Uuid\Uuid;
 /**
  * Cross section of a user
@@ -210,8 +209,10 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for user hash
 	 *
-	 * @params string $newUserHash value of new user hashed password
-	 * @param string $newUserHash
+	 * @param string $newUserHash value of new user hashed password
+	 * @throws \InvalidArgumentException if password is empty or insecure
+	 * @throws \InvalidArgumentException if user hash is not a valid hash
+	 * @throws \RangeException if user hash is not 97 characters
 	 */
 	public function setUserHash(string $newUserHash): void {
 		//enforce that the hash is properly formatted
@@ -320,119 +321,25 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the user by userEmail
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param $userEmail
-	 * @return User|null User found or null if not found
+	 * gets the user by user Id
+	 * @param \PDO $pdo PDO connection to object
+	 * @param Uuid for $userId
+	 * @return User | null User found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable is not the correct data type
 	 */
-	public static function getUserByUserEmail(\PDO $pdo, $userEmail): ?user {
-		//sanitize the userEmail before searching
-		$userEmail = trim($userEmail);
-		$userEmail = filter_var($userEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($userEmail) === true) {
-			throw(new \PDOException("Email address is invalid"));
+	public static function getUserByUserId(\PDO $pdo, $userId) : ?User {
+		//sanitize the userId before searching
+		try{
+			$userId = self::validateUuid($userId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw (new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		//create query template
-
-		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userEmail = :userEmail";
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
-
-		//bind the user id to the place holder in the template
-		$parameters = ["userEmail" => $userEmail->getBytes()];
-		$statement->execute($parameters);
-
-		//grab the user from mySQL
-		try {
-			$user = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
-			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($user);
 	}
 
-	/**
-	 * gets the User by Activation Token
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param string $userActivationToken
-	 * @return \SplFixedArray SplFixedArray of Users found
-	 */
-	public static function getUserByUserActivationToken(\PDO $pdo, $userActivationToken) : ?user {
-		// sanitize the userActivationToken before searching
-		$userActivationToken = strtolower(trim($userActivationToken));
-		if(ctype_xdigit($userActivationToken) === false) {
-			throw(new \RangeException("Activation Token is not valid"));
-		}
-		//make sure user activation token is only 32 characters
-		if(strlen($userActivationToken) !== 32) {
-			throw(new \RangeException("Activation token has to be 32 characters"));
-		}
-
-		// create query template
-		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userID";
-		$statement = $pdo->prepare($query);
-
-		// bind the user id to the place holder in the template
-		$parameters = ["userActivationToken" => $userActivationToken->getBytes()];
-		$statement->execute($parameters);
-
-		// grab the user from mySQL
-		try {
-			$user = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
-			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return($user);
-	}
-
-	/**
-	 * gets all users
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of Users found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-	public static function getAllUsers(\PDO $pdo): \SPLFixedArray {
-		// create query template
-		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		// build an array of users
-		$users = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$user = new user($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
-				$users[$users->key()] = $user;
-				$users->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($users);
-	}
-
-	/**
-	 * formats the state variables for JSON serialization
-	 *
-	 * @return array resulting state variables to serialize
-	 */
 	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 
