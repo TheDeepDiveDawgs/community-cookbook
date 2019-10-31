@@ -74,8 +74,8 @@ class Interaction implements \JsonSerializable {
 	/**
 	 * mutator method for interactionUserId
 	 * @param uuid | string $newInteractionUserId value of new interaction user id
-	 * @throws \RangeException if the $interactionUserId is not positive
-	 * @throws \TypeError if $interactionUserId is not positive
+	 * @throws \RangeException if the $newInteractionUserId is not positive
+	 * @throws \TypeError if $newInteractionUserId is not positive
 	 * */
 
 	public function setInteractionUserId($newInteractionUserId): void {
@@ -103,8 +103,8 @@ class Interaction implements \JsonSerializable {
 	/**
 	 * mutator method for interactionRecipeId
 	 * @param uuid | string $newInteractionRecipeId value of new interaction user id
-	 * @throws \RangeException if the $interactionRecipeId is not positive
-	 * @throws \TypeError if $interactionRecipeId is not positive
+	 * @throws \RangeException if the $newInteractionRecipeId is not positive
+	 * @throws \TypeError if $newInteractionRecipeId is not positive
 	 * */
 
 	public function setInteractionRecipeId($newInteractionRecipeId): void {
@@ -146,7 +146,7 @@ class Interaction implements \JsonSerializable {
 			return;
 		}
 
-		//store the interaction date using the ValidateDate trait
+		//store the interaction date using the ValidateDateTime trait
 		try {
 			$newInteractionDate = self::validateDateTime($newInteractionDate);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
@@ -204,12 +204,13 @@ class Interaction implements \JsonSerializable {
 
 	public function insert(\PDO $pdo): void {
 		//create query template
-		$query = "INSERT INTO interaction (interactionUserId, interactionRecipeId, interactionDateId, interactionRatingId)
-		VALUES (:interactionUserId, :interactionRecipeId, :interactionDateId, :interactionRatingId)";
+		$query = "INSERT INTO interaction (interactionUserId, interactionRecipeId, interactionDate, interactionRating)
+		VALUES (:interactionUserId, :interactionRecipeId, :interactionDate, :interactionRating)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["interactionUserId" => $this->interactionUserId, "interactionRecipeId" => $this->interactionRecipeId, "interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
+		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes(),
+			"interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
 		$statement->execute($parameters);
 
 	}
@@ -225,8 +226,9 @@ class Interaction implements \JsonSerializable {
 
 	public function delete(\PDO $pdo): void {
 		//create query template
-		$query = "DELETE FROM interaction WHERE interactionUserId = :interactionUserId";
-		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes()];
+		$query = "DELETE FROM interaction WHERE interactionUserId = :interactionUserId AND interactionRecipeId =:interactionRecipeId";
+		$statement=$pdo->prepare($query);
+		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes()];
 		$statement->execute($parameters);
 	}
 
