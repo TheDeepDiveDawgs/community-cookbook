@@ -198,6 +198,39 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for user Handle
+	 * @return string value of Handle
+	 */
+	/**
+	 * @return string
+	 */
+	public function getUserHandle(): string {
+		return $this->userHandle;
+	}
+	/**
+	 * mutator method for Handle
+	 *
+	 * @param string $newUserHandle
+	 */
+	/**
+	 * @param string $newUserHandle
+	 */
+	public function setUserHandle(string $newUserHandle): void {
+		//verify the Handle is secure
+		$newUserHandle = trim($newUserHandle);
+		$newUserHandle = filter_var($newUserHandle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserHandle) === true) {
+			throw(new \InvalidArgumentException("User Handle is empty or insecure"));
+		}
+		//verify the Handle will fit in the database
+		if(strlen($newUserHandle) > 32) {
+			throw(new \RangeException("User Handle is too large"));
+		}
+		//store the Handle
+		$this->userHandle = $newUserHandle;
+	}
+
+	/**
 	 * accessor method for userHash
 	 *
 	 * @return string for userHash hashed password
@@ -232,39 +265,6 @@ class User implements \JsonSerializable {
 		//store the hash
 		$this->userHash = $newUserHash;
 	}
-	/**
-	 * accessor method for user Handle
-	 * @return string value of Handle
-	 */
-	/**
-	 * @return string
-	 */
-	public function getUserHandle(): string {
-		return $this->userHandle;
-	}
-	/**
-	 * mutator method for Handle
-	 *
-	 * @param string $newUserHandle
-	 */
-	/**
-	 * @param string $newUserHandle
-	 */
-	public function setUserHandle(string $newUserHandle): void {
-		//verify the Handle is secure
-		$newUserHandle = trim($newUserHandle);
-		$newUserHandle = filter_var($newUserHandle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserHandle) === true) {
-			throw(new \InvalidArgumentException("User Handle is empty or insecure"));
-		}
-		//verify the Handle will fit in the database
-		if(strlen($newUserHandle) > 32) {
-			throw(new \RangeException("User Handle is too large"));
-		}
-		//store the Handle
-		$this->userHandle = $newUserHandle;
-	}
-
 	/**
 	 * inserts this user into mySQL
 	 *
