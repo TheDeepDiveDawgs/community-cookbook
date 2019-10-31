@@ -151,10 +151,40 @@ class Category implements \JsonSerializable {
 	}
 
 	/**
-	 * formats the state variables for JSON serialization
+	 * get category by category id
 	 *
-	 * @return array resulting state variables to serialize
+	 * @param \PDO $pdo PDO connection object
+	 * @param \PDOException when mySQL related errors occur
+	 * @throws \TypeError if the $pdo is not a PDO connection object
 	 */
+	public function getCategoryByCategoryId(\PDO $pdo): Category {
+		// sanitize the categoryId before searching
+		try {
+			$categoryId = self::validateUuid($categoryId);
+		} catch(\InvalidArgumentException | \ RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		//query template
+		$query = "SELECT categoryId, categoryName FROM category WHERE categoryId = :categoryId";
+		$statement = $pdo->prepare($query);
+		// bind the category id to the sql query
+		$parameters = ["categoryId" = $categoryId->getBytes()];
+		$statement->execute($parameters);
+
+		//grab the category from mySQL
+		try {
+			$category = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$category = new Category($row[$categoryId], $row[$categoryName]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($category);
+	}
+
 
 	/**
 	 * get all Categories
@@ -185,6 +215,12 @@ class Category implements \JsonSerializable {
 		}
 		return ($categories);
 	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 */
 
 	public function jsonSerialize() : array {
 		$fields = get_obeject_vars($this);
