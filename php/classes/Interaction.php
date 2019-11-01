@@ -56,8 +56,7 @@ class Interaction implements \JsonSerializable {
 			$this->setInteractionRecipeId($newInteractionRecipeId);
 			$this->setInteractionDate($newInteractionDate);
 			$this->setInteractionRating($newInteractionRating);
-		}
-		//determine what exception type is thrown
+		} //determine what exception type is thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -227,7 +226,7 @@ class Interaction implements \JsonSerializable {
 	public function delete(\PDO $pdo): void {
 		//create query template
 		$query = "DELETE FROM interaction WHERE interactionUserId = :interactionUserId AND interactionRecipeId =:interactionRecipeId";
-		$statement=$pdo->prepare($query);
+		$statement = $pdo->prepare($query);
 		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes()];
 		$statement->execute($parameters);
 	}
@@ -262,7 +261,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
 
-	public static function getInteractionByInteractionRecipeIdAndInteractionUserId(\PDO $pdo, $interactionRecipeId, $interactionUserId) :
+	public static function getInteractionByInteractionRecipeIdAndInteractionUserId(\PDO $pdo, $interactionRecipeId, $interactionUserId):
 	?Interaction {
 		//sanitize the interactionRecipeIdAndInteractionUserId before searching
 		try {
@@ -351,7 +350,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getInteractionByInteractionRating(\PDO $pdo, string $interactionRating) : \SplFixedArray {
+	public static function getInteractionByInteractionRating(\PDO $pdo, string $interactionRating): \SplFixedArray {
 		try {
 			$interactionRating = self::validateUuid($interactionRating);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
