@@ -261,7 +261,7 @@ class Interaction implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
 
-	public static function getInteractionByInteractionRecipeIdAndInteractionUserId(\PDO $pdo, $interactionRecipeId, $interactionUserId):
+	public static function getInteractionByInteractionRecipeIdAndInteractionUserId(\PDO $pdo, string $interactionRecipeId, string $interactionUserId):
 	?Interaction {
 		//sanitize the interactionRecipeIdAndInteractionUserId before searching
 		try {
@@ -361,6 +361,43 @@ class Interaction implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
 		$parameters = ["interactionRating" => $interactionRating->getBytes()];
+		$statement->execute($parameters);
+		// build the array of likes
+		$interactions = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$interaction = new Interaction($row["interactionUserId"], $row["interactionRecipeId"], $row["interactionDate"], $row["interactionRating"]);
+				$interactions[$interactions->key()] = $interaction;
+				$interactions->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($interactions);
+	}
+
+	/**
+	 * gets the Interaction by userId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $interactionUserId interaction Rating to search for
+	 * @return \SplFixedArray array of Interactions found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getInteractionByInteractionUserId(\PDO $pdo, string $interactionUserId): \SplFixedArray {
+		try {
+			$interactionUserId = self::validateUuid($interactionUserId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		// create query template
+		$query = "SELECT interactionUserId, interactionRecipeId, interactionDate, interactionRating FROM interaction WHERE interactionUserId = :interactionUserId";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holders in the template
+		$parameters = ["interactionUserId" => $interactionUserId->getBytes()];
 		$statement->execute($parameters);
 		// build the array of likes
 		$interactions = new \SplFixedArray($statement->rowCount());
