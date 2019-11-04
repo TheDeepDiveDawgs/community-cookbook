@@ -1,7 +1,7 @@
 <?php
 namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 
-use TheDeepDiveDawgs\CommunityCookbook\{CommunityCookbookTest, User};
+use TheDeepDiveDawgs\CommunityCookbook\{User, Category, Recipe, Interaction};
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -20,17 +20,17 @@ require_once(dirname(__DIR__, 2) . "../lib/uuid.php");
  **/
 class TweetTest extends CommunityCookbookTest {
 	/**
-	 * Profile that created the Tweet; this is for foreign key relations
-	 * @var Profile profile
+	 * User that created the Tweet; this is for foreign key relations
+	 * @var User User
 	 **/
 	protected $user = null;
 
 
 	/**
-	 * valid profile hash to create the profile object to own the test
+	 * valid User hash to create the User object to own the test
 	 * @var $VALID_HASH
 	 */
-	protected $VALID_USER_HASH;
+	protected $VALID_ACTIVATION;
 
 	/**
 	 * content of the Tweet
@@ -67,12 +67,12 @@ class TweetTest extends CommunityCookbookTest {
 		// run the default setUp() method first
 		parent::setUp();
 		$password = "abc123";
-		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+		$this->VALID_User_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 
-		// create and insert a Profile to own the test Tweet
-		$this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
-		$this->profile->insert($this->getPDO());
+		// create and insert a User to own the test Tweet
+		$this->user = new User(generateUuidV4(), null,"grievxus@outlook.com", "Gino Villalpando", "grievxus", $this->VALID_USER_HASH, "+12125551212");
+		$this->user->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_TWEETDATE = new \DateTime();
@@ -98,14 +98,14 @@ class TweetTest extends CommunityCookbookTest {
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Tweet($tweetId, $this->User->getUserId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
 		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTweet->getTweetUserId(), $this->User->getUserId());
 		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
@@ -120,7 +120,7 @@ class TweetTest extends CommunityCookbookTest {
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Tweet($tweetId, $this->User->getUserId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// edit the Tweet and update it in mySQL
@@ -131,7 +131,7 @@ class TweetTest extends CommunityCookbookTest {
 		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
 		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTweet->getTweetUserId(), $this->User->getUserId());
 		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
@@ -147,7 +147,7 @@ class TweetTest extends CommunityCookbookTest {
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Tweet($tweetId, $this->User->getUserId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// delete the Tweet from mySQL
@@ -163,17 +163,17 @@ class TweetTest extends CommunityCookbookTest {
 	/**
 	 * test inserting a Tweet and regrabbing it from mySQL
 	 **/
-	public function testGetValidTweetByTweetProfileId() {
+	public function testGetValidTweetByTweetUserId() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("tweet");
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Tweet($tweetId, $this->User->getUserId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetProfileId($this->getPDO(), $tweet->getTweetProfileId());
+		$results = Tweet::getTweetByTweetUserId($this->getPDO(), $tweet->getTweetUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
@@ -182,7 +182,7 @@ class TweetTest extends CommunityCookbookTest {
 		$pdoTweet = $results[0];
 
 		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTweet->getTweetUserId(), $this->User->getUserId());
 		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
@@ -197,7 +197,7 @@ class TweetTest extends CommunityCookbookTest {
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Tweet($tweetId, $this->User->getUserId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -211,7 +211,7 @@ class TweetTest extends CommunityCookbookTest {
 		// grab the result from the array and validate it
 		$pdoTweet = $results[0];
 		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTweet->getTweetUserId(), $this->User->getUserId());
 		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
@@ -226,7 +226,7 @@ class TweetTest extends CommunityCookbookTest {
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Tweet($tweetId, $this->User->getUserId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -238,7 +238,7 @@ class TweetTest extends CommunityCookbookTest {
 		// grab the result from the array and validate it
 		$pdoTweet = $results[0];
 		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTweet->getTweetUserId(), $this->User->getUserId());
 		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
