@@ -4,7 +4,7 @@ namespace TheDeepDiveDawgs\CommunityCookbook;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
-/** @recipe Damian Arya <darya@cnm.edu
+/** recipe class by Damian Arya darya@cnm.edu
  *@version (7.3)
  */
 
@@ -82,10 +82,10 @@ class Recipe implements \JsonSerializable {
 	 * @param string $newRecipeDescription address
 	 * @param string $newRecipeImageUrl new password
 	 * @param string $newRecipeIngredients
-	 * @param \DateTime $newRecipeMinutes
+	 * @param string $newRecipeMinutes
 	 * @param string $newRecipeName
 	 * @param string $newRecipeNutrition
-	 * @param int $newRecipeNumberIngredients
+	 * @param string $newRecipeNumberIngredients
 	 * @param string $newRecipeStep
 	 * @param \DateTime $newRecipeSubmissionDate
 	 * @trows \RangeException if data vales are out of bounds
@@ -249,6 +249,7 @@ class Recipe implements \JsonSerializable {
 	 * mutator method for recipe imageUrl
 	 *
 	 * @param string $newRecipeImageUrl vale of new recipe imageUrl
+	 * @return string of url for image
 	 * @throws \InvalidArgumentException if the imageUrl is not secure
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
 	 * @throws \TypeError if recipeImageUrl is not a string
@@ -318,7 +319,7 @@ class Recipe implements \JsonSerializable {
 	 * mutator method for Minutes
 	 *
 	 * * @param integer $newRecipeMinutes new value of minutes
-	 *	 * @throws \InvalidArgumentException if  $recipeMinutes is not a interger or insecure
+	 *	 * @throws \InvalidArgumentException if  $recipeMinutes is not a int or insecure
 	 * @throws \RangeException if the $recipeMinutes is not a integer
 	 * @throws \TypeError if $recipeMinutes is not a integer
 	 *
@@ -347,11 +348,12 @@ class Recipe implements \JsonSerializable {
 	}
 
 	/**
-	 * mutator method for recipeName @throws \InvalidArgumentException if the recipeName is not secure
+	 * mutator method for recipeName*@param string $newRecipeName
+	 * @return string name for recipe
 	 * @throws \RangeException if the recipeName is more then 100 characters
 	 * @throws \TypeError if recipe recipeName is not a string
-	 * @param string $newRecipeName
-	 **/
+	 * @throws \InvalidArgumentException if the recipeName is not secure
+	 */
 	public function setRecipeName(string $newRecipeName): string {
 		// verify the name is secure
 		$newRecipeName = trim($newRecipeName);
@@ -378,11 +380,9 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeNumberIngredients
-	 *  @param integer $newrRecipeNumberIngredients new value of recipeNumberIngredients
-	 * @throws \InvalidArgumentException if $recipeNumberIngredients is not a integer or insecure
-	 * @throws \RangeException if $recipeNumberIngredients is  les then one or more then 40 characters
-	 * @throws \TypeError if $recipeNumberIngredients is not a integer
-	 **/
+	 * @param int $newRecipeNumberIngredients
+	 * @return int for number of recipe ingredients
+	 */
 	public function setRecipeNumberIngredients(int $newRecipeNumberIngredients): int {
 		// verify the number of ingredients is secure
 		$newRecipeNumberIngredients = filter_var($newRecipeNumberIngredients, FILTER_VALIDATE_INT);
@@ -439,11 +439,12 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeStep
-	 *	 *	 * @throws \InvalidArgumentException if the recipeStep is not secure
+	 *    *    **@param string $newRecipeStep
+	 **@return string
 	 * @throws \RangeException if the recipeStep is not 128 characters
 	 * @throws \TypeError if recipeStep is not a string
-	 * @param string $newrRecipeStep
-	 **/
+	 * @throws \InvalidArgumentException if the recipeStep is not secure
+	 */
 	public function setRecipeStep(string $newRecipeStep): string {
 		// verify the Step data is secure
 		$newRecipeStep = trim($newRecipeStep);
@@ -464,14 +465,14 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return \DateTime value of recipeSubmissionDate
 	 **/
-	public function getRecipeSubmissionDate(): datetime {
+	public function getRecipeSubmissionDate(): \DateTime {
 		return $this->recipeSubmissionDate;
 	}
 
 	/**
 	 * mutator method for recipeSubmissionDate
 	 *
-	 * @param \DateTime |string|null $newrRecipeSubmissionDate interaction date as a datetime object or string (or null tp load current)
+	 * @param \DateTime |string|null $newRecipeSubmissionDate interaction date as a datetime object or string (or null tp load current)
 	 * @throws \InvalidArgumentException if $recipeSubmissionDate is not a valid object or string
 	 * @throws \RangeException if the $recipeSubmissionDate is a date that does not exist
 	 **/
