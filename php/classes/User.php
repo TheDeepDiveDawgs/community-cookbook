@@ -293,7 +293,7 @@ class User implements \JsonSerializable {
 	 * deletes this user from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occure
+	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
 	public function delete(\PDO $pdo): void {
@@ -449,7 +449,7 @@ class User implements \JsonSerializable {
 
 	/**
 	 * formats the state variables for JSON serialization
-	 * @return array resulting state variables to serialize
+	 * @return void resulting state variables to serialize
 	 */
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);

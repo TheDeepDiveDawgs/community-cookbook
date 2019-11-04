@@ -229,12 +229,13 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("recipe description is empty or insecure"));
 		}
 		// verify the description will fit in the database
-		if(strlen($newRecipeDescription) > 3000) {
+		if(strlen($newRecipeDescription) > 500) {
 			throw(new \RangeException("recipe description is too large"));
 		}
 		// store the description
 		$this->recipeDescription = $newRecipeDescription;
 	}
+
 
 	/**
 	 * accessor method for recipeImageUrl
@@ -267,7 +268,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("recipe passphrase is empty or insecure"));
 		}
 		//enforce that the imageUrl is exactly 128 characters.
-		if(strlen($newRecipeImageUrl) !== 128) {
+		if(strlen($newRecipeImageUrl) !== 255) {
 			throw(new \RangeException("recipe imageUrl must be 128 characters"));
 		}
 		//store the imageUrl
@@ -299,7 +300,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Ingredients field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeIngredients) > 2000) {
+		if(strlen($newRecipeIngredients) > 300) {
 			throw(new \RangeException("Ingredient name is too large"));
 		}
 		// store the Ingredients
@@ -319,7 +320,7 @@ class Recipe implements \JsonSerializable {
 	 * mutator method for Minutes
 	 *
 	 * * @param integer $newRecipeMinutes new value of minutes
-	 *	 * @throws \InvalidArgumentException if  $recipeMinutes is not a int or insecure
+	 *    * @throws \InvalidArgumentException if  $recipeMinutes is not a int or insecure
 	 * @throws \RangeException if the $recipeMinutes is not a integer
 	 * @throws \TypeError if $recipeMinutes is not a integer
 	 *
@@ -408,11 +409,12 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeNutrition
-	 *	 *	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
+	 * @param string $newRecipeNutrition
+	 * @return string of nutrition for the recipe
 	 * @throws \RangeException if the recipeNutrition is not 128 characters
 	 * @throws \TypeError if recipeNutrition is not a string
-	 * @param string $newRecipeNutrition
-	 **/
+	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
+	 */
 	public function setRecipeNutrition(string $newRecipeNutrition): string {
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
@@ -471,10 +473,10 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeSubmissionDate
-	 *
 	 * @param \DateTime |string|null $newRecipeSubmissionDate interaction date as a datetime object or string (or null tp load current)
 	 * @throws \InvalidArgumentException if $recipeSubmissionDate is not a valid object or string
 	 * @throws \RangeException if the $recipeSubmissionDate is a date that does not exist
+	 * @throws \Exception
 	 **/
 
 	public function setRecipeSubmissionDate($newRecipeSubmissionDate = null): void {
