@@ -319,8 +319,8 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for Minutes
 	 *
-	 * * @param integer $newRecipeMinutes new value of minutes
-	 *    * @throws \InvalidArgumentException if  $recipeMinutes is not a int or insecure
+	 * @param integer $newRecipeMinutes new value of minutes
+	 * @throws \InvalidArgumentException if  $recipeMinutes is not a int or insecure
 	 * @throws \RangeException if the $recipeMinutes is not a integer
 	 * @throws \TypeError if $recipeMinutes is not a integer
 	 *
@@ -588,7 +588,7 @@ class Recipe implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+				$recipes = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
 				$recipe[$recipe->key()] = $recipe;
 				$recipe->next();
 			} catch(\Exception $exception) {
@@ -604,7 +604,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 */
-	public function jsonSerialize(): array {
+		public function jsonSerialize(): array {
 		//this collects all state variables
 		$fields = get_object_vars($this);
 		//turns Uuid into string
