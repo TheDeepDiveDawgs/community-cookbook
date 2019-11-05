@@ -636,7 +636,7 @@ class Recipe implements \JsonSerializable {
 		}
 		return ($recipes);
 	}
-		// this is the divide between foo by bar array and normal ffo by bar//
+		// this is the divide between foo by bar array and normal foo by bar//
 
 		public function getRecipeByCategoryId(\PDO $pdo, $recipeCategoryId): Recipe {
 			//sanitize the recipeCategoryId before searching
@@ -650,7 +650,7 @@ class Recipe implements \JsonSerializable {
 			$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
     		recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
     		recipeSubmissionDate FROM recipe WHERE recipeCategoryId = :recipeCategoryId";
-			$statement = $pdo - prepare($query);
+			$statement = $pdo->prepare($query);
 			//bind the category id to the place holder in the template
 			$parameters = ["recipeCategoryId" => $recipeCategoryId->getBytes()];
 			$statement->execute($parameters);
@@ -675,7 +675,7 @@ class Recipe implements \JsonSerializable {
 		public function getRecipeByRecipeId(\PDO $pdo, $recipeId): Recipe {
 			//sanitize the recipeId before searching
 			try {
-				$recipeId =self ::validateUuid($recipeId);
+				$recipeId = self::validateUuid($recipeId);
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
@@ -684,7 +684,11 @@ class Recipe implements \JsonSerializable {
 			$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
     recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
     recipeSubmissionDate FROM recipe WHERE recipeId = :recipeId";
-			$statement = $pdo - prepare($query);
+			$statement = $pdo->prepare($query);
+
+			// bind the recipe id to the place holder in the template
+			$parameters = ["recipeId" => $recipeId->getBytes()];
+			$statement->execute($parameters);
 
 			//grab the recipe from mySQL
 			try {
