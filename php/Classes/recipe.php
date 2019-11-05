@@ -1,62 +1,31 @@
 <?php
-//recipeId (primary key)
-//recipeCategoryId (foreign key)
-//recipeUserId (foreign key)
-//recipeDescription
-//recipeImageUrl
-//recipeIngredients
-//recipeMinutes
-//recipeName
-//recipeNumberIngredients
-//recipeNutrition
-//recipeSteps
-//recipeSubmissionDate
-/**
- *this is a doc block for the recipe Capstone, it needs lost.
- * 
- *recipeId (primary key) binary 16 not null
-recipeCategoryId (foreign key) binary 16 not null
-recipeUserId (foreign key)binary 16 not null
-recipeDescription varchar 3000
-recipeImageUrl varchar 255
-recipeIngredients varchar 2000 not null
-recipeMinutes small int not null
-recipeName varchar 100 not null
-recipeNumberIngredients big int 4 not null
-recipeNutrition varchar 255
-recipeSteps varchar 3000 not null
-recipeSubmissionDate datetime not null
- * 
- * This is going to br the PDO getters and setters for recipes on our cookbook capstone.
- */
-namespace Darya\recipesCapstone;
+
+namespace TheDeepDiveDawgs\CommunityCookbook;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
-/** @recipe Damian Arya <darya@cnm.edu
+/** recipe class by Damian Arya darya@cnm.edu
  *@version (7.3)
  */
 
-use DateTime;
-use MongoDB\BSON\Binary;
 use Ramsey\Uuid\Uuid;
-/** docblock section of recipe setting up the classes for recipe section of PDO of capstone*/
+/** docblock section of recipe setting up the Classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 	/**
 	 * id for this recipe; this is the primary key
-	 * @var  Binary $recipeId
+	 * @var  Uuid $recipeId
 	 **/
 	private $recipeId;
 	/**
 	 *  to identify recipe type for sorting and searching purposes.
-	 * @var Binary $recipeCategoryId
+	 * @var Uuid $recipeCategoryId
 	 **/
 	private $recipeCategoryId;
 	/**
 	 * to identify recipe type for sorting and searching purposes.
-	 * @var Binary $recipeUserId
+	 * @var Uuid $recipeUserId
 	 **/
 	private $recipeUserId;
 	/**
@@ -95,34 +64,35 @@ class Recipe implements \JsonSerializable {
 	 **/
 	private $recipeNutrition;
 	/**
-	 * steps to make this recipe
-	 * @var string $recipeSteps
+	 * Step to make this recipe
+	 * @var string $recipeStep
 	 **/
-	private $recipeSteps;
+	private $recipeStep;
 	/**
 	 * date the recipe was submitted
 	 * @var \DateTime $recipeSubmissionDate
 	 **/
 	private $recipeSubmissionDate;
+
 	/**
 	 * constructor for this recipe
-	 * @param Binary $newRecipeId new user id
-	 * @param Binary $newRecipeCategoryId
-	 * @param Binary $newRecipeUserId
+	 * @param Uuid for $newRecipeId new user id
+	 * @param Uuid for $newRecipeCategoryId
+	 * @param Uuid for $newRecipeUserId
 	 * @param string $newRecipeDescription address
 	 * @param string $newRecipeImageUrl new password
 	 * @param string $newRecipeIngredients
-	 * @param int    $newRecipeMinutes
+	 * @param string $newRecipeMinutes
 	 * @param string $newRecipeName
 	 * @param string $newRecipeNutrition
-	 * @param INT $newRecipeNumberIngredients
-	 * @param string $newRecipeSteps
-	 * @param datetime $newRecipeSubmissionDate
+	 * @param string $newRecipeNumberIngredients
+	 * @param string $newRecipeStep
+	 * @param \DateTime $newRecipeSubmissionDate
 	 * @trows \RangeException if data vales are out of bounds
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \InvalidArgumentException if data types are not valid
 	 **/
-	public function __construct($newRecipeId,string $newRecipeCategoryId,string $newRecipeUserId,string $newRecipeDescription,string $newRecipeImageUrl,string $newRecipeIngredients,string $newRecipeMinutes,string $newRecipeName,string $newRecipeNumberIngredients,string $newRecipeNutrition,string $newRecipeSteps,string $newRecipeSubmissionDate) {
+	public function __construct($newRecipeId, $newRecipeCategoryId, $newRecipeUserId, string $newRecipeDescription, string $newRecipeImageUrl, string $newRecipeIngredients, string $newRecipeMinutes, string $newRecipeName, string $newRecipeNumberIngredients, string $newRecipeNutrition, string $newRecipeStep, $newRecipeSubmissionDate = null) {
 		try {
 			$this->setRecipeId($newRecipeId);
 			$this->setRecipeCategoryId($newRecipeCategoryId);
@@ -134,10 +104,9 @@ class Recipe implements \JsonSerializable {
 			$this->setRecipeName($newRecipeName);
 			$this->setRecipeNumberIngredients($newRecipeNumberIngredients);
 			$this->setRecipeNutrition($newRecipeNutrition);
-			$this->setRecipeSteps($newRecipeSteps);
+			$this->setRecipeStep($newRecipeStep);
 			$this->setRecipeSubmissionDate($newRecipeSubmissionDate);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-
 			//determine what exception type was thrown
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -154,43 +123,43 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * accessor method for recipe id
 	 *
-	 * @return  Uuid value of recipe id (or null if new recipe)
+	 * @return Uuid value of recipe id
 	 * */
-	public function getRecipeId(): void {
+	public function getRecipeId(): Uuid {
 		return $this->recipeId;
 	}
 
 	/**
 	 * mutator method for recipe id
 	 *
-	 * @param void| string $newrecipeId value of new recipe id
-	 * @throws \RangeException if $newrecipeId is not positive
+	 * @param void| string $newRecipeId value of new recipe id
+	 * @throws \RangeException if $newRecipeId is not positive
 	 * @throws \TypeError if the recipe Id is not
 	 **/
 	public function setRecipeId($newRecipeId): void {
 		try {
 			$uuid = self::validateUuid($newRecipeId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			$exceptionType = get_class ($exception);
+			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		// convert and store the recipe id
-		$this->recipeId = $newRecipeId;
+		$this->recipeId = $uuid;
 	}
 
 	/**
 	 * accessor method for recipeCategoryId
 	 *
-	 * @return string value of the recipeCategoryId
+	 * @return Uuid value of the recipeCategoryId
 	 */
-	public function getRecipeCategoryId(): void {
+	public function getRecipeCategoryId(): Uuid {
 		return $this->recipeCategoryId;
 	}
 
 	/**
 	 * mutator method for recipeCategoryId
 	 *
-	 * @param void| string $newrecipeCategoryId value of new recipe id
+	 * @param void | string $newRecipeCategoryId value of new recipe id
 	 * @throws \RangeException if $newRecipeCategoryId is not positive
 	 * @throws \TypeError if the recipeCategoryId is not
 	 **/
@@ -198,27 +167,27 @@ class Recipe implements \JsonSerializable {
 		try {
 			$uuid = self::validateUuid($newRecipeCategoryId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			$exceptionType = get_class ($exception);
+			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		// convert and store the recipeCategoryId
-		$this->recipeCategoryId = $newRecipeCategoryId;
+		$this->recipeCategoryId = $uuid;
 	}
 
 	/**
 	 *
 	 * accessor method for at recipeUserId
 	 *
-	 * @return void value of at recipeUserId
+	 * @return Uuid value of at recipeUserId
 	 **/
-	public function getRecipeUserId(): void {
-	return $this->recipeUserId;
+	public function getRecipeUserId(): Uuid {
+		return $this->recipeUserId;
 	}
 
 	/**
 	 * mutator method for recipeUserId
 	 *
-	 * @param void| string $newrecipeUserId value of new recipeUserId
+	 * @param void| string $newRecipeUserId value of new recipeUserId
 	 * @throws \RangeException if $newRecipeUserId is not positive
 	 * @throws \TypeError if the recipeUserId is not valid
 	 **/
@@ -226,32 +195,33 @@ class Recipe implements \JsonSerializable {
 		try {
 			$uuid = self::validateUuid($newRecipeUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			$exceptionType = get_class ($exception);
+			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		// convert and store the recipeUserId
-		$this->recipeUserId = $newRecipeUserId;
+		$this->recipeUserId = $uuid;
 	}
 
-		/**
-		 *
-		 * accessor method for Description
-		 *
-		 * @return string value of at Description
-		 **/
+	/**
+	 *
+	 * accessor method for Description
+	 *
+	 * @return string value of at Description
+	 **/
 	public function getRecipeDescription(): string {
-	return $this->recipeDescription;
-}
+		return $this->recipeDescription;
+	}
 
 	/**
 	 * mutator method for description
 	 *
 	 * @param string $newRecipeDescription new value of description
-	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecure
-	 * @throws \RangeException if $newDescription is > 3000 characters
+	 * @return string for $newRecipeDescription
+	 **@throws \RangeException if $newDescription is > 3000 characters
 	 * @throws \TypeError if $newDescription is not a string
-	 **/
-	public function setRecipeDescription(string $newRecipeDescription): string  {
+	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecure
+	 */
+	public function setRecipeDescription(string $newRecipeDescription): string {
 		// verify the description is secure
 		$newRecipeDescription = trim($newRecipeDescription);
 		$newRecipeDescription = filter_var($newRecipeDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -259,12 +229,13 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("recipe description is empty or insecure"));
 		}
 		// verify the description will fit in the database
-		if(strlen($newRecipeDescription) > 3000) {
+		if(strlen($newRecipeDescription) > 500) {
 			throw(new \RangeException("recipe description is too large"));
 		}
 		// store the description
 		$this->recipeDescription = $newRecipeDescription;
 	}
+
 
 	/**
 	 * accessor method for recipeImageUrl
@@ -278,7 +249,8 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for recipe imageUrl
 	 *
-	 * @param string $newrecipeImageUrl vale of new recipe imageUrl
+	 * @param string $newRecipeImageUrl vale of new recipe imageUrl
+	 * @return string of url for image
 	 * @throws \InvalidArgumentException if the imageUrl is not secure
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
 	 * @throws \TypeError if recipeImageUrl is not a string
@@ -296,7 +268,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("recipe passphrase is empty or insecure"));
 		}
 		//enforce that the imageUrl is exactly 128 characters.
-		if(strlen($newRecipeImageUrl) !== 128) {
+		if(strlen($newRecipeImageUrl) !== 255) {
 			throw(new \RangeException("recipe imageUrl must be 128 characters"));
 		}
 		//store the imageUrl
@@ -314,12 +286,12 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeIngredients
-	 * @throws \InvalidArgumentException if the recipeIngredients is not secure
-	 * @throws \RangeException if the recipeingredients is more then 2000 characters
-	 * @throws \TypeError if recipeIngredients is not a string
-	 *
 	 * @param string $newRecipeIngredients
-	 **/
+	 **@return string
+	 * @throws \RangeException if the recipeIngredients is more then 2000 characters
+	 * @throws \TypeError if recipeIngredients is not a string
+	 * @throws \InvalidArgumentException if the recipeIngredients is not secure
+	 */
 	public function setRecipeIngredients(string $newRecipeIngredients): string {
 		// verify the ingredients is secure
 		$newRecipeIngredients = trim($newRecipeIngredients);
@@ -328,7 +300,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Ingredients field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeIngredients) > 2000) {
+		if(strlen($newRecipeIngredients) > 300) {
 			throw(new \RangeException("Ingredient name is too large"));
 		}
 		// store the Ingredients
@@ -347,8 +319,8 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for Minutes
 	 *
-	 * * @param integer $newRecipeMinutes new value of minutes
-	 *	 * @throws \InvalidArgumentException if  $recipeMinutes is not a interger or insecure
+	 * @param integer $newRecipeMinutes new value of minutes
+	 * @throws \InvalidArgumentException if  $recipeMinutes is not a int or insecure
 	 * @throws \RangeException if the $recipeMinutes is not a integer
 	 * @throws \TypeError if $recipeMinutes is not a integer
 	 *
@@ -360,7 +332,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("Minutes field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if($newRecipeMinutes <=0 or $newRecipeMinutes =>1000) {
+		if($newRecipeMinutes < 0 or $newRecipeMinutes > 999) {
 			throw(new \RangeException("Minutes entered invalid, negative or too many"));
 		}
 		// store the minutes
@@ -377,11 +349,12 @@ class Recipe implements \JsonSerializable {
 	}
 
 	/**
-	 * mutator method for recipeName @throws \InvalidArgumentException if the recipeName is not secure
+	 * mutator method for recipeName*@param string $newRecipeName
+	 * @return string name for recipe
 	 * @throws \RangeException if the recipeName is more then 100 characters
 	 * @throws \TypeError if recipe recipeName is not a string
-	 * @param string $newRecipeName
-	 **/
+	 * @throws \InvalidArgumentException if the recipeName is not secure
+	 */
 	public function setRecipeName(string $newRecipeName): string {
 		// verify the name is secure
 		$newRecipeName = trim($newRecipeName);
@@ -408,11 +381,9 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeNumberIngredients
-	 *  @param integer $newrRecipeNumberIngredients new value of recipeNumberIngredients
-	 * @throws \InvalidArgumentException if $recipeNumberIngredients is not a integer or insecure
-	 * @throws \RangeException if $recipeNumberIngredients is  les then one or more then 40 characters
-	 * @throws \TypeError if $recipeNumberIngredients is not a integer
-	 **/
+	 * @param int $newRecipeNumberIngredients
+	 * @return int for number of recipe ingredients
+	 */
 	public function setRecipeNumberIngredients(int $newRecipeNumberIngredients): int {
 		// verify the number of ingredients is secure
 		$newRecipeNumberIngredients = filter_var($newRecipeNumberIngredients, FILTER_VALIDATE_INT);
@@ -420,7 +391,7 @@ class Recipe implements \JsonSerializable {
 			throw(new \InvalidArgumentException("number of ingredients field is empty"));
 		}
 		// verify the at handle will fit in the database
-		if($newRecipeNumberIngredients <=0 or $newRecipeNumberIngredients =>40) {
+		if($newRecipeNumberIngredients < 0 or $newRecipeNumberIngredients > 99) {
 			throw(new \RangeException("Too many ingredients"));
 		}
 		// store the number of ingredients
@@ -438,11 +409,12 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeNutrition
-	 *	 *	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
+	 * @param string $newRecipeNutrition
+	 * @return string of nutrition for the recipe
 	 * @throws \RangeException if the recipeNutrition is not 128 characters
 	 * @throws \TypeError if recipeNutrition is not a string
-	 * @param string $newRecipeNutrition
-	 **/
+	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
+	 */
 	public function setRecipeNutrition(string $newRecipeNutrition): string {
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
@@ -459,34 +431,35 @@ class Recipe implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for recipeSteps
+	 * accessor method for recipeStep
 	 *
-	 * @return string value of recipeSteps
+	 * @return string value of recipeStep
 	 **/
-	public function getRecipeSteps(): string {
-		return $this->recipeSteps;
+	public function getRecipeStep(): string {
+		return $this->recipeStep;
 	}
 
 	/**
-	 * mutator method for recipeSteps
-	 *	 *	 * @throws \InvalidArgumentException if the recipeSteps is not secure
-	 * @throws \RangeException if the recipeSteps is not 128 characters
-	 * @throws \TypeError if recipeSteps is not a string
-	 * @param string $newrRecipeSteps
-	 **/
-	public function setRecipeSteps(string $newRecipeSteps): string {
-		// verify the steps data is secure
-		$newRecipeSteps = trim($newRecipeSteps);
-		$newRecipeSteps = filter_var($newRecipeSteps, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newRecipeSteps) === true) {
-			throw(new \InvalidArgumentException("steps must be added"));
+	 * mutator method for recipeStep
+	 *    *    **@param string $newRecipeStep
+	 **@return string
+	 * @throws \RangeException if the recipeStep is not 128 characters
+	 * @throws \TypeError if recipeStep is not a string
+	 * @throws \InvalidArgumentException if the recipeStep is not secure
+	 */
+	public function setRecipeStep(string $newRecipeStep): string {
+		// verify the Step data is secure
+		$newRecipeStep = trim($newRecipeStep);
+		$newRecipeStep = filter_var($newRecipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newRecipeStep) === true) {
+			throw(new \InvalidArgumentException("Step must be added"));
 		}
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeSteps) > 3000) {
-			throw(new \RangeException(" too many steps"));
+		if(strlen($newRecipeStep) > 1000) {
+			throw(new \RangeException(" too many Step"));
 		}
-		// store the recipe steps
-		$this->recipeSteps = $newRecipeSteps;
+		// store the recipe Step
+		$this->recipeStep = $newRecipeStep;
 	}
 
 	/**
@@ -494,16 +467,16 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return \DateTime value of recipeSubmissionDate
 	 **/
-	public function getRecipeSubmissionDate(): datetime {
+	public function getRecipeSubmissionDate(): \DateTime {
 		return $this->recipeSubmissionDate;
 	}
 
 	/**
 	 * mutator method for recipeSubmissionDate
-	 *
-	 * @param \DateTime |string|null $newrRecipeSubmissionDate interaction date as a datetime object or string (or null tp load current)
+	 * @param \DateTime |string|null $newRecipeSubmissionDate interaction date as a datetime object or string (or null tp load current)
 	 * @throws \InvalidArgumentException if $recipeSubmissionDate is not a valid object or string
 	 * @throws \RangeException if the $recipeSubmissionDate is a date that does not exist
+	 * @throws \Exception
 	 **/
 
 	public function setRecipeSubmissionDate($newRecipeSubmissionDate = null): void {
@@ -533,7 +506,7 @@ class Recipe implements \JsonSerializable {
 
 	public  function insert(\PDO $pdo): void {
 		//creates query template
-		$query = "INSERT INTO recipe(recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeSteps, recipeSummitionDate) VALUES (:recipeId, :recipeCategoryId, :recipeUserId, :recipeDescription, :recipeImageUrl, :recipeIngredients, :recipeMinutes, :recipeName, :recipeNumberIngredients, :recipeNutrition, :recipeSteps, :recipeSubmissionDate)";
+		$query = "INSERT INTO recipe(recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate) VALUES (:recipeId, :recipeCategoryId, :recipeUserId, :recipeDescription, :recipeImageUrl, :recipeIngredients, :recipeMinutes, :recipeName, :recipeNumberIngredients, :recipeNutrition, :recipeStep, :recipeSubmissionDate)";
 		$statement = $pdo->prepare($query);
 		// this creates relationship between php state variables and pdo/mysql variables
 		$parameters = [
@@ -547,7 +520,7 @@ class Recipe implements \JsonSerializable {
 			"recipeName" =>$this->recipeName,
 			"recipeNumberIngredients" =>$this->recipeNumberIngredients,
 			"recipeNutrition" =>$this->recipeNutrition,
-			"recipeSteps" =>$this->recipeSteps,
+			"recipeStep" =>$this->recipeStep,
 			"recipeSubmissionDate" =>$this->recipeSubmissionDate,];
 		$statement->execute($parameters);
 	}
@@ -577,7 +550,7 @@ class Recipe implements \JsonSerializable {
 	 */
 	public function  update(\PDO $pdo, $thisRecipeId): void {
 		//create query template
-		$query = "UPDATE recipe SET recipeId = :recipeId, recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeSteps = :recipeSteps, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
+		$query = "UPDATE recipe SET recipeId = :recipeId, recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
 		$statement = $pdo->prepare($query);
 		//creates relationship between php state variables and pdo/mysql variables
 		$parameters = [
@@ -591,7 +564,7 @@ class Recipe implements \JsonSerializable {
 			"recipeName" =>$this->recipeName,
 			"recipeNumberIngredients" =>$this->recipeNumberIngredients,
 			"recipeNutrition" =>$this->recipeNutrition,
-			"recipeSteps" =>$this->recipeSteps,
+			"recipeStep" =>$this->recipeStep,
 			"recipeSubmissionDate" =>$this->recipeSubmissionDate,];
 		$statement->execute($parameters);
 	}
@@ -606,7 +579,7 @@ class Recipe implements \JsonSerializable {
 	 **/
 	public static function getAllRecipe(\PDO $pdo) : \SPLFixedArray {
 		// create query template
-		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeSteps, recipeSubmissionDate FROM recipe";
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate FROM recipe";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -615,7 +588,7 @@ class Recipe implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeSteps"], $row["recipeSubmissionDate"]);
+				$recipes = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
 				$recipe[$recipe->key()] = $recipe;
 				$recipe->next();
 			} catch(\Exception $exception) {
@@ -631,19 +604,12 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 */
-	public function jsonSerialize(): array {
+		public function jsonSerialize(): array {
 		//this collects all state variables
 		$fields = get_object_vars($this);
 		//turns Uuid into string
 		$fields["recipeId"] = $this->recipeId->toString();
 		unset($fields["recipeDescription"]);
-		return ($fields);
-	}
-
-	public function jsonSerialize() {
-		$fields = get_object_vars($this);
-		$fields["recipeId"] = $this->recipeId-> Uuid();
-		unset($fields["recipeImageUrl"]);
 		return ($fields);
 	}
 }

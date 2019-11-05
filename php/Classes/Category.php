@@ -154,10 +154,11 @@ class Category implements \JsonSerializable {
 	 * get category by category id
 	 *
 	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $categoryId category id to search for
 	 * @param \PDOException when mySQL related errors occur
 	 * @throws \TypeError if the $pdo is not a PDO connection object
 	 */
-	public function getCategoryByCategoryId(\PDO $pdo): Category {
+	public function getCategoryByCategoryId(\PDO $pdo, $categoryId): Category {
 		// sanitize the categoryId before searching
 		try {
 			$categoryId = self::validateUuid($categoryId);
