@@ -1,6 +1,9 @@
 <?php
 
-namespace TheDeepDiveDawgs\communitycookbook;
+namespace TheDeepDiveDawgs\CommunityCookbook;
+
+require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
+use Ramsey\Uuid\Uuid;
 /**
  * Trait to Validate a mySQL Date
  *
