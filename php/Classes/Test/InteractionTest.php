@@ -77,4 +77,18 @@ class InteractionTest extends CommunityCookbookTest {
 	 */
 
 	protected $VALID_INTERACTIONRATING2 = "PHPUnit Test Still Passing";
+
+	/**
+	 * create dependent objects before running each test
+	 */
+
+	public final function setUp() : void {
+		//run default setUp() method first
+		parent::setUp();
+		$password ="abc123";
+		$this->VALID_USER_HASH = $password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+
+		//create and insert User to own the test Interaction
+		$this->VALID_INTERACTIONDATE = new User(generateUuidV4(), null);
+	}
 }
