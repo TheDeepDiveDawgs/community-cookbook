@@ -56,7 +56,7 @@ class UserTest extends CommunityCookbookTest {
 
 	/**
 	 * valid hash to use
-	 * @var $VALID_HASH
+	 * @var $VALID_USER_HASH
 	 */
 	protected $VALID_USER_HASH;
 
