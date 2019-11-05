@@ -9,7 +9,7 @@ require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
  */
 
 use Ramsey\Uuid\Uuid;
-/** docblock section of recipe setting up the classes for recipe section of PDO of capstone*/
+/** docblock section of recipe setting up the Classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
