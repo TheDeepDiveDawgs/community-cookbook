@@ -45,4 +45,26 @@ class CategoryTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
 	}
 
+	/**
+	 * test inserting a category, editing it, and then updating it
+	 */
+	public function testUpdateValidCategory(): void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("category");
+
+		//create a new category and insert into mySQL
+		$categoryId = generateUuidV4();
+		$category = new Category($categoryId, $this->VALID_CATEGORY_NAME);
+		$category->insert($this->getPDO());
+
+		// edit the category and update it in mySQL
+		$category->setCategoryName($this->VALID_CATEGORY_NAME);
+		$category->update($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
+		$this->assertEquals($pdoCategory->getCategoryId(), $categoryId);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
+		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
+	}
 }
