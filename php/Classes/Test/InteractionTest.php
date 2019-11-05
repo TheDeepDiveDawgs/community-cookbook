@@ -32,10 +32,20 @@ class InteractionTest extends CommunityCookbookTest {
 	protected $user = null;
 
 	/**
+	 * valid user hash to create the user object to own the test
+	 * @var $VALID_HASH
+	 */
+
+	protected $VALID_USER_HASH;
+
+	/**
 	 * Recipe that the Interaction was based on, this is for foreign key relations
 	 * @var Recipe $user
 	 */
 
 	protected $recipe = null;
 
+	/**
+	 *
+	 */
 }
