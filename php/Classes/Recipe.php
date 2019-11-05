@@ -1,14 +1,17 @@
 <?php
 
+
 namespace TheDeepDiveDawgs\CommunityCookbook;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
+
 /** recipe class by Damian Arya darya@cnm.edu
- *@version (7.3)
+ * @version (7.3)
  */
 
 use Ramsey\Uuid\Uuid;
+
 /** docblock section of recipe setting up the Classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
 	use ValidateDate;
@@ -488,7 +491,7 @@ class Recipe implements \JsonSerializable {
 		// store the submission date with ValidateDate trait
 		try {
 			$newRecipeSubmissionDate = self::validateDate($newRecipeSubmissionDate);
-		}	catch(\InvalidArgumentException | \RangeException $exception) {
+		} catch(\InvalidArgumentException | \RangeException $exception) {
 			$exceptionType = get_class($exception);
 			throw (new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -504,7 +507,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
 
-	public  function insert(\PDO $pdo): void {
+	public function insert(\PDO $pdo): void {
 		//creates query template
 		$query = "INSERT INTO recipe(recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate) VALUES (:recipeId, :recipeCategoryId, :recipeUserId, :recipeDescription, :recipeImageUrl, :recipeIngredients, :recipeMinutes, :recipeName, :recipeNumberIngredients, :recipeNutrition, :recipeStep, :recipeSubmissionDate)";
 		$statement = $pdo->prepare($query);
@@ -515,13 +518,13 @@ class Recipe implements \JsonSerializable {
 			"recipeUserId" => $this->recipeUserId,
 			"recipeDescription" => $this->recipeDescription,
 			"recipeImageUrl" => $this->recipeImageUrl,
-			"recipeIngredients" =>$this->recipeIngredients,
-			"recipeMinutes" =>$this->recipeMinutes,
-			"recipeName" =>$this->recipeName,
-			"recipeNumberIngredients" =>$this->recipeNumberIngredients,
-			"recipeNutrition" =>$this->recipeNutrition,
-			"recipeStep" =>$this->recipeStep,
-			"recipeSubmissionDate" =>$this->recipeSubmissionDate,];
+			"recipeIngredients" => $this->recipeIngredients,
+			"recipeMinutes" => $this->recipeMinutes,
+			"recipeName" => $this->recipeName,
+			"recipeNumberIngredients" => $this->recipeNumberIngredients,
+			"recipeNutrition" => $this->recipeNutrition,
+			"recipeStep" => $this->recipeStep,
+			"recipeSubmissionDate" => $this->recipeSubmissionDate,];
 		$statement->execute($parameters);
 	}
 
@@ -538,7 +541,7 @@ class Recipe implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//creates relationship between php state variables and PDO/mysql variables
-		$parameters = ["recipeID" => $this->recipeId->getBytes()];
+		$parameters = ["recipeId" => $this->recipeId->getBytes()];
 		$statement->execute($parameters);
 	}
 
@@ -548,7 +551,7 @@ class Recipe implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @param $thisRecipeId
 	 */
-	public function  update(\PDO $pdo, $thisRecipeId): void {
+	public function update(\PDO $pdo, $thisRecipeId): void {
 		//create query template
 		$query = "UPDATE recipe SET recipeId = :recipeId, recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
 		$statement = $pdo->prepare($query);
@@ -559,13 +562,13 @@ class Recipe implements \JsonSerializable {
 			"recipeUserId" => $this->recipeUserId,
 			"recipeDescription" => $this->recipeDescription,
 			"recipeImageUrl" => $this->recipeImageUrl,
-			"recipeIngredients" =>$this->recipeIngredients,
-			"recipeMinutes" =>$this->recipeMinutes,
-			"recipeName" =>$this->recipeName,
-			"recipeNumberIngredients" =>$this->recipeNumberIngredients,
-			"recipeNutrition" =>$this->recipeNutrition,
-			"recipeStep" =>$this->recipeStep,
-			"recipeSubmissionDate" =>$this->recipeSubmissionDate,];
+			"recipeIngredients" => $this->recipeIngredients,
+			"recipeMinutes" => $this->recipeMinutes,
+			"recipeName" => $this->recipeName,
+			"recipeNumberIngredients" => $this->recipeNumberIngredients,
+			"recipeNutrition" => $this->recipeNutrition,
+			"recipeStep" => $this->recipeStep,
+			"recipeSubmissionDate" => $this->recipeSubmissionDate,];
 		$statement->execute($parameters);
 	}
 
@@ -577,7 +580,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getAllRecipe(\PDO $pdo) : \SPLFixedArray {
+	public static function getAllRecipe(\PDO $pdo): \SPLFixedArray {
 		// create query template
 		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate FROM recipe";
 		$statement = $pdo->prepare($query);
@@ -600,11 +603,152 @@ class Recipe implements \JsonSerializable {
 	}
 
 	/**
+	 * gets Recipe by recipe user id for the my recipe pages
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid for $recipeUserId
+	 * @return \SplFixedArray SplFixedArray of getRecipeByRecipeUserId found or null if not found
+	 */
+	public static function getRecipeByRecipeUserId(\PDO $pdo, $recipeUserId): \SPLFixedArray {
+
+		try {
+			$recipeUserId = self::validateUuid($recipeUserId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		//create query template
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate FROM recipe WHERE recipeUserId = :recipeUserId";
+		$statement = $pdo->prepare($query);
+		//bind the recipe user id to the place holder in the template
+		$parameters = ["recipeUserId" => $recipeUserId->getBytes()];
+		$statement->execute($parameters);
+
+
+		// build an array of recipes
+		$recipes = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+				$recipes[$recipes->key()] = $recipe;
+				$recipes->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($recipes);
+	}
+
+	// this is the divide between foo by bar array and normal foo by bar//
+
+	public function getRecipeByCategoryId(\PDO $pdo, $recipeCategoryId): Recipe {
+		//sanitize the recipeCategoryId before searching
+		try {
+			$recipeCategoryId = self::validateUuid($recipeCategoryId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		//create query template
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
+    		recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
+    		recipeSubmissionDate FROM recipe WHERE recipeCategoryId = :recipeCategoryId";
+		$statement = $pdo->prepare($query);
+		//bind the category id to the place holder in the template
+		$parameters = ["recipeCategoryId" => $recipeCategoryId->getBytes()];
+		$statement->execute($parameters);
+		//grab the recipeCategoryId from mySQL
+		try {
+			$recipe = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"],
+					$row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($recipe);
+	}
+
+	//** this is where get recipe by recipe id begins **//
+
+	public function getRecipeByRecipeId(\PDO $pdo, $recipeId): Recipe {
+		//sanitize the recipeId before searching
+		try {
+			$recipeId = self::validateUuid($recipeId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		//create query template
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
+    recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
+    recipeSubmissionDate FROM recipe WHERE recipeId = :recipeId";
+		$statement = $pdo->prepare($query);
+
+		// bind the recipe id to the place holder in the template
+		$parameters = ["recipeId" => $recipeId->getBytes()];
+		$statement->execute($parameters);
+
+		//grab the recipe from mySQL
+		try {
+			$recipe = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"],
+					$row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($recipe);
+	}
+
+
+	//this is where foo by bar get recipe by search term begins
+
+	public function getRecipeBySearchTerm(\PDO $pdo, $recipeSearchTerm): Recipe {
+		//sanitize the recipeSearchTerm before searching
+		try {
+			$recipeSearchTerm = self::validateUuid($recipeSearchTerm);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		//create query template
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
+    recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
+    recipeSubmissionDate FROM recipe WHERE recipeId = :recipeSearchTerm";
+		$statement = $pdo->prepare($query);
+
+		//grab the recipeSearchTerm from mySQL
+		try {
+			$recipeSearchTerm = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$recipeSearchTerm = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"], $row["recipeImageUrl"], $row["recipeIngredients"],
+					$row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"], $row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $recipeSearchTerm;
+	}
+
+	/**
 	 * formats the state variables for Json serializable
 	 *
 	 * @return array resulting state variables to serialize
 	 */
-		public function jsonSerialize(): array {
+	public function jsonSerialize(): array {
 		//this collects all state variables
 		$fields = get_object_vars($this);
 		//turns Uuid into string
