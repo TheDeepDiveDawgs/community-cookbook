@@ -118,4 +118,13 @@ class CategoryTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
 	}
 
+	/**
+	 * test grabbing a category that does not exist
+	 */
+	public function testGetInvalidCategoryByCategoryId() {
+		//grab a category id that exceeds the maximum allowable category id
+		$fakeCategoryId = generateUuidV4();
+		$category = Category::getCategoryByCategoryId($this->getPDO(), $fakeCategoryId);
+		$this->assertNull($category);
+	}
 }
