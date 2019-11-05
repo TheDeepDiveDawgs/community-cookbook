@@ -709,7 +709,7 @@ class Recipe implements \JsonSerializable {
 		}
 		return ($recipe);
 	}
-
+	
 	//this is where foo by bar get recipe by search term begins
 	public function getRecipeBySearchTerm (\PDO $pdo, $recipeIngredients, $recipeName, $recipeStep) : \SplFixedArray {
 		// sanitize the search term in recipe ingredients before searching
