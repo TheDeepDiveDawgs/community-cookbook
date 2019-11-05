@@ -67,4 +67,27 @@ class CategoryTest extends CommunityCookbookTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
 	}
+	
+	/**
+	 * test creating a category and then deleting it
+	 */
+
+	public function testDeleteValidCategory(): void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("category");
+
+		//create a new category and insert into mySQL
+		$categoryId = generateUuidV4();
+		$category = new Category($categoryId, $this->VALID_CATEGORY_NAME);
+		$category->insert($this->getPDO());
+
+		//delete the category from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
+		$category->delete($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
+		$this->assertNull($pdoCategory);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("category"));
+	}
 }
