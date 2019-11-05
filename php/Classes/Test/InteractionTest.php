@@ -46,6 +46,21 @@ class InteractionTest extends CommunityCookbookTest {
 	protected $recipe = null;
 
 	/**
-	 *
+	 *timestamp of interaction; this starts at null and is assigned later
+	 * @var \DateTime $VALID_INTERACTIONDATE
 	 */
+
+	protected $VALID_INTERACTIONDATE = null;
+
+	/**
+	 * valid timestamp to use as sunriseInteractionDate
+	 */
+
+	protected $VALID_SUNRISEDATE = null;
+
+	/**
+	 * valid timestamp to use as sunsetInteractionDate
+	 */
+
+	protected $VALID_SUNSETDATE = null;
 }
