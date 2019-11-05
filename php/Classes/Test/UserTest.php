@@ -10,21 +10,15 @@ require_once(dirname(__DIR__) . "/autoload.php");
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
- * Full PHPUnit Test for the Tweet class
+ * Full PHPUnit Test for the User class
  *
- * This is a complete PHPUnit Test of the Tweet class. It is complete because *ALL* mySQL/PDO enabled methods
+ * This is a complete PHPUnit Test of the User class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
- * @see Tweet
+ * @see User
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
 class UserTest extends CommunityCookbookTest {
-	/**
-	 * User that created the Tweet; this is for foreign key relations
-	 * @var User User
-	 **/
-	protected $user = null;
-
 
 	/**
 	 * placeholder until account activation is created
@@ -46,7 +40,7 @@ class UserTest extends CommunityCookbookTest {
 	 * valid handle to use
 	 * @var string $VALID_HANDLE
 	 **/
-	protected $VALID_HANDLE = "@grievxus";
+	protected $VALID_HANDLE = "@grievous";
 
 	/**
 	 * second valid handle to use
@@ -79,7 +73,7 @@ class UserTest extends CommunityCookbookTest {
 		$userId = generateUuidV4();
 
 		// create and insert a User to own the Test recipe
-		$user = new User(generateUuidV4(), null,"grievxus@outlook.com", "Gino Villalpando", "grievxus", $this->VALID_USER_HASH);
+		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectation
@@ -191,7 +185,7 @@ class UserTest extends CommunityCookbookTest {
 	 **/
 	public function testGetInvalidUserActivation() : void {
 		// grab an activation token that does not exist
-		$user = User::getUserByUserActivationToken($this->getPDO(), "6675636b646f6e616c646472756d7066");
+		$user = User::getUserByUserActivationToken($this->getPDO(), "88015c507fbc02f37bf8bc398ee4eaad");
 		$this->assertNull($user);
 	}
 	/**

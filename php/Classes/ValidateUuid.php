@@ -2,6 +2,8 @@
 namespace TheDeepDiveDawgs\CommunityCookbook;
 
 
+use Ramsey\Uuid\Uuid;
+
 /**
  * Trait to validate a uuid
  *

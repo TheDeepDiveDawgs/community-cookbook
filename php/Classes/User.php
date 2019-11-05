@@ -81,7 +81,7 @@ class User implements \JsonSerializable {
 	 *
 	 **/
 	public function getUserId(): Uuid {
-		return $this->userId;
+		return ($this->userId);
 	}
 
 	/**
@@ -342,15 +342,12 @@ class User implements \JsonSerializable {
 		if(empty($userEmail) === true) {
 			throw(new \PDOException("User email is invalid"));
 		}
-		//escape any mySQL wild cards
-		$userEmail = str_replace("_", "\\_", str_replace("%", "\\%", $userEmail));
 
 		//create query template
 		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userEmail = :userEmail";
 		$statement = $pdo->prepare($query);
 
 		//bind the user email to the place holder in the template
-		$userEmail = "%$userEmail%";
 		$parameters = ["userEmail" => $userEmail];
 		$statement->execute($parameters);
 
@@ -390,7 +387,7 @@ class User implements \JsonSerializable {
 	$statement = $pdo->prepare($query);
 
 	// bind the user id to the place holder in the template
-	$parameters = ["userActivationToken" => $userActivationToken->getBytes()];
+	$parameters = ["userActivationToken" => $userActivationToken];
 	$statement->execute($parameters);
 
 	// grab the user from mySQL

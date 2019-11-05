@@ -1,5 +1,5 @@
 <?php
-namespace TheDeepDiveDawgs\CommunityCookbook;
+namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
@@ -8,9 +8,11 @@ use PHPUnit\DbUnit\Database\Connection;
 use PHPUnit\DbUnit\Operation\{Composite, Factory, Operation};
 
 // grab the encrypted properties file
-require_once("/etc/apache2/capstone-mysql/Secret.php");
+require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
-require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+// grab the class under scrutiny
+require_once(dirname(__DIR__) . "/autoload.php");
+require_once(dirname(__DIR__,2) . "/vendor/autoload.php");
 
 /**
  * Abstract class containing universal and project specific mySQL parameters
@@ -89,7 +91,7 @@ abstract class CommunityCookbookTest extends TestCase {
 			// connect to mySQL and provide the interface to PHPUnit
 
 
-			$secrets =  new Secrets("/etc/apache2/capstone-mysql/cookbook.ini");
+			$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cookbook.ini");
 			$pdo = $secrets->getPdoObject();
 			$this->connection = $this->createDefaultDBConnection($pdo, $secrets->getDatabase());
 		}
