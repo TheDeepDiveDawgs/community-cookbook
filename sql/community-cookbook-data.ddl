@@ -1,4 +1,3 @@
-
 ALTER DATABASE cookbook CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 -- these statements will drop table from database and re-add them in child to parent order.
 drop table if exists interaction;
@@ -47,8 +46,8 @@ create table recipe(
 	recipeIngredients VARCHAR(300) not null,
 	recipeMinutes INT(3) not null,
 	recipeName VARCHAR(100) not null,
-	recipeNutrition VARCHAR(255),
 	recipeNumberIngredients INT(2) not null,
+	recipeNutrition VARCHAR(255),
 	recipeStep VARCHAR(1000) not null,
 	recipeSubmissionDate DATETIME not null,
 	-- index the foreign keys
