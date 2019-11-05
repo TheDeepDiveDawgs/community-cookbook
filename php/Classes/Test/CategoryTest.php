@@ -127,4 +127,30 @@ class CategoryTest extends CommunityCookbookTest {
 		$category = Category::getCategoryByCategoryId($this->getPDO(), $fakeCategoryId);
 		$this->assertNull($category);
 	}
+
+	/**
+	 * test grabbing all Categories
+	 */
+
+	public function testGetAllValidCategories(): void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("category");
+
+		//create a new category and insert into mySQL
+		$categoryId = generateUuidV4();
+		$category = new Category($categoryId, $this->VALID_CATEGORY_NAME);
+		$category->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$results = Category::getAllCategories($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("", $results);
+
+		// grab the result from the array and validate it
+		$pdoCategory = $results[0];
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
+		$this->assertEquals($pdoCategory->getCategoryId(), $categoryId);
+		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
+	}
 }
