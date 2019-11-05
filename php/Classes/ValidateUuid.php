@@ -1,7 +1,7 @@
 <?php
 namespace TheDeepDiveDawgs\CommunityCookbook;
 
-
+require_once(dirname(__DIR__) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
