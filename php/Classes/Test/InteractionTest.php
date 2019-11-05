@@ -63,4 +63,18 @@ class InteractionTest extends CommunityCookbookTest {
 	 */
 
 	protected $VALID_SUNSETDATE = null;
+
+	/**
+	 * rating of interaction
+	 * @var int $VALID_INTERACTIONRATING
+	 */
+
+	protected $VALID_INTERACTIONRATING = "PHPUnit Test Passing";
+
+	/**
+	 * content of updated rating
+	 * @var int $VALID_INTERACTIONRATING2
+	 */
+
+	protected $VALID_INTERACTIONRATING2 = "PHPUnit Test Still Passing";
 }
