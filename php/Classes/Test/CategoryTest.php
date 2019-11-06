@@ -8,7 +8,7 @@ use TheDeepDiveDawgs\CommunityCookbook\{User, Category, Recipe, Interaction};
 require_once(dirname(__DIR__) . "/autoload.php");
 
 //grab the uuid generator
-require_once(dirname(__DIR__) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
  * Full PHPUnit test for the Category class
