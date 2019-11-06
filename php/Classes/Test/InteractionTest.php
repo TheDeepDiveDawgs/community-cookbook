@@ -101,4 +101,20 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->VALID_SUNSETDATE = new \DateTime();
 		$this->VALID_SUNSETDATE->add(new \DateInterval("P10D"));
 	}
+
+	/**
+	 * test inserting a valid interaction and verify that the actual mySQL data matches
+	 */
+
+	public function testInsertValidInteraction() : void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("Interaction");
+
+		//create a new interaction and insert into mySQL
+		$interactionId = generateUuidV4();
+		$interaction = new Interaction($interactionId, $this->user-getUserId(), $this->VALID_INTERACTIONRATING, $this->VALID_INTERACTIONDATE);
+		$interaction->insert($this->getPDO());
+	}
+
+
 }
