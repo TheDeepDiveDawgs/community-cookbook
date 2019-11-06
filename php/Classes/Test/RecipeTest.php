@@ -25,35 +25,35 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var Recipe Recipe
 	 **/
 
-	protected $recipe = null;
+	protected $recipe = "food";
 
 	/**
 	 * valid RECIPE id to create the RECIPE object to own the test
 	 * @var $VALID_RECIPE_ID
 	 */
 
-	protected $VALID_RECIPE_ID; "placeholder, valid recipe id"
+	protected $VALID_RECIPE_ID;
 
 	/**
 	 * content of the Recipe category id
 	 * @var string $VALID_RECIPE_ID
 	 **/
 
-	protected $VALID_RECIPE_CATEGORY_ID = "place holder for category";
+	protected $VALID_RECIPE_CATEGORY_ID;
 
 	/**
 	 * content of the updated Recipe category id
 	 * @var string $VALID_RECIPECATEGORYID2
 	 **/
 
-	protected $VALID_RECIPE_CATEGORY2 = "place holder for category";
+	protected $VALID_RECIPE_CATEGORY2 = "place holder for category, vegan";
 
 	/**
 	 * content of the updated Recipe user id
 	 * @var string $VALID_RECIPEUSERID
 	 **/
 
-	protected $VALID_RECIPE_USER_ID = null;
+	protected $VALID_RECIPE_USER_ID;
 
 
 	/**
@@ -61,21 +61,21 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPEDESCRIPTION
 	 */
 
-	protected $VALID_RECIPE_DESCRIPTION = null;
+	protected $VALID_RECIPE_DESCRIPTION = "this is a recipe description, food is great";
 
 	/**
 	 * Valid to use as Recipe image url
 	 * @var string $VALID_RECIPEDEIMAGEURL
 	 */
 
-	protected $VALID_RECIPE_IMAGE_URL = null;
+	protected $VALID_RECIPE_IMAGE_URL = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.chatelaine.com%2Fwp-content%2Fuploads%2F2019%2F01%2Fcanada-new-food-guide-2019.jpeg&imgrefurl=https%3A%2F%2Fwww.chatelaine.com%2Fhealth%2Fcanadas-new-food-guide%2F&docid=iGdHGh_bTDOdlM&tbnid=iXbC_QxC1WGTqM%3A&vet=10ahUKEwjdpcbgztblAhVKIqwKHXiwCScQMwh7KAIwAg..i&w=1542&h=1439&bih=578&biw=1280&q=food&ved=0ahUKEwjdpcbgztblAhVKIqwKHXiwCScQMwh7KAIwAg&iact=mrc&uact=8";
 
 	/**
 	 * Valid to use as Recipe ingredients
 	 * @var string $VALID_RECIPEINGREDIENTS
 	 */
 
-	protected $VALID_RECIPE_INGREDIENTS = null;
+	protected $VALID_RECIPE_INGREDIENTS = "recipe ingredients, vegies, fries, meat";
 
 
 	/**
@@ -83,7 +83,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPEMINUTES
 	 */
 
-	protected $VALID_RECIPE_MINUTES = null;
+	protected $VALID_RECIPE_MINUTES = "20 min";
 
 
 	/**
@@ -91,7 +91,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPENAME
 	 */
 
-	protected $VALID_RECIPE_NAME = null;
+	protected $VALID_RECIPE_NAME = "yummy vegan dish";
 
 
 	/**
@@ -99,7 +99,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPENUMBERINGREDIENTS
 	 */
 
-	protected $VALID_RECIPE_NUMBER_INGREDIENTS = null;
+	protected $VALID_RECIPE_NUMBER_INGREDIENTS = "two";
 
 
 	/**
@@ -107,26 +107,22 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPENUTRITION
 	 */
 
-	protected $VALID_RECIPE_NUTRITION = null;
+	protected $VALID_RECIPE_NUTRITION = "there is no nutritional value in these vegies";
 
 	/**
 	 * Valid to use as Recipe step
 	 * @var string $VALID_RECIPESTEP
 	 */
 
-	protected $VALID_RECIPE_STEP = null;
+	protected $VALID_RECIPE_STEP = "step one, wash the vegies, step two cut the vegies, step three eat the vegies";
 
 	/**
 	 * Valid to use as Recipe submission date
-	 * @var string $VALID_RECIPESUBMISSIONDATE
+	 * @var string $VALID_RECIPE_SUBMISSION_DATE
 	 * Valid to use as sunriseRecipeDate
 	 */
 
-	protected $VALID_RECIPE_SUBMISSION_DATE = null;
-	/* Valid  to use as sunriseRecipeDate
-	 */
-
-/**
+	/**
  *  create dependant objects before running each test
  */
 
@@ -139,7 +135,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
 		$this->profile->insert($this->getPDO());
 		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_TWEETDATE = new \DateTime();
+		$this->VALID_RECIPE_DATE = new \DateTime();
 		//format the sunrise date to use for testing
 		$this->VALID_SUNRISEDATE = new \DateTime();
 		$this->VALID_SUNRISEDATE->sub(new \DateInterval("P10D"));
@@ -163,7 +159,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$pdoRecipe = Recipe::getRecipeByRecipeId($this->getPDO(), $recipe->getRecipeId());
 		$this->assertEquals($pdoRecipe->getRecipeId()->toString(), $recipeId->toString());
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipe->getRecipeId()->toString());
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(),$this->VALID_RECIPE_ID;
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(),$this->VALID_RECIPE_ID);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeUserId()->getTimestamp(), $this->VALID_RECIPE_USER_ID->getTimestamp());
 	}
@@ -172,10 +168,8 @@ class RecipeTest extends CommunityCookbookTest {
 	 * test inserting a Recipe, editing it, and then updating it
 	 **/
 	public function testUpdateValidRecipe($pdoRecipeNumberIngredients, $pdoRecipeNutrition, $pdoRecipeStep, $pdoRecipeSubmissionDate, $pdoRecipeName, $pdoRecipeMinutes, $pdoRecipeDescription, $pdoRecipeImageUrl, $pdoRecipeIngredients, $pdoRecipeUserId, $pdoRecipeCategoryId, $pdoRecipeId) : void {
-
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("recipe");
-
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
 		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPE_CONTENT, $this->VALID_RECIPE_DATE);
@@ -324,7 +318,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$pdoRecipe = $results[0];
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
 		$this->assertEquals($pdoRecipe->getRecipeProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoRecipe->getRecipeContent(), $this->VALID_TWEETCONTENT);
+		$this->assertEquals($pdoRecipe->getRecipeContent(), $this->VALID_RECIPE_CONTENT);
 		//format the date to seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeDate()->getTimestamp(), $this->VALID_RECIPE_DATE->getTimestamp());
 	}
@@ -365,7 +359,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoRecipe->getRecipeMinutes(), $this->VALID_RECIPE_MINUTES);
 		$this->assertEquals($pdoRecipe->getRecipeName(), $this->VALID_RECIPE_NAME);
 		$this->assertEquals($pdoRecipe->getRecipeNumberIngredients(), $this->VALID_RECIPE_NUMBER_INGREDIENTS);
-		$this->assertEquals($pdoRecipeNutrition->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITTION);
+		$this->assertEquals($pdoRecipeNutrition->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITION);
 		$this->assertEquals($pdoRecipeStep->getRecipeStep(), $this->VALID_RECIPE_STEPS);
 		$this->assertEquals($pdoRecipeSubmissionDate->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
 
