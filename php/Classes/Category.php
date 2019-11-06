@@ -148,6 +148,7 @@ class Category implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["categoryId" => $this->categoryId->getBytes()];
+		$statement->execute($parameters);
 	}
 
 	/**
@@ -158,7 +159,7 @@ class Category implements \JsonSerializable {
 	 * @param \PDOException when mySQL related errors occur
 	 * @throws \TypeError if the $pdo is not a PDO connection object
 	 */
-	public function getCategoryByCategoryId(\PDO $pdo, $categoryId): Category {
+	public function getCategoryByCategoryId(\PDO $pdo, $categoryId): ?Category {
 		// sanitize the categoryId before searching
 		try {
 			$categoryId = self::validateUuid($categoryId);
