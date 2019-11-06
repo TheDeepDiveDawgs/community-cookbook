@@ -2,7 +2,7 @@
 
 namespace TheDeepDiveDawgs\CommunityCookbook;
 
-use TheDeepDiveDawgs\CommunityCookbook\{User, Category, Recipe, Interaction};
+use TheDeepDiveDawgs\CommunityCookbook\{Test\CommunityCookbookTest, User, Category, Recipe, Interaction};
 
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
