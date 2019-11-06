@@ -1,8 +1,8 @@
 <?php
 
-namespace TheDeepDiveDawgs\CommunityCookbook;
+namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 
-use TheDeepDiveDawgs\CommunityCookbook\{Test\CommunityCookbookTest, User, Category, Recipe, Interaction};
+use TheDeepDiveDawgs\CommunityCookbook\{User, Category, Recipe, Interaction};
 
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -22,9 +22,9 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 class CategoryTest extends CommunityCookbookTest {
 	/**
 	 *valid category name to create the category
-	 * @var $VALID_CATEGORY_NAME
+	 * @var string $VALID_CATEGORY_NAME
 	 */
-	protected $VALID_CATEGORY_NAME;
+	protected $VALID_CATEGORY_NAME = "Vegetarian";
 
 	/**
 	 *test inserting a valid category and verifying that the actual mySQL data matches
@@ -95,7 +95,7 @@ class CategoryTest extends CommunityCookbookTest {
 	 * test inserting a category and regrabbing it from mySQL
 	 */
 
-	public function testGetValidCategoryByCategoryId() {
+	public function testGetValidCategoryByCategoryId(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("category");
 
@@ -104,15 +104,8 @@ class CategoryTest extends CommunityCookbookTest {
 		$category = new Category($categoryId, $this->VALID_CATEGORY_NAME);
 		$category->insert($this->getPDO());
 
-		//grab the data from mySQL
-		$results = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
-
-		// enforce no other objects are bleeding into category
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook", $results);
-
-		//enforce the results meet expectations
-		$pdoCategory = $results[0];
+		//grab the data from mySQL and enforce the results meet expectations
+		$pdoCategory = Category::getCategoryByCategoryId($this->getPDO(), $category->getCategoryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
 		$this->assertEquals($pdoCategory->getCategoryId(), $categoryId);
 		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
@@ -145,7 +138,7 @@ class CategoryTest extends CommunityCookbookTest {
 		$results = Category::getAllCategories($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Category", $results);
 
 		// grab the result from the array and validate it
 		$pdoCategory = $results[0];
