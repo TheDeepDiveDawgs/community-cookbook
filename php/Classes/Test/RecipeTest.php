@@ -21,7 +21,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class RecipeTest extends CommunityCookbookTest {
 	/**
-	 * Profile that created the Recipe; this is for foreign key relations
+	 * Recipe that created the Recipe; this is for foreign key relations
 	 * @var Recipe Recipe
 	 **/
 
@@ -83,7 +83,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPEMINUTES
 	 */
 
-	protected $VALID_RECIPE_MINUTES = "20 min";
+	protected $VALID_RECIPE_MINUTES = 20;
 
 
 	/**
@@ -131,9 +131,9 @@ class RecipeTest extends CommunityCookbookTest {
 		parent::setUp();
 		$password = "abc123";
 		$this->VALID_RECIPE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
-		// create and insert a Profile to own the test Recipe
-		$this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
-		$this->profile->insert($this->getPDO());
+		// create and insert a Recipe to own the test Recipe
+		$this->recipe = new Recipe(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
+		$this->recipe->insert($this->getPDO());
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_RECIPE_DATE = new \DateTime();
 		//format the sunrise date to use for testing
@@ -152,7 +152,7 @@ class RecipeTest extends CommunityCookbookTest {
 
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
-		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPE, $this->VALID_RECIPE_ID);
+		$recipe = new Recipe($recipeId, $this->recipe->getRecipeId(), $this->VALID_RECIPE, $this->VALID_RECIPE_ID);
 		$recipe->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -161,7 +161,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipe->getRecipeId()->toString());
 		$this->assertEquals($pdoRecipe->getRecipeCategoryId(),$this->VALID_RECIPE_ID);
 		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoRecipe->getRecipeUserId()->getTimestamp(), $this->VALID_RECIPE_USER_ID->getTimestamp());
+		$this->assertEquals($pdoRecipe->getRecipeSubmissionDate()->getTimestamp(), $this->VALID_RECIPE_SUBMISSION_DATE->getTimestamp());
 	}
 
 	/**
@@ -172,7 +172,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$numRows = $this->getConnection()->getRowCount("recipe");
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
-		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPE_CONTENT, $this->VALID_RECIPE_DATE);
+		$recipe = new Recipe($recipeId, $this->recipe->getRecipeId(), $this->VALID_RECIPE_CONTENT, $this->VALID_RECIPE_DATE);
 		$recipe->insert($this->getPDO());
 
 		// edit the Recipe and update it in mySQL
@@ -183,20 +183,20 @@ class RecipeTest extends CommunityCookbookTest {
 		$pdoRecipe = Recipe::getRecipeByRecipeId($this->getPDO(), $recipe->getRecipeId());
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
-		$this->assertEquals($pdoRecipe->getRecipeProfileId()->toString(), $this->profile->getProfileId()->toString());
+		$this->assertEquals($pdoRecipe->getRecipeRecipeId()->toString(), $this->recipe->getRecipeId()->toString());
 		$this->assertEquals($pdoRecipe->getRecipeContent(), $this->VALID_RECIPE_CATEGORY2);
-		$this->assertEquals($pdoRecipeId->getRECIPEID(), $this->VALID_RECIPE_ID);
-		$this->assertEquals($pdoRecipeCategoryId->getRecipeCategoryId(), $this->VALID_CATEGORY);
-		$this->assertEquals($pdoRecipeUserId->getRecipeUserId(), $this->VALID_USER_ID2);
-		$this->assertEquals($pdoRecipeDescription->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
-		$this->assertEquals($pdoRecipeImageUrl->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);
-		$this->assertEquals($pdoRecipeIngredients->getRecipeIngredients(), $this->VALID_RECIPE_INGREDIETS);
-		$this->assertEquals($pdoRecipeMinutes->getRecipeMinutes(), $this->VALID_RECIPE_MINUTES2);
-		$this->assertEquals($pdoRecipeName->getRecipeName(), $this->VALID_RECIPE_NAME);
-		$this->assertEquals($pdoRecipeNumberIngredients->getRecipeNumberIngredients(), $this->VALID_NUMBER_INGREDIENTS);
-		$this->assertEquals($pdoRecipeNutrition->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITION);
-		$this->assertEquals($pdoRecipeStep->getRecipeStep(), $this->VALID_STEPS2);
-		$this->assertEquals($pdoRecipeSubmissionDate->getRecipeSubmissionDate(), $this->VALID_DATETIME);
+		$this->assertEquals($pdoRecipe->getRECIPEID(), $this->VALID_RECIPE_ID);
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->VALID_CATEGORY);
+		$this->assertEquals($pdoRecipe->getRecipeUserId(), $this->VALID_USER_ID2);
+		$this->assertEquals($pdoRecipe->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
+		$this->assertEquals($pdoRecipe->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);
+		$this->assertEquals($pdoRecipe->getRecipeIngredients(), $this->VALID_RECIPE_INGREDIETS);
+		$this->assertEquals($pdoRecipe->getRecipeMinutes(), $this->VALID_RECIPE_MINUTES2);
+		$this->assertEquals($pdoRecipe->getRecipeName(), $this->VALID_RECIPE_NAME);
+		$this->assertEquals($pdoRecipe->getRecipeNumberIngredients(), $this->VALID_NUMBER_INGREDIENTS);
+		$this->assertEquals($pdoRecipe->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITION);
+		$this->assertEquals($pdoRecipe->getRecipeStep(), $this->VALID_STEPS2);
+		$this->assertEquals($pdoRecipe->getRecipeSubmissionDate(), $this->VALID_DATETIME);
 
 		//format the date to seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeDate()->getTimestamp(), $this->VALID_RECIPEDATE->getTimestamp());
@@ -210,7 +210,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$numRows = $this->getConnection()->getRowCount("recipe");
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
-		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPE_CONTENT, $this->VALID_RECIPE_DATE);
+		$recipe = new Recipe($recipeId, $this->recipe->getRecipeId(), $this->VALID_RECIPE_CONTENT, $this->VALID_RECIPE_DATE);
 		$recipe->insert($this->getPDO());
 		// delete the Recipe from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
@@ -225,7 +225,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * test grabbing a Recipe that does not exist
 	 **/
 	public function testGetInvalidRecipeByRecipeId($fakeRecipeId) : void {
-		// grab a profile id that exceeds the maximum allowable profile id
+		// grab a recipe id that exceeds the maximum allowable recipe id
 		$fakeRECIPEID = generateUuidV4();
 		$recipe = Recipe::getRecipeByRecipeId($this->getPDO(), $fakeRecipeId);
 		$this->assertNull($recipe);
@@ -235,15 +235,15 @@ class RecipeTest extends CommunityCookbookTest {
 	 * test inserting a Recipe and re-grabbing it from mySQL
 	 *
 	 **/
-	public function testGetValidRecipeByRecipeProfileId($pdoRecipeSubmissionDate, $pdoRecipeStep, $pdoRecipeNutrition, $pdoRecipe) : void {
+	public function testGetValidRecipeByRecipeRecipeId($pdoRecipeSubmissionDate, $pdoRecipeStep, $pdoRecipeNutrition, $pdoRecipe) : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("recipe");
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
-		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPECONTENT, $this->VALID_RECIPEDATE);
+		$recipe = new Recipe($recipeId, $this->recipe->getRecipeId(), $this->VALID_RECIPECONTENT, $this->VALID_RECIPEDATE);
 		$recipe->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Recipe::getRecipeByRecipeProfileId($this->getPDO(), $recipe->getRecipeProfileId());
+		$results = Recipe::getRecipeByRecipeRecipeId($this->getPDO(), $recipe->getRecipeRecipeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\communityCookBook\\Recipe", $results);
@@ -256,14 +256,14 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoRecipe->getRecipeMinutes(), $this->VALID_RECIPE_MINUTES);
 		$this->assertEquals($pdoRecipe->getRecipeName(), $this->VALID_RECIPE_NAME);
 		$this->assertEquals($pdoRecipe->getRecipeNumberIngredients(), $this->VALID_RECIPE_NUMBER_INGREDIENTS);
-		$this->assertEquals($pdoRecipeNutrition->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITTION);
-		$this->assertEquals($pdoRecipeStep->getRecipeStep(), $this->VALID_RECIPE_STEPS);
-		$this->assertEquals($pdoRecipeSubmissionDate->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
+		$this->assertEquals($pdoRecipe->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITTION);
+		$this->assertEquals($pdoRecipe->getRecipeStep(), $this->VALID_RECIPE_STEPS);
+		$this->assertEquals($pdoRecipe->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
-		$this->assertEquals($pdoRecipe->getRecipeProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoRecipe->getRecipeRecipeId(), $this->recipe->getRecipeId());
 		$this->assertEquals($pdoRecipe->getRecipeContent(), $this->VALID_RECIPE_CONTENT);
 		//format the date to seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeDate()->getTimestamp(), $this->VALID_RECIPE_DATE->getTimestamp());
@@ -274,10 +274,10 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @param $fakeRecipeId
 	 * @param $recipe
 	 */
-	public function testGetInvalidRecipeByRecipeProfileId($fakeRecipeId, $recipe) : void {
-		// grab a profile id that exceeds the maximum allowable profile id
+	public function testGetInvalidRecipeByRecipeRecipeId($fakeRecipeId, $recipe) : void {
+		// grab a recipe id that exceeds the maximum allowable recipe id
 		$fakeRecipeId = generateUuidV4();
-		$fakeRecipeID = Recipe::getRecipeByRecipeProfileId($this->getPDO(), $fakeRecipeId);
+		$fakeRecipeID = Recipe::getRecipeByRecipeRecipeId($this->getPDO(), $fakeRecipeId);
 		$this->assertCount(0, $recipe);
 	}
 
@@ -293,7 +293,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$numRows = $this->getConnection()->getRowCount("recipe");
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
-		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPE_ID, $this->VALID_RECIPE_DATE);
+		$recipe = new Recipe($recipeId, $this->recipe->getRecipeId(), $this->VALID_RECIPE_ID, $this->VALID_RECIPE_DATE);
 		$recipe->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Recipe::getRecipeByRecipeContent($this->getPDO(), $recipe->getRecipeContent());
@@ -310,14 +310,14 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoRecipe->getRecipeMinutes(), $this->VALID_RECIPE_MINUTES);
 		$this->assertEquals($pdoRecipe->getRecipeName(), $this->VALID_RECIPE_NAME);
 		$this->assertEquals($pdoRecipe->getRecipeNumberIngredients(), $this->VALID_RECIPE_NUMBER_INGREDIENTS);
-		$this->assertEquals($pdoRecipeNutrition->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITTION);
-		$this->assertEquals($pdoRecipeStep->getRecipeStep(), $this->VALID_RECIPE_STEPS);
-		$this->assertEquals($pdoRecipeSubmissionDate->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
+		$this->assertEquals($pdoRecipe->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITTION);
+		$this->assertEquals($pdoRecipe->getRecipeStep(), $this->VALID_RECIPE_STEPS);
+		$this->assertEquals($pdoRecipe->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
-		$this->assertEquals($pdoRecipe->getRecipeProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoRecipe->getRecipeRecipeId(), $this->recipe->getRecipeId());
 		$this->assertEquals($pdoRecipe->getRecipeContent(), $this->VALID_RECIPE_CONTENT);
 		//format the date to seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeDate()->getTimestamp(), $this->VALID_RECIPE_DATE->getTimestamp());
@@ -341,7 +341,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$numRows = $this->getConnection()->getRowCount("recipe");
 		// create a new Recipe and insert to into mySQL
 		$recipeId = generateUuidV4();
-		$recipe = new Recipe($recipeId, $this->profile->getProfileId(), $this->VALID_RECIPE_ID, $this->VALID_RECIPE_DATE);
+		$recipe = new Recipe($recipeId, $this->recipe->getRecipeId(), $this->VALID_RECIPE_ID, $this->VALID_RECIPE_DATE);
 		$recipe->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Recipe::getAllRecipes($this->getPDO());
@@ -359,9 +359,9 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoRecipe->getRecipeMinutes(), $this->VALID_RECIPE_MINUTES);
 		$this->assertEquals($pdoRecipe->getRecipeName(), $this->VALID_RECIPE_NAME);
 		$this->assertEquals($pdoRecipe->getRecipeNumberIngredients(), $this->VALID_RECIPE_NUMBER_INGREDIENTS);
-		$this->assertEquals($pdoRecipeNutrition->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITION);
-		$this->assertEquals($pdoRecipeStep->getRecipeStep(), $this->VALID_RECIPE_STEPS);
-		$this->assertEquals($pdoRecipeSubmissionDate->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
+		$this->assertEquals($pdoRecipe->getRecipeNutrition(), $this->VALID_RECIPE_NUTRITION);
+		$this->assertEquals($pdoRecipe->getRecipeStep(), $this->VALID_RECIPE_STEPS);
+		$this->assertEquals($pdoRecipe->getRecipeSubmissionDate(), $this->VALID_RECIPE_SUBMISSION_DATE);
 
 		//format the date to seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeDate()->getTimestamp(), $this->VALID_RECIPE_DATE->getTimestamp());
