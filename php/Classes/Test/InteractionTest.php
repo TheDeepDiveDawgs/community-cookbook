@@ -85,9 +85,9 @@ class InteractionTest extends CommunityCookbookTest {
 		//run default setUp() method first
 		parent::setUp();
 		$password ="abc123";
-		$this->VALID_USER_HASH = $password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+		$this->VALID_USER_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 		//create and insert User to own the test Interaction
-		$this->VALID_INTERACTIONDATE = new User(generateUuidV4(), null);
+		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 	}
 }
