@@ -114,6 +114,10 @@ class InteractionTest extends CommunityCookbookTest {
 		$interactionId = generateUuidV4();
 		$interaction = new Interaction($interactionId, $this->user-getUserId(), $this->VALID_INTERACTIONRATING, $this->VALID_INTERACTIONDATE);
 		$interaction->insert($this->getPDO());
+
+		//edit the Interaction and update in mySQL
+		$interaction->setInteractionRating($this->VALID_INTERACTIONRATING2);
+		$interaction->update($this->getPDO());
 	}
 
 
