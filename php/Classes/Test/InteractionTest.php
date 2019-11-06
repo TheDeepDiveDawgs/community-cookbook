@@ -1,7 +1,6 @@
 <?php
 namespace TheDeepDiveDawgs\CommunityCookbook\Test;
-use TheDeepDiveDawgs\CommunityCookbook\CommunityCookbookTest;
-use TheDeepDiveDawgs\CommunityCookBook\{
+use TheDeepDiveDawgs\CommunityCookbook\{
 		User, Category, Recipe, Interaction
 };
 
