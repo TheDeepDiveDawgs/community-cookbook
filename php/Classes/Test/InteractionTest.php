@@ -2,7 +2,7 @@
 namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 use TheDeepDiveDawgs\CommunityCookbook\CommunityCookbookTest;
 use TheDeepDiveDawgs\CommunityCookBook\{
-		User, Category, Recipe, Interaction
+	User, Category, Recipe, Interaction
 };
 
 //grab class under scrutiny
