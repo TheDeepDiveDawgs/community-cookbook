@@ -116,7 +116,14 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId();
+		$pdoInteraction = Interaction::getInteractionByInteractionId($this->getPDO(), $interaction->getInteractionId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
+		$this->assertEquals($pdoInteraction->getInteractionId(), $interactionId);
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoInteraction->getInteractionRating(), $this->VALID_INTERACTIONRATING);
+		//format the date too seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoInteraction - getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
+
 	}
 
 	//edit the Interaction and update in mySQL
