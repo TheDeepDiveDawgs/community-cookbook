@@ -1,7 +1,9 @@
 <?php
+
 namespace TheDeepDiveDawgs\CommunityCookbook\Test;
+
 use TheDeepDiveDawgs\CommunityCookbook\{
-		User, Category, Recipe, Interaction
+	User, Category, Recipe, Interaction
 };
 
 //grab class under scrutiny
@@ -190,7 +192,7 @@ class InteractionTest extends CommunityCookbookTest {
 	 * test grabbing all Interactions
 	 */
 
-	public function testGetAllValidInteractions() : void {
+	public function testGetAllValidInteractions(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
@@ -205,6 +207,13 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Category", $results);
 
+		//grab the results of the array and validate it
+		$pdoInteraction = $results[0];
+		$this->assertEquals($pdoInteraction->getInteractionId(), $interactionId);
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoInteraction->getInteractionRating(), $this->VALID_INTERACTIONRATING);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
 
 	}
 }
