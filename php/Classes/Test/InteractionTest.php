@@ -188,5 +188,20 @@ class InteractionTest extends CommunityCookbookTest {
 
 	}
 
+	/**
+	 * test inserting a rating and regrabbing it from mySQL
+	 */
+
+	public function testGetInteractionByInteractionRecipeIdAndInteractionUserId() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("interaction");
+
+		//create a new interaction and insert into mySQL
+		$like = new Interaction($this->user->getUserId(), $this->interaction->getInteractionId(), $this->VALID_INTERACTIONDATE);
+
+
+		//$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO())
+	}
+
 }
 
