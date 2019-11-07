@@ -115,6 +115,9 @@ class Recipe implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+
+	public static function getRecipeByRecipeDescription(\PDO $getPDO, string $getRecipeDescription) {
+	}
 	/**
 	 * Specify data which should be serialized to JSON
 	 * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
