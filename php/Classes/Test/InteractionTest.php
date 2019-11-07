@@ -176,6 +176,28 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Category", $results);
 
 		//grab the result from the array and validate it
+		$pdoInteraction = $results[0];
+
+		$this->assertEquals($pdoInteraction->getInteractionId(), $interactionId);
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoInteraction->getInteractionRating(), $this->VALID_INTERACTIONRATING);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
+
+	}
+
+	/**
+	 * test grabbing all Interactions
+	 */
+
+	public function testGetAllValidInteractions() : void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("interaction");
+
+		//create a new Interaction and insert to into mySQL
+		$interactionId = generateUuidV4();
+		$interaction = new Interaction($interactionId, $this->user->getUserId(), $this->VALID_INTERACTIONDATE, $this->VALID_INTERACTIONRATING);
+		$interaction->insert($this->getPDO());
 	}
 }
 
