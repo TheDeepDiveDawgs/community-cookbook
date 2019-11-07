@@ -81,19 +81,19 @@ class InteractionTest extends CommunityCookbookTest {
 	 * create dependent objects before running each test
 	 */
 
-	public final function setUp() : void {
+	public final function setUp(): void {
 		//run default setUp() method first
 		parent::setUp();
-		$password ="abc123";
+		$password = "abc123";
 		$this->VALID_USER_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 		//create and insert User to own the test Interaction
 		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 
-	//calculate the date (use the the time the unit test was setup)
+		//calculate the date (use the the time the unit test was setup)
 		$this->VALID_INTERACTIONDATE = new \DateTime();
 
-	//format the _sunrise date to use for testing
+		//format the _sunrise date to use for testing
 		$this->VALID_SUNRISEDATE = new \DateTime();
 		$this->VALID_SUNRISEDATE->add(new \DateInterval("P10D"));
 
@@ -106,7 +106,7 @@ class InteractionTest extends CommunityCookbookTest {
 	 * test inserting a valid interaction and verify that the actual mySQL data matches
 	 */
 
-	public function testInsertValidInteraction() : void {
+	public function testInsertValidInteraction(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
@@ -133,7 +133,7 @@ class InteractionTest extends CommunityCookbookTest {
 	/**
 	 * @return Connection
 	 */
-	public function testUpdateValidInteraction() : void {
+	public function testUpdateValidInteraction(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
@@ -160,7 +160,22 @@ class InteractionTest extends CommunityCookbookTest {
 	/**
 	 * test creating a Interaction and then deleting it
 	 */
-	public function testDeleteValidInteraction() : void {
+	public function testDeleteValidInteraction(): void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("interaction");
+
+		//create a new Interaction and insert to into mySQL
+		$interactionId = generateUuidV4();
+		$interaction = new Interaction($interactionId, $this->user->getUserId(), $this->VALID_INTERACTIONDATE, $this->VALID_INTERACTIONRATING);
+		$interaction->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Interaction::getInteractionByInteractionUserId($this->getPDO(), $interaction->getInteractionUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Category", $results);
+
+		//grab the result from the array and validate it
 	}
 }
 
