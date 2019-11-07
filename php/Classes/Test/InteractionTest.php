@@ -126,8 +126,41 @@ class InteractionTest extends CommunityCookbookTest {
 
 	}
 
-	//edit the Interaction and update in mySQL
-$interaction->setInteractionRating($this->VALID_INTERACTIONRATING2);
-$interaction->update($this->getPDO());
+	/**
+	 * test inserting a Interaction, editing it, and then updating it
+	 */
 
+	/**
+	 * @return Connection
+	 */
+	public function testUpdateValidInteraction() : void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("interaction");
+
+		//create a new Interaction and insert to into mySQL
+		$interactionId = generateUuidV4();
+		$interaction = new Interaction($interactionId, $this->user->getUserId(), $this->VALID_INTERACTIONDATE, $this->VALID_INTERACTIONRATING);
+		$interaction->insert($this->getPDO());
+
+		//edit the Interaction and update in mySQL
+		$interaction->setInteractionRating($this->VALID_INTERACTIONRATING2);
+		$interaction->update($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoInteraction = Interaction::getInteractionByInteractionId($this->getPDO(), $interaction->getInteractionId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
+		$this->assertEquals($pdoInteraction->getInteractionId(), $interactionId);
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoInteraction->getInteractionRating(), $this->VALID_INTERACTIONRATING);
+		//format the date too seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoInteraction - getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
+
+	}
+
+	/**
+	 * test creating a Interaction and then deleting it
+	 */
+	public function testDeleteValidInteraction() : void {
+	}
 }
+
