@@ -198,6 +198,14 @@ class InteractionTest extends CommunityCookbookTest {
 		$interactionId = generateUuidV4();
 		$interaction = new Interaction($interactionId, $this->user->getUserId(), $this->VALID_INTERACTIONDATE, $this->VALID_INTERACTIONRATING);
 		$interaction->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$results = Interaction::getAllInteractions($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Category", $results);
+
+
 	}
 }
 
