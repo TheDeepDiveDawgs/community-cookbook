@@ -244,6 +244,9 @@ class InteractionTest extends CommunityCookbookTest {
 		$pdoInteraction = $results[0];
 		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $this->interaction->getRecipeId());
+
+		//format date to seconds since the beginning of time to avoid a roundoff error
+		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
 	}
 }
 
