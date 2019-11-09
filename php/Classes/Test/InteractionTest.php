@@ -248,5 +248,19 @@ class InteractionTest extends CommunityCookbookTest {
 		//format date to seconds since the beginning of time to avoid a roundoff error
 		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
 	}
+
+	/**
+	 * test grabbing an interaction by user id
+	 */
+
+	public function testGetValidInteractionByUserId() : void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("interaction");
+
+		//create a new interaction and insert into mySQL
+		$interaction = new Interaction($this->user->getUserId(), $this->interaction->getRecipeId(), $this->VALID_INTERACTIONDATE);
+		$interaction->insert($this->getPDO());
+
+	}
 }
 
