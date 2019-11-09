@@ -261,6 +261,12 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction = new Interaction($this->user->getUserId(), $this->interaction->getRecipeId(), $this->VALID_INTERACTIONDATE);
 		$interaction->insert($this->getPDO());
 
+		//grab the data from mySQL and enforce that the fields match our expectations
+		$results = Interacton::getInteractionByInteractionUserId($this->getPDO(), $this->user->getUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
+		$this->assertCount(1, $results);
+
+
 	}
 }
 
