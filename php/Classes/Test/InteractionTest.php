@@ -175,7 +175,7 @@ class InteractionTest extends CommunityCookbookTest {
 		$results = Interaction::getInteractionByInteractionUserId($this->getPDO(), $interaction->getInteractionUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Category", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
 
 		//grab the result from the array and validate it
 		$pdoInteraction = $results[0];
@@ -235,6 +235,10 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->insert($this->getPDO());
 
 		//grab the data form mySQL and enforce the fields match our expectations
+		$results = Interaction::getInteractionByInteractionRecipeId($this->getPDO(), $this->interaction->getRecipeId());
+		$this->assertEquals($numRows + 1, $this->getConnection()-getRowCount("interaction"));
+		$this->assertCount(1, $results);
+		$this->assertOnlyContainsInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
 	}
 }
 
