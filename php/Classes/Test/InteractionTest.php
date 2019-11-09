@@ -239,6 +239,11 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()-getRowCount("interaction"));
 		$this->assertCount(1, $results);
 		$this->assertOnlyContainsInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
+
+		//grab the result and from the array and validate it
+		$pdoInteraction = $results[0];
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $this->interaction->getRecipeId());
 	}
 }
 
