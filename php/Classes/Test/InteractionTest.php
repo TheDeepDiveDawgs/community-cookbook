@@ -266,6 +266,9 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
 		$this->assertCount(1, $results);
 
+		//enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
+
 
 	}
 }
