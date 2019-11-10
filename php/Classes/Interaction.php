@@ -145,7 +145,7 @@ class Interaction implements \JsonSerializable {
 			return;
 		}
 
-		//store the interaction date using the ValidateDateTime trait
+		//store the interaction date using the validateDateTime trait
 		try {
 			$newInteractionDate = self::validateDateTime($newInteractionDate);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
