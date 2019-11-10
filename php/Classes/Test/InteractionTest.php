@@ -269,6 +269,13 @@ class InteractionTest extends CommunityCookbookTest {
 		//enforce no other objects are bleeding into the test
 		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
 
+		//grab the result from the array and validate it
+		$pdoInteraction =$results[0];
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $this->recipe->getRecipeId());
+
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
 
 	}
 }
