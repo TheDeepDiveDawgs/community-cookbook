@@ -41,31 +41,15 @@ class InteractionTest extends CommunityCookbookTest {
 
 	/**
 	 * valid user hash to create the user object to own the test
-	 * @var $VALID_HASH
+	 * @var $VALID_USER_HASH
 	 */
-	protected $VALID_HASH;
+	protected $VALID_USER_HASH;
 
 	/**
 	 * valid activationToken to create profile object to own the test
 	 * @var string $VALID_ACTIVATION
 	 */
 	protected $VALID_ACTIVATION;
-
-	/**
-	 * valid email to use
-	 * @var string $VALID_EMAIL
-	 */
-	protected $VALID_EMAIL = "grievxus@outlook.com";
-	/**
-	 * valid full name for user
-	 * @var string $VALID_FULLNAME
-	 **/
-	protected $VALID_FULLNAME = "Gino Villalpando";
-	/**
-	 * valid handle to use
-	 * @var string $VALID_HANDLE
-	 **/
-	protected $VALID_HANDLE = "@grievous";
 
 	/**
 	 *timestamp of interaction; this starts at null and is assigned later
@@ -103,11 +87,11 @@ class InteractionTest extends CommunityCookbookTest {
 		//run default setUp() method first
 		parent::setUp();
 		$password = "abc123";
-		$this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+		$this->VALID_USER_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 		//create and insert User to own the test Interaction
-		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_HASH);
+		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 
 		//calculate the date (use the the time the unit test was setup)
 		$this->VALID_INTERACTIONDATE = new \DateTime();
