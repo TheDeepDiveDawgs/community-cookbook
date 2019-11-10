@@ -3,10 +3,6 @@ namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 
 use TheDeepDiveDawgs\CommunityCookbook\{User, Recipe, Interaction};
 
-// grab the encrypted properties file
-require_once("/etc/apache2/capstone-mysql/Secrets.php");
-
-
 //grab class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
 
