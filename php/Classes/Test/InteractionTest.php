@@ -192,7 +192,7 @@ class InteractionTest extends CommunityCookbookTest {
 	 * test inserting a Interaction and regrabbing it from mySQL
 	 */
 
-	public function testGetInteractionByInteractionRecipeIdAndInteractionUserId() : void {
+	public function testGetInteractionByInteractionRecipeIdAndInteractionUserId(): void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
@@ -213,7 +213,7 @@ class InteractionTest extends CommunityCookbookTest {
 
 	/**
 	 * test grabbing an interaction that does not exist
-	**/
+	 **/
 
 	public function testGetInValidInteractionByInteractionRecipeIdAndInteractionUserId() {
 		//grab a recipe id and user id that exceeds the maximum allowable recipe id and user id
@@ -226,7 +226,7 @@ class InteractionTest extends CommunityCookbookTest {
 	 * test grabbing a Interaction by a recipe id
 	 */
 
-	public function testGetValidInteractionByRecipeId() : void {
+	public function testGetValidInteractionByRecipeId(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
@@ -236,7 +236,7 @@ class InteractionTest extends CommunityCookbookTest {
 
 		//grab the data form mySQL and enforce the fields match our expectations
 		$results = Interaction::getInteractionByInteractionRecipeId($this->getPDO(), $this->interaction->getRecipeId());
-		$this->assertEquals($numRows + 1, $this->getConnection()-getRowCount("interaction"));
+		$this->assertEquals($numRows + 1, $this->getConnection() - getRowCount("interaction"));
 		$this->assertCount(1, $results);
 		$this->assertOnlyContainsInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
 
@@ -253,7 +253,7 @@ class InteractionTest extends CommunityCookbookTest {
 	 * test grabbing an interaction by user id
 	 */
 
-	public function testGetValidInteractionByUserId() : void {
+	public function testGetValidInteractionByUserId(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
@@ -270,13 +270,24 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Interaction", $results);
 
 		//grab the result from the array and validate it
-		$pdoInteraction =$results[0];
+		$pdoInteraction = $results[0];
 		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $this->recipe->getRecipeId());
 
 		//format the date to seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTIONDATE->getTimestamp());
 
+	}
+
+	/**
+	 *
+	 * test grabbing a interaction by user id that does not exist
+	 */
+
+	public function testGetInvalidInteractionByUserId(): void {
+		//grab a recipe id that exceeds the maximum allowable user id
+		$interaction = Interaction::getInteractionByInteractionUserId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $interaction);
 	}
 }
 
