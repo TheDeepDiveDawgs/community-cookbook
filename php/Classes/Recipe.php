@@ -115,6 +115,9 @@ class Recipe implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+
+	public static function getRecipeByRecipeDescription(\PDO $getPDO, string $getRecipeDescription) {
+	}
 	/**
 	 * Specify data which should be serialized to JSON
 	 * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -549,11 +552,11 @@ class Recipe implements \JsonSerializable {
 	 * update recipe in mysql database
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param $thisRecipeId
+	 * @param \PDOexception when MySQL errors occur
 	 */
-	public function update(\PDO $pdo, $thisRecipeId): void {
+	public function update(\PDO $pdo): void {
 		//create query template
-		$query = "UPDATE recipe SET recipeId = :recipeId, recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
+		$query = "UPDATE recipe SET recipeCategoryId = :recipeCategoryId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
 		$statement = $pdo->prepare($query);
 		//creates relationship between php state variables and pdo/mysql variables
 		$parameters = [
@@ -787,6 +790,8 @@ class Recipe implements \JsonSerializable {
 		$fields = get_object_vars($this);
 		//turns Uuid into string
 		$fields["recipeId"] = $this->recipeId->toString();
+		$fields["recipeCategoryId"] = $this->recipeCategoryId->toString();
+		$fields["recipeUserId"] = $this->recipeUserId->toString();
 		unset($fields["recipeDescription"]);
 		return ($fields);
 	}
