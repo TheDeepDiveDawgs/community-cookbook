@@ -92,18 +92,16 @@ class InteractionTest extends CommunityCookbookTest {
 
 		//create and insert User to own the test Interaction
 		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
+		$this->user->insert($this->getPDO());
+
+		//create and insert mocked recipe
+		$this->recipe = new Recipe(generateUuidV4(), $this->user->getUserId(), "PHPUnit interaction test passing");
+		$this->recipe->insert($this->getPDO());
 
 		//calculate the date (use the the time the unit test was setup)
 		$this->VALID_INTERACTIONDATE = new \DateTime();
 
-		//format the _sunrise date to use for testing
-		$this->VALID_SUNRISEDATE = new \DateTime();
-		$this->VALID_SUNRISEDATE->add(new \DateInterval("P10D"));
-
-		//format the sunset date to use for testing
-		$this->VALID_SUNSETDATE = new \DateTime();
-		$this->VALID_SUNSETDATE->add(new \DateInterval("P10D"));
-	}
+		}
 
 	/**
 	 * test inserting a valid interaction and verify that the actual mySQL data matches
