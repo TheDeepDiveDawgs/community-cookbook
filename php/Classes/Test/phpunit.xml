@@ -1,9 +1,9 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Cookbook Test Suite">
-<!--			<file>UserTest.php</file>-->
+			<file>UserTest.php</file>-->
 			<file>CategoryTest.php</file>
-<!--			<file>RecipeTest.php</file>-->
+			<file>RecipeTest.php</file>-->
 <!--			<file>InteractionTest.php</file>-->
 		</testsuite>
 	</testsuites>

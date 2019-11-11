@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 
@@ -25,7 +25,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var Recipe Recipe
 	 **/
 
-	protected $recipe = "food";
+	protected $recipe = null;
 
 	/**
 	 * valid RECIPE id to create the RECIPE object to own the test
@@ -132,6 +132,15 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var \DateTime
 	 */
 	private $VALID_SUNSET_DATE;
+	/**
+	 * @var User
+	 */
+	protected $USER = null;
+
+	/**
+	 * @var User
+	 */
+	protected $USER_HASH= null;
 
 	/**
 	 *  create dependant objects before running each test
@@ -144,9 +153,9 @@ class RecipeTest extends CommunityCookbookTest {
 		$password = "abc123";
 		$this->VALID_RECIPE_ID = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 		// create and insert a Recipe to own the test Recipe
-		$this->recipe = new Recipe(generateUuidV4(), null, "@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de", $this->VALID_RECIPE_ID, "+12125551212");
-		$this->recipe->insert($this->getPDO());
-		// calculate the date (just use the time the unit test was setup...)
+		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, "grievxus@outlook.com", "Gino Villalpando", "@grievous", $this->VALID_USER_HASH);
+		$this->user->insert($this->getPDO());
+		// calculate the date (use the time the unit test was setup...)
 		$this->VALID_RECIPE_SUBMISSION_DATE = new \DateTime();
 		//format the sunrise date to use for testing
 		$this->VALID_SUNRISE_DATE = new \DateTime();
