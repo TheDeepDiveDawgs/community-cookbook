@@ -133,14 +133,19 @@ class RecipeTest extends CommunityCookbookTest {
 	 */
 	private $VALID_SUNSET_DATE;
 	/**
-	 * @var User
+	 * @var string $USER
 	 */
-	protected $USER = null;
+	private $USER;
 
 	/**
-	 * @var User
+	 * @var string
 	 */
-	protected $USER_HASH= null;
+	protected $VALID_USER_HASH = null;
+
+	/**
+	 * @var string  $VALID_ACTIVATION;
+	 */
+	protected $VALID_ACTIVATION;
 
 	/**
 	 *  create dependant objects before running each test
@@ -178,9 +183,10 @@ class RecipeTest extends CommunityCookbookTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRecipe = Recipe::getRecipeByRecipeId($this->getPDO(), $recipe->getRecipeId());
-		$this->assertEquals($pdoRecipe->getRecipeId()->toString(), $recipeId->toString());
-		$this->assertEquals($pdoRecipe->getRecipeId(), $recipe->getRecipeId()->toString());
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->VALID_RECIPE_ID);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
+		$this->assertEquals($pdoRecipe->getRecipeId(), $recipe);
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->VALID_RECIPE_CATEGORY_ID);
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->VALID_RECIPE_CATEGORY_ID2);
 
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoRecipe->getRecipeSubmissionDate()->getTimestamp(), $this->VALID_RECIPE_SUBMISSION_DATE->getTimestamp());
