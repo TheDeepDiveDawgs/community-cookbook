@@ -132,7 +132,7 @@ class Recipe implements \JsonSerializable {
 	 * @return Uuid value of recipe id
 	 * */
 	public function getRecipeId(): Uuid {
-		return $this->recipeId;
+		return ($this->recipeId);
 	}
 
 	/**
@@ -159,7 +159,7 @@ class Recipe implements \JsonSerializable {
 	 * @return Uuid value of the recipeCategoryId
 	 */
 	public function getRecipeCategoryId(): Uuid {
-		return $this->recipeCategoryId;
+		return ($this->recipeCategoryId);
 	}
 
 	/**
@@ -187,7 +187,7 @@ class Recipe implements \JsonSerializable {
 	 * @return Uuid value of at recipeUserId
 	 **/
 	public function getRecipeUserId(): Uuid {
-		return $this->recipeUserId;
+		return ($this->recipeUserId);
 	}
 
 	/**
@@ -269,8 +269,6 @@ class Recipe implements \JsonSerializable {
 		if(empty($newRecipeImageUrl) === true) {
 			throw(new \InvalidArgumentException("image url is empty or insecure"));
 		}
-
-		}
 		//store the imageUrl
 		$this->recipeImageUrl = $newRecipeImageUrl;
 	}
@@ -281,7 +279,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeIngredients
 	 **/
 	public function getRecipeIngredients(): string {
-		return $this->recipeIngredients;
+		return ($this->recipeIngredients);
 	}
 
 	/**
@@ -292,7 +290,8 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeIngredients is not a string
 	 * @throws \InvalidArgumentException if the recipeIngredients is not secure
 	 */
-	public function setRecipeIngredients(string $newRecipeIngredients): string {
+	public function setRecipeIngredients(string $newRecipeIngredients): void {
+
 		// verify the ingredients is secure
 		$newRecipeIngredients = trim($newRecipeIngredients);
 		$newRecipeIngredients = filter_var($newRecipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -313,7 +312,7 @@ class Recipe implements \JsonSerializable {
 	 * @return int value of minutes
 	 **/
 	public function getRecipeMinutes(): int {
-		return $this->recipeMinutes;
+		return ($this->recipeMinutes);
 	}
 
 	/**
@@ -345,7 +344,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeName
 	 **/
 	public function getRecipeName(): string {
-		return $this->recipeName;
+		return ($this->recipeName);
 	}
 
 	/**
@@ -355,7 +354,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipe recipeName is not a string
 	 * @throws \InvalidArgumentException if the recipeName is not secure
 	 */
-	public function setRecipeName(string $newRecipeName): string {
+	public function setRecipeName(string $newRecipeName): void {
 		// verify the name is secure
 		$newRecipeName = trim($newRecipeName);
 		$newRecipeName = filter_var($newRecipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -376,7 +375,7 @@ class Recipe implements \JsonSerializable {
 	 * @return int value of recipeNumberIngredients
 	 **/
 	public function getRecipeNumberIngredients(): int {
-		return $this->recipeNumberIngredients;
+		return ($this->recipeNumberIngredients);
 	}
 
 	/**
@@ -384,7 +383,7 @@ class Recipe implements \JsonSerializable {
 	 * @param int $newRecipeNumberIngredients
 	 * @return int for number of recipe ingredients
 	 */
-	public function setRecipeNumberIngredients(int $newRecipeNumberIngredients): int {
+	public function setRecipeNumberIngredients(int $newRecipeNumberIngredients): void {
 		// verify the number of ingredients is secure
 		$newRecipeNumberIngredients = filter_var($newRecipeNumberIngredients, FILTER_VALIDATE_INT);
 		if(empty($newRecipeNumberIngredients) === true) {
@@ -404,7 +403,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeNutrition
 	 **/
 	public function getRecipeNutrition(): string {
-		return $this->recipeNutrition;
+		return ($this->recipeNutrition);
 	}
 
 	/**
@@ -415,7 +414,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeNutrition is not a string
 	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
 	 */
-	public function setRecipeNutrition(string $newRecipeNutrition): string {
+	public function setRecipeNutrition(string $newRecipeNutrition): void {
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
 		$newRecipeNutrition = filter_var($newRecipeNutrition, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -436,7 +435,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of recipeStep
 	 **/
 	public function getRecipeStep(): string {
-		return $this->recipeStep;
+		return ($this->recipeStep);
 	}
 
 	/**
@@ -447,7 +446,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeStep is not a string
 	 * @throws \InvalidArgumentException if the recipeStep is not secure
 	 */
-	public function setRecipeStep(string $newRecipeStep): string {
+	public function setRecipeStep(string $newRecipeStep): void {
 		// verify the Step data is secure
 		$newRecipeStep = trim($newRecipeStep);
 		$newRecipeStep = filter_var($newRecipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -468,7 +467,7 @@ class Recipe implements \JsonSerializable {
 	 * @return \DateTime value of recipeSubmissionDate
 	 **/
 	public function getRecipeSubmissionDate(): \DateTime {
-		return $this->recipeSubmissionDate;
+		return ($this->recipeSubmissionDate);
 	}
 
 	/**
