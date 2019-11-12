@@ -34,10 +34,12 @@ class InteractionTest extends CommunityCookbookTest {
 	protected $recipe = null;
 
 	/**
-	 * Interaction of a recipe by a user, this is for foreign key relations
-	 * @var Interaction $interaction
+	 * valid recipe category that recipe is located in
 	 */
-	protected $interaction = null;
+	protected $recipeCategory = null;
+
+
+
 
 	/**
 	 * valid user hash to create the user object to own the test
@@ -81,11 +83,15 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 		//create and insert User to own the test Interaction
-		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_HANDLE2, $this->VALID_USER_HASH);
+		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, "audialb@yahoo.com", "Daniel Hernandez",
+			"Audialb", $this->VALID_USER_HASH);
 		$this->user->insert($this->getPDO());
 
 		//create and insert mocked recipe
-		$this->recipe = new Recipe(generateUuidV4(), $this->user->getUserId(), "PHPUnit interaction test passing");
+		$this->recipe = new Recipe(generateUuidV4(), generateUuidV4(), generateUuidV4(),
+		"newRecipeDescription:string", "newRecipeImageUrl:string", "newRecipeIngredients:string",
+		"newRecipeMinutes:string", "newRecipeName:string", "newRecipeNumberIngredients",
+		"newRecipeNutrition", "newRecipeStep", "newRecipeSubmissionDate");
 		$this->recipe->insert($this->getPDO());
 
 		//calculate the date (use the the time the unit test was setup)
@@ -105,7 +111,8 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(), $this->recipe->getRecipeId());
+		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(),
+			$this->recipe->getRecipeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
 		$this->assertEquals($pdoInteraction->getUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoInteraction->getRecipeId(), $this->user->getRecipeId());
@@ -130,7 +137,8 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(), $this->recipe->getRecipeId());
+		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(),
+			$this->recipe->getRecipeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
 		$this->assertEquals($pdoInteraction->getUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoInteraction->getRecipeId(), $this->user->getRecipeId());
@@ -155,7 +163,8 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->delete($this->getPDO());
 
 		//grab the data from mySQL and enforce the Recipe does not exist
-		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(), $this->recipe->getRecipeId());
+		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(),
+			$this->recipe->getRecipeId());
 		$this->assertNull($pdoInteraction);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("interaction"));
 	}
@@ -173,7 +182,8 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(), $this->recipe->getRecipeId());
+		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(),
+			$this->recipe->getRecipeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
 		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $this->recipe->getRecipeId());
@@ -203,7 +213,7 @@ class InteractionTest extends CommunityCookbookTest {
 		$numRows = $this->getConnection()->getRowCount("interaction");
 
 		//create a new Interaction and insert into mySQL
-		$interaction = new Interaction($this->user->getUserId(), $this->recipe->getRecipeId(), $this->VALID_INTERACTIONDATE);
+		$interaction = new 1($this->user->getUserId(), $this->recipe->getRecipeId(), $this->VALID_INTERACTIONDATE);
 		$interaction->insert($this->getPDO());
 
 		//grab the data form mySQL and enforce the fields match our expectations

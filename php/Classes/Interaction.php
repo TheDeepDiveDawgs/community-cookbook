@@ -63,7 +63,8 @@ class Interaction implements \JsonSerializable {
 		}
 	}
 
-	/**accessor method for interactionUserId
+	/**accessor method for
+	 *
 	 * @return Uuid value of interactionUserId
 	 **/
 	public function getInteractionUserId(): Uuid {
