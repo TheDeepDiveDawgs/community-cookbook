@@ -215,7 +215,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string value of at Description
 	 **/
 	public function getRecipeDescription(): string {
-		return $this->recipeDescription;
+		return ($this->recipeDescription);
 	}
 
 	/**
@@ -227,7 +227,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if $newDescription is not a string
 	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecure
 	 */
-	public function setRecipeDescription(string $newRecipeDescription): string {
+	public function setRecipeDescription(string $newRecipeDescription): void {
 		// verify the description is secure
 		$newRecipeDescription = trim($newRecipeDescription);
 		$newRecipeDescription = filter_var($newRecipeDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -243,13 +243,14 @@ class Recipe implements \JsonSerializable {
 	}
 
 
+
 	/**
 	 * accessor method for recipeImageUrl
 	 *
 	 * @return string for recipeImageUrl
 	 */
 	public function getRecipeImageUrl(): string {
-		return $this->recipeImageUrl;
+		return ($this->recipeImageUrl);
 	}
 
 	/**
@@ -261,21 +262,14 @@ class Recipe implements \JsonSerializable {
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
 	 * @throws \TypeError if recipeImageUrl is not a string
 	 */
-	public function setRecipeImageUrl(string $newRecipeImageUrl): string {
-		//enforce that the imageUrl is properly formatted
-		$newRecipeImageUrl = trim($newRecipeImageUrl);
-		$newRecipeImageUrl = strtolower($newRecipeImageUrl);
+	public function setRecipeImageUrl(string $newRecipeImageUrl): void {
+
+		//enforce that the imageUrl content is secure
+		$newRecipeImageUrl = filter_var($newRecipeImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeImageUrl) === true) {
-			throw(new \InvalidArgumentException("image load issue"));
+			throw(new \InvalidArgumentException("image url is empty or insecure"));
 		}
-		//enforce the imageUrl is string representation of a hexadecimal
-		//$recipeImageUrlInfo = password_get_info($newRecipeImageUrl);
-		if(!ctype_xdigit($newRecipeImageUrl)) {
-			throw(new \InvalidArgumentException("recipe passphrase is empty or insecure"));
-		}
-		//enforce that the imageUrl is exactly 128 characters.
-		if(strlen($newRecipeImageUrl) !== 255) {
-			throw(new \RangeException("recipe imageUrl must be 128 characters"));
+
 		}
 		//store the imageUrl
 		$this->recipeImageUrl = $newRecipeImageUrl;
