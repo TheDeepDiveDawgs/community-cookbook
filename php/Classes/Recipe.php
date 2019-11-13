@@ -257,7 +257,6 @@ class Recipe implements \JsonSerializable {
 	 * mutator method for recipe imageUrl
 	 *
 	 * @param string $newRecipeImageUrl vale of new recipe imageUrl
-	 * @return string of url for image
 	 * @throws \InvalidArgumentException if the imageUrl is not secure
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
 	 * @throws \TypeError if recipeImageUrl is not a string
@@ -409,7 +408,6 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for recipeNutrition
 	 * @param string $newRecipeNutrition
-	 * @return string of nutrition for the recipe
 	 * @throws \RangeException if the recipeNutrition is not 128 characters
 	 * @throws \TypeError if recipeNutrition is not a string
 	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
@@ -418,7 +416,7 @@ class Recipe implements \JsonSerializable {
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
 		$newRecipeNutrition = filter_var($newRecipeNutrition, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newrRecipeNutrition) === true) {
+		if(empty($newRecipeNutrition) === true) {
 			throw(new \InvalidArgumentException("nutritional info field is empty"));
 		}
 		// verify the at handle will fit in the database
@@ -494,7 +492,7 @@ class Recipe implements \JsonSerializable {
 		// store the recipe submission date
 		$this->recipeSubmissionDate = $newRecipeSubmissionDate;
 	}
-// THIS IS WHERE TO ADD THE PDO STUFF
+// This is where the PDOs begin
 
 	/**
 	 * inserts recipe into mysql
@@ -508,10 +506,11 @@ class Recipe implements \JsonSerializable {
 		$query = "INSERT INTO recipe(recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate) VALUES (:recipeId, :recipeCategoryId, :recipeUserId, :recipeDescription, :recipeImageUrl, :recipeIngredients, :recipeMinutes, :recipeName, :recipeNumberIngredients, :recipeNutrition, :recipeStep, :recipeSubmissionDate)";
 		$statement = $pdo->prepare($query);
 		// this creates relationship between php state variables and pdo/mysql variables
+		$formattedDate = $this->recipeSubmissionDate->format("Y-m-d H:i:s:u");
 		$parameters = [
 			"recipeId" => $this->recipeId->getBytes(),
-			"recipeCategoryId" => $this->recipeCategoryId,
-			"recipeUserId" => $this->recipeUserId,
+			"recipeCategoryId" => $this->recipeCategoryId->getBytes(),
+			"recipeUserId" => $this->recipeUserId->getBytes(),
 			"recipeDescription" => $this->recipeDescription,
 			"recipeImageUrl" => $this->recipeImageUrl,
 			"recipeIngredients" => $this->recipeIngredients,
@@ -520,7 +519,7 @@ class Recipe implements \JsonSerializable {
 			"recipeNumberIngredients" => $this->recipeNumberIngredients,
 			"recipeNutrition" => $this->recipeNutrition,
 			"recipeStep" => $this->recipeStep,
-			"recipeSubmissionDate" => $this->recipeSubmissionDate,];
+			"recipeSubmissionDate" => $formattedDate,];
 		$statement->execute($parameters);
 	}
 
@@ -779,13 +778,18 @@ class Recipe implements \JsonSerializable {
 	 * @return array resulting state variables to serialize
 	 */
 	public function jsonSerialize(): array {
+
 		//this collects all state variables
 		$fields = get_object_vars($this);
+
 		//turns Uuid into string
 		$fields["recipeId"] = $this->recipeId->toString();
 		$fields["recipeCategoryId"] = $this->recipeCategoryId->toString();
 		$fields["recipeUserId"] = $this->recipeUserId->toString();
 		unset($fields["recipeDescription"]);
+
+		//format date in order for the front end to use it
+		$fields["recipeSubmissionDate"] = round(floatval($this->recipeSubmissionDate->format("U.u")) *1000);
 		return ($fields);
 	}
 }
