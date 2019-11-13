@@ -484,7 +484,7 @@ class Recipe implements \JsonSerializable {
 		}
 		// store the submission date with ValidateDate trait
 		try {
-			$newRecipeSubmissionDate = self::validateDate($newRecipeSubmissionDate);
+			$newRecipeSubmissionDate = self::validateDateTime($newRecipeSubmissionDate);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
 			$exceptionType = get_class($exception);
 			throw (new $exceptionType($exception->getMessage(), 0, $exception));
