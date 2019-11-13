@@ -151,8 +151,8 @@ class RecipeTest extends CommunityCookbookTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRecipe = Recipe::getRecipeByRecipeId($this->getPDO(), $recipe->getRecipeId());
 		$this->assertEquals($pdoRecipe->getRecipeId()->toString(), $recipeId->toString());
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $recipe->getCategoryId()->toString());
-		$this->assertEquals($pdoRecipe->getRecipeUserId(), $recipe->getUserId()->toString());
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $recipe->getRecipeCategoryId()->toString());
+		$this->assertEquals($pdoRecipe->getRecipeUserId(), $recipe->getRecipeUserId()->toString());
 		$this->assertEquals($pdoRecipe->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
 		$this->assertEquals($pdoRecipe->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);
 		$this->assertEquals($pdoRecipe->getRecipeIngredients(), $this->VALID_RECIPE_INGREDIENTS);

@@ -265,8 +265,8 @@ class Recipe implements \JsonSerializable {
 
 		//enforce that the imageUrl content is secure
 		$newRecipeImageUrl = filter_var($newRecipeImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newRecipeImageUrl) === true) {
-			throw(new \InvalidArgumentException("image url is empty or insecure"));
+		if(empty($newRecipeImageUrl) > 255) {
+			throw(new \RangeException("image url is empty or insecure"));
 		}
 		//store the imageUrl
 		$this->recipeImageUrl = $newRecipeImageUrl;
@@ -548,7 +548,7 @@ class Recipe implements \JsonSerializable {
 	 */
 	public function update(\PDO $pdo): void {
 		//create query template
-		$query = "UPDATE recipe SET recipeCategoryId = :recipeCategoryId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
+		$query = "UPDATE recipe SET recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
 		$statement = $pdo->prepare($query);
 		//creates relationship between php state variables and pdo/mysql variables
 		$parameters = [
