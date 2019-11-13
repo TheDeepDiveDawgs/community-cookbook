@@ -506,7 +506,7 @@ class Recipe implements \JsonSerializable {
 		$query = "INSERT INTO recipe(recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate) VALUES (:recipeId, :recipeCategoryId, :recipeUserId, :recipeDescription, :recipeImageUrl, :recipeIngredients, :recipeMinutes, :recipeName, :recipeNumberIngredients, :recipeNutrition, :recipeStep, :recipeSubmissionDate)";
 		$statement = $pdo->prepare($query);
 		// this creates relationship between php state variables and pdo/mysql variables
-		$formattedDate = $this->recipeSubmissionDate->format("Y-m-d H:i:s:u");
+		$formattedDate = $this->recipeSubmissionDate->format("Y-m-d H:i:s.u");
 		$parameters = [
 			"recipeId" => $this->recipeId->getBytes(),
 			"recipeCategoryId" => $this->recipeCategoryId->getBytes(),
@@ -519,7 +519,7 @@ class Recipe implements \JsonSerializable {
 			"recipeNumberIngredients" => $this->recipeNumberIngredients,
 			"recipeNutrition" => $this->recipeNutrition,
 			"recipeStep" => $this->recipeStep,
-			"recipeSubmissionDate" => $formattedDate,];
+			"recipeSubmissionDate" => $formattedDate];
 		$statement->execute($parameters);
 	}
 
@@ -614,6 +614,7 @@ class Recipe implements \JsonSerializable {
 		//create query template
 		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl, recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep, recipeSubmissionDate FROM recipe WHERE recipeUserId = :recipeUserId";
 		$statement = $pdo->prepare($query);
+
 		//bind the recipe user id to the place holder in the template
 		$parameters = ["recipeUserId" => $recipeUserId->getBytes()];
 		$statement->execute($parameters);
@@ -628,6 +629,7 @@ class Recipe implements \JsonSerializable {
 				$recipes[$recipes->key()] = $recipe;
 				$recipes->next();
 			} catch(\Exception $exception) {
+
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
@@ -650,9 +652,11 @@ class Recipe implements \JsonSerializable {
     		recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
     		recipeSubmissionDate FROM recipe WHERE recipeCategoryId = :recipeCategoryId";
 		$statement = $pdo->prepare($query);
+
 		//bind the category id to the place holder in the template
 		$parameters = ["recipeCategoryId" => $recipeCategoryId->getBytes()];
 		$statement->execute($parameters);
+
 		//grab the recipeCategoryId from mySQL
 		try {
 			$recipe = null;
@@ -789,7 +793,7 @@ class Recipe implements \JsonSerializable {
 		unset($fields["recipeDescription"]);
 
 		//format date in order for the front end to use it
-		$fields["recipeSubmissionDate"] = round(floatval($this->recipeSubmissionDate->format("U.u")) *1000);
+		$fields["recipeSubmissionDate"] = round(floatval($this->recipeSubmissionDate->format("U.u")) * 1000);
 		return ($fields);
 	}
 }

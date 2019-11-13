@@ -54,7 +54,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * @var string $VALID_RECIPE_IMAGE_URL
 	 */
 
-	protected $VALID_RECIPE_IMAGE_URL = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.chatelaine.com%2Fwp-description%2Fuploads%2F2019%2F01%2Fcanada-new-food-guide-2019.jpeg&imgrefurl=https%3A%2F%2Fwww.chatelaine.com%2Fhealth%2Fcanadas-new-food-guide%2F&docid=iGdHGh_bTDOdlM&tbnid=iXbC_QxC1WGTqM%3A&vet=10ahUKEwjdpcbgztblAhVKIqwKHXiwCScQMwh7KAIwAg..i&w=1542&h=1439&bih=578&biw=1280&q=food&ved=0ahUKEwjdpcbgztblAhVKIqwKHXiwCScQMwh7KAIwAg&iact=mrc&uact=8";
+	protected $VALID_RECIPE_IMAGE_URL = "https://tacobell.co.jp/wp-content/uploads/2015/02/tbi-logo-150px-300x300.png";
 
 	/**
 	 * Valid Recipe ingredients
@@ -151,8 +151,8 @@ class RecipeTest extends CommunityCookbookTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRecipe = Recipe::getRecipeByRecipeId($this->getPDO(), $recipe->getRecipeId());
 		$this->assertEquals($pdoRecipe->getRecipeId()->toString(), $recipeId->toString());
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $recipe->getRecipeCategoryId()->toString());
-		$this->assertEquals($pdoRecipe->getRecipeUserId(), $recipe->getRecipeUserId()->toString());
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $recipe->getCategoryId()->toString());
+		$this->assertEquals($pdoRecipe->getRecipeUserId(), $recipe->getUserId()->toString());
 		$this->assertEquals($pdoRecipe->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
 		$this->assertEquals($pdoRecipe->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);
 		$this->assertEquals($pdoRecipe->getRecipeIngredients(), $this->VALID_RECIPE_INGREDIENTS);
