@@ -259,7 +259,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * test grabbing a Recipe that does not exist
 	 * @param $fakeRecipeId
 	 */
-	public function testGetInvalidRecipeByRecipeId($fakeRecipeId): void {
+	public function testGetInvalidRecipeByRecipeId(): void {
 
 		// grab a recipe id that exceeds the maximum allowable recipe id
 		$fakeRecipeId = generateUuidV4();
@@ -286,13 +286,13 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\\Recipe", $results);
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->category->getCategoryId);
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoRecipe->getRecipeUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoRecipe->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
 		$this->assertEquals($pdoRecipe->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);
@@ -329,18 +329,18 @@ class RecipeTest extends CommunityCookbookTest {
 		$recipe->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Recipe::getRecipeByRecipeCategoryId($this->getPDO(), $this->category->getCategoryId());
+		$results = Recipe::getRecipeByRecipeCategoryId($this->getPDO(), $recipe->getRecipeCategoryId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\\Recipe", $results);
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->category->getCategoryId);
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoRecipe->getRecipeUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoRecipe->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
 		$this->assertEquals($pdoRecipe->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);
@@ -382,13 +382,13 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("\TheDeepDiveDawgs\CommunityCookBook\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookBook\\Recipe", $results);
 
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
-		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->category->getCategoryId);
+		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $this->category->getCategoryId());
 		$this->assertEquals($pdoRecipe->getRecipeUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoRecipe->getRecipeDescription(), $this->VALID_RECIPE_DESCRIPTION);
 		$this->assertEquals($pdoRecipe->getRecipeImageUrl(), $this->VALID_RECIPE_IMAGE_URL);

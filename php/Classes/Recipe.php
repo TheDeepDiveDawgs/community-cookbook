@@ -640,7 +640,7 @@ class Recipe implements \JsonSerializable {
 
 	// this is the divide between foo by bar array and normal foo by bar//
 
-	public function getRecipeByCategoryId(\PDO $pdo, $recipeCategoryId): Recipe {
+	public function getRecipeByCategoryId(\PDO $pdo, $recipeCategoryId): ?Recipe {
 		//sanitize the recipeCategoryId before searching
 		try {
 			$recipeCategoryId = self::validateUuid($recipeCategoryId);
