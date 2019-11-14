@@ -1,74 +1,82 @@
 <?php
-
 namespace TheDeepDiveDawgs\CommunityCookbook;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
-
 /** recipe class by Damian Arya darya@cnm.edu
  * @version (7.3)
  */
-
 use Ramsey\Uuid\Uuid;
-
 /** docblock section of recipe setting up the Classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
+
 	/**
 	 * id for this recipe; this is the primary key
 	 * @var  Uuid $recipeId
 	 **/
 	private $recipeId;
+
 	/**
 	 *  to identify recipe type for sorting and searching purposes.
 	 * @var Uuid $recipeCategoryId
 	 **/
 	private $recipeCategoryId;
+
 	/**
 	 * to identify recipe type for sorting and searching purposes.
 	 * @var Uuid $recipeUserId
 	 **/
 	private $recipeUserId;
+
 	/**
 	 * description for this recipe; this is a unique index
 	 * @var string $recipeDescription
 	 **/
 	private $recipeDescription;
+
 	/**
 	 * imageUrl for recipe so as retrieve and display user supplies recipe images
 	 * @var string $recipeImageUrl
 	 **/
 	private $recipeImageUrl;
+
 	/**
 	 * ingredients for this recipe
 	 * @var string $recipeIngredients
 	 **/
 	private $recipeIngredients;
+
 	/**
 	 * minuets to make this dish
 	 * @var string $recipeMinutes
 	 */
 	private $recipeMinutes;
+
 	/**
 	 * name or tittle of recipe
 	 * @var string $recipeName
 	 **/
 	private $recipeName;
+
 	/**
 	 * number of ingredients for this recipe
 	 * @var INT $recipeNumberIngredients
 	 **/
 	private $recipeNumberIngredients;
+
 	/**
 	 * nutritional info for this recipe
 	 * @var string $recipeNutrition
 	 **/
 	private $recipeNutrition;
+
 	/**
 	 * Step to make this recipe
 	 * @var string $recipeStep
 	 **/
 	private $recipeStep;
+
 	/**
 	 * date the recipe was submitted
 	 * @var \DateTime $recipeSubmissionDate
@@ -108,7 +116,6 @@ class Recipe implements \JsonSerializable {
 			$this->setRecipeStep($newRecipeStep);
 			$this->setRecipeSubmissionDate($newRecipeSubmissionDate);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-		}
 
 			//determine what exception type was thrown
 			$exceptionType = get_class($exception);
@@ -116,8 +123,7 @@ class Recipe implements \JsonSerializable {
 		}
 	}
 
-	public static function getRecipeByRecipeDescription(\PDO $getPDO, string $getRecipeDescription) {
-	}
+
 	/**
 	 * Specify data which should be serialized to JSON
 	 * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -148,6 +154,7 @@ class Recipe implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+
 		// convert and store the recipe id
 		$this->recipeId = $uuid;
 	}
@@ -175,6 +182,7 @@ class Recipe implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+
 		// convert and store the recipeCategoryId
 		$this->recipeCategoryId = $uuid;
 	}
@@ -203,6 +211,7 @@ class Recipe implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+
 		// convert and store the recipeUserId
 		$this->recipeUserId = $uuid;
 	}
@@ -227,7 +236,6 @@ class Recipe implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecure
 	 */
 	public function setRecipeDescription(string $newRecipeDescription): void {
-	}
 
 		// verify the description is secure
 		$newRecipeDescription = trim($newRecipeDescription);
@@ -279,7 +287,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return string value of recipeIngredients
 	 **/
-	public function getRecipeIngredients(): string {
+	public function getRecipeIngredients() :string {
 		return ($this->recipeIngredients);
 	}
 
@@ -291,7 +299,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeIngredients is not a string
 	 * @throws \InvalidArgumentException if the recipeIngredients is not secure
 	 */
-	public function setRecipeIngredients(string $newRecipeIngredients): void {
+	public function setRecipeIngredients(string $newRecipeIngredients) : void {
 
 		// verify the ingredients is secure
 		$newRecipeIngredients = trim($newRecipeIngredients);
@@ -304,6 +312,7 @@ class Recipe implements \JsonSerializable {
 		if(strlen($newRecipeIngredients) > 300) {
 			throw(new \RangeException("Ingredient name is too large"));
 		}
+
 		// store the Ingredients
 		$this->recipeIngredients = $newRecipeIngredients;
 	}
@@ -513,7 +522,6 @@ class Recipe implements \JsonSerializable {
 		$this->recipeSubmissionDate = $newRecipeSubmissionDate;
 	}
 // This is where the PDOs begin
-
 	/**
 	 * inserts recipe into mysql
 	 * @param \PDO $pdo PDO connection object
@@ -630,6 +638,7 @@ class Recipe implements \JsonSerializable {
 	 * @param Uuid for $recipeUserId
 	 * @return \SplFixedArray SplFixedArray of getRecipeByRecipeUserId found or null if not found
 	 */
+
 	public static function getRecipeByRecipeUserId(\PDO $pdo, $recipeUserId): \SPLFixedArray {
 		try {
 			$recipeUserId = self::validateUuid($recipeUserId);
@@ -654,7 +663,6 @@ class Recipe implements \JsonSerializable {
 				$recipes[$recipes->key()] = $recipe;
 				$recipes->next();
 			} catch(\Exception $exception) {
-
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
@@ -662,6 +670,12 @@ class Recipe implements \JsonSerializable {
 		return ($recipes);
 	}
 
+
+	/**
+	 * @param \PDO $pdo
+	 * @param $recipeCategoryId
+	 * @return Recipe|null
+	 */
 
 	// this is the divide between foo by bar array and normal foo by bar//
 	public function getRecipeByRecipeCategoryId(\PDO $pdo, string $recipeCategoryId): \SplFixedArray {
@@ -675,8 +689,8 @@ class Recipe implements \JsonSerializable {
 
 		//create query template
 		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
-    		recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
-    		recipeSubmissionDate FROM recipe WHERE recipeCategoryId = :recipeCategoryId";
+           recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
+           recipeSubmissionDate FROM recipe WHERE recipeCategoryId = :recipeCategoryId";
 		$statement = $pdo->prepare($query);
 
 		//bind the category id to the place holder in the template
@@ -700,8 +714,7 @@ class Recipe implements \JsonSerializable {
 	}
 
 	//** this is where get recipe by recipe id begins **//
-	public
-	function getRecipeByRecipeId(\PDO $pdo, $recipeId): ?Recipe {
+	public function getRecipeByRecipeId(\PDO $pdo, $recipeId): ?Recipe {
 
 		//sanitize the recipeId before searching
 		try {
@@ -738,26 +751,24 @@ class Recipe implements \JsonSerializable {
 	}
 
 	//this is where foo by bar get recipe by search term begins
-	public
-	function getRecipeBySearchTerm(\PDO $pdo, $recipeIngredients, $recipeName, $recipeStep): \SplFixedArray {
-
+	public function getRecipeBySearchTerm (\PDO $pdo, $recipeIngredients, $recipeName, $recipeStep) : \SplFixedArray {
 		// sanitize the search term in recipe ingredients before searching
 		$recipeIngredients = trim($recipeIngredients);
-		$recipeIngredients = filter_var($recipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$recipeIngredients= filter_var($recipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($recipeIngredients) === true) {
 			throw(new \PDOException("Recipe ingredient  is invalid"));
 		}
 
 		// sanitize the search term in recipe name before searching
 		$recipeName = trim($recipeName);
-		$recipeName = filter_var($recipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$recipeName= filter_var($recipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($recipeName) === true) {
 			throw(new \PDOException("Recipe name is invalid"));
 		}
 
 		// sanitize the search term  in recipe step before searching
 		$recipeStep = trim($recipeStep);
-		$recipeStep = filter_var($recipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$recipeStep= filter_var($recipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($recipeStep) === true) {
 			throw(new \PDOException("Recipe step is invalid"));
 		}
@@ -772,24 +783,15 @@ class Recipe implements \JsonSerializable {
     recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
     recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeIngredients OR recipeName LIKE :recipeName OR 
     recipeStep LIKE :recipeStep";
-		$statement = $pdo - prepare($query);
+		$statement = $pdo ->prepare($query);
 
 		// bind the recipe ingredients to the place holder in the template
 		$recipeIngredients = "%$recipeIngredients%";
-		$parameters = ["recipeIngredients" => $recipeIngredients];
-		$statement->execute($parameters);
-
-		// bind the recipe name to the place holder in the template
 		$recipeName = "%$recipeName%";
-		$parameters = ["recipeName" => $recipeName];
-		$statement->execute($parameters);
-
-		// bind the recipe steps to the place holder in the template
 		$recipeStep = "%$recipeStep%";
-		$parameters = ["recipeStep" => $recipeStep];
+		$parameters = ["recipeIngredients" => $recipeIngredients, "recipeName" => $recipeName, "recipeStep" => $recipeStep];
 		$statement->execute($parameters);
 
-		// build an array of recipes
 		$recipes = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
@@ -800,12 +802,11 @@ class Recipe implements \JsonSerializable {
 				$recipes[$recipes->key()] = $recipe;
 				$recipes->next();
 			} catch(\Exception $exception) {
-
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return ($recipes);
+		return($recipes);
 	}
 
 	/**
@@ -813,8 +814,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 */
-	public
-	function jsonSerialize(): array {
+	public function jsonSerialize(): array {
 
 		//this collects all state variables
 		$fields = get_object_vars($this);
@@ -824,3 +824,9 @@ class Recipe implements \JsonSerializable {
 		$fields["recipeCategoryId"] = $this->recipeCategoryId->toString();
 		$fields["recipeUserId"] = $this->recipeUserId->toString();
 		unset($fields["recipeDescription"]);
+
+		//format date in order for the front end to use it
+		$fields["recipeSubmissionDate"] = round(floatval($this->recipeSubmissionDate->format("U.u")) * 1000);
+		return ($fields);
+	}
+}
