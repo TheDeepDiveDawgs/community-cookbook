@@ -2,7 +2,7 @@
 
 namespace TheDeepDiveDawgs\CommunityCookbook\Test;
 
-use TheDeepDiveDawgs\CommunityCookbook\{User, Recipe, Interaction};
+use TheDeepDiveDawgs\CommunityCookbook\{User, Recipe, Category, Interaction};
 
 //grab class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -33,6 +33,12 @@ class InteractionTest extends CommunityCookbookTest {
 	 * @var Recipe $user
 	 */
 	protected $recipe = null;
+
+	/**
+	 * category where the recipe and interaction resides
+	 * @var Category $category
+	 */
+	protected $category = null;
 
 	/**
 	 * valid user hash to create the user object to own the test
@@ -72,11 +78,11 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->user->insert($this->getPDO());
 
 		//create and insert mocked recipe
-		$this->recipe = new Recipe(generateUuidV4(), generateUuidV4(), $this->user->getUserId(),
+		$this->recipe = new Recipe(generateUuidV4(), $this->category->getCategoryId(), $this->user->getUserId(),
 			"this is a recipe description, food is great", "https://www.google.com/imgres?",
 			"recipe ingredients, veggies, fries, meat",
 			"20", "yummy vegan dish", "2",
-			"there is no nutritional value in these veggies", "step one, wash the veggies, step two cut the veggies, step three eat the veggies",);
+			"there is no nutritional value in these veggies", "step one, wash the veggies, step two cut the veggies, step three eat the veggies");
 		$this->recipe->insert($this->getPDO());
 
 		//calculate the date (use the the time the unit test was setup)
