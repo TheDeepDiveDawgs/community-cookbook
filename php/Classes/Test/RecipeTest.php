@@ -183,7 +183,7 @@ class RecipeTest extends CommunityCookbookTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRecipe = Recipe::getRecipeByRecipeId($this->getPDO(), $recipe->getRecipeId());
 
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertEquals($pdoRecipe->getRecipeId(), $recipeId);
 		$this->assertEquals($pdoRecipe->getRecipeCategoryId(), $recipe->getRecipeCategoryId()->toString());
 		$this->assertEquals($pdoRecipe->getRecipeUserId(), $recipe->getRecipeUserId()->toString());
@@ -367,7 +367,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * test grabbing all Recipes
 	 */
 
-	public function testGetAllValidRecipes(): void {
+	public function testGetAllValidRecipe(): void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("recipe");
 
@@ -377,12 +377,12 @@ class RecipeTest extends CommunityCookbookTest {
 		$recipe->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Recipe::getAllRecipes($this->getPDO());
+		$results = Recipe::getAllRecipe($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("\DeepDiveDawgs\CommunityCookBook\\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("\TheDeepDiveDawgs\CommunityCookBook\Recipe", $results);
 
 
 		// grab the result from the array and validate it

@@ -550,11 +550,12 @@ class Recipe implements \JsonSerializable {
 		//create query template
 		$query = "UPDATE recipe SET recipeCategoryId = :recipeCategoryId, recipeUserId = :recipeUserId, recipeDescription = :recipeDescription, recipeImageUrl = :recipeImageUrl, recipeIngredients = :recipeIngredients, recipeMinutes = :recipeMinutes, recipeName = :recipeName, recipeNumberIngredients = :recipeNumberIngredients, recipeNutrition = :recipeNutrition, recipeStep = :recipeStep, recipeSubmissionDate = :recipeSubmissionDate WHERE recipeId = :recipeId";
 		$statement = $pdo->prepare($query);
+		$formattedDate = $this->recipeSubmissionDate->format("Y-m-d H:i:s.u");
 		//creates relationship between php state variables and pdo/mysql variables
 		$parameters = [
 			"recipeId" => $this->recipeId->getBytes(),
-			"recipeCategoryId" => $this->recipeCategoryId,
-			"recipeUserId" => $this->recipeUserId,
+			"recipeCategoryId" => $this->recipeCategoryId->getBytes(),
+			"recipeUserId" => $this->recipeUserId->getBytes(),
 			"recipeDescription" => $this->recipeDescription,
 			"recipeImageUrl" => $this->recipeImageUrl,
 			"recipeIngredients" => $this->recipeIngredients,
@@ -563,7 +564,7 @@ class Recipe implements \JsonSerializable {
 			"recipeNumberIngredients" => $this->recipeNumberIngredients,
 			"recipeNutrition" => $this->recipeNutrition,
 			"recipeStep" => $this->recipeStep,
-			"recipeSubmissionDate" => $this->recipeSubmissionDate,];
+			"recipeSubmissionDate" => $formattedDate,];
 		$statement->execute($parameters);
 	}
 
@@ -675,7 +676,7 @@ class Recipe implements \JsonSerializable {
 
 	//** this is where get recipe by recipe id begins **//
 
-	public function getRecipeByRecipeId(\PDO $pdo, $recipeId): Recipe {
+	public function getRecipeByRecipeId(\PDO $pdo, $recipeId): ?Recipe {
 		//sanitize the recipeId before searching
 		try {
 			$recipeId = self::validateUuid($recipeId);
