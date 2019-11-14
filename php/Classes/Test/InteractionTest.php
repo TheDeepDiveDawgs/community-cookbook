@@ -230,6 +230,17 @@ class InteractionTest extends CommunityCookbookTest {
 	}
 
 	/**
+	 *
+	 * test grabbing a interaction by recipe id that does not exist
+	 */
+
+	public function testGetInvalidInteractionByRecipeId(): void {
+		//grab a recipe id that exceeds the maximum allowable user id
+		$interaction = Interaction::getInteractionByInteractionRecipeId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $interaction);
+	}
+
+	/**
 	 * test grabbing an interaction by user id
 	 */
 
