@@ -58,12 +58,6 @@ class InteractionTest extends CommunityCookbookTest {
 	 */
 	protected $VALID_INTERACTION_RATING;
 
-	/**
-	 * Valid Recipe submission date; this starts as null and is assigned later
-	 * @var \DateTime $VALID_RECIPE_SUBMISSION_DATE
-	 */
-	protected $VALID_RECIPE_SUBMISSION_DATE = null;
-
 	public final function setUp(): void {
 		//run default setUp() method first
 		parent::setUp();
