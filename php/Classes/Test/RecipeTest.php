@@ -286,7 +286,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\\CommunityCookbook\\Recipe", $results);
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
@@ -319,7 +319,7 @@ class RecipeTest extends CommunityCookbookTest {
 	 * test grabbing a Recipe by recipe category
 	 */
 
-	public function testGetValidRecipeByRecipeCategoryId(): void {
+	public function testGetValidRecipeByRecipeCategoryId() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("recipe");
 
@@ -334,7 +334,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookbook\\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\\CommunityCookbook\\Recipe", $results);
 
 		// grab the result from the array and validate it
 		$pdoRecipe = $results[0];
@@ -382,7 +382,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\CommunityCookBook\\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\\CommunityCookBook\\Recipe", $results);
 
 
 		// grab the result from the array and validate it
