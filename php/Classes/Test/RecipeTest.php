@@ -398,7 +398,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$this->assertCount(1, $results);
 
 		//enforce no other objects are bleeding into the text
-//		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawg\\CommunityCookBook\\Recipe", $results);
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\\CommunityCookBook\\Recipe", $results);
 
 		//grab the results from the array and validate it
 		$pdoRecipe = $results[0];
