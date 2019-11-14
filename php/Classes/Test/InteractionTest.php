@@ -115,7 +115,9 @@ class InteractionTest extends CommunityCookbookTest {
 
 	/**
 	 * test inserting a Interaction, editing it, and then updating it
-	 **/
+	 *
+	 * @throws \Exception
+	 */
 	public function testUpdateValidInteraction(): void {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("interaction");
