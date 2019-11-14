@@ -71,7 +71,7 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->user->insert($this->getPDO());
 
 		//create and insert mocked recipe
-		$this->recipe = new Recipe(generateUuidV4(), generateUuidV4(), generateUuidV4(),
+		$this->recipe = new Recipe(generateUuidV4(), generateUuidV4(), $this->user->getUserId(),
 			"this is a recipe description, food is great", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.chatelaine.com%2Fwp-description%2Fuploads%2F2019%2F01%2Fcanada-new-food-guide-2019.jpeg&imgrefurl=https%3A%2F%2Fwww.chatelaine.com%2Fhealth%2Fcanadas-new-food-guide%2F&docid=iGdHGh_bTDOdlM&tbnid=iXbC_QxC1WGTqM%3A&vet=10ahUKEwjdpcbgztblAhVKIqwKHXiwCScQMwh7KAIwAg..i&w=1542&h=1439&bih=578&biw=1280&q=food&ved=0ahUKEwjdpcbgztblAhVKIqwKHXiwCScQMwh7KAIwAg&iact=mrc&uact=8",
 			"recipe ingredients, veggies, fries, meat",
 			"20", "yummy vegan dish", "2",
