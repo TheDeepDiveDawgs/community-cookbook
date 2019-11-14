@@ -132,8 +132,8 @@ class InteractionTest extends CommunityCookbookTest {
 		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(),
 			$this->recipe->getRecipeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
-		$this->assertEquals($pdoInteraction->getInteractionUserId, $this->user->getInteractionUserId());
-		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $this->user->getInteractionRecipeId());
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $interaction->getInteractionUserId()->toString());
+		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $interaction->getInteractionRecipeId()->toString());
 
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTION_DATE->getTimestamp());
@@ -242,7 +242,7 @@ class InteractionTest extends CommunityCookbookTest {
 		$interaction->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce that the fields match our expectations
-		$results = Interacton::getInteractionByInteractionUserId($this->getPDO(), $this->user->getUserId());
+		$results = Interaction::getInteractionByInteractionUserId($this->getPDO(), $this->user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
 		$this->assertCount(1, $results);
 
