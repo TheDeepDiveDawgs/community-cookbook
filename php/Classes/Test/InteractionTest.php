@@ -76,6 +76,10 @@ class InteractionTest extends CommunityCookbookTest {
 		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION, "audialb@yahoo.com", "Daniel Hernandez",
 			"Audialb", $this->VALID_USER_HASH);
 		$this->user->insert($this->getPDO());
+		
+		//create and insert category to own recipe that is interacted with
+		$this->category = new Category(generateUuidV4(), "Vegan");
+		$this->category->insert($this->getPDO());
 
 		//create and insert mocked recipe
 		$this->recipe = new Recipe(generateUuidV4(), $this->category->getCategoryId(), $this->user->getUserId(),
@@ -103,13 +107,14 @@ class InteractionTest extends CommunityCookbookTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoInteraction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($this->getPDO(), $this->user->getUserId(), $this->recipe->getRecipeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("interaction"));
-		$this->assertEquals($pdoInteraction->getInteractionUserId(), $interaction->getInteractionUserId()->toString());
+		$this->assertEquals($pdoInteraction->getInteractionUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoInteraction->getInteractionRecipeId(), $interaction->getInteractionRecipeId()->toString());
+		$this->assertEquals($pdoInteraction->getInteractionRating(), $this->VALID_INTERACTION_RATING);
 
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoInteraction->getInteractionDate()->getTimeStamp(), $this->VALID_INTERACTION_DATE->getTimestamp());
 
-		$this->assertEquals($pdoInteraction->getInteractionRating(), $this->VALID_INTERACTION_RATING);
+
 
 	}
 

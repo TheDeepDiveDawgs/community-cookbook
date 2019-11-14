@@ -209,8 +209,10 @@ class Interaction implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
+
+		$formattedDate = $this->interactionDate->format("Y-m-d H:i:s.u");
 		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes(),
-			"interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
+			"interactionDate" => $formattedDate, "interactionRating" => $this->interactionRating];
 		$statement->execute($parameters);
 
 	}
