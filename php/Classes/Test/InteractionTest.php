@@ -55,8 +55,9 @@ class InteractionTest extends CommunityCookbookTest {
 	/*
 	 * rating result of interaction
 	 * @var int $VALID_INTERACTION_RATING
+	 *
 	 */
-	protected $VALID_INTERACTION_RATING;
+	protected $VALID_INTERACTION_RATING = "1";
 
 	public final function setUp(): void {
 		//run default setUp() method first
