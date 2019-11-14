@@ -245,11 +245,12 @@ class Interaction implements \JsonSerializable {
 	public function update(\PDO $pdo): void {
 
 		//creates query template
-		$query = "UPDATE interaction SET interactionRating = :interactionRating WHERE interactionUserId = :interactionUserId and interactionRecipeId = :interactionRecipeId";
+		$query = "UPDATE interaction SET interactionDate = :interactionDate, interactionRating = :interactionRating WHERE interactionUserId = :interactionUserId and interactionRecipeId = :interactionRecipeId";
 		$statement = $pdo->prepare($query);
 
+		$formattedDate = $this->interactionDate->format("Y-m-d H:i:s.u");
 		$parameters = ["interactionUserId" => $this->interactionUserId->getBytes(), "interactionRecipeId" => $this->interactionRecipeId->getBytes(),
-			"interactionDate" => $this->interactionDate, "interactionRating" => $this->interactionRating];
+			"interactionDate" => $formattedDate, "interactionRating" => $this->interactionRating];
 		$statement->execute($parameters);
 	}
 
