@@ -225,7 +225,7 @@ class Category implements \JsonSerializable {
 	 */
 
 	public function jsonSerialize() : array {
-		$fields = get_obeject_vars($this);
+		$fields = get_object_vars($this);
 
 		$fields["categoryId"] = $this->categoryId-> toString();
 		return ($fields);
