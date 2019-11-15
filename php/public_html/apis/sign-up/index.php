@@ -47,10 +47,10 @@ try {
 		if(empty($requestObject->userPasswordConfirm) === true) {
 			throw(new \InvalidArgumentException ("Must input valid password", 405));
 		}
-		//if phone is empty set it too null
-		if(empty($requestObject->userPhone) === true) {
-			$requestObject->userPhone = null;
-		}
+//		//if phone is empty set it too null
+//		if(empty($requestObject->userPhone) === true) {
+//			$requestObject->userPhone = null;
+//		}
 		//make sure the password and confirm password match
 		if ($requestObject->userPassword !== $requestObject->userPasswordConfirm) {
 			throw(new \InvalidArgumentException("passwords do not match"));
@@ -58,7 +58,7 @@ try {
 		$hash = password_hash($requestObject->userPassword, PASSWORD_ARGON2I, ["time_cost" => 384]);
 		$userActivationToken = bin2hex(random_bytes(16));
 		//create the user object and prepare to insert into the database
-		$user = new user(generateUuidV4(), $userActivationToken, $requestObject->userEmail, $requestObject->userFullName, $requestObject->userHandle, $hash);
+		$user = new User(generateUuidV4(), $userActivationToken, $requestObject->userEmail, $requestObject->userFullName, $requestObject->userHandle, $hash);
 		//insert the user into the database
 		$user->insert($pdo);
 		//compose the email message to send with th activation token
@@ -67,13 +67,13 @@ try {
 		//make sure URL is /public_html/api/activation/$activation
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
 		//create the path
-		$urlglue = $basePath . "/apis/activation/?activation=" . $userActivationToken;
+		$urlGlue = $basePath . "/apis/activation/?activation=" . $userActivationToken;
 		//create the redirect link
-		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlGlue;
 		//compose message to send with email
 		$message = <<< EOF
-<h2>Welcome to DDCTwitter.</h2>
-<p>In order to start posting tweets of cats you must confirm your account </p>
+<h2>Welcome to Community CookBook</h2>
+<p>In order to start posting your own recipes you must confirm your account </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
 		//create swift email

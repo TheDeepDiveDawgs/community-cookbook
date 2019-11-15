@@ -328,6 +328,45 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * gets the user by user Id
+	 * @param \PDO $pdo PDO connection to object
+	 * @param Uuid for $userId
+	 * @return User | null User found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable is not the correct data type
+	 */
+	public static function getUserByUserId(\PDO $pdo, $userId) : ?User {
+		//sanitize the userId before searching
+		try{
+			$userId = self::validateUuid($userId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw (new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		//create query template
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+
+		//bind the user id to the place holder in the template
+		$parameters = ["userId" => $userId->getBytes()];
+		$statement->execute($parameters);
+
+		//grab the user from mySQL
+		try {
+			$user = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($user);
+	}
+
+
+	/**
 	 * gets the user by user email
 	 * @param \PDO $pdo PDO connection to object
 	 * @param string for $userEmail
@@ -364,6 +403,48 @@ class User implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($user);
+	}
+
+	/*
+	 * gets the User by handle
+	 *
+	 * @param \PDO $pdo connection object
+	 * @param string $userHandle handle to search for
+	 * @return \SPLFixedArray of all profiles found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getUserByUserHandle(\PDO $pdo, string $userHandle) : \SPLFixedArray {
+
+		// sanitize the handle before searching
+		$userHandle = trim($userHandle);
+		$userHandle = filter_var($userHandle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userHandle) === true) {
+			throw(new \PDOException("not a valid handle"));
+		}
+
+		//create query template
+		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userHandle = :userHandle";
+		$statement = $pdo->prepare($query);
+
+		//bind the user handle to the place holder in the template
+		$parameters = ["userHandle" => $userHandle];
+		$statement->execute($parameters);
+
+		$users = new \SPLFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
+				$users[$users->key()] = $user;
+				$users->next();
+			} catch(\Exception $exception) {
+
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($users);
 	}
 
 	/**
@@ -405,53 +486,18 @@ class User implements \JsonSerializable {
 	}
 	return($user);
 }
+ /*
+  * formats the state variables for JSON Serialization
+  *
+  * @return array resulting state variables to serialize
+  */
+ public function jsonSerialize() {
+	 // TODO: Implement jsonSerialize() method.
+	 $fields = get_object_vars($this);
+	 $fields["userId"] = $this->userId->toString();
+	 unset($fields["userActivationToken"]);
+	 unset($fields["userHash"]);
+	 return ($fields);
+ }
 
-	/**
-	 * gets the user by user Id
-	 * @param \PDO $pdo PDO connection to object
-	 * @param Uuid for $userId
-	 * @return User | null User found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when a variable is not the correct data type
-	 */
-	public static function getUserByUserId(\PDO $pdo, $userId) : ?User {
-		//sanitize the userId before searching
-		try{
-			$userId = self::validateUuid($userId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw (new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		//create query template
-		$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userId = :userId";
-		$statement = $pdo->prepare($query);
-
-		//bind the user id to the place holder in the template
-		$parameters = ["userId" => $userId->getBytes()];
-		$statement->execute($parameters);
-
-		//grab the user from mySQL
-		try {
-			$user = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$user = new User($row["userId"], $row["userActivationToken"], $row["userEmail"], $row["userFullName"], $row["userHandle"], $row["userHash"]);
-			}
-		} catch(\Exception $exception) {
-			//if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return($user);
-	}
-
-	/**
-	 * formats the state variables for JSON serialization
-	 * @return void resulting state variables to serialize
-	 */
-	public function jsonSerialize() {
-		$fields = get_object_vars($this);
-
-		$fields["userId"] = $this->userId->toString();
-		$fields["userActivationToken"] = $this->userActivationToken->toString();
-	}
 }

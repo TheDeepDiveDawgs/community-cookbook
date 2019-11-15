@@ -161,17 +161,28 @@ class UserTest extends CommunityCookbookTest {
 		$user = User::getUserByUserId($this->getPDO(), $fakeUserId );
 		$this->assertNull($user);
 	}
+
 	/**
-	 * Test grabbing a User by its activation token
+	 * test creating a user by user handle
 	 */
-	public function testGetValidUserByActivationToken() : void {
-		// count the number of rows and save it for later
+	public function testGetValidUserByUserHandle() {
+
+		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
+
 		$userId = generateUuidV4();
 		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 		$user->insert($this->getPDO());
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoUser = User::getUserByUserActivationToken($this->getPDO(), $user->getUserActivationToken());
+
+		//grab the data from mySQL
+		$results = User::getUserByUserHandle($this->getPDO(), $this->VALID_HANDLE);
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("user"));
+
+		//enforce no other objects are bleeding into user
+		$this->assertContainsOnlyInstancesOf("TheDeepDiveDawgs\\CommunityCookbook\\User", $results);
+
+		//enforce the results meet expectations
+		$pdoUser = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertEquals($pdoUser->getUserId(), $userId);
 		$this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATION);
@@ -180,14 +191,17 @@ class UserTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoUser->getUserHandle(), $this->VALID_HANDLE);
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USER_HASH);
 	}
-	/**
-	 * Test grabbing a User by an activation token that does not exist
-	 **/
-	public function testGetInvalidUserActivation() : void {
-		// grab an activation token that does not exist
-		$user = User::getUserByUserActivationToken($this->getPDO(), "88015c507fbc02f37bf8bc398ee4eaad");
-		$this->assertNull($user);
+
+	/*
+	 * test grabbing a user by handle that does not exist
+	 */
+	public function testGetInvalidUserByUserHandle() : void {
+
+		//grab a handle that does not exist
+		$user = User::getUserByUserHandle($this->getPDO(), "noUsername");
+		$this->assertCount(0, $user);
 	}
+
 	/**
 	 * Test grabbing a User by email
 	 **/
@@ -213,6 +227,34 @@ class UserTest extends CommunityCookbookTest {
 	public function testGetInvalidUserByEmail() : void {
 		// grab an email that does not exist
 		$user = User::getUserByUserEmail($this->getPDO(), "does@not.exist");
+		$this->assertNull($user);
+	}
+
+	/**
+	 * Test grabbing a User by its activation token
+	 */
+	public function testGetValidUserByActivationToken() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+		$userId = generateUuidV4();
+		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
+		$user->insert($this->getPDO());
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoUser = User::getUserByUserActivationToken($this->getPDO(), $user->getUserActivationToken());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertEquals($pdoUser->getUserId(), $userId);
+		$this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoUser->getUserFullName(), $this->VALID_FULLNAME);
+		$this->assertEquals($pdoUser->getUserHandle(), $this->VALID_HANDLE);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USER_HASH);
+	}
+	/**
+	 * Test grabbing a User by an activation token that does not exist
+	 **/
+	public function testGetInvalidUserActivation() : void {
+		// grab an activation token that does not exist
+		$user = User::getUserByUserActivationToken($this->getPDO(), "88015c507fbc02f37bf8bc398ee4eaad");
 		$this->assertNull($user);
 	}
 }
