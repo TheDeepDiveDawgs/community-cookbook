@@ -106,7 +106,7 @@ class User implements \JsonSerializable {
 	 * accessor method for userActivationToken
 	 * @return string value of the activation token
 	 */
-	public function getUserActivationToken(): string {
+	public function getUserActivationToken(): ?string {
 		return $this->userActivationToken;
 	}
 
@@ -455,13 +455,11 @@ class User implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable is not the correct data type
 	 */
-	public static function getUserByUserActivationToken(\PDO $pdo, $userActivationToken) : ?User {
+	public static function getUserByUserActivationToken(\PDO $pdo, string $userActivationToken) : ?User {
 	$userActivationToken = strtolower(trim($userActivationToken));
 	if(ctype_xdigit($userActivationToken) === false) {
 		throw (new\RangeException("user activation is not valid"));
 	}
-	//escape any mySQL wild cards
-	$userActivationToken = str_replace("_", "\\_", str_replace("%", "\\%", $userActivationToken));
 
 	//create query template
 	$query = "SELECT userId, userActivationToken, userEmail, userFullName, userHandle, userHash FROM user WHERE userActivationToken = :userActivationToken";
@@ -486,6 +484,7 @@ class User implements \JsonSerializable {
 	}
 	return($user);
 }
+
  /*
   * formats the state variables for JSON Serialization
   *

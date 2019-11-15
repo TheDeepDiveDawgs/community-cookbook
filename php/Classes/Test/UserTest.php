@@ -30,23 +30,23 @@ class UserTest extends CommunityCookbookTest {
 	 * valid email to use
 	 * @var string $VALID_EMAIL
 	 */
-	protected $VALID_EMAIL = "grievxus@outlook.com";
+	protected $VALID_EMAIL = "someEmail@gmail.com";
 	/**
 	 * valid full name for user
 	 * @var string $VALID_FULLNAME
 	 **/
-	protected $VALID_FULLNAME = "Gino Villalpando";
+	protected $VALID_FULLNAME = "Gino Villa";
 	/**
 	 * valid handle to use
 	 * @var string $VALID_HANDLE
 	 **/
-	protected $VALID_HANDLE = "@grievous";
+	protected $VALID_HANDLE = "grievouss";
 
 	/**
 	 * second valid handle to use
 	 * @var string $VALID_HANDLE2
 	 */
-	protected $VALID_HANDLE2 = "@grievous";
+	protected $VALID_HANDLE2 = "grievouss";
 
 	/**
 	 * valid hash to use
