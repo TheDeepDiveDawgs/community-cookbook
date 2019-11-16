@@ -16,7 +16,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  * are tested for both invalid and valid inputs.
  *
  * @see User
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ *
  **/
 class UserTest extends CommunityCookbookTest {
 
@@ -31,11 +31,13 @@ class UserTest extends CommunityCookbookTest {
 	 * @var string $VALID_EMAIL
 	 */
 	protected $VALID_EMAIL = "someEmail@gmail.com";
+
 	/**
 	 * valid full name for user
 	 * @var string $VALID_FULLNAME
 	 **/
 	protected $VALID_FULLNAME = "Gino Villa";
+
 	/**
 	 * valid handle to use
 	 * @var string $VALID_HANDLE
@@ -60,6 +62,7 @@ class UserTest extends CommunityCookbookTest {
 	 * create dependent objects before running each Test
 	 **/
 	public final function setUp()  : void {
+
 		// run the default setUp() method first
 		parent::setUp();
 		$password = "abc123";
@@ -67,6 +70,7 @@ class UserTest extends CommunityCookbookTest {
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 	}
 		public function testInsertValidUser() : void {
+
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
@@ -86,10 +90,12 @@ class UserTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoUser->getUserHandle(), $this->VALID_HANDLE);
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USER_HASH);
 		}
-	/**
+
+		/**
 	 * Test inserting a User, editing it, and then updating it
 	 **/
 	public function testUpdateValidUser() {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
@@ -117,14 +123,17 @@ class UserTest extends CommunityCookbookTest {
 	 * Test creating a User and then deleting it
 	 **/
 	public function testDeleteValidUser() : void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		$userId = generateUuidV4();
 		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 		$user->insert($this->getPDO());
+
 		// delete the User from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$user->delete($this->getPDO());
+
 		// grab the data from mySQL and enforce the User does not exist
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertNull($pdoUser);
@@ -136,11 +145,13 @@ class UserTest extends CommunityCookbookTest {
 	 * Test inserting a User and re-grabbing it from mySQL
 	 **/
 	public function testGetValidUserByUserId() : void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		$userId = generateUuidV4();
 		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 		$user->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
@@ -156,6 +167,7 @@ class UserTest extends CommunityCookbookTest {
 	 * Test grabbing a User that does not exist
 	 **/
 	public function testGetInvalidUserByUserId() : void {
+
 		// grab a User id that exceeds the maximum allowable User id
 		$fakeUserId = generateUuidV4();
 		$user = User::getUserByUserId($this->getPDO(), $fakeUserId );
@@ -206,11 +218,13 @@ class UserTest extends CommunityCookbookTest {
 	 * Test grabbing a User by email
 	 **/
 	public function testGetValidUserByEmail() : void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		$userId = generateUuidV4();
 		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 		$user->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
@@ -221,10 +235,12 @@ class UserTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoUser->getUserHandle(), $this->VALID_HANDLE2);
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USER_HASH);
 	}
+
 	/**
 	 * Test grabbing a User by an email that does not exists
 	 **/
 	public function testGetInvalidUserByEmail() : void {
+
 		// grab an email that does not exist
 		$user = User::getUserByUserEmail($this->getPDO(), "does@not.exist");
 		$this->assertNull($user);
@@ -234,11 +250,13 @@ class UserTest extends CommunityCookbookTest {
 	 * Test grabbing a User by its activation token
 	 */
 	public function testGetValidUserByActivationToken() : void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		$userId = generateUuidV4();
 		$user = new User($userId, $this->VALID_ACTIVATION, $this->VALID_EMAIL, $this->VALID_FULLNAME, $this->VALID_HANDLE, $this->VALID_USER_HASH);
 		$user->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserByUserActivationToken($this->getPDO(), $user->getUserActivationToken());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
@@ -249,10 +267,12 @@ class UserTest extends CommunityCookbookTest {
 		$this->assertEquals($pdoUser->getUserHandle(), $this->VALID_HANDLE);
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USER_HASH);
 	}
+
 	/**
 	 * Test grabbing a User by an activation token that does not exist
 	 **/
 	public function testGetInvalidUserActivation() : void {
+
 		// grab an activation token that does not exist
 		$user = User::getUserByUserActivationToken($this->getPDO(), "88015c507fbc02f37bf8bc398ee4eaad");
 		$this->assertNull($user);
