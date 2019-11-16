@@ -9,7 +9,7 @@ drop table if exists user;
 create table user(
    -- primary key
 	userId BINARY(16) not null,
-	userActivationToken CHAR(32) not null,
+	userActivationToken CHAR(32),
 	userEmail VARCHAR(128) not null,
 	userFullName VARCHAR(255) not null,
 	userHandle VARCHAR(32) not null,
