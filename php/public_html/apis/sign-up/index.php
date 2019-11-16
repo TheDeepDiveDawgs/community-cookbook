@@ -9,14 +9,16 @@ require_once("/etc/apache2/capstone-mysql/Secrets.php");
 use TheDeepDiveDawgs\CommunityCookbook\User;
 
 /**
- * api for signing up too DDC Twitter
+ * api for signing up to Community Cookbook
  *
- * @author Gkephart <GKephart@cnm.edu>
+ * @author Community Cookbook
  **/
+
 //verify the session, start if not active
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
+
 //prepare an empty reply
 $reply = new stdClass();
 $reply->status = 200;
@@ -145,16 +147,20 @@ EOF;
 		$smtp = new Swift_SmtpTransport(
 			"localhost", 25);
 		$mailer = new Swift_Mailer($smtp);
+
 		//send the message
 		$numSent = $mailer->send($swiftMessage, $failedRecipients);
+
 		/**
 		 * the send method returns the number of recipients that accepted the Email
 		 * so, if the number attempted is not the number accepted, this is an Exception
 		 **/
 		if($numSent !== count($recipients)) {
+
 			// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
 			throw(new RuntimeException("unable to send email", 400));
 		}
+
 		// update reply
 		$reply->message = "Thank you for creating a user with CookBook";
 	} else {

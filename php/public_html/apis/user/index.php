@@ -9,9 +9,9 @@ require_once("/etc/apache2/capstone-mysql/Secrets.php");
 use TheDeepDiveDawgs\CommunityCookbook\User;
 
 /**
- * API for Tweet
+ * API for updating User
  *
- * @author Gkephart
+ * @author Community Cookbook
  * @version 1.0
  */
 
@@ -38,13 +38,16 @@ try {
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userHandle = filter_input(INPUT_GET, "userHandle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
 	// make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
 		throw(new InvalidArgumentException("ID cannot be empty or negative", 405));
 	}
 	if($method === "GET") {
+
 		//set XSRF cookie
 		setXsrfCookie();
+
 		//gets a post by content
 		if(empty($id) === false) {
 			$reply->data = User::getUserByUserId($pdo, $id);
@@ -54,8 +57,10 @@ try {
 			$reply->data = User::getUserByUserEmail($pdo, $userEmail);
 		}
 	} elseif($method === "PUT") {
+
 		//enforce that the XSRF token is present in the header
 		verifyXsrf();
+
 		//enforce the end user has a JWT token
 		//validateJwtHeader();
 		//enforce the user is signed in and only trying to edit their own user
@@ -89,28 +94,34 @@ try {
 		$user->setUserFullName($requestObject->userFullName);
 		$user->setuserHandle($requestObject->userHandle);
 		$user->update($pdo);
+
 		// update reply
 		$reply->message = "User information updated";
 	} elseif($method === "DELETE") {
+
 		//verify the XSRF Token
 		verifyXsrf();
+
 		//enforce the end user has a JWT token
 		//validateJwtHeader();
 		$user = User::getUserByUserId($pdo, $id);
 		if($user === null) {
 			throw (new RuntimeException("User does not exist"));
 		}
+
 		//enforce the user is signed in and only trying to edit their own user
 		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $user->getUserId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
 		validateJwtHeader();
+
 		//delete the post from the database
 		$user->delete($pdo);
 		$reply->message = "User Deleted";
 	} else {
 		throw (new InvalidArgumentException("Invalid HTTP request", 400));
 	}
+
 	// catch any exceptions that were thrown and update the status and message state variable fields
 } catch
 (\Exception | \TypeError $exception) {
@@ -121,5 +132,6 @@ header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
 }
+
 // encode and return reply to front end caller
 echo json_encode($reply);
