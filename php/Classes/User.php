@@ -5,43 +5,57 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
+
 /**
  * Cross section of a user
  *
  * This is a cross section of what is probably stored about a user. this entity is a top level entity that
  * holds the keys to the other entities
  */
+
 class User implements \JsonSerializable {
 	use ValidateUuid;
+
 	/**
 	 * id for this user; this is the primary key
 	 * @var Uuid $userId
 	 */
+
 	private $userId;
+
 	/**
 	 * token handed out to verify the user is valid and not malicious.
 	 * @var string $userActivationToken
 	 */
+
 	private $userActivationToken;
+
 	/**
 	 * email for this user; this is a unique identifier
 	 * @var string $userEmail
 	 */
+
 	private $userEmail;
+
 	/**
 	 * full name for user
 	 * @var string $userFullName
 	 */
+
 	private $userFullName;
+
 	/**
 	 * Username Handle for this user; this is a unique identifier
 	 * @var string $userHandle
 	 */
+
 	private $userHandle;
+
 	/**
 	 * hash for user's password
 	 * @var string $userHash
 	 */
+
 	private $userHash;
 
 	/**
@@ -410,7 +424,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo connection object
 	 * @param string $userHandle handle to search for
-	 * @return \SPLFixedArray of all profiles found
+	 * @return \SPLFixedArray of all users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
