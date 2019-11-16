@@ -3,6 +3,7 @@ require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\Codec\StringCodec;
+
 /**
  * generates an optimized uuid v4 for efficient mySQL storage and indexing
  *
