@@ -1,0 +1,9 @@
+#This file will do some configurations on the Apache server to support the API.
+
+<IfModule mod_rewrite.c>
+# Line makes sure that the primary key sent in the URL will be process properly as long as the $id is kept in the variable in the API.
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^/?([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12})?$ ?id=$1&%{QUERY_STRING}
+</IfModule>
