@@ -42,4 +42,20 @@ try {
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
 		throw (new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
+
+	//Get method for Category class
+	if ($method === "GET") {
+		//set XSRF cookie
+		setXsrfCookie();
+
+		// get a specific category bases on arguments or all the categories and update name
+		if(empty($id) === false) {
+			$reply->data = Category::getCategoryByCategoryId($pdo, $id);
+		} else {
+			$reply->data = Category::getAllCategories($pdo)->toArray();
+		}
+	}
+
+	//
 }
+
