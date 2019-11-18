@@ -83,7 +83,24 @@ try {
 
 		//update category
 		$reply->message = "Category name updated";
+
+	} elseif($method === "DELETE") {
+
+		//verify the XSRF cookie
+		verifyXsrf();
+
+		//retrieve the category to be deleted
+		$category = Category::getCategoryByCategoryId($pdo, $id);
+		if($category === null) {
+			throw(new RuntimeException("Category does not exist", 404));
+		}
+
+		//perform the actual delete
+		$category->delete($pdo);
+
+		//update the message
+		$reply->message = "Category was successfully deleted";
+
 	}
-	
 }
 
