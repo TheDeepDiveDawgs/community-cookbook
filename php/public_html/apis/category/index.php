@@ -44,7 +44,7 @@ try {
 	}
 
 	//GET method for Category class
-	if ($method === "GET") {
+	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
 
@@ -55,8 +55,8 @@ try {
 			$reply->data = Category::getAllCategories($pdo)->toArray();
 		}
 
-	// PUT and POST method for Category
-	} else if ($method === "PUT" || $method === "POST") {
+		// PUT and POST method for Category
+	} else if($method === "PUT" || $method === "POST") {
 
 		//enforce the user has a XSRF cookie
 		verifyXsrf();
@@ -75,7 +75,7 @@ try {
 
 		//category name
 		if(empty($requestObject->categoryName) === true) {
-			throw(new \InvalidArgumentException( ("No category name present", 405));
+			throw(new \InvalidArgumentException(("No category name present", 405));
 		}
 
 		$category->setCategoryName($requestObject->categoryName);
@@ -100,7 +100,24 @@ try {
 
 		//update the message
 		$reply->message = "Category was successfully deleted";
-
 	}
+
+	// if any other HTTP request is sent throw an exception
+} else {
+	throw new \InvalidArgumentException("invalid http request", 400);
 }
+//catch any exceptions that is thrown and update the reply status and message
+} catch (\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+}
+
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+
+//encode and return reply to front end called
+echo json_encode($reply);
+
 
