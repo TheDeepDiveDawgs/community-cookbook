@@ -77,8 +77,13 @@ try {
 		if(empty($requestObject->categoryName) === true) {
 			throw(new \InvalidArgumentException( ("No category name present", 405));
 		}
-	}
 
-	//
+		$category->setCategoryName($requestObject->categoryName);
+		$category->update($pdo);
+
+		//update category
+		$reply->message = "Category name updated";
+	}
+	
 }
 
