@@ -43,7 +43,7 @@ try {
 		throw (new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
-	//Get method for Category class
+	//GET method for Category class
 	if ($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
@@ -53,6 +53,29 @@ try {
 			$reply->data = Category::getCategoryByCategoryId($pdo, $id);
 		} else {
 			$reply->data = Category::getAllCategories($pdo)->toArray();
+		}
+
+	// PUT and POST method for Category
+	} else if ($method === "PUT" || $method === "POST") {
+
+		//enforce the user has a XSRF cookie
+		verifyXsrf();
+
+		//Retrieve the JSON package that the front end sent, and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
+		$requestContent = file_get_contents("php://input");
+
+		//Decode the JSON package and store the result in $requestObject
+		$requestObject = json_decode($requestContent);
+
+		//Retrieve te category to be updated
+		$category = Category::getCategoryByCategoryId($pdo, $id);
+		if($category === null) {
+			throw(new \RuntimeException("Category does not exist", 404));
+		}
+
+		//category name
+		if(empty($requestObject->categoryName) === true) {
+			throw(new \InvalidArgumentException( ("No category name present", 405));
 		}
 	}
 
