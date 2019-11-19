@@ -187,6 +187,47 @@ class Category implements \JsonSerializable {
 		return($category);
 	}
 
+	/**
+	 * get category by category name
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Categories found or null if not found
+	 * @param \PDOException when mySQL related errors occur
+	 * @throws \TypeError if the $pdo is not a PDO connection object
+	 */
+	public static function getCategoryByCategoryName(\PDO $pdo, string $categoryName) : \SplFixedArray {
+		//sanitize the description before searching
+		$categoryName = trim($categoryName);
+		$categoryName = filter_var($categoryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($categoryName) === true) {
+			throw(new \PDOException("category name is invalid"));
+		}
+
+		// escape any MySQL wild card
+		$categoryName = str_replace("_", "\\", str_replace("%", "\\%", $categoryName));
+
+		//create query template
+		$query = "SELECT categoryId, categoryName FROM category WHERE categoryName LIKE :categoryName";
+		$statement = $pdo->prepare($query);
+
+		//bind the category to the place holder in the query template
+		$categoryName = "%$categoryName%";
+		$parameters = ["categoryName" => $categoryName];
+		$statement->execute($parameters);
+
+		try {
+			$category = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$category = new Category($row["categoryId"], $row["categoryName"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw (new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($category);
+	}
 
 	/**
 	 * get all Categories
