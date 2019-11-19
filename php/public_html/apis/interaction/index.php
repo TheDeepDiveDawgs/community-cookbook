@@ -24,3 +24,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
+
+try {
+
+	//grab the mySQL connection
+	$secrets = new \Secrets("/etc/apache2/capstone-mysql/cookbook.ini");
+	$pdo = $secrets->getPdoObject();
