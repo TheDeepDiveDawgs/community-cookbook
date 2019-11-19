@@ -60,6 +60,11 @@ try {
 		}
 	} else if($method === "POST" || $method === "PUT") {
 		//decode the response from the front end
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
 
+		if(empty($requestObject->interactionUserId) === true) {
+				throw (new \invalidArgumentException("No User linked to interaction", 405));
+		}
 	}
 }
