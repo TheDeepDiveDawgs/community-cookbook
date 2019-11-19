@@ -30,3 +30,6 @@ try {
 	//grab the mySQL connection
 	$secrets = new \Secrets("/etc/apache2/capstone-mysql/cookbook.ini");
 	$pdo = $secrets->getPdoObject();
+
+	//determine which HTTP method was used
+	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
