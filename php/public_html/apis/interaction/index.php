@@ -41,5 +41,7 @@ try {
 	if($method === "GET") {
 	//set xsrf cookie
 		setXsrfCookie();
+
+		//gets  a specific interaction associated based on its composite key
 	}
 }
