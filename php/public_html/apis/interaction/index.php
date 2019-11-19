@@ -98,7 +98,17 @@ try {
 			if($interaction === null) {
 				throw (new RuntimeException("interaction does not exist"));
 			}
+			//enforce the user is signed in and only trying to edit their own interaction
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserIdI()->toString() !== $interaction->getInteractionUserId()->toString()) {
+				throw(new \InvalidArgumentException("You are not allowed to delete this interaction. 403"));
+			}
+			//validate the jwtHeader();
 
+			//perform the actual delete
+			$interaction->delete($pdo);
+
+			//update the message
+			$reply->message = "Interaction successfully deleted";
 		}
 
 	}
