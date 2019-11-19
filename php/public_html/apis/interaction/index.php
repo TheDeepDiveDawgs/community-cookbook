@@ -110,6 +110,12 @@ try {
 			//update the message
 			$reply->message = "Interaction successfully deleted";
 		}
-
+			//if any other HTTP request is sent throw an exception
+	}   else {
+					throw new \InvalidArgumentException("invalid http request, 400");
 	}
+	// catch any exceptions that is thrown and update the reply status message
+} catch(\Exception | \TypeError $exception) {
+			$reply->status = $exception->getCode();
+			$reply->message =$exception->getMessage();
 }
