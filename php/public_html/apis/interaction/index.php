@@ -49,7 +49,12 @@ try {
 			if($interaction!== null) {
 				$reply->data = $interaction;
 			}
-
+		//if none of the search parameters are met throw exception
+		} else if(empty($interactionUserId) === false) {
+				$reply->data = Interaction::getInteractionByInteractionUserId($pdo, $interactionUserId)->toArray();
+		//get all the interactions associated with recipeId
+		} else if(empty($interactionRecipeId) === false) {
+			$reply->data = Interaction::getInteractionByInteractionRecipeId($pdo, $interactionRecipeId)->toArray();
 		}
 	}
 }
