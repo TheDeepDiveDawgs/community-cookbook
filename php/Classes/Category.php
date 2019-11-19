@@ -195,7 +195,7 @@ class Category implements \JsonSerializable {
 	 * @param \PDOException when mySQL related errors occur
 	 * @throws \TypeError if the $pdo is not a PDO connection object
 	 */
-	public static function getCategoryByCategoryName(\PDO $pdo, string $categoryName) : \SplFixedArray {
+	public static function getCategoryByCategoryName(\PDO $pdo, string $categoryName) : ?Category {
 		//sanitize the description before searching
 		$categoryName = trim($categoryName);
 		$categoryName = filter_var($categoryName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
