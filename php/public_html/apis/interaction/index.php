@@ -14,3 +14,9 @@ use TheDeepDiveDawgs\CommunityCookbook\Interaction;
  * @author Community Cookbook
  * @version 1.0
  */
+
+//verify session, start if not active
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+
