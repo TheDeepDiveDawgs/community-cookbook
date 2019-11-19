@@ -78,8 +78,21 @@ try {
 
 			//enforce the user signed in
 			if(empty($_SESSION["user"]) === true) {
-					throw(new \InvalidArgumentException)("you must be logged in to interact", 403);
+					throw(new \InvalidArgumentException("you must be logged in to interact", 403));
 			}
+			validateJwtHeader();
+
+			$interaction = new Interaction($_SESSION["user"]->getUserId(), $requestObject->interactionRecipeId);
+			$interaction->insert($pdo);
+			$reply->message = "interaction recipe successful";
+
+		} else if($method === "PUT") {
+			//enforce the end user  has a xsrf token
+			verifyXsrf();
+
+			//enforce the end user has a jwt token
+			validateJwtHeader();
 		}
+
 	}
 }
