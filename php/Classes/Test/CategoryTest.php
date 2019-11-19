@@ -122,6 +122,34 @@ class CategoryTest extends CommunityCookbookTest {
 	}
 
 	/**
+	 * test grabbing a category by category name
+	 */
+	public function testGetValidCategoryByCategoryName(): void {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("category");
+
+		//create a new category and insert into MySQL
+		$categoryId = generateUuidV4();
+		$category = new Category($categoryId, $this->VALID_CATEGORY_NAME);
+		$category->insert($this->getPDO());
+
+		$pdoCategory = Category::getCategoryByCategoryName($this->getPDO(), $category->getCategoryName());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("category"));
+		$this->assertEquals($pdoCategory->getCategoryId(), $categoryId);
+		$this->assertEquals($pdoCategory->getCategoryName(), $this->VALID_CATEGORY_NAME);
+
+	}
+
+	/**
+	 * test grabbing a category that does not exist
+	 */
+	public function testGetInvalidCategoryByCategoryName() {
+		//grab a category id that exceeds the maximum allowable category id
+		$category = Category::getCategoryByCategoryName($this->getPDO(), "fake category");
+		$this->assertNull($category);
+	}
+
+	/**
 	 * test grabbing all Categories
 	 */
 
