@@ -36,12 +36,20 @@ try {
 
 	//sanitize search parameters
 	$interactionUserId = $id = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES0);
+	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	if($method === "GET") {
 	//set xsrf cookie
 		setXsrfCookie();
 
 		//gets  a specific interaction associated based on its composite key
+		if ($interactionUserId !== null && $interactionRecipeId !== null) {
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $interactionUserId, $interactionRecipeId);
+
+			if($interaction!== null) {
+				$reply->data = $interaction;
+			}
+
+		}
 	}
 }
