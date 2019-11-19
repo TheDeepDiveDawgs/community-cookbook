@@ -64,10 +64,22 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		if(empty($requestObject->interactionUserId) === true) {
-				throw (new \invalidArgumentException("No User linked to Interaction", 405));
+				throw (new \InvalidArgumentException("No User linked to Interaction", 405));
 		}
 		if(empty($requestObject->interactionRecipeId) === true) {
-			throw (new \invalidArgumentException("No Recipe linked to Interaction", 405));
+			throw (new \InvalidArgumentException("No Recipe linked to Interaction", 405));
+		}
+		if($method === "POST") {
+			//enforce that the end user has a XSRF token.
+			verifyXsrf();
+
+			//enforce the end user JWT token
+			//validate JWT header
+
+			//enforce the user signed in
+			if(empty($_SESSION["user"]) === true) {
+					throw(new \InvalidArgumentException)("you must be logged in to interact", 403);
+			}
 		}
 	}
 }
