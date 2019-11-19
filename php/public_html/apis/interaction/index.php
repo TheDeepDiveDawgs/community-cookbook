@@ -64,7 +64,10 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		if(empty($requestObject->interactionUserId) === true) {
-				throw (new \invalidArgumentException("No User linked to interaction", 405));
+				throw (new \invalidArgumentException("No User linked to Interaction", 405));
+		}
+		if(empty($requestObject->interactionRecipeId) === true) {
+			throw (new \invalidArgumentException("No Recipe linked to Interaction", 405));
 		}
 	}
 }
