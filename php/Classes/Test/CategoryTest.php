@@ -24,7 +24,7 @@ class CategoryTest extends CommunityCookbookTest {
 	 *valid category name to create the category
 	 * @var string $VALID_CATEGORY_NAME
 	 */
-	protected $VALID_CATEGORY_NAME = "Vegetarian";
+	protected $VALID_CATEGORY_NAME = "Test";
 
 	/**
 	 *test inserting a valid category and verifying that the actual mySQL data matches
