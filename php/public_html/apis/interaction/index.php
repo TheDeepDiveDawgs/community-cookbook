@@ -92,6 +92,13 @@ try {
 
 			//enforce the end user has a jwt token
 			validateJwtHeader();
+
+			//grab the interaction by its composite key
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionUserId, $requestObject->interactionRecipeId);
+			if($interaction === null) {
+				throw (new RuntimeException("interaction does not exist"));
+			}
+
 		}
 
 	}
