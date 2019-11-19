@@ -28,7 +28,7 @@ $reply->data = null;
 
 try {
 	//grab the MySQL connection
-	$secrets = new \Secrets("/etc/apache2/capstone-mysql/Secrets.php");
+	$secrets = new \Secrets("/etc/apache2/capstone-mysql/cookbook.ini");
 	$pdo = $secrets->getPdoObject();
 
 	//determine which HTTP method was used
@@ -57,6 +57,7 @@ try {
 			$reply->data = Category::getAllCategories($pdo)->toArray();
 		}
 	}
+
 } catch
 (\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
