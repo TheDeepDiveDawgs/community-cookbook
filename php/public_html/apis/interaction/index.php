@@ -55,6 +55,11 @@ try {
 		//get all the interactions associated with recipeId
 		} else if(empty($interactionRecipeId) === false) {
 			$reply->data = Interaction::getInteractionByInteractionRecipeId($pdo, $interactionRecipeId)->toArray();
+		} else {
+				throw new InvalidArgumentException("incorrect search parameters", 404);
 		}
+	} else if($method === "POST" || $method === "PUT") {
+		//decode the response from the front end
+
 	}
 }
