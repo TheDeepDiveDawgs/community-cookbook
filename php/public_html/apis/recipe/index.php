@@ -163,16 +163,13 @@ try {
 			$recipe->insert($pdo);
 
 			// update reply
-			$reply->message = "Recipe created OK";
+			$reply->message = "Recipe created";
 		}
 
 	}
 
 
-
 //delete
-
-
 	else if($method === "DELETE") {
 
 		//enforce that the end user has a XSRF token.
@@ -192,10 +189,9 @@ try {
 		// delete recipe
 		$recipe->delete($pdo);
 		// update reply
-		$reply->message = "Recipe deleted OK";
+		$reply->message = "Recipe deleted";
 
 //finishing up
-
 // update the $reply->status $reply->message
 	} catch(\Exception | \TypeError $exception) {
 		$reply->status = $exception->getCode();
