@@ -41,7 +41,7 @@ require_once("/etc/apache2/capstone-mysql/Secrets.php");
 use TheDeepDiveDawgs\CommunityCookbook\{
 	Recipe,
 	// we only use the profile class for testing purposes
-	Profile
+	User
 };
 
 
@@ -72,8 +72,8 @@ try {
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$recipeProfileId = filter_input(INPUT_POST, "recipeProfileId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$recipeContent = filter_input(INPUT_GET, "recipeContent", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$recipeUserId = filter_input(INPUT_POST, "recipeUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$recipeSearchTerm = filter_input(INPUT_GET, "recipeSearchTerm", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -89,10 +89,10 @@ try {
 		//get a specific recipe based on arguments provided or all the recipes and update reply
 		if(empty($id) === false) {
 			$reply->data = Recipe::getRecipeByRecipeId($pdo, $id);
-		} else if(empty($recipeProfileId) === false) {
-			$reply->data = Recipe::getRecipeByRecipeProfileId($pdo, $recipeProfileId)->toArray();
-		} else if(empty($recipeContent) === false) {
-			$reply->data = Recipe::getRecipeByRecipeContent($pdo, $recipeContent)->toArray();
+		} else if(empty($recipeUserId) === false) {
+			$reply->data = Recipe::getRecipeByRecipeUserId($pdo, $recipeUserId)->toArray();
+		} else if(empty($recipeSearchTerm) === false) {
+			$reply->data = Recipe::getRecipeByRecipeSearchTerm($pdo, $recipeSearchTerm)->toArray();
 		} else {
 			$reply->data = Recipe::getAllRecipes($pdo)->toArray();
 		}
@@ -106,15 +106,15 @@ try {
 		// enforce the user has a XSRF token
 		verifyXsrf();
 
-		//  Retrieves the JSON package that the front end sent, and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
-		$requestContent = file_get_contents("php://input");
+		//  Retrieves the JSON package that the front end sent, and stores it in $requestSearchTerm. Here we are using file_get_searchTerms("php://input") to get the request from the front end. file_get_searchTerms() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
+		$requestSearchTerm = file_get_searchTerms("php://input");
 
 		// This Line Then decodes the JSON package and stores that result in $requestObject
-		$requestObject = json_decode($requestContent);
+		$requestObject = json_decode($requestSearchTerm);
 
-		//make sure recipe content is available (required field)
-		if(empty($requestObject->recipeContent) === true) {
-			throw(new \InvalidArgumentException ("No content for Recipe.", 405));
+		//make sure recipe searchTerm is available (required field)
+		if(empty($requestObject->recipeSearchTerm) === true) {
+			throw(new \InvalidArgumentException ("No searchTerm for Recipe.", 405));
 		}
 
 		// make sure recipe date is accurate (optional field)
@@ -139,13 +139,13 @@ try {
 			}
 
 			//enforce the user is signed in and only trying to edit their own recipe
-			if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId()->toString() !== $recipe->getRecipeProfileId()->toString()) {
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $recipe->getRecipeUserId()->toString()) {
 				throw(new \InvalidArgumentException("You are not allowed to edit this recipe", 403));
 			}
 
 			// update all attributes
 			$recipe->setRecipeDate($requestObject->recipeDate);
-			$recipe->setRecipeContent($requestObject->recipeContent);
+			$recipe->setRecipeSearchTerm($requestObject->recipeSearchTerm);
 			$recipe->update($pdo);
 
 			// update reply
@@ -154,12 +154,12 @@ try {
 		} else if($method === "POST") {
 
 			// enforce the user is signed in
-			if(empty($_SESSION["profile"]) === true) {
+			if(empty($_SESSION["user"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post recipes", 403));
 			}
 
 			// create new recipe and insert into the database
-			$recipe = new Recipe(generateUuidV4(), $_SESSION["profile"]->getProfileId, $requestObject->recipeContent, null);
+			$recipe = new Recipe(generateUuidV4(), $_SESSION["user"]->getUserId, $requestObject->recipeSearchTerm, null);
 			$recipe->insert($pdo);
 
 			// update reply
@@ -182,7 +182,7 @@ try {
 		}
 
 		//enforce the user is signed in and only trying to edit their own recipe
-		if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $recipe->getRecipeProfileId()) {
+		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $recipe->getRecipeUserId()) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this recipe", 403));
 		}
 
@@ -199,5 +199,5 @@ try {
 	}
 
 // encode and return reply to front end caller
-header("Content-type: application/json");
+header("SearchTerm-type: application/json");
 echo json_encode($reply);
