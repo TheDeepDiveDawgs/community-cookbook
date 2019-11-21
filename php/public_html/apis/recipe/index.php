@@ -66,11 +66,18 @@ try {
 				$user = 	User::getUserByUserId($pdo, $recipe->getRecipeUserId());
 				$recipeUsers[] = (object)[
 					"recipeId"=>$recipe->getRecipeId(),
+					"recipeCategoryId"=>$recipe->getRecipeCategoryId(),
 					"recipeUserId"=>$recipe->getRecipeUserId(),
+					"recipeDescription"=>$recipe->getRecipeDescription(),
+					"recipeImageUrl"=>$recipe->getRecipeImageUrl(),
+					"recipeIngredients"=>$recipe->getRecipeIngredients(),
+					"recipeMinutes"=>$recipe->getRecipeMinutes(),
+					"recipeName"=>$recipe->getRecipeName(),
+					"recipeNumberIngredients"=>$recipe->getRecipeNumberIngredients(),
+					"recipeNutrition"=>$recipe->getRecipeNutrition(),
 					"recipeSearchTerm"=>$recipe->getRecipeSearchTerm(),
-					"recipeDate"=>$recipe->getRecipeDate()->format("U.u") * 1000,
-					"userAtHandle"=>$user->getUserAtHandle(),
-					"userAvatarUrl"=>$user->getUserAvatarUrl(),
+					"recipeSteps"=>$recipe->getRecipeSteps(),
+					"recipeSubmissionDate"=>$recipe->getRecipeSubmissionDate(),
 				];
 			}
 			$reply->data = $recipeUsers;
