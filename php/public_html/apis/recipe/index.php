@@ -5,10 +5,10 @@ require_once dirname(__DIR__, 3) . "/Classes/autoload.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 require_once dirname(__DIR__, 3) . "/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/lib/jwt.php";
-require_once dirname(__DIR__, 3) . "/lib/uuid.php";
+require_once dirname(__DIR__, 3) . "/lib/Uuid.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
-use UssHopper\CommunityCookbook\{Search, User, Recipe};
+use deepDiveDawgs\CommunityCookbook\{Search, User, Recipe};
 
 /**
  * api for the Recipe class
@@ -27,31 +27,31 @@ $reply->status = 200;
 $reply->data = null;
 try {
 
-	$secrets = new \Secrets("/etc/apache2/CommunityCookbook-mysql/ddcRecipe.ini");
+	$secrets = new \Secrets("/etc/apache2/capstone-mysql/communityCookbook.ini");
 	$pdo = $secrets->getPdoObject();
 
 	//determine which HTTP method was used
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$recipeId = filter_input(INPUT_GET, "recipeId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 	$recipeUserId = filter_input(INPUT_GET, "recipeUserId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 	$recipeSearchTerm = filter_input(INPUT_GET, "recipeSearchTerm", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true )) {
-		throw(new InvalidArgumentException("id cannot be empty or negative", 402));
+	//make sure the recipe id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
+		throw(new InvalidArgumentException("recipe id cannot be empty or negative", 402));
 	}
 
-	// handle GET request - if id is present, that recipe is returned, otherwise all recipes are returned
+	// handle GET request - if  recipe id is present, that recipe is returned, otherwise all recipes are returned
 	if($method === "GET") {
 
 		//set XSRF cookie
 		setXsrfCookie();
 
 		//get a specific recipe or all recipes and update reply
-		if(empty($id) === false) {
-			$reply->data = Recipe::getRecipeByRecipeId($pdo, $id);
+		if(empty($recipeId) === false) {
+			$reply->data = Recipe::getRecipeByRecipeId($pdo, $recipeId);
 		} else if(empty($recipeUserId) === false) {
 
 			// if the user is logged in grab all the recipes by that user based  on who is logged in
@@ -114,7 +114,7 @@ try {
 		if($method === "PUT") {
 
 			// retrieve the recipe to update
-			$recipe = Recipe::getRecipeByRecipeId($pdo, $id);
+			$recipe = Recipe::getRecipeByRecipeId($pdo, $recipeId);
 			if($recipe === null) {
 				throw(new RuntimeException("Recipe does not exist", 404));
 			}
@@ -161,7 +161,7 @@ try {
 		verifyXsrf();
 
 		// retrieve the Recipe to be deleted
-		$recipe = Recipe::getRecipeByRecipeId($pdo, $id);
+		$recipe = Recipe::getRecipeByRecipeId($pdo, $recipeId);
 		if($recipe === null) {
 			throw(new RuntimeException("Recipe does not exist", 404));
 		}
