@@ -53,6 +53,7 @@ try {
 		if(empty($id) === false) {
 			$reply->data = Recipe::getRecipeByRecipeId($pdo, $id);
 		} else if(empty($recipeUserId) === false) {
+
 			// if the user is logged in grab all the recipes by that user based  on who is logged in
 			$reply->data = Recipe::getRecipeByRecipeUserId($pdo, $recipeUserId);
 
@@ -175,6 +176,7 @@ try {
 
 		// delete recipe
 		$recipe->delete($pdo);
+
 		// update reply
 		$reply->message = "Recipe deleted OK";
 	} else {
