@@ -35,11 +35,13 @@ try {
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
 	//sanitize category input
-	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$categoryId = filter_input(INPUT_GET, "categoryId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$categoryName = filter_input(INPUT_GET, "categoryName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
-		throw (new InvalidArgumentException("id cannot be empty or negative", 405));
+
+	//make sure the category id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($categoryId) === true)) {
+		throw (new InvalidArgumentException("category Id cannot be empty or negative", 405));
 	}
 
 	//GET method for Category class
@@ -49,9 +51,11 @@ try {
 		setXsrfCookie();
 
 		// get a specific category based on arguments or all the categories
-		if(empty($id) === false) {
+		if(empty($categoryId) === false) {
 			// get category by Id
-			$reply->data = Category::getCategoryByCategoryId($pdo, $id);
+			$reply->data = Category::getCategoryByCategoryId($pdo, $categoryId);
+		} else if(empty($categoryName) === false) {
+			$reply->data = Category::getCategoryByCategoryName($pdo, $categoryName);
 		} else {
 			// get all categories if no category id is specified
 			$reply->data = Category::getAllCategories($pdo)->toArray();

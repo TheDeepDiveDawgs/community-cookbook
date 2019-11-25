@@ -103,6 +103,13 @@ class Category implements \JsonSerializable {
 		if(empty($newCategoryName) === true) {
 			throw (new\InvalidArgumentException("category name is empty or insecure"));
 		}
+
+		//verify the category name will fit in the database
+		if(strlen($newCategoryName) > 24) {
+			throw(new \RangeException("category name is too large"));
+		}
+
+		//store the category name
 		$this->categoryName = $newCategoryName;
 	}
 
