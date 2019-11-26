@@ -46,6 +46,7 @@ try {
 	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 402));
 	}
+
 	// handle GET request - if id is present, that recipe is returned, otherwise all recipes are returned
 	if($method === "GET") {
 
@@ -152,7 +153,6 @@ try {
 			}
 
 			// update all attributes
-			//$recipe->setRecipeSubmissionDate($requestObject->recipeSubmissionDate);
 			$recipe->setRecipeDescription($requestObject->recipeDescription);
 			$recipe->setRecipeImageUrl($requestObject->recipeImageUrl);
 			$recipe->setRecipeIngredients($requestObject->recipeIngredients);
@@ -195,7 +195,7 @@ try {
 		}
 		//enforce the user is signed in and only trying to edit their own recipe
 		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $recipe->getRecipeUserId()->toString()) {
-			throw(new \InvalidArgumentException("You are not allowed to delete this recipe", 403));
+			throw(new \InvalidArgumentException("You are not allowed to modify this recipe", 403));
 		}
 		//enforce the end user has a JWT token
 		validateJwtHeader();
