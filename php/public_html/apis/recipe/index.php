@@ -12,7 +12,6 @@ use TheDeepDiveDawgs\CommunityCookbook\{Category, User, Recipe, Interaction};
  *
  * @author damian Arya <darya@cnm.edu>
  **/
-
 //verify the session, start if not active
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
@@ -41,12 +40,12 @@ try {
 	$recipeNumberIngredients = filter_input(INPUT_GET, "recipeNumberIngredients", FILTER_VALIDATE_INT);
 	$recipeNutrition = filter_input(INPUT_GET, "recipeNutrition", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$recipeStep = filter_input(INPUT_GET, "recipeStep", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$recipeSearchTerm = filter_input(INPUT_GET, "recipeSearchTerm", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 402));
 	}
-
 	// handle GET request - if id is present, that recipe is returned, otherwise all recipes are returned
 	if($method === "GET") {
 
@@ -60,10 +59,10 @@ try {
 
 			// if the user is logged in grab all the recipes by that user based on who is logged in
 			$reply->data = Recipe::getRecipeByRecipeUserId($pdo, $recipeUserId);
-		} else if(empty($recipeIngredients | $recipeName | $recipeStep) === false) {
+		} else if(empty($recipeSearchTerm) === false) {
 			$reply->data = Recipe::getRecipeByRecipeSearchTerm($pdo, $recipeIngredients, $recipeName, $recipeStep)->toArray();
 		} else {
-			$recipes = Recipe::getAllRecipes($pdo)->toArray();
+			$recipes = Recipe::getAllRecipe($pdo)->toArray();
 			$recipeUsers = [];
 			foreach($recipes as $recipe){
 				$user =  User::getUserByUserId($pdo, $recipe->getRecipeUserId());
@@ -78,9 +77,8 @@ try {
 					"recipeName"=>$recipe->getRecipeName(),
 					"recipeNumberIngredients"=>$recipe->getRecipeNumberIngredients(),
 					"recipeNutrition"=>$recipe->getRecipeNutrition(),
-					"recipeSearchTerm"=>$recipe->getRecipeSearchTerm(),
-					"recipeSteps"=>$recipe->getRecipeSteps(),
-					"recipeSubmissionDate"=>$recipe->getRecipeSubmissionDate()->format("U.u") * 1000
+					"recipeSteps"=>$recipe->getRecipeStep(),
+					"recipeSubmissionDate"=>$recipe->getRecipeSubmissionDate()->format("Y-m-d H:i:s")
 				];
 			}
 			$reply->data = $recipeUsers;
@@ -96,15 +94,10 @@ try {
 		}
 		$requestContents = file_get_contents("php://input");
 
-		// Retrieves the JSON package that the front end sent, and stores it in $requestSearchTerm. Here we are using file_get_searchTerms("php://input") to get the request from the front end. file_get_searchTerms() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
+		// Retrieves the JSON package that the front end sent, and stores it in $requestSearchTerm. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
 		$requestObject = json_decode($requestContents);
 
 		// This Line Then decodes the JSON package and stores that result in $requestObject
-		//make sure recipe searchTerm is available (required field)
-		if(empty($requestObject->recipeDescription) === true) {
-			throw(new \InvalidArgumentException ("No content for Recipe.", 405));
-		}
-
 		// make sure recipe date is accurate (optional field)
 		if(empty($requestObject->recipeSubmissionDate) === true) {
 			$requestObject->recipeSubmissionDate = null;
@@ -126,10 +119,50 @@ try {
 			}
 			validateJwtHeader();
 
+			if(empty($requestObject->recipeDescription) === true) {
+				$requestObject->recipeDescription = $recipe->getRecipeDescription();
+			}
+
+			if(empty($requestObject->recipeImageUrl) === true) {
+				$requestObject->recipeImageUrl = $recipe->getRecipeImageUrl();
+			}
+
+			if(empty($requestObject->recipeIngredients) === true) {
+				$requestObject->recipeIngredients = $recipe->getRecipeIngredients();
+			}
+
+			if(empty($requestObject->recipeMinutes) === true) {
+				$requestObject->recipeMinutes = $recipe->getRecipeMinutes();
+			}
+
+			if(empty($requestObject->recipeName) === true) {
+				$requestObject->recipeName = $recipe->getRecipeName();
+			}
+
+			if(empty($requestObject->recipeNumberIngredients) === true) {
+				$requestObject->recipeNumberIngredients = $recipe->getRecipeNumberIngredients();
+			}
+
+			if(empty($requestObject->recipeNutrition) === true) {
+				$requestObject->recipeNutrition = $recipe->getRecipeNutrition();
+			}
+
+			if(empty($requestObject->recipeStep) === true) {
+				$requestObject->recipeStep = $recipe->getRecipeStep();
+			}
+
 			// update all attributes
 			//$recipe->setRecipeSubmissionDate($requestObject->recipeSubmissionDate);
 			$recipe->setRecipeDescription($requestObject->recipeDescription);
+			$recipe->setRecipeImageUrl($requestObject->recipeImageUrl);
+			$recipe->setRecipeIngredients($requestObject->recipeIngredients);
+			$recipe->setRecipeMinutes($requestObject->recipeMinutes);
+			$recipe->setRecipeName($requestObject->recipeName);
+			$recipe->setRecipeNumberIngredients($requestObject->recipeNumberIngredients);
+			$recipe->setRecipeNutrition($requestObject->recipeNutrition);
+			$recipe->setRecipeStep($requestObject->recipeStep);
 			$recipe->update($pdo);
+
 			// update reply
 			$reply->message = "Recipe updated OK";
 		} else if($method === "POST") {
@@ -138,7 +171,6 @@ try {
 			if(empty($_SESSION["user"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post recipes", 403));
 			}
-
 			//enforce the end user has a JWT token
 			validateJwtHeader();
 
@@ -161,12 +193,10 @@ try {
 		if($recipe === null) {
 			throw(new RuntimeException("Recipe does not exist", 404));
 		}
-
 		//enforce the user is signed in and only trying to edit their own recipe
 		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $recipe->getRecipeUserId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this recipe", 403));
 		}
-
 		//enforce the end user has a JWT token
 		validateJwtHeader();
 
@@ -178,13 +208,14 @@ try {
 	} else {
 		throw (new InvalidArgumentException("Invalid HTTP method request", 418));
 	}
-
 // update the $reply->status $reply->message
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
-
-// encode and return reply to front end caller
 header("Content-type: application/json");
+if($reply->data === null){
+	unset($reply->data);
+}
+// encode and return reply to front end caller
 echo json_encode($reply);
