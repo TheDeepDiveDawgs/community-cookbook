@@ -35,13 +35,13 @@ try {
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
 	// sanitize input
-	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$userId = filter_input(INPUT_GET, "userId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userFullName = filter_input(INPUT_GET, "userFullName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userHandle = filter_input(INPUT_GET, "userHandle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	// make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($userId) === true)) {
 		throw(new InvalidArgumentException("ID cannot be empty or negative", 405));
 	}
 	if($method === "GET") {
@@ -50,8 +50,8 @@ try {
 		setXsrfCookie();
 
 		//gets a post by content
-		if(empty($id) === false) {
-			$reply->data = User::getUserByUserId($pdo, $id);
+		if(empty($userId) === false) {
+			$reply->data = User::getUserByUserId($pdo, $userId);
 		} else if(empty($userHandle) === false) {
 			$reply->data = User::getUserByUserHandle($pdo, $userHandle);
 		} else if(empty($userEmail) === false) {
@@ -65,7 +65,7 @@ try {
 		//enforce the end user has a JWT token
 		//validateJwtHeader();
 		//enforce the user is signed in and only trying to edit their own user
-		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $id) {
+		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $userId) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
 		validateJwtHeader();
@@ -75,20 +75,28 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//retrieve the user to be updated
-		$user = User::getUserByUserId($pdo, $id);
+		$user = User::getUserByUserId($pdo, $userId);
 		if($user === null) {
 			throw(new RuntimeException("User does not exist", 404));
 		}
 
-		//user email is a required field
+
+		//user email | if null use the user email that is in the database
 		if(empty($requestObject->userEmail) === true) {
-			throw(new \InvalidArgumentException ("No user email present", 405));
+			$requestObject->userEmail = $user->getUserEmail();
+		}
+
+		//user full name | if null use the user full name that is in the database
+		if(empty($requestObject->userFullName) === true) {
+			$requestObject->userFullName = $user->getUserFullName();
 		}
 
 		//user at handle
 		if(empty($requestObject->userHandle) === true) {
-			throw(new \InvalidArgumentException ("No user handle", 405));
+			$requestObject->userHandle = $user->getUserHandle();
 		}
+
+		//
 
 
 		$user->setUserEmail($requestObject->userEmail);
@@ -105,7 +113,7 @@ try {
 
 		//enforce the end user has a JWT token
 		//validateJwtHeader();
-		$user = User::getUserByUserId($pdo, $id);
+		$user = User::getUserByUserId($pdo, $userId);
 		if($user === null) {
 			throw (new RuntimeException("User does not exist"));
 		}
