@@ -12,6 +12,7 @@ use TheDeepDiveDawgs\CommunityCookbook\{Category, User, Recipe, Interaction};
  *
  * @author damian Arya <darya@cnm.edu>
  **/
+
 //verify the session, start if not active
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
@@ -46,7 +47,6 @@ try {
 	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 402));
 	}
-
 	// handle GET request - if id is present, that recipe is returned, otherwise all recipes are returned
 	if($method === "GET") {
 
@@ -171,6 +171,7 @@ try {
 			if(empty($_SESSION["user"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post recipes", 403));
 			}
+
 			//enforce the end user has a JWT token
 			validateJwtHeader();
 
@@ -193,10 +194,12 @@ try {
 		if($recipe === null) {
 			throw(new RuntimeException("Recipe does not exist", 404));
 		}
+
 		//enforce the user is signed in and only trying to edit their own recipe
 		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $recipe->getRecipeUserId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to modify this recipe", 403));
 		}
+
 		//enforce the end user has a JWT token
 		validateJwtHeader();
 
@@ -208,6 +211,7 @@ try {
 	} else {
 		throw (new InvalidArgumentException("Invalid HTTP method request", 418));
 	}
+
 // update the $reply->status $reply->message
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
@@ -217,5 +221,6 @@ header("Content-type: application/json");
 if($reply->data === null){
 	unset($reply->data);
 }
+
 // encode and return reply to front end caller
 echo json_encode($reply);
