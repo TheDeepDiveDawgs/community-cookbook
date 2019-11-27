@@ -37,6 +37,13 @@ try {
 	//sanitize search parameters
 	$interactionUserId = $id = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$interactionDate = filter_input(INPUT_GET, "interactionDate", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES );
+	$interactionRating = filter_input(INPUT_GET, "interactionRating", FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+	//make sure the id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
+		throw(new InvalidArgumentException("id cannot be empty or negative", 402));
+	}
 
 	if($method === "GET") {
 	//set xsrf cookie
