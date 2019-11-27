@@ -37,11 +37,8 @@ try {
 	//sanitize search parameters
 	$interactionUserId = $id = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$interactionRating = filter_input(INPUT_GET, "interactionRating", FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
-		throw(new InvalidArgumentException("id cannot be empty or negative", 402));
-	}
 
 	if($method === "GET") {
 	//set xsrf cookie
@@ -84,14 +81,15 @@ try {
 
 			//enforce the end user JWT token
 			//validate JWT header
-
+			validateJwtHeader();
 			//enforce the user signed in
 			if(empty($_SESSION["user"]) === true) {
 					throw(new \InvalidArgumentException("you must be logged in to interact", 403));
 			}
-			validateJwtHeader();
 
-			$interaction = new Interaction($_SESSION["user"]->getUserId(), $requestObject->interactionRecipeId);
+
+			$interaction = new Interaction($_SESSION["user"]->getUserId(), $requestObject->interactionRecipeId,
+				null, $requestObject->interactionRating);
 			$interaction->insert($pdo);
 			$reply->message = "interaction recipe successful";
 
@@ -103,15 +101,16 @@ try {
 			validateJwtHeader();
 
 			//grab the interaction by its composite key
-			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionUserId, $requestObject->interactionRecipeId);
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionUserId,
+				$requestObject->interactionRecipeId);
 			if($interaction === null) {
 				throw (new RuntimeException("interaction does not exist"));
 			}
 			//enforce the user is signed in and only trying to edit their own interaction
-			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserIdI()->toString() !== $interaction->getInteractionUserId()->toString()) {
-				throw(new \InvalidArgumentException("You are not allowed to delete this interaction. 403"));
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString()
+				!== $interaction->getInteractionUserId()->toString()) {
+				throw(new \InvalidArgumentException("You are not allowed to delete this interaction", 403));
 			}
-			//validate the jwtHeader();
 
 			//perform the actual delete
 			$interaction->delete($pdo);
