@@ -37,8 +37,6 @@ try {
 	//sanitize search parameters
 	$interactionUserId = $id = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$interactionDate = filter_input(INPUT_GET, "interactionDate", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES );
-	$interactionRating = filter_input(INPUT_GET, "interactionRating", FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($recipeId) === true )) {
@@ -51,20 +49,23 @@ try {
 
 		//gets  a specific interaction associated based on its composite key
 		if ($interactionUserId !== null && $interactionRecipeId !== null) {
-			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $interactionUserId, $interactionRecipeId);
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $interactionRecipeId, $interactionUserId);
 
 			if($interaction!== null) {
 				$reply->data = $interaction;
 			}
 		//if none of the search parameters are met throw exception
-		} else if(empty($interactionUserId) === false) {
-				$reply->data = Interaction::getInteractionByInteractionUserId($pdo, $interactionUserId)->toArray();
 		//get all the interactions associated with recipeId
 		} else if(empty($interactionRecipeId) === false) {
 			$reply->data = Interaction::getInteractionByInteractionRecipeId($pdo, $interactionRecipeId)->toArray();
-		} else {
+		}
+
+
+		else {
 				throw new InvalidArgumentException("incorrect search parameters", 404);
 		}
+
+
 	} else if($method === "POST" || $method === "PUT") {
 		//decode the response from the front end
 		$requestContent = file_get_contents("php://input");
