@@ -112,11 +112,14 @@ try {
 				throw(new \InvalidArgumentException("You are not allowed to delete this interaction", 403));
 			}
 
-			//perform the actual delete
-			$interaction->delete($pdo);
-
+			if(empty($requestObject->interactionRating) === true) {
+				$requestObject->interactionRating = $interaction->getInteractionRating();
+			}
+			$interaction->setInteractionRating($requestObject->interactionRating);
+			//perform the actual update
+			$interaction->update($pdo);
 			//update the message
-			$reply->message = "Interaction successfully deleted";
+			$reply->message = "Interaction successfully updated";
 		}
 			//if any other HTTP request is sent throw an exception
 	}   else {
