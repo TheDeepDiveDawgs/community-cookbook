@@ -78,7 +78,7 @@ try {
 					"recipeName"=>$recipe->getRecipeName(),
 					"recipeNumberIngredients"=>$recipe->getRecipeNumberIngredients(),
 					"recipeNutrition"=>$recipe->getRecipeNutrition(),
-					"recipeSteps"=>$recipe->getRecipeStep(),
+					"recipeStep"=>$recipe->getRecipeStep(),
 					"recipeSubmissionDate"=>$recipe->getRecipeSubmissionDate()->format("Y-m-d H:i:s")
 				];
 			}
@@ -166,6 +166,9 @@ try {
 			// update reply
 			$reply->message = "Recipe updated OK";
 		} else if($method === "POST") {
+
+			//enforce that the end user has a XSRF token.
+			verifyXsrf();
 
 			// enforce the user is signed in
 			if(empty($_SESSION["user"]) === true) {
