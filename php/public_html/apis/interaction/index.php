@@ -106,11 +106,15 @@ try {
 			if($interaction === null) {
 				throw (new RuntimeException("Recipe Does Not Exist, 404"));
 			}
+
 			//enforce the user is signed in and only trying to edit their own interaction
 			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString()
 				!== $interaction->getInteractionUserId()->toString()) {
-				throw(new \InvalidArgumentException("You are not allowed to delete this interaction", 403));
+				throw(new \InvalidArgumentException("You are not allowed to update this interaction", 403));
 			}
+
+			//enforce the end user has a jwt token
+			validateJwtHeader();
 
 			if(empty($requestObject->interactionRating) === true) {
 				$requestObject->interactionRating = $interaction->getInteractionRating();
