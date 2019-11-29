@@ -100,10 +100,11 @@ try {
 //			validateJwtHeader();
 
 			//grab the interaction by its composite key
+			// gets recipe to update
 			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionRecipeId,
 				$requestObject->interactionUserId);
 			if($interaction === null) {
-				throw (new RuntimeException("interaction does not exist"));
+				throw (new RuntimeException("Recipe Does Not Exist, 404"));
 			}
 			//enforce the user is signed in and only trying to edit their own interaction
 			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString()
