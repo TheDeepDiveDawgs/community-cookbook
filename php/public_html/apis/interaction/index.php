@@ -37,40 +37,39 @@ try {
 	//sanitize search parameters
 	$interactionUserId = $id = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$interactionRating = filter_input(INPUT_GET, "interactionRating", FILTER_VALIDATE_INT, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$interactionRating = filter_input(INPUT_GET, "interactionRating", FILTER_VALIDATE_INT);
 
 
 	if($method === "GET") {
-	//set xsrf cookie
+		//set xsrf cookie
 		setXsrfCookie();
 
 		//gets  a specific interaction associated based on its composite key
-		if ($interactionUserId !== null && $interactionRecipeId !== null) {
-			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $interactionUserId, $interactionRecipeId);
+		if($interactionUserId !== null && $interactionRecipeId !== null) {
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $interactionUserId,
+				$interactionRecipeId);
 
-			if($interaction!== null) {
+			if($interaction !== null) {
 				$reply->data = $interaction;
 			}
-		//if none of the search parameters are met throw exception
+			//if none of the search parameters are met throw exception
 		} else if(empty($interactionUserId) === false) {
-				$reply->data = Interaction::getInteractionByInteractionUserId($pdo, $interactionUserId)->toArray();
-		//get all the interactions associated with recipeId
+			$reply->data = Interaction::getInteractionByInteractionUserId($pdo, $interactionUserId)->toArray();
+			//get all the interactions associated with recipeId
 		} else if(empty($interactionRecipeId) === false) {
 			$reply->data = Interaction::getInteractionByInteractionRecipeId($pdo, $interactionRecipeId)->toArray();
+		} else {
+			throw new InvalidArgumentException("incorrect search parameters", 404);
 		}
-
-		else {
-				throw new InvalidArgumentException("incorrect search parameters", 404);
-		}
-
 
 	} else if($method === "POST" || $method === "PUT") {
+
 		//decode the response from the front end
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
 		if(empty($requestObject->interactionUserId) === true) {
-				throw (new \InvalidArgumentException("No User linked to Interaction", 405));
+			throw (new \InvalidArgumentException("No User linked to Interaction", 405));
 		}
 		if(empty($requestObject->interactionRecipeId) === true) {
 			throw (new \InvalidArgumentException("No Recipe linked to Interaction", 405));
@@ -84,7 +83,7 @@ try {
 			validateJwtHeader();
 			//enforce the user signed in
 			if(empty($_SESSION["user"]) === true) {
-					throw(new \InvalidArgumentException("you must be logged in to interact", 403));
+				throw(new \InvalidArgumentException("you must be logged in to interact", 403));
 			}
 
 
@@ -98,11 +97,11 @@ try {
 			verifyXsrf();
 
 			//enforce the end user has a jwt token
-			validateJwtHeader();
+//			validateJwtHeader();
 
 			//grab the interaction by its composite key
-			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionUserId,
-				$requestObject->interactionRecipeId);
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionRecipeId,
+				$requestObject->interactionUserId);
 			if($interaction === null) {
 				throw (new RuntimeException("interaction does not exist"));
 			}
@@ -121,20 +120,20 @@ try {
 			//update the message
 			$reply->message = "Interaction successfully updated";
 		}
-			//if any other HTTP request is sent throw an exception
-	}   else {
-					throw new \InvalidArgumentException("invalid http request, 400");
+		//if any other HTTP request is sent throw an exception
+	} else {
+		throw new \InvalidArgumentException("invalid http request, 400");
 	}
 	// catch any exceptions that is thrown and update the reply status message
 } catch(\Exception | \TypeError $exception) {
-			$reply->status = $exception->getCode();
-			$reply->message =$exception->getMessage();
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
 
 header("Content-type: application/json");
-	if($reply->data === null) {
-				unset($reply->data);
-	}
+if($reply->data === null) {
+	unset($reply->data);
+}
 
-	//encode and return reply to front end caller
+//encode and return reply to front end caller
 echo json_encode($reply);
