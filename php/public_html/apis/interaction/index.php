@@ -91,7 +91,7 @@ try {
 			$interaction = new Interaction($_SESSION["user"]->getUserId(), $requestObject->interactionRecipeId, null, $requestObject->interactionRating);
 
 			$interaction->insert($pdo);
-			$reply->message = "interaction recipe successful";
+			$reply->message = "interaction rating successful";
 
 		} else if($method === "PUT") {
 			//enforce the end user  has a xsrf token
@@ -128,7 +128,7 @@ try {
 		}
 		//if any other HTTP request is sent throw an exception
 	}   else {
-		throw new \InvalidArgumentException("invalid http request, 400");
+		throw new \InvalidArgumentException("invalid http request", 400);
 	}
 	// catch any exceptions that is thrown and update the reply status message
 } catch(\Exception | \TypeError $exception) {
