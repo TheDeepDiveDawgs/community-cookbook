@@ -91,7 +91,7 @@ try {
 			$interaction = new Interaction($_SESSION["user"]->getUserId(), $requestObject->interactionRecipeId, null, $requestObject->interactionRating);
 
 			$interaction->insert($pdo);
-			$reply->message = "interaction rating successful";
+			$reply->message = "interaction recipe successful";
 
 		} else if($method === "PUT") {
 			//enforce the end user  has a xsrf token
@@ -103,7 +103,7 @@ try {
 			// retrieve the recipe to update
 			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $interactionRecipeId, $interactionUserId);
 			if($interaction === null) {
-				throw(new RuntimeException("Interaction does not exist", 404));
+				throw(new RuntimeException("Recipe does not exist", 404));
 			}
 
 			//enforce the user is signed in and only trying to edit their own interaction
