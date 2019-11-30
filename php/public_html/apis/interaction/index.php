@@ -7,7 +7,7 @@ require_once dirname(__DIR__, 3) . "/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/lib/uuid.php";
 
-use TheDeepDiveDawgs\CommunityCookbook\Interaction;
+use TheDeepDiveDawgs\CommunityCookbook\{Interaction, User, Recipe, Category};
 
 /**
  * API for updating Interaction
@@ -36,8 +36,8 @@ try {
 	$method = $_SERVER["HTTP_X_HTTP_METHOD"] ?? $_SERVER["REQUEST_METHOD"];
 
 	//sanitize search parameters
-	$interactionUserId = $id = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$interactionRecipeId = $id = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$interactionUserId = $userId = filter_input(INPUT_GET, "interactionUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$interactionRecipeId = $recipeId = filter_input(INPUT_GET, "interactionRecipeId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$interactionRating = filter_input(INPUT_GET, "interactionRating", FILTER_VALIDATE_INT);
 
 	if($method === "GET") {
@@ -92,7 +92,7 @@ try {
 			$interaction = new Interaction($_SESSION["user"]->getUserId(), $requestObject->interactionRecipeId,
 				null, $requestObject->interactionRating);
 			$interaction->insert($pdo);
-			$reply->message = "interaction recipe successful";
+			$reply->message = "interaction rating successful";
 
 		} else if($method === "PUT") {
 			//enforce the end user  has a xsrf token
@@ -100,10 +100,10 @@ try {
 
 			//grab the interaction by its composite key
 			// gets recipe to update
-			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo, $requestObject->interactionRecipeId,
-				$requestObject->interactionUserId);
+			$interaction = Interaction::getInteractionByInteractionRecipeIdAndInteractionUserId($pdo,$interactionRecipeId,
+				$interactionUserId);
 			if($interaction === null) {
-				throw (new RuntimeException("Recipe Does Not Exist, 404"));
+				throw (new RuntimeException("Interaction Does Not Exist, 404"));
 			}
 
 			//enforce the user is signed in and only trying to edit their own interaction
@@ -124,7 +124,7 @@ try {
 			$interaction->update($pdo);
 
 			//update the message
-			$reply->message = "Rating Successfully Updated";
+			$reply->message = "Interaction Successfully Updated";
 		}
 
 		//if any other HTTP request is sent throw an exception
