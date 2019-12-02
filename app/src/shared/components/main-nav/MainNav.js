@@ -4,11 +4,20 @@ import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap"
 // import {SignUpModal} from "./sign-up/SignUpModal";
 //import {SignInModal} from "./sign-in/SigninModal";
+import logo from "./images/logo.png";
 
 export const MainNav = (props) => {
 	return(
 		<Navbar bg="dark" variant="dark">
-			<img src={"./images/cap-logo.png"} />
+			<Navbar.Brand href="/">
+				<img className="cap-logo-4.png"
+					  src= {logo}
+					  width="80"
+					  height="80"
+					  className="d-inline-block align-top"
+				/>
+			</Navbar.Brand>
+
 			<LinkContainer exact to="/" >
 				<Navbar.Brand>ABQ Cookbook</Navbar.Brand>
 			</LinkContainer>
