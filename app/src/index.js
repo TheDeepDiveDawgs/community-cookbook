@@ -7,6 +7,9 @@ import {FourOhFour} from "./pages/FourOhFour";
 import {Home} from "./pages/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 
+
+import {Footer} from "./shared/components/footer/footer";
+
 const Routing = () => (
 	<>
 		<BrowserRouter>
