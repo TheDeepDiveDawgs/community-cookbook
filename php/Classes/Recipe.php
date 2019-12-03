@@ -270,6 +270,8 @@ class Recipe implements \JsonSerializable {
 	/**
 	 * mutator method for recipe imageUrl
 	 *
+	 * image url is not required for a recipe submission
+	 *
 	 * @param string $newRecipeImageUrl vale of new recipe imageUrl
 	 * @throws \InvalidArgumentException if the imageUrl is not secure
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
