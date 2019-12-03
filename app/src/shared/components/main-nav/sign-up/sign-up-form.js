@@ -124,6 +124,34 @@ export const SignUpFormContent = (props) => {
 				</div>
 
 				<div className="form-group">
+					<label htmlFor="userFullName">Full Name</label>
+					<div className="input-group">
+						<div className="input-group-prepend">
+							<div className="input-group-text">
+								<FontAwesomeIcon icon="dove"/>
+							</div>
+						</div>
+						<input
+							className="form-control"
+							id="userFullName"
+							type="text"
+							value={values.userFullName}
+							placeholder="Full Name"
+							onChange={handleChange}
+							onBlur={handleBlur}
+
+						/>
+					</div>
+					{
+						errors.userFullName && touched.userFullName && (
+							<div className="alert alert-danger">
+								{errors.userFullName}
+							</div>
+						)
+					}
+				</div>
+
+				<div className="form-group">
 					<button className="btn btn-primary mb-2" type="submit">Submit</button>
 					<button
 						className="btn btn-danger mb-2"
