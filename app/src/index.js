@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import './stylesheets/stylesheet-sign-up.css';
+import './stylesheets/stylesheet.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
