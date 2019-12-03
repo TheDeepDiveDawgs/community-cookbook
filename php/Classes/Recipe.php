@@ -233,7 +233,7 @@ class Recipe implements \JsonSerializable {
 	 * @return string for $newRecipeDescription
 	 **@throws \RangeException if $newDescription is > 1000 characters
 	 * @throws \TypeError if $newDescription is not a string
-	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecure
+	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecur
 	 */
 	public function setRecipeDescription(string $newRecipeDescription): void {
 
@@ -269,6 +269,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the imageUrl is not secure
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
 	 * @throws \TypeError if recipeImageUrl is not a string
+	 * imageUrl is not required for a recipe
 	 */
 	public function setRecipeImageUrl(?string $newRecipeImageUrl): void {
 
@@ -432,6 +433,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \RangeException if the recipeNutrition is not 128 characters
 	 * @throws \TypeError if recipeNutrition is not a string
 	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
+	 * Nutrition is not required for a recipe 
 	 */
 	public function setRecipeNutrition(?string $newRecipeNutrition): void {
 
