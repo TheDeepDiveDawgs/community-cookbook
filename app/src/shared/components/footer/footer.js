@@ -14,26 +14,36 @@ import logo2 from "./images/abqLogo.png";
 
 export const Footer = () => (
 	<>
-		<footer className="page-footer bg-dark variant=dark container-fluid">
-			<Container>
+		<footer className="page-footer bg-dark variant=dark fixed-bottom">
+			<Container className="container-fluid">
 				<Row>
-					<ul>
-					<Col class="col-1">
+					<Col>
 						<img className="logo.png" alt="logo"
 						src={logo}
-						width="70"
-						height="70"
+						width="50"
+						height="50"
 						/>
 					</Col>
-					<Col class="col-10">
+					<Col></Col>
+					<Col></Col>
+					<Col></Col>
+					<Col></Col>
+					<Col>
+						<img className="abqLogo.png" alt="logo"
+						src={logo2}
+						height="50"/>
 					</Col>
-					<Col class="col-1">
+					<Col></Col>
+					<Col></Col>
+					<Col></Col>
+					<Col></Col>
+					<Col></Col>
+					<Col>
 						<img className="logo.png" alt="logo"
 							  src={logo}
-							  width="70"
-							  height="70"/>
+							  width="50"
+							  height="50"/>
 					</Col>
-					</ul>
 				</Row>
 			</Container>
 		</footer>
