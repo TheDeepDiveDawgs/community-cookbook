@@ -94,6 +94,11 @@ class RecipeTest extends CommunityCookbookTest {
 	private $VALID_ACTIVATION;
 
 	/**
+	 * Valid recipe search term from recipe steps
+	 * @var string $VALID_SEARCH_TERM
+	 */
+	protected $VALID_SEARCH_TERM = "veggies";
+	/**
 	 *  create dependant objects before running each test
 	 */
 	public final function setUp(): void {
@@ -393,7 +398,7 @@ class RecipeTest extends CommunityCookbookTest {
 		$recipe->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$results = Recipe::getRecipeBySearchTerm($this->getPDO(), $recipe->getRecipeIngredients(), $recipe->getRecipeName(), $recipe->getRecipeStep());
+		$results = Recipe::getRecipeBySearchTerm($this->getPDO(), $this->VALID_SEARCH_TERM);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("recipe"));
 		$this->assertCount(1, $results);
 
