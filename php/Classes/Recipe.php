@@ -433,7 +433,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeNutrition is not a string
 	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
 	 */
-	public function setRecipeNutrition(string $newRecipeNutrition): void {
+	public function setRecipeNutrition(?string $newRecipeNutrition): void {
 
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
