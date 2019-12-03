@@ -764,7 +764,7 @@ class Recipe implements \JsonSerializable {
 			$recipeSearchTerm = trim($recipeSearchTerm);
 			$recipeSearchTerm= filter_var($recipeSearchTerm, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($recipeSearchTerm) === true) {
-				throw(new \PDOException("Recipe step is invalid"));
+				throw(new \PDOException("No recipe results found"));
 			}
 
 			// escape any mySQL wild cards
@@ -782,7 +782,7 @@ class Recipe implements \JsonSerializable {
 			$parameters = ["recipeSearchTerm" => $recipeSearchTerm];
 			$statement->execute($parameters);
 
-			// create array of recipes that met search term criteria 
+			// create array of recipes that met search term criteria
 			$recipes = new \SplFixedArray($statement->rowCount());
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
