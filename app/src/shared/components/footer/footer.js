@@ -19,29 +19,22 @@ export const Footer = () => (
 				<Row>
 					<Col>
 						<a href="https://facebook.com/">
-						<p>Like Us on Facebook</p>
+						<h6>Like Us on Facebook</h6>
 						</a>
 					</Col>
 					<Col></Col>
-					<Col></Col>
-					<Col></Col>
-					<Col></Col>
 					<Col>
-						<img className="abqLogo.png" alt="logo"
-						src={logo2}
-						height="50"/>
+						<a href="https://twitter.com/?lang=en">
+							<h6> Follow Us on Twitter </h6>
+						</a>
 					</Col>
 					<Col></Col>
-					<Col></Col>
-					<Col></Col>
-					<Col></Col>
-					<Col></Col>
 					<Col>
-						<img className="logo.png" alt="logo"
-							  src={logo}
-							  width="50"
-							  height="50"/>
+						<a href="mailto:abqcookbook@gmail.com" target="_blank">
+							<h6> Contact Us </h6>
+						</a>
 					</Col>
+					<Col></Col>
 				</Row>
 			</Container>
 		</footer>
