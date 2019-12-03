@@ -1,11 +1,15 @@
 <?php
+
 namespace TheDeepDiveDawgs\CommunityCookbook;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
+
 /** recipe class by Damian Arya darya@cnm.edu
  * @version (7.3)
  */
+
 use Ramsey\Uuid\Uuid;
+
 /** docblock section of recipe setting up the Classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
 	use ValidateDate;
@@ -288,7 +292,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return string value of recipeIngredients
 	 **/
-	public function getRecipeIngredients() :string {
+	public function getRecipeIngredients(): string {
 		return ($this->recipeIngredients);
 	}
 
@@ -300,7 +304,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeIngredients is not a string
 	 * @throws \InvalidArgumentException if the recipeIngredients is not secure
 	 */
-	public function setRecipeIngredients(string $newRecipeIngredients) : void {
+	public function setRecipeIngredients(string $newRecipeIngredients): void {
 
 		// verify the ingredients is secure
 		$newRecipeIngredients = trim($newRecipeIngredients);
@@ -524,6 +528,7 @@ class Recipe implements \JsonSerializable {
 		$this->recipeSubmissionDate = $newRecipeSubmissionDate;
 	}
 // This is where the PDOs begin
+
 	/**
 	 * inserts recipe into mysql
 	 * @param \PDO $pdo PDO connection object
@@ -752,53 +757,50 @@ class Recipe implements \JsonSerializable {
 		return ($recipe);
 	}
 
-		/**
-		 * This is the foo by bar method for the recipe Search Term.
-		 * The search term method determines what objects to search through when the search bar on frontend is used.
-		 *
-		 * The search term filters through $recipeIngredients, $recipeName, and $recipeStep
-		 */
-		public function getRecipeBySearchTerm (\PDO $pdo, $recipeSearchTerm) : \SplFixedArray {
+	/**
+	 * This is the foo by bar method for the recipe Search Term.
+	 * The search term method determines what objects to search through when the search bar on frontend is used.
+	 *
+	 * The search term filters through $recipeIngredients, $recipeName, and $recipeStep
+	 */
+	public function getRecipeBySearchTerm(\PDO $pdo, $recipeSearchTerm): \SplFixedArray {
 
-			// sanitize the search term before searching
-			$recipeSearchTerm = trim($recipeSearchTerm);
-			$recipeSearchTerm= filter_var($recipeSearchTerm, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-			if(empty($recipeSearchTerm) === true) {
-				throw(new \PDOException("No recipe results found"));
-			}
+		// sanitize the search term before searching
+		$recipeSearchTerm = trim($recipeSearchTerm);
+		$recipeSearchTerm = filter_var($recipeSearchTerm, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($recipeSearchTerm) === true) {
+			throw(new \PDOException("No recipe results found"));
+		}
 
-			// escape any mySQL wild cards
-			$recipeSearchTerm = str_replace("_", "\\_", str_replace("%", "\\%", $recipeSearchTerm));
-
-			//create query template
-			$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
+		//create query template
+		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
     recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
     recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeSearchTerm OR recipeName LIKE :recipeSearchTerm OR 
     recipeStep LIKE :recipeSearchTerm";
-			$statement = $pdo ->prepare($query);
+		$statement = $pdo->prepare($query);
 
-			// bind the recipe search term to the place holder in the template
-			$recipeSearchTerm = "%$recipeSearchTerm%";
-			$parameters = ["recipeSearchTerm" => $recipeSearchTerm];
-			$statement->execute($parameters);
+		// bind the recipe search term to the place holder in the template
+		$recipeSearchTerm = "%$recipeSearchTerm%";
+		$parameters = ["recipeSearchTerm" => $recipeSearchTerm];
+		$statement->execute($parameters);
 
-			// create array of recipes that met search term criteria
-			$recipes = new \SplFixedArray($statement->rowCount());
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			while(($row = $statement->fetch()) !== false) {
-				try {
-					$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"],
-						$row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"],
-						$row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
-					$recipes[$recipes->key()] = $recipe;
-					$recipes->next();
-				} catch(\Exception $exception) {
-					// if the row couldn't be converted, rethrow it
-					throw(new \PDOException($exception->getMessage(), 0, $exception));
-				}
+		// create array of recipes that met search term criteria
+		$recipes = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"],
+					$row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"],
+					$row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+				$recipes[$recipes->key()] = $recipe;
+				$recipes->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-			return($recipes);
 		}
+		return ($recipes);
+	}
 
 	/**
 	 * formats the state variables for Json serializable
