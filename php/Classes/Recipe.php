@@ -270,7 +270,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \RangeException if the recipeImageUrl is not 255 characters
 	 * @throws \TypeError if recipeImageUrl is not a string
 	 */
-	public function setRecipeImageUrl(string $newRecipeImageUrl): void {
+	public function setRecipeImageUrl(?string $newRecipeImageUrl): void {
 
 		//enforce that the imageUrl content is secure
 		$newRecipeImageUrl = filter_var($newRecipeImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
