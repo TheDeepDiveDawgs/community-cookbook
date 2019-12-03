@@ -444,9 +444,9 @@ class Recipe implements \JsonSerializable {
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
 		$newRecipeNutrition = filter_var($newRecipeNutrition, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newRecipeNutrition) === true) {
-			throw(new \InvalidArgumentException("nutritional info field is empty"));
-		}
+		//if(empty($newRecipeNutrition) === true) {
+			//throw(new \InvalidArgumentException("nutritional info field is empty"));
+		//}
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeNutrition) > 255) {
