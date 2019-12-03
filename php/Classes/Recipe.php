@@ -752,64 +752,52 @@ class Recipe implements \JsonSerializable {
 		return ($recipe);
 	}
 
-	//this is where foo by bar get recipe by search term begins
-	public function getRecipeBySearchTerm (\PDO $pdo, $recipeIngredients, $recipeName, $recipeStep) : \SplFixedArray {
-		// sanitize the search term in recipe ingredients before searching
-		$recipeIngredients = trim($recipeIngredients);
-		$recipeIngredients= filter_var($recipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeIngredients) === true) {
-			throw(new \PDOException("Recipe ingredient  is invalid"));
-		}
+		/**
+		 * This is the foo by bar method for the recipe Search Term.
+		 * The search term method determines what objects to search through when the search bar on frontend is used.
+		 *
+		 * The search term filters through $recipeIngredients, $recipeName, and $recipeStep
+		 */
+		public function getRecipeBySearchTerm (\PDO $pdo, $recipeSearchTerm) : \SplFixedArray {
 
-		// sanitize the search term in recipe name before searching
-		$recipeName = trim($recipeName);
-		$recipeName= filter_var($recipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeName) === true) {
-			throw(new \PDOException("Recipe name is invalid"));
-		}
-
-		// sanitize the search term  in recipe step before searching
-		$recipeStep = trim($recipeStep);
-		$recipeStep= filter_var($recipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeStep) === true) {
-			throw(new \PDOException("Recipe step is invalid"));
-		}
-
-		// escape any mySQL wild cards
-		$recipeIngredients = str_replace("_", "\\_", str_replace("%", "\\%", $recipeIngredients));
-		$recipeName = str_replace("_", "\\_", str_replace("%", "\\%", $recipeName));
-		$recipeStep = str_replace("_", "\\_", str_replace("%", "\\%", $recipeStep));
-
-		//create query template
-		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
-    recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
-    recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeIngredients OR recipeName LIKE :recipeName OR 
-    recipeStep LIKE :recipeStep";
-		$statement = $pdo ->prepare($query);
-
-		// bind the recipe ingredients to the place holder in the template
-		$recipeIngredients = "%$recipeIngredients%";
-		$recipeName = "%$recipeName%";
-		$recipeStep = "%$recipeStep%";
-		$parameters = ["recipeIngredients" => $recipeIngredients, "recipeName" => $recipeName, "recipeStep" => $recipeStep];
-		$statement->execute($parameters);
-
-		$recipes = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"],
-					$row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"],
-					$row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
-				$recipes[$recipes->key()] = $recipe;
-				$recipes->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			// sanitize the search term  in recipe step before searching
+			$recipeSearchTerm = trim($recipeSearchTerm);
+			$recipeSearchTerm= filter_var($recipeSearchTerm, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			if(empty($recipeSearchTerm) === true) {
+				throw(new \PDOException("Recipe step is invalid"));
 			}
+
+			// escape any mySQL wild cards
+			$recipeSearchTerm = str_replace("_", "\\_", str_replace("%", "\\%", $recipeSearchTerm));
+
+			//create query template
+			$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
+    recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
+    recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeSearchTerm OR recipeName LIKE :recipeSearchTerm OR 
+    recipeStep LIKE :$recipeSearchTerm";
+			$statement = $pdo ->prepare($query);
+
+			// bind the recipe ingredients to the place holder in the template
+			$recipeSearchTerm = "%$recipeSearchTerm%";
+			$parameters = ["recipeSearchTerm" => $recipeSearchTerm];
+			$statement->execute($parameters);
+
+			$recipes = new \SplFixedArray($statement->rowCount());
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			while(($row = $statement->fetch()) !== false) {
+				try {
+					$recipe = new Recipe($row["recipeId"], $row["recipeCategoryId"], $row["recipeUserId"], $row["recipeDescription"],
+						$row["recipeImageUrl"], $row["recipeIngredients"], $row["recipeMinutes"], $row["recipeName"], $row["recipeNumberIngredients"],
+						$row["recipeNutrition"], $row["recipeStep"], $row["recipeSubmissionDate"]);
+					$recipes[$recipes->key()] = $recipe;
+					$recipes->next();
+				} catch(\Exception $exception) {
+					// if the row couldn't be converted, rethrow it
+					throw(new \PDOException($exception->getMessage(), 0, $exception));
+				}
+			}
+			return($recipes);
 		}
-		return($recipes);
-	}
 
 	/**
 	 * formats the state variables for Json serializable
