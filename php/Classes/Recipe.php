@@ -231,7 +231,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @param string $newRecipeDescription new value of description
 	 * @return string for $newRecipeDescription
-	 **@throws \RangeException if $newDescription is > 3000 characters
+	 **@throws \RangeException if $newDescription is > 1000 characters
 	 * @throws \TypeError if $newDescription is not a string
 	 * @throws \InvalidArgumentException if $newDescription is not a valid description or insecure
 	 */
@@ -245,7 +245,7 @@ class Recipe implements \JsonSerializable {
 		}
 
 		// verify the description will fit in the database
-		if(strlen($newRecipeDescription) > 500) {
+		if(strlen($newRecipeDescription) > 1000) {
 			throw(new \RangeException("recipe description is too large"));
 		}
 
