@@ -13,6 +13,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  *
  * @see Recipe
  * @author Damian Arya <darya@cnm.edu>
+ * @co-author floribella ponce <fponce2@cnm.edu>
  **/
 class RecipeTest extends CommunityCookbookTest {
 
