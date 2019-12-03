@@ -470,7 +470,7 @@ class Recipe implements \JsonSerializable {
 	 * mutator method for recipeStep
 	 * @param string $newRecipeStep
 	 * @return string
-	 * @throws \RangeException if the recipeStep is not 2000 characters
+	 * @throws \RangeException if the recipeStep is not 1500 characters
 	 * @throws \TypeError if recipeStep is not a string
 	 * @throws \InvalidArgumentException if the recipeStep is not secure
 	 */
@@ -484,7 +484,7 @@ class Recipe implements \JsonSerializable {
 		}
 
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeStep) > 2000) {
+		if(strlen($newRecipeStep) > 1500) {
 			throw(new \RangeException("Too many steps."));
 		}
 
