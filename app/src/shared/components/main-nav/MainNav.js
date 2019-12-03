@@ -5,7 +5,7 @@ import {LinkContainer} from "react-router-bootstrap"
 // import {SignUpModal} from "./sign-up/SignUpModal";
 //import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
-import css from "./nav-style.css"
+
 
 export const MainNav = (props) => {
 	return(
@@ -13,8 +13,6 @@ export const MainNav = (props) => {
 			<Navbar.Brand href="/">
 				<img className="nav-icon.png"
 					  src= {logo}
-					  width="520"
-					  height="80"
 					  className="d-inline-block align-top"
 				/>
 			</Navbar.Brand>
