@@ -41,14 +41,14 @@ create table recipe(
 	recipeCategoryId BINARY(16)not null,
 	-- foreign key
 	recipeUserId BINARY(16) not null,
-	recipeDescription VARCHAR(500),
+	recipeDescription VARCHAR(1000),
 	recipeImageUrl VARCHAR(255),
 	recipeIngredients VARCHAR(300) not null,
 	recipeMinutes INT(3) not null,
 	recipeName VARCHAR(100) not null,
 	recipeNumberIngredients INT(2) not null,
 	recipeNutrition VARCHAR(255),
-	recipeStep VARCHAR(1000) not null,
+	recipeStep VARCHAR(2000) not null,
 	recipeSubmissionDate DATETIME(6) not null,
 	-- index the foreign keys
 	index(recipeCategoryId),
