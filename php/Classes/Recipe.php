@@ -101,7 +101,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \InvalidArgumentException if data types are not valid
 	 **/
-	public function __construct($newRecipeId, $newRecipeCategoryId, $newRecipeUserId, string $newRecipeDescription, string $newRecipeImageUrl, string $newRecipeIngredients, string $newRecipeMinutes, string $newRecipeName, string $newRecipeNumberIngredients, string $newRecipeNutrition, string $newRecipeStep, $newRecipeSubmissionDate = null) {
+	public function __construct($newRecipeId, $newRecipeCategoryId, $newRecipeUserId, string $newRecipeDescription, ?string $newRecipeImageUrl, string $newRecipeIngredients, string $newRecipeMinutes, string $newRecipeName, string $newRecipeNumberIngredients, ?string $newRecipeNutrition, string $newRecipeStep, $newRecipeSubmissionDate = null) {
 		try {
 			$this->setRecipeId($newRecipeId);
 			$this->setRecipeCategoryId($newRecipeCategoryId);
