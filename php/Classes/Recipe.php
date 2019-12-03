@@ -433,7 +433,7 @@ class Recipe implements \JsonSerializable {
 	 * @throws \RangeException if the recipeNutrition is not 128 characters
 	 * @throws \TypeError if recipeNutrition is not a string
 	 * @throws \InvalidArgumentException if the recipeNutrition is not secure
-	 * Nutrition is not required for a recipe 
+	 * Nutrition is not required for a recipe
 	 */
 	public function setRecipeNutrition(?string $newRecipeNutrition): void {
 
