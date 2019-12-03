@@ -18,11 +18,7 @@ export const Footer = () => (
 			<Container className="container-fluid">
 				<Row>
 					<Col>
-						<img className="logo.png" alt="logo"
-						src={logo}
-						width="50"
-						height="50"
-						/>
+						<p>Like Us on Facebook</p>
 					</Col>
 					<Col></Col>
 					<Col></Col>
