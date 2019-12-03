@@ -245,12 +245,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeDescription = trim($newRecipeDescription);
 		$newRecipeDescription = filter_var($newRecipeDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeDescription) === true) {
-			throw(new \InvalidArgumentException("recipe description is empty or insecure"));
+			throw(new \InvalidArgumentException("Recipe description is empty or insecure."));
 		}
 
 		// verify the description will fit in the database
 		if(strlen($newRecipeDescription) > 1000) {
-			throw(new \RangeException("recipe description is too large"));
+			throw(new \RangeException("Recipe description is too long."));
 		}
 
 		// store the description
@@ -280,7 +280,7 @@ class Recipe implements \JsonSerializable {
 		//enforce that the imageUrl content is secure
 		$newRecipeImageUrl = filter_var($newRecipeImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeImageUrl) > 255) {
-			throw(new \RangeException("image url is empty or insecure"));
+			throw(new \RangeException("Image url is empty or insecure."));
 		}
 
 		//store the imageUrl
@@ -310,12 +310,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeIngredients = trim($newRecipeIngredients);
 		$newRecipeIngredients = filter_var($newRecipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeIngredients) === true) {
-			throw(new \InvalidArgumentException("Ingredients field is empty"));
+			throw(new \InvalidArgumentException("Ingredients field is empty."));
 		}
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeIngredients) > 300) {
-			throw(new \RangeException("Ingredient name is too large"));
+			throw(new \RangeException("Ingredients are too long."));
 		}
 
 		// store the Ingredients
@@ -350,7 +350,7 @@ class Recipe implements \JsonSerializable {
 
 		// verify the at handle will fit in the database
 		if($newRecipeMinutes < 0 or $newRecipeMinutes > 999) {
-			throw(new \RangeException("Minutes entered invalid, negative or too many"));
+			throw(new \RangeException("Minutes entered are invalid, negative or too many."));
 		}
 
 		// store the minutes
@@ -379,12 +379,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeName = trim($newRecipeName);
 		$newRecipeName = filter_var($newRecipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeName) === true) {
-			throw(new \InvalidArgumentException("Recipe name field is empty"));
+			throw(new \InvalidArgumentException("Recipe name field is empty."));
 		}
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeName) > 100) {
-			throw(new \RangeException("Recipe name is too long"));
+			throw(new \RangeException("Recipe name is too long."));
 		}
 
 		// store the name
@@ -410,12 +410,12 @@ class Recipe implements \JsonSerializable {
 		// verify the number of ingredients is secure
 		$newRecipeNumberIngredients = filter_var($newRecipeNumberIngredients, FILTER_VALIDATE_INT);
 		if(empty($newRecipeNumberIngredients) === true) {
-			throw(new \InvalidArgumentException("number of ingredients field is empty"));
+			throw(new \InvalidArgumentException("Number of ingredients field is empty."));
 		}
 
 		// verify the at handle will fit in the database
 		if($newRecipeNumberIngredients < 0 or $newRecipeNumberIngredients > 99) {
-			throw(new \RangeException("Too many ingredients"));
+			throw(new \RangeException("Too many ingredients."));
 		}
 
 		// store the number of ingredients
@@ -450,7 +450,7 @@ class Recipe implements \JsonSerializable {
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeNutrition) > 255) {
-			throw(new \RangeException("Nutrition info is too long"));
+			throw(new \RangeException("Nutrition information is too long"));
 		}
 
 		// store the nutritional facts
@@ -468,9 +468,9 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeStep
-	 *    *    **@param string $newRecipeStep
-	 **@return string
-	 * @throws \RangeException if the recipeStep is not 128 characters
+	 * @param string $newRecipeStep
+	 * @return string
+	 * @throws \RangeException if the recipeStep is not 2000 characters
 	 * @throws \TypeError if recipeStep is not a string
 	 * @throws \InvalidArgumentException if the recipeStep is not secure
 	 */
@@ -480,12 +480,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeStep = trim($newRecipeStep);
 		$newRecipeStep = filter_var($newRecipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeStep) === true) {
-			throw(new \InvalidArgumentException("Step must be added"));
+			throw(new \InvalidArgumentException("Recipe steps must be added."));
 		}
 
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeStep) > 1000) {
-			throw(new \RangeException(" too many Step"));
+		if(strlen($newRecipeStep) > 2000) {
+			throw(new \RangeException("Too many steps."));
 		}
 
 		// store the recipe Step
