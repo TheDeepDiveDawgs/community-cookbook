@@ -48,7 +48,7 @@ create table recipe(
 	recipeName VARCHAR(100) not null,
 	recipeNumberIngredients INT(2) not null,
 	recipeNutrition VARCHAR(255),
-	recipeStep VARCHAR(2000) not null,
+	recipeStep VARCHAR(1500) not null,
 	recipeSubmissionDate DATETIME(6) not null,
 	-- index the foreign keys
 	index(recipeCategoryId),

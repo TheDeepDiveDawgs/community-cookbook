@@ -1,11 +1,15 @@
 <?php
+
 namespace TheDeepDiveDawgs\CommunityCookbook;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
+
 /** recipe class by Damian Arya darya@cnm.edu
  * @version (7.3)
  */
+
 use Ramsey\Uuid\Uuid;
+
 /** docblock section of recipe setting up the Classes for recipe section of PDO of capstone*/
 class Recipe implements \JsonSerializable {
 	use ValidateDate;
@@ -241,12 +245,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeDescription = trim($newRecipeDescription);
 		$newRecipeDescription = filter_var($newRecipeDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeDescription) === true) {
-			throw(new \InvalidArgumentException("recipe description is empty or insecure"));
+			throw(new \InvalidArgumentException("Recipe description is empty or insecure."));
 		}
 
 		// verify the description will fit in the database
 		if(strlen($newRecipeDescription) > 1000) {
-			throw(new \RangeException("recipe description is too large"));
+			throw(new \RangeException("Recipe description is too long."));
 		}
 
 		// store the description
@@ -276,7 +280,7 @@ class Recipe implements \JsonSerializable {
 		//enforce that the imageUrl content is secure
 		$newRecipeImageUrl = filter_var($newRecipeImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeImageUrl) > 255) {
-			throw(new \RangeException("image url is empty or insecure"));
+			throw(new \RangeException("Image url is empty or insecure."));
 		}
 
 		//store the imageUrl
@@ -288,7 +292,7 @@ class Recipe implements \JsonSerializable {
 	 *
 	 * @return string value of recipeIngredients
 	 **/
-	public function getRecipeIngredients() :string {
+	public function getRecipeIngredients(): string {
 		return ($this->recipeIngredients);
 	}
 
@@ -300,18 +304,18 @@ class Recipe implements \JsonSerializable {
 	 * @throws \TypeError if recipeIngredients is not a string
 	 * @throws \InvalidArgumentException if the recipeIngredients is not secure
 	 */
-	public function setRecipeIngredients(string $newRecipeIngredients) : void {
+	public function setRecipeIngredients(string $newRecipeIngredients): void {
 
 		// verify the ingredients is secure
 		$newRecipeIngredients = trim($newRecipeIngredients);
 		$newRecipeIngredients = filter_var($newRecipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeIngredients) === true) {
-			throw(new \InvalidArgumentException("Ingredients field is empty"));
+			throw(new \InvalidArgumentException("Ingredients field is empty."));
 		}
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeIngredients) > 300) {
-			throw(new \RangeException("Ingredient name is too large"));
+			throw(new \RangeException("Ingredients are too long."));
 		}
 
 		// store the Ingredients
@@ -346,7 +350,7 @@ class Recipe implements \JsonSerializable {
 
 		// verify the at handle will fit in the database
 		if($newRecipeMinutes < 0 or $newRecipeMinutes > 999) {
-			throw(new \RangeException("Minutes entered invalid, negative or too many"));
+			throw(new \RangeException("Minutes entered are invalid, negative or too many."));
 		}
 
 		// store the minutes
@@ -375,12 +379,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeName = trim($newRecipeName);
 		$newRecipeName = filter_var($newRecipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeName) === true) {
-			throw(new \InvalidArgumentException("Recipe name field is empty"));
+			throw(new \InvalidArgumentException("Recipe name field is empty."));
 		}
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeName) > 100) {
-			throw(new \RangeException("Recipe name is too long"));
+			throw(new \RangeException("Recipe name is too long."));
 		}
 
 		// store the name
@@ -406,12 +410,12 @@ class Recipe implements \JsonSerializable {
 		// verify the number of ingredients is secure
 		$newRecipeNumberIngredients = filter_var($newRecipeNumberIngredients, FILTER_VALIDATE_INT);
 		if(empty($newRecipeNumberIngredients) === true) {
-			throw(new \InvalidArgumentException("number of ingredients field is empty"));
+			throw(new \InvalidArgumentException("Number of ingredients field is empty."));
 		}
 
 		// verify the at handle will fit in the database
 		if($newRecipeNumberIngredients < 0 or $newRecipeNumberIngredients > 99) {
-			throw(new \RangeException("Too many ingredients"));
+			throw(new \RangeException("Too many ingredients."));
 		}
 
 		// store the number of ingredients
@@ -440,13 +444,13 @@ class Recipe implements \JsonSerializable {
 		// verify the nutrition data is secure
 		$newRecipeNutrition = trim($newRecipeNutrition);
 		$newRecipeNutrition = filter_var($newRecipeNutrition, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newRecipeNutrition) === true) {
-			throw(new \InvalidArgumentException("nutritional info field is empty"));
-		}
+		//if(empty($newRecipeNutrition) === true) {
+			//throw(new \InvalidArgumentException("nutritional info field is empty"));
+		//}
 
 		// verify the at handle will fit in the database
 		if(strlen($newRecipeNutrition) > 255) {
-			throw(new \RangeException("Nutrition info is too long"));
+			throw(new \RangeException("Nutrition information is too long"));
 		}
 
 		// store the nutritional facts
@@ -464,9 +468,9 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipeStep
-	 *    *    **@param string $newRecipeStep
-	 **@return string
-	 * @throws \RangeException if the recipeStep is not 128 characters
+	 * @param string $newRecipeStep
+	 * @return string
+	 * @throws \RangeException if the recipeStep is not 1500 characters
 	 * @throws \TypeError if recipeStep is not a string
 	 * @throws \InvalidArgumentException if the recipeStep is not secure
 	 */
@@ -476,12 +480,12 @@ class Recipe implements \JsonSerializable {
 		$newRecipeStep = trim($newRecipeStep);
 		$newRecipeStep = filter_var($newRecipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newRecipeStep) === true) {
-			throw(new \InvalidArgumentException("Step must be added"));
+			throw(new \InvalidArgumentException("Recipe steps must be added."));
 		}
 
 		// verify the at handle will fit in the database
-		if(strlen($newRecipeStep) > 1000) {
-			throw(new \RangeException(" too many Step"));
+		if(strlen($newRecipeStep) > 1500) {
+			throw(new \RangeException("Too many steps."));
 		}
 
 		// store the recipe Step
@@ -524,6 +528,7 @@ class Recipe implements \JsonSerializable {
 		$this->recipeSubmissionDate = $newRecipeSubmissionDate;
 	}
 // This is where the PDOs begin
+
 	/**
 	 * inserts recipe into mysql
 	 * @param \PDO $pdo PDO connection object
@@ -752,48 +757,34 @@ class Recipe implements \JsonSerializable {
 		return ($recipe);
 	}
 
-	//this is where foo by bar get recipe by search term begins
-	public function getRecipeBySearchTerm (\PDO $pdo, $recipeIngredients, $recipeName, $recipeStep) : \SplFixedArray {
-		// sanitize the search term in recipe ingredients before searching
-		$recipeIngredients = trim($recipeIngredients);
-		$recipeIngredients= filter_var($recipeIngredients, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeIngredients) === true) {
-			throw(new \PDOException("Recipe ingredient  is invalid"));
-		}
+	/**
+	 * This is the foo by bar method for the recipe Search Term.
+	 * The search term method determines what objects to search through when the search bar on frontend is used.
+	 *
+	 * The search term filters through $recipeIngredients, $recipeName, and $recipeStep
+	 */
+	public function getRecipeBySearchTerm(\PDO $pdo, $recipeSearchTerm): \SplFixedArray {
 
-		// sanitize the search term in recipe name before searching
-		$recipeName = trim($recipeName);
-		$recipeName= filter_var($recipeName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeName) === true) {
-			throw(new \PDOException("Recipe name is invalid"));
+		// sanitize the search term before searching
+		$recipeSearchTerm = trim($recipeSearchTerm);
+		$recipeSearchTerm = filter_var($recipeSearchTerm, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($recipeSearchTerm) === true) {
+			throw(new \PDOException("No recipe results found"));
 		}
-
-		// sanitize the search term  in recipe step before searching
-		$recipeStep = trim($recipeStep);
-		$recipeStep= filter_var($recipeStep, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($recipeStep) === true) {
-			throw(new \PDOException("Recipe step is invalid"));
-		}
-
-		// escape any mySQL wild cards
-		$recipeIngredients = str_replace("_", "\\_", str_replace("%", "\\%", $recipeIngredients));
-		$recipeName = str_replace("_", "\\_", str_replace("%", "\\%", $recipeName));
-		$recipeStep = str_replace("_", "\\_", str_replace("%", "\\%", $recipeStep));
 
 		//create query template
 		$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
     recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
-    recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeIngredients OR recipeName LIKE :recipeName OR 
-    recipeStep LIKE :recipeStep";
-		$statement = $pdo ->prepare($query);
+    recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeSearchTerm OR recipeName LIKE :recipeSearchTerm OR 
+    recipeStep LIKE :recipeSearchTerm";
+		$statement = $pdo->prepare($query);
 
-		// bind the recipe ingredients to the place holder in the template
-		$recipeIngredients = "%$recipeIngredients%";
-		$recipeName = "%$recipeName%";
-		$recipeStep = "%$recipeStep%";
-		$parameters = ["recipeIngredients" => $recipeIngredients, "recipeName" => $recipeName, "recipeStep" => $recipeStep];
+		// bind the recipe search term to the place holder in the template
+		$recipeSearchTerm = "%$recipeSearchTerm%";
+		$parameters = ["recipeSearchTerm" => $recipeSearchTerm];
 		$statement->execute($parameters);
 
+		// create array of recipes that met search term criteria
 		$recipes = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
@@ -808,7 +799,7 @@ class Recipe implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($recipes);
+		return ($recipes);
 	}
 
 	/**

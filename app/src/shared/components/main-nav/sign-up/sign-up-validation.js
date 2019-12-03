@@ -9,6 +9,7 @@ export const SignUpForm = () => {
 	const signUp = {
 		userEmail: "",
 		userHandle: "",
+		userFullName: "",
 		userPassword: "",
 		userPasswordConfirm: "",
 	};
@@ -20,6 +21,8 @@ export const SignUpForm = () => {
 			.required('email is required'),
 		userHandle: Yup.string()
 			.required("user handle is required"),
+		userFullName: Yup.string()
+			.required("user's full name is required"),
 		userPassword: Yup.string()
 			.required("Password is required")
 			.min(8, "Password must be at least eight characters"),
@@ -32,7 +35,7 @@ export const SignUpForm = () => {
 	});
 
 	const submitSignUp = (values, {resetForm}) => {
-		httpConfig.post("/apis/sign-up/", values)
+		httpConfig.post("./apis/sign-up/", values)
 			.then(reply => {
 					let {message, type} = reply;
 					setStatus({message, type});

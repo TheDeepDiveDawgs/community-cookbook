@@ -57,11 +57,10 @@ try {
 		if(empty($recipeId) === false) {
 			$reply->data = Recipe::getRecipeByRecipeId($pdo, $recipeId);
 		} else if(empty($recipeUserId) === false) {
-
 			// if the user is logged in grab all the recipes by that user based on who is logged in
 			$reply->data = Recipe::getRecipeByRecipeUserId($pdo, $recipeUserId);
 		} else if(empty($recipeSearchTerm) === false) {
-			$reply->data = Recipe::getRecipeByRecipeSearchTerm($pdo, $recipeIngredients, $recipeName, $recipeStep)->toArray();
+			$reply->data = Recipe::getRecipeBySearchTerm($pdo, $recipeSearchTerm)->toArray();
 		} else {
 			$recipes = Recipe::getAllRecipe($pdo)->toArray();
 			$recipeUsers = [];
