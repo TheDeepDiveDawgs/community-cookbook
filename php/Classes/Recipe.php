@@ -774,7 +774,7 @@ class Recipe implements \JsonSerializable {
 			$query = "SELECT recipeId, recipeCategoryId, recipeUserId, recipeDescription, recipeImageUrl,
     recipeIngredients, recipeMinutes, recipeName, recipeNumberIngredients, recipeNutrition, recipeStep,
     recipeSubmissionDate FROM recipe WHERE recipeIngredients LIKE :recipeSearchTerm OR recipeName LIKE :recipeSearchTerm OR 
-    recipeStep LIKE :$recipeSearchTerm";
+    recipeStep LIKE :recipeSearchTerm";
 			$statement = $pdo ->prepare($query);
 
 			// bind the recipe ingredients to the place holder in the template
