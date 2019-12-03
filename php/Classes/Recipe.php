@@ -760,7 +760,7 @@ class Recipe implements \JsonSerializable {
 		 */
 		public function getRecipeBySearchTerm (\PDO $pdo, $recipeSearchTerm) : \SplFixedArray {
 
-			// sanitize the search term  in recipe step before searching
+			// sanitize the search term before searching
 			$recipeSearchTerm = trim($recipeSearchTerm);
 			$recipeSearchTerm= filter_var($recipeSearchTerm, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($recipeSearchTerm) === true) {
@@ -777,11 +777,12 @@ class Recipe implements \JsonSerializable {
     recipeStep LIKE :recipeSearchTerm";
 			$statement = $pdo ->prepare($query);
 
-			// bind the recipe ingredients to the place holder in the template
+			// bind the recipe search term to the place holder in the template
 			$recipeSearchTerm = "%$recipeSearchTerm%";
 			$parameters = ["recipeSearchTerm" => $recipeSearchTerm];
 			$statement->execute($parameters);
 
+			// create array of recipes that met search term criteria 
 			$recipes = new \SplFixedArray($statement->rowCount());
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
