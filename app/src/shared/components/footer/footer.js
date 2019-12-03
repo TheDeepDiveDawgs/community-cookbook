@@ -18,7 +18,9 @@ export const Footer = () => (
 			<Container className="container-fluid">
 				<Row>
 					<Col>
+						<a href="https://facebook.com/">
 						<p>Like Us on Facebook</p>
+						</a>
 					</Col>
 					<Col></Col>
 					<Col></Col>
