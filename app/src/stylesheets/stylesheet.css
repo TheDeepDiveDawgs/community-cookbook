@@ -3,3 +3,9 @@
 	color: white;
 	navbutton_background_color: yellow;
 }
+
+.navbar-toggler {
+	border: none!important;
+	border-radius: none!important;
+	color: rgba(255, 215, 0, 0.5)!important;
+}
