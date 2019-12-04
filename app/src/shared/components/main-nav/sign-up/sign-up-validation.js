@@ -5,6 +5,7 @@ import {Formik} from "formik";
 
 import {SignUpFormContent} from "./sign-up-form";
 
+
 export const SignUpForm = () => {
 	const signUp = {
 		userEmail: "",
@@ -29,19 +30,15 @@ export const SignUpForm = () => {
 		userPasswordConfirm: Yup.string()
 			.required("Password Confirm is required")
 			.min(8, "Password must be at least eight characters"),
-		userPhone: Yup.string()
-			.min(10, "phone number is to short")
-			.max(10, "phone Number is to long")
 	});
 
 	const submitSignUp = (values, {resetForm}) => {
 		httpConfig.post("./apis/sign-up/", values)
 			.then(reply => {
 					let {message, type} = reply;
-					setStatus({message, type});
 					if(reply.status === 200) {
 						resetForm();
-						window.location.href = '/sign-up-successful';
+						setStatus({message, type});
 					}
 				}
 			);
