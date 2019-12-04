@@ -12,18 +12,23 @@ import logo2 from "./images/abqLogo.png";
 import fbLogo from "./images/fbLogoTransparent.jpg";
 
 import{FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import {fab fa-facebook-f } from "@fortawesome/free-solid-svg-icons";
 
 export const Footer = () => (
 	<>
-		<footer className="page-footer bg-black fixed-bottom">
+		<footer className="page-footer bg-dark fixed-bottom">
 			<Container className="container-fluid">
 				<Row>
 					<Col>
 						<a href="https://https://www.facebook.com/cook.book.3705157">
-						<h5>Like Us on Facebook</h5>
+						<h5>Like Us on Facebook</h5> <FontAwesomeIcon icon={faHome}/>
+						<FontAwesomeIcon icon={fab fa-facebook-f}/>
 						</a>
 					</Col>
-					<Col></Col>
+					<Col>
+
+					</Col>
 					<Col>
 						<a href="https://twitter.com/CookBoo43086652">
 							<h5> Follow Us on Twitter </h5>
