@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap"
 import {SignUpModal} from "./sign-up/SignUpModal";
-//import {SignInModal} from "./sign-in/SignInModal";
+import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
 
 
@@ -21,7 +21,7 @@ export const MainNav = (props) => {
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
 					<SignUpModal/>
-					{/*<SignInModal/>*/}
+					<SignInModal/>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
