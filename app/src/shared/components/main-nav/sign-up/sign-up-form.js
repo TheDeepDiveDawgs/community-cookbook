@@ -151,7 +151,7 @@ export const SignUpFormContent = (props) => {
 					}
 				</div>
 
-				<div className="form-group">
+				<div className="form-group ml-auto">
 					<button className="btn btn-primary mb-2" type="submit">Submit</button>
 					<button
 						className="btn btn-danger mb-2"
