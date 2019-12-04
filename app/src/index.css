@@ -1,7 +1,11 @@
 .fbLogoTransparent {
-	max-width: 992px;
+	max-width: 992px
 }
 
 .footerLinks {
-	min-width: 992px;
+	min-width: 992px
+}
+
+i {
+	max-width: 992px
 }
