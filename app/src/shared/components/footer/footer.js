@@ -1,12 +1,8 @@
 import React from "react";
-// import {Link} from "react-router-dom";
-// import ReactDom from 'react-dom';
-import '../../../index.css';
-
+import '../../../stylesheets/stylesheet.css';
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {library} from '@fortawesome/fontawesome-svg-core';
