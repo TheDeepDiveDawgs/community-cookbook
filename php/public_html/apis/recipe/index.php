@@ -11,6 +11,7 @@ use TheDeepDiveDawgs\CommunityCookbook\{Category, User, Recipe, Interaction};
  * api for the Recipe class
  *
  * @author damian Arya <darya@cnm.edu>
+ * @co-author floribella ponce <fponce2@cnm.edu>
  **/
 
 //verify the session, start if not active
