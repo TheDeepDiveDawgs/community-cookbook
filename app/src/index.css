@@ -1,18 +1,20 @@
-
-
 footer {
 	height: 50px;
 	padding-top: 10px;
 }
 
-.faTwitter {
-	min-height: 30px;
+h5 {
+	color: white;
 }
 
-h5 {
+h5:hover {
 	color: yellow;
 }
 
-.FontAwesomeIcon {
-	color: red;
+i {
+	color: white;
+
+}
+i:hover {
+	color: yellow;
 }
