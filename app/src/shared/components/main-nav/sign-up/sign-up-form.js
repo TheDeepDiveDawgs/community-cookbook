@@ -162,6 +162,7 @@ export const SignUpFormContent = (props) => {
 							  disabled={isSubmitting}>
 						{isSubmitting ? "Submitting..." : "Submit"}
 					</button>
+
 					<button
 						className="btn btn-danger mb-2"
 						onClick={handleReset}
