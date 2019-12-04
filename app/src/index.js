@@ -11,6 +11,13 @@ import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
 
 
+
+
+
+
+import {Footer} from "./shared/components/footer/footer"
+
+
 const Routing = () => (
 	<>
 		<BrowserRouter>
@@ -21,7 +28,10 @@ const Routing = () => (
 				<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 				<Route component={FourOhFour}/>
 			</Switch>
+			<Footer/>
 		</BrowserRouter>
 	</>
 );
 ReactDOM.render(<Routing/>, document.querySelector('#root'));
+
+
