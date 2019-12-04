@@ -1,11 +1,18 @@
-.fbLogoTransparent {
-	max-width: 992px
+
+
+footer {
+	height: 50px;
+	padding-top: 10px;
 }
 
-.footerLinks {
-	min-width: 992px
+.faTwitter {
+	min-height: 30px;
 }
 
-i {
-	max-width: 992px
+h5 {
+	color: yellow;
+}
+
+.FontAwesomeIcon {
+	color: red;
 }
