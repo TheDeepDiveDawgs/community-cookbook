@@ -6,6 +6,6 @@
 
 .navbar-toggler-icon {
 	border: none!important;
-	border-radius: none!important;
+	border-radius: 0!important;
 	color: rgba(255, 215, 0, 0.5)!important;
 }

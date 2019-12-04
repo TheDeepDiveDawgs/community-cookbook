@@ -151,13 +151,22 @@ export const SignUpFormContent = (props) => {
 					}
 				</div>
 
+
 				<div className="form-group">
-					<button className="btn btn-primary mb-2" type="submit">Submit</button>
+					<button className="btn btn-primary mb-2"
+							  onSubmit={({ setSubmitting }) => {
+								  alert("Form is validated! Submitting the form...");
+								  setSubmitting(false);
+							  }}
+							  type="submit"
+							  disabled={isSubmitting}>
+						{isSubmitting ? "Submitting..." : "Submit"}
+					</button>
 					<button
 						className="btn btn-danger mb-2"
 						onClick={handleReset}
-						disabled={!dirty || isSubmitting}
-					>Reset
+						disabled={!dirty || isSubmitting}>
+						Reset
 					</button>
 				</div>
 
