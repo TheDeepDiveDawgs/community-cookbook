@@ -1,7 +1,6 @@
 import React from "react";
-
-// import {Link} from "react-router-dom";
-
+import {Link} from "react-router-dom";
+import ReactDom from 'react-dom';
 import '../../../index.css';
 
 import Col from "react-bootstrap/Col";
@@ -13,7 +12,9 @@ import fbLogo from "./images/fbLogoTransparent.jpg";
 
 import{FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import {fab fa-facebook-f } from "@fortawesome/free-solid-svg-icons";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 export const Footer = () => (
 	<>
