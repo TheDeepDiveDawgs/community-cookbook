@@ -21,7 +21,7 @@ export const SignUpModal = () => {
 					<Modal.Title>Sign Up</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<SignUpForm/>
+					<SignUpForm handleClose={handleClose}/>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
