@@ -31,12 +31,17 @@ import {PostCard} from "./recipecard";
 		const recipePosts = useSelector(state => state.recipePost ? state.recipePost : []);
 
 		// Since recipePost contains a collection of different data from the backend  each piece must be assigned to a new variable.
-		const posts = recipePosts.posts ? [...recipePosts.posts] : [];
-		const posts = recipePosts.posts ? [...recipePosts.posts] : [];
-		const posts = recipePosts.posts ? [...recipePosts.posts] : [];
-		const posts = recipePosts.posts ? [...recipePosts.posts] : [];
-		const posts = recipePosts.posts ? [...recipePosts.posts] : [];
-		const recipe = recipePosts.recipe ? {...recipePosts.recipe} : null;
+		const recipePage = recipeName.name ? [...recipeName.name] : [];
+		const recipeRating = recipeRating.rating ? [...recipeRating.rating] : [];
+		const recipeDescription = recipeDescription.description ? [...recipeDescription.description] : [];
+		const recipeIngredients = recipeIngredients.ingredients ? [...recipeIngredients.ingredients] : [];
+		const recipeNumberIngredients = recipeNumberIngredients.numberIngredients ? [...recipeNumberIngredients.numberIngredients] : [];
+		const recipeSteps = recipeSteps.steps ? [...recipeSteps.steps] : [];
+		const recipeReview = recipeReview.review ? [...recipeReview.review] : [];
+		const recipeImageURL = recipeImageURL.imageURL ? [...recipeImageURL.imageURL] : [];
+		const recipeNutrition = recipeNutrition.nutrition ? [...recipeNutrition.nutrition] : [];
+		const recipeSubmissionDate = recipeSubmissionDate.submissionDate ? [...recipeSubmissionDate.SubmissionDate] : [];
+		const recipeMinutes = recipeMinutes.minutes ? {...recipeMinutes.minutes} : [];
 		const dispatch = useDispatch();
 		const sideEffects = () => {
 
@@ -54,14 +59,14 @@ import {PostCard} from "./recipecard";
 		 * E.g when a network request to an api has completed and there is new data to display on the dom.
 		 **/
 		useEffect(sideEffects, sideEffectInputs);
-
+//have not gotten to this yet
 		return (
 			<>
 				<main className="container">
 					{recipe && (<h2>{recipe.name}</h2>)}
 					<div className="card-group card-columns">
 						{
-							posts.map(post => <PostCard  key={recipe.recipeId} post={post} />)
+							posts.map(post => <PostCard  key={recipe.recipeId} recipe={recipe} />)
 						}
 					</div>
 				</main>
