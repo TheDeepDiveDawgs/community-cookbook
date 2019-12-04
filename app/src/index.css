@@ -1,20 +1,56 @@
 footer {
+	background-color: #252525;
 	height: 50px;
 	padding-top: 10px;
 }
 
-h5 {
+#twitter {
+	text-align: center;
 	color: white;
 }
 
-h5:hover {
+#twitter:hover {
 	color: yellow;
 }
 
-i {
+#faTweet {
 	color: white;
-
 }
-i:hover {
+
+#faTweet:hover {
+	color: yellow;
+}
+
+#facebook {
+	text-align: center;
+	color: white;
+}
+
+#facebook:hover {
+	color: yellow;
+}
+
+#faFb {
+	color: white;
+}
+
+#faFb:hover {
+	color: yellow;
+}
+
+#email {
+	text-align: center;
+	color: white;
+}
+
+#email:hover {
+	color: yellow;
+}
+
+#faEmail {
+	color: white;
+}
+
+#faEmail:hover {
 	color: yellow;
 }
