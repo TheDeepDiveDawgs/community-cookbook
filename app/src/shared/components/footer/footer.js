@@ -16,38 +16,38 @@ library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare);
 
 export const Footer = () => (
 	<>
-		<footer className="page-footer bg-dark fixed-bottom">
+		<footer className="page-footer fixed-bottom">
 			<Container className="container-fluid">
 				<Row>
 					<Col>
-						<a href="https://https://www.facebook.com/cook.book.3705157">
-							<h5 className="d-none d-lg-block float-left">
+						<a href="https://www.facebook.com/cook.book.3705157">
+							<h5 className="d-none d-lg-block" id="facebook">
 								Like Us on Facebook
 							</h5>
-							<i className="d-lg-none float-left">
-								<FontAwesomeIcon icon={faFacebookF} size="2x"  />
+							<i className="d-lg-none float-left" id="faFb">
+								<FontAwesomeIcon icon={faFacebookF} size="2x"/>
 							</i>
 						</a>
 					</Col>
 
 					<Col>
 						<a href="https://twitter.com/CookBoo43086652">
-							<h5 className="d-none d-lg-block float-right">
+							<h5 className="d-none d-lg-block" id="twitter">
 								Follow Us on Twitter
 							</h5>
-							<i className="d-lg-none d-flex justify-content-center">
-								<FontAwesomeIcon icon={faTwitter} size="2x" />
+							<i className="d-lg-none d-flex justify-content-center" id="faTweet">
+								<FontAwesomeIcon icon={faTwitter} size="2x"/>
 							</i>
 						</a>
 					</Col>
 
 					<Col>
 						<a href="mailto:abqcookbook@gmail.com" rel="noopener noreferrer" target="_blank">
-							<h5 className="d-none d-lg-block float-right">
+							<h5 className="d-none d-lg-block" id="email">
 								Contact Us
 							</h5>
-							<i className="d-lg-none float-right">
-								<FontAwesomeIcon icon={faEnvelope} size="2x" />
+							<i className="d-lg-none float-right" id="faEmail">
+								<FontAwesomeIcon icon={faEnvelope} size="2x"/>
 							</i>
 						</a>
 					</Col>
