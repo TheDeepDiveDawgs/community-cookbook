@@ -8,6 +8,7 @@ import {FourOhFour} from "./pages/FourOhFour";
 import {Home} from "./pages/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 import {MainNav} from "./shared/components/main-nav/MainNav";
+import {SignUpSuccess} from "./pages/SignUpSuccess";
 
 
 const Routing = () => (
@@ -17,6 +18,7 @@ const Routing = () => (
 			<Switch>
 				<Route exact path="/" component={Home}/>
 				<Route exact path="/sign-up" component={SignUpForm}/>
+				<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 				<Route component={FourOhFour}/>
 			</Switch>
 		</BrowserRouter>

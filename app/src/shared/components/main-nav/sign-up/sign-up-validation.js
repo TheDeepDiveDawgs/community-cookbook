@@ -41,6 +41,7 @@ export const SignUpForm = () => {
 					setStatus({message, type});
 					if(reply.status === 200) {
 						resetForm();
+						window.location.href = '/sign-up-successful';
 					}
 				}
 			);
