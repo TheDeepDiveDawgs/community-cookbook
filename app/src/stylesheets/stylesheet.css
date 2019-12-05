@@ -4,6 +4,12 @@
 	navbutton_background_color: yellow;
 }
 
+#thank-you {
+	margin-top: 10rem!important;
+	padding: 8rem!important;
+	background-color: #eeeeee;
+}
+
 #nav-image {
 	width: 360px;
 	height: 60px;
@@ -39,6 +45,12 @@ footer {
 #twitter {
 	text-align: center;
 	color: white;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+	text-decoration: none!important;
+	text-shadow: 2px 2px 8px #000000!important;
 }
 
 #twitter:hover {

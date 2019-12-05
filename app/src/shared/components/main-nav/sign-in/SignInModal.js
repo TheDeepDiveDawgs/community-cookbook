@@ -12,7 +12,7 @@ export const SignInModal = () => {
 
 	return (
 		<>
-			<Button variant="light" onClick={handleShow}>
+			<Button variant="light" className="px-4 py-2" onClick={handleShow}>
 				Sign In
 			</Button>
 
