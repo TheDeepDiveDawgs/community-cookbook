@@ -6,6 +6,8 @@ import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
 import {httpConfig} from "../../utils/http-config";
+import {UserSettings} from "../user-settings/UserSettings";
+import {SignUpForm} from "./sign-up/sign-up-validation";
 
 
 export const MainNav = (props) => {
@@ -13,6 +15,8 @@ export const MainNav = (props) => {
 	useEffect( () =>{
 		httpConfig.get("./apis/sessionAPI/")
 	});
+
+	const isLoggedIn = props.isLoggedIn;
 
 	return(
 		<Navbar className="nav-style" expand="lg">
@@ -27,7 +31,11 @@ export const MainNav = (props) => {
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
 					<SignUpModal/>
-					<SignInModal/>
+					{isLoggedIn ? (
+						<SignInModal/>
+						) : (
+							<UserSettings/>
+						)}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
