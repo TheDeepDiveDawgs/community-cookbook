@@ -4,7 +4,8 @@ namespace TheDeepDiveDawgs\CommunityCookbook;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 
-/** recipe class by Damian Arya darya@cnm.edu
+/** @author recipe class by Damian Arya darya@cnm.edu
+ * @co-author floribella ponce <fponce2@cnm.edu>
  * @version (7.3)
  */
 
@@ -268,6 +269,8 @@ class Recipe implements \JsonSerializable {
 
 	/**
 	 * mutator method for recipe imageUrl
+	 *
+	 * image url is not required for a recipe submission
 	 *
 	 * @param string $newRecipeImageUrl vale of new recipe imageUrl
 	 * @throws \InvalidArgumentException if the imageUrl is not secure

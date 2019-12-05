@@ -9,27 +9,21 @@ import logo from "./images/nav-icon.png";
 
 export const MainNav = (props) => {
 	return(
-		<Navbar className="nav-style">
-			<Navbar.Brand href="/">
-				<img className="nav-icon.png"
+		<Navbar className="nav-style" expand="lg">
+			<LinkContainer exact to="/">
+				<img alt="ABQCOOKBOOK Icon"
 					  src= {logo}
 					  className="d-inline-block align-top"
 				/>
-			</Navbar.Brand>
-
-			<LinkContainer exact to="/" >
-				<Navbar.Brand></Navbar.Brand>
 			</LinkContainer>
-			<Nav className="ml-auto">
-				<LinkContainer exact to="/profile">
-					<Nav.Link></Nav.Link>
-				</LinkContainer>
-				<SignUpModal/>
-				{/*<SignInModal/>*/}
-				<LinkContainer exact to="/image"
-				><Nav.Link></Nav.Link>
-				</LinkContainer>
-			</Nav>
+
+			<Navbar.Toggle aria-controls="basic-navbar-nav"/>
+			<Navbar.Collapse id="basic-navbar-nav">
+				<Nav className="ml-auto">
+					<SignUpModal/>
+					{/*<SignInModal/>*/}
+				</Nav>
+			</Navbar.Collapse>
 		</Navbar>
 	)
 };
