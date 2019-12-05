@@ -2,21 +2,23 @@ import React, {useEffect} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap"
+import {UseJwt} from "../../utils/JwtHelpers";
 import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
 import {httpConfig} from "../../utils/http-config";
 import {UserSettings} from "../user-settings/UserSettings";
-import {SignUpForm} from "./sign-up/sign-up-validation";
 
 
 export const MainNav = (props) => {
+
+	const jwt = UseJwt();
+
 
 	useEffect( () =>{
 		httpConfig.get("./apis/sessionAPI/")
 	});
 
-	const isLoggedIn = props.isLoggedIn;
 
 	return(
 		<Navbar className="nav-style" expand="lg">
@@ -32,11 +34,10 @@ export const MainNav = (props) => {
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
 					<SignUpModal/>
-					{isLoggedIn ? (
+					{jwt !== null && (
+						<UserSettings/>
+					)}
 						<SignInModal/>
-						) : (
-							<UserSettings/>
-						)}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
