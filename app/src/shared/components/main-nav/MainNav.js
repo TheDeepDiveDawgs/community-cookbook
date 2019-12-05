@@ -22,8 +22,9 @@ export const MainNav = (props) => {
 		<Navbar className="nav-style" expand="lg">
 			<LinkContainer exact to="/">
 				<img alt="ABQCOOKBOOK Icon"
-					  src= {logo}
-					  className="d-inline-block align-top"
+					 src= {logo}
+					 id="nav-image"
+					 className="d-inline-block align-top"
 				/>
 			</LinkContainer>
 

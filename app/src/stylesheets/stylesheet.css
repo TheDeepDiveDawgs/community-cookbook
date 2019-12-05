@@ -4,8 +4,97 @@
 	navbutton_background_color: yellow;
 }
 
+#thank-you {
+	margin-top: 10rem!important;
+	padding: 8rem!important;
+	background-color: #eeeeee;
+}
+
+#nav-image {
+	width: 360px;
+	height: 60px;
+}
+
+@media (max-width: 450px) {
+	#nav-image {
+		width: 240px;
+		height: 40px;
+	}
+}
+
+@media (max-width: 325px) {
+	#nav-image {
+		width: 160px;
+		height: 30px
+	}
+
+}
+
 .navbar-toggler-icon {
 	border: none!important;
 	border-radius: 0!important;
 	color: rgba(255, 215, 0, 0.5)!important;
+}
+
+footer {
+	background-color: #252525;
+	height: 50px;
+	padding-top: 10px;
+}
+
+#twitter {
+	text-align: center;
+	color: white;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+	text-decoration: none!important;
+	text-shadow: 2px 2px 8px #000000!important;
+}
+
+#twitter:hover {
+	color: yellow;
+}
+
+#faTweet {
+	color: white;
+}
+
+#faTweet:hover {
+	color: yellow;
+}
+
+#facebook {
+	text-align: center;
+	color: white;
+}
+
+#facebook:hover {
+	color: yellow;
+}
+
+#faFb {
+	color: white;
+}
+
+#faFb:hover {
+	color: yellow;
+}
+
+#email {
+	text-align: center;
+	color: white;
+}
+
+#email:hover {
+	color: yellow;
+}
+
+#faEmail {
+	color: white;
+}
+
+#faEmail:hover {
+	color: yellow;
 }
