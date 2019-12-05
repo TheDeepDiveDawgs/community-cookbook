@@ -6,6 +6,63 @@
 
 .navbar-toggler-icon {
 	border: none!important;
-	border-radius: none!important;
+	border-radius: 0!important;
 	color: rgba(255, 215, 0, 0.5)!important;
+}
+
+footer {
+	background-color: #252525;
+	height: 50px;
+	padding-top: 10px;
+}
+
+#twitter {
+	text-align: center;
+	color: white;
+}
+
+#twitter:hover {
+	color: yellow;
+}
+
+#faTweet {
+	color: white;
+}
+
+#faTweet:hover {
+	color: yellow;
+}
+
+#facebook {
+	text-align: center;
+	color: white;
+}
+
+#facebook:hover {
+	color: yellow;
+}
+
+#faFb {
+	color: white;
+}
+
+#faFb:hover {
+	color: yellow;
+}
+
+#email {
+	text-align: center;
+	color: white;
+}
+
+#email:hover {
+	color: yellow;
+}
+
+#faEmail {
+	color: white;
+}
+
+#faEmail:hover {
+	color: yellow;
 }
