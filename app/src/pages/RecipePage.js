@@ -78,7 +78,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import './stylesheet.css';
+import '../stylesheets/stylesheet.css';
 
 class Recipe extends Component {
 	static propTypes = {
@@ -100,11 +100,17 @@ render() {
 				<img src={img} alt={title} />
 			</div>
 			<div className="recipe-card-content">
-				<h3 className="recipe-title">{title}</h3>
+				<h3 className="recipe-name">{name}</h3>
+				<h4>Rateing</h4>
+				<input type={rating info goes here}/>
 				<h4>Ingredients:</h4>
 				<ul>
 					{ingredients}
 				</ul>
+				<h4>Description</h4>
+				<p>{describe the recipe here}</p>
+				<h4>minutes to make</h4>
+				<input type={number}/>
 				<h4>Instructions:</h4>
 				<p>{instructions}</p>
 			</div>
