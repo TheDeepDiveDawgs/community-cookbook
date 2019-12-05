@@ -7,12 +7,12 @@ import {useHistory} from "react-router";
 
 
 
-export const SignInForm = () => {
+export const SignInForm = ({handleClose}) => {
 
 		//the initial values object defines what the request payload is.
 		const signIn = {
-			profileEmail: "",
-			profilePassword: ""
+			userEmail: "",
+			userPassword: ""
 		};
 
 		//declare history variable and use the axios hook useHistory
@@ -21,10 +21,10 @@ export const SignInForm = () => {
 
 		//validate the inputs for the initial values
 		const validator = Yup.object().shape({
-			profileEmail: Yup.string()
+			userEmail: Yup.string()
 				.email("email must be a valid email")
 				.required('email is required'),
-			profilePassword: Yup.string()
+			userPassword: Yup.string()
 				.required("Password is required")
 				.min(8, "Password must be at least eight characters")
 		});
@@ -41,8 +41,9 @@ export const SignInForm = () => {
 						window.localStorage.removeItem("jwt-token");
 						window.localStorage.setItem("jwt-token", reply.headers["x-jwt-token"]);
 						resetForm();
+						handleClose();
 						history.push("/");
-					}
+					} setStatus({message, type});
 				});
 		};
 

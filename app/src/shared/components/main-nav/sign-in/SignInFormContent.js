@@ -20,7 +20,7 @@ export const SignInFormContent = (props) => {
 			<form onSubmit={handleSubmit}>
 				{/*controlId must match what is passed to the initialValues prop*/}
 				<div className="form-group">
-					<label htmlFor="profileEmail">Email Address</label>
+					<label htmlFor="userEmail">Email Address</label>
 					<div className="input-group">
 						<div className="input-group-prepend">
 							<div className="input-group-text">
@@ -29,9 +29,9 @@ export const SignInFormContent = (props) => {
 						</div>
 						<input
 							className="form-control"
-							id="profileEmail"
+							id="userEmail"
 							type="email"
-							value={values.profileEmail}
+							value={values.userEmail}
 							placeholder="Enter email"
 							onChange={handleChange}
 							onBlur={handleBlur}
@@ -39,9 +39,9 @@ export const SignInFormContent = (props) => {
 						/>
 					</div>
 					{
-						errors.profileEmail && touched.profileEmail && (
+						errors.userEmail && touched.userEmail && (
 							<div className="alert alert-danger">
-								{errors.profileEmail}
+								{errors.userEmail}
 							</div>
 						)
 
@@ -49,7 +49,7 @@ export const SignInFormContent = (props) => {
 				</div>
 				{/*controlId must match what is defined by the initialValues object*/}
 				<div className="form-group">
-					<label htmlFor="profilePassword">Password</label>
+					<label htmlFor="userPassword">Password</label>
 					<div className="input-group">
 						<div className="input-group-prepend">
 							<div className="input-group-text">
@@ -57,17 +57,17 @@ export const SignInFormContent = (props) => {
 							</div>
 						</div>
 						<input
-							id="profilePassword"
+							id="userPassword"
 							className="form-control"
 							type="password"
 							placeholder="Password"
-							value={values.profilePassword}
+							value={values.userPassword}
 							onChange={handleChange}
 							onBlur={handleBlur}
 						/>
 					</div>
-					{errors.profilePassword && touched.profilePassword && (
-						<div className="alert alert-danger">{errors.profilePassword}</div>
+					{errors.userPassword && touched.userPassword && (
+						<div className="alert alert-danger">{errors.userPassword}</div>
 					)}
 				</div>
 
