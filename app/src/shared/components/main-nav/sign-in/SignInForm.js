@@ -42,7 +42,7 @@ export const SignInForm = ({handleClose}) => {
 						window.localStorage.setItem("jwt-token", reply.headers["x-jwt-token"]);
 						resetForm();
 						handleClose();
-						history.push("/");
+						window.location = "/";
 					} setStatus({message, type});
 				});
 		};

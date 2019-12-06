@@ -12,26 +12,18 @@ export const SignUpModal = () => {
 
 	return (
 		<>
-			<Button className="btn btn-dark mx-4 px-4 py-2 text-white" variant="outline-dark" onClick={handleShow}>
+			<Button className="mx-4 px-4 py-2" variant="dark" onClick={handleShow}>
 				Sign Up
 			</Button>
 
-			<Modal show={show} onHide={handleClose}>
+			<Modal show={show} onHide={handleClose} className="bg-modal">
 				<Modal.Header closeButton>
 					<Modal.Title>Sign Up</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<SignUpForm handleClose={handleClose}/>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-					<Button variant="primary" onClick={handleClose}>
-						Save Changes
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</>
 	);
-}
+};

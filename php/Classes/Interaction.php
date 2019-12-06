@@ -325,7 +325,7 @@ class Interaction implements \JsonSerializable {
 		// bind the member variables to the place holders in the template
 		$parameters = ["interactionUserId" => $interactionUserId->getBytes()];
 		$statement->execute($parameters);
-		// build the array of likes
+		// build the array of interactions
 		$interactions = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
@@ -362,7 +362,7 @@ class Interaction implements \JsonSerializable {
 		// bind the member variables to the place holders in the template
 		$parameters = ["interactionRecipeId" => $interactionRecipeId->getBytes()];
 		$statement->execute($parameters);
-		// build the array of likes
+		// build the array of interactions
 		$interactions = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {

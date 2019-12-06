@@ -9,28 +9,31 @@ import {Home} from "./pages/home/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
-import {RecipeList} from "./pages/recipe-list/RecipeList";
+import reducers from "./shared/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
 
-const store = createStore(applyMiddleware(thunk));
+
+
+const store = createStore(reducers, applyMiddleware(thunk));
+
 
 const Routing = (store) => (
 	<>
 		<Provider store={store}>
-		<BrowserRouter>
-			<MainNav/>
-			<Switch>
-				<Route exact path="/" component={Home}/>
-				<Route exact path="/sign-up" component={SignUpForm}/>
-				<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
-				<Route exact path="/RecipeList" component={RecipeList}/>
-				<Route component={FourOhFour}/>
-			</Switch>
-			<Footer/>
-		</BrowserRouter>
+
+				<BrowserRouter>
+					<MainNav/>
+					<Switch>
+						<Route exact path="/" component={Home}/>
+						<Route exact path="/sign-up" component={SignUpForm}/>
+						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
+						<Route component={FourOhFour}/>
+					</Switch>
+					<Footer/>
+				</BrowserRouter>
 		</Provider>
 	</>
 );
