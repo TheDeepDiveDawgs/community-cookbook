@@ -6,8 +6,10 @@ import {UseJwt} from "../../utils/JwtHelpers";
 import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
+import smallLogo from "./images/nav-icon-sm.png"
 import {httpConfig} from "../../utils/http-config";
 import {UserMenu} from "./user-menu/UserMenu";
+import {SearchFormContent} from "./search/SearchForm";
 
 
 export const MainNav = (props) => {
@@ -26,10 +28,19 @@ export const MainNav = (props) => {
 				<img alt="ABQCOOKBOOK Icon"
 					 src= {logo}
 					 id="nav-image"
-					 className="d-inline-block align-top"
+					 className="d-none d-lg-inline-block align-top"
 				/>
 			</LinkContainer>
 
+			<LinkContainer exact to="/">
+				<img alt="ABQCOOKBOOK Icon"
+					  src={smallLogo}
+					  id="nav-image-small"
+					  className="d-lg-none d-inline-block align-top"
+				/>
+			</LinkContainer>
+
+			<SearchFormContent/>
 			<Navbar.Toggle aria-controls="basic-navbar-nav"/>
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">

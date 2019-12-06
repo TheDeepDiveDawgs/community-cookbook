@@ -11,30 +11,42 @@
 	background-color: #eeeeee;
 }
 
-#nav-image {
-	width: 360px;
-	height: 60px;
+#nav-image-small {
+	width: 64px;
+	height: 64px;
+}
+
+#search-button {
+	margin: 0.5rem!important;
 }
 
 
 @media (max-width: 450px) {
-	#nav-image {
-		width: 240px;
+
+	#search-button {
+		padding-left: 0.5rem!important;
+		padding-right: 0.5rem!important;
+		margin: 0.5rem!important;
+}
+
+	#search-text {
+		width: 140px;
 		height: 40px;
 	}
 }
 
-@media (max-width: 350px) {
-	#nav-image {
-		width: 160px;
-		height: 30px
-	}
+@media (max-width: 400px) {
 
 	.footer-position {
 		position:absolute;
 		left:0;
 		bottom:0;
 		right:0;
+	}
+
+	#search-text {
+		width: 80px;
+		height: 40px;
 	}
 
 	h1 {
