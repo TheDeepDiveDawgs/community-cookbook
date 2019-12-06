@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {getAllInteractions} from "../../actions/interactionAction";
 import Card from "react-bootstrap/Card";
 
-export const Home = () => {
+export const InteractionComp = () => {
 
 	const interactions = useSelector(state => state.interactions);
 	const dispatch = useDispatch();
