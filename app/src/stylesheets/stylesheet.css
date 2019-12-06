@@ -101,3 +101,10 @@ a:hover, a:visited, a:link, a:active
 .bg-modal {
 	background-color: rgba(37, 37, 37, 0.7);
 }
+
+.footer-position {
+	position:absolute;
+	left:0;
+	bottom:0;
+	right:0;
+}
