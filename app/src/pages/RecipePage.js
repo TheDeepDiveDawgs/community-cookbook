@@ -86,8 +86,7 @@ class Recipe extends Component {
 		ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
 		instructions: PropTypes.string.isRequired,
 		img: PropTypes.string.isRequired,
-		id: PropTypes.number.isRequired,
-: PropTypes.func.isRequired
+		id: PropTypes.number.isRequired, PropTypes.func.isRequired
 }
 
 render() {
@@ -101,7 +100,7 @@ render() {
 			</div>
 			<div className="recipe-card-content">
 				<h3 className="recipe-name">{name}</h3>
-				<h4>Rateing</h4>
+				<h4>Rating</h4>
 				<input type={rating info goes here}/>
 				<h4>Ingredients:</h4>
 				<ul>
