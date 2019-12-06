@@ -6,6 +6,7 @@
 
 #thank-you {
 	margin-top: 10rem!important;
+	margin-bottom: 19.5rem!important;
 	padding: 8rem!important;
 	background-color: #eeeeee;
 }
@@ -26,6 +27,13 @@
 	#nav-image {
 		width: 160px;
 		height: 30px
+	}
+
+	.footer-position {
+		position:absolute;
+		left:0;
+		bottom:0;
+		right:0;
 	}
 
 }
@@ -103,7 +111,7 @@ a:hover, a:visited, a:link, a:active
 }
 
 .footer-position {
-	position:absolute;
+	position: relative;
 	left:0;
 	bottom:0;
 	right:0;
