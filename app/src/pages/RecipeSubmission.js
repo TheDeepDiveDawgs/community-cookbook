@@ -3,8 +3,8 @@ import '../stylesheets/stylesheet.css';
 
 class RecipeSubmission extends Component {
 	static defaultProps = {
-		// onClose() {},
-		// onSave() {}
+		onClose() {},
+		onSave() {}
 	}
 
 	constructor(props) {
