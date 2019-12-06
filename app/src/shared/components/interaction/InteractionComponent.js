@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getAllInteractions} from "../../actions/interaction";
+import {getAllInteractions} from "../../actions/interactionAction";
 import Card from "react-bootstrap/Card";
 
 export const Home = () => {
