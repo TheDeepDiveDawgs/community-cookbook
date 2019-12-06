@@ -7,7 +7,7 @@ import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
 import {httpConfig} from "../../utils/http-config";
-import {UserSettings} from "../user-settings/UserSettings";
+import {UserSettings} from "./user-settings/UserSettings";
 
 
 export const MainNav = (props) => {
@@ -34,10 +34,11 @@ export const MainNav = (props) => {
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
 					<SignUpModal/>
-					{jwt !== null && (
+					{jwt !== null ? (
 						<UserSettings/>
-					)}
+					) : (
 						<SignInModal/>
+					)}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

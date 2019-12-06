@@ -1,15 +1,14 @@
 import React from "react"
 import {ButtonGroup} from "react-bootstrap";
-import {useHistory} from "react-router";
-import {UseJwt, UseJwtUserId, UseJwtUserHandle} from "../../utils/JwtHelpers";
+import {UseJwt, UseJwtUserId, UseJwtUserHandle} from "../../../utils/JwtHelpers";
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from "react-bootstrap/DropdownButton";
-import {httpConfig} from "../../utils/http-config";
+import {httpConfig} from "../../../utils/http-config";
 
 export const UserSettings = (props) => {
 
-	const history = useHistory();
 
+	const setStatus = props.setStatus;
 	const jwt = UseJwt();
 	const userHandle = UseJwtUserHandle();
 	const userId = UseJwtUserId();
@@ -18,12 +17,13 @@ export const UserSettings = (props) => {
 		httpConfig.get("apis/sign-out")
 			.then(reply => {
 				let {message, type} = reply;
+				setStatus({message, type});
 				if (reply.status === 200) {
 					window.localStorage.removeItem("jwt-token");
 					console.log(reply);
 					setTimeout(() => {
 						handleClose();
-						history.push("/");
+						window.location("/");
 					}, 1500);
 				}
 			});
