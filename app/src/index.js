@@ -10,11 +10,12 @@ import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validatio
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
 import {Provider} from "react-redux";
-import {applyMiddleware, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
+import {combinedReducers} from "./shared/reducers/reducers";
 
-const store = createStore(applyMiddleware(thunk));
+const store = createStore(combinedReducers, applyMiddleware(thunk));
 
 const Routing = (store) => (
 	<>
