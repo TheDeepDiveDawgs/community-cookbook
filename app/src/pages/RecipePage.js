@@ -2,7 +2,7 @@
 // import {useSelector, useDispatch} from "react-redux";
 // import React, {useEffect} from 'react';
 // import {getRecipePosts} from "../../shared/actions/get-recipe-posts";
-// import {PostCard} from "./recipecard";
+// import {PostCard} from "./recipeCard";
 // import {not} from "rxjs";
 //
 //
@@ -75,45 +75,49 @@
 // 	};
 
 //lets see if this works better then the above
-
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import '../stylesheets/stylesheet.css';
-
-class Recipe extends Component {
-	static propTypes = {
-		title: PropTypes.string.isRequired,
-		ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-		instructions: PropTypes.string.isRequired,
-		img: PropTypes.string.isRequired,
-		id: PropTypes.number.isRequired, PropTypes.func.isRequired
-}
-
-render() {
-	const ingredients = this.props.ingredients.map((ing, index) => (
-		<li key={index}>{ing}</li>
-	));
-	return (
-		<div className="recipe-card">
-			<div className="recipe-card-img">
-				<img src={img} alt={title} />
-			</div>
-			<div className="recipe-card-content">
-				<h3 className="recipe-name">{name}</h3>
-				<h4>Rating</h4>
-				<input type={rating info goes here}/>
-				<h4>Ingredients:</h4>
-				<ul>
-					{ingredients}
-				</ul>
-				<h4>Description</h4>
-				<p>{describe the recipe here}</p>
-				<h4>minutes to make</h4>
-				<input type={number}/>
-				<h4>Instructions:</h4>
-				<p>{instructions}</p>
-			</div>
-		</div>
-	);
-}
-}
+//
+//
+//
+//
+//
+// import React, {Component} from 'react';
+// import PropTypes from 'prop-types';
+// import '../stylesheets/stylesheet.css';
+//
+// export const RecipePage = () => {
+// 		// static propTypes = {
+// 		title: PropTypes.string.isRequired,
+// 		ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+// 		instructions: PropTypes.string.isRequired,
+// 		img: PropTypes.string.isRequired,
+// 		id: PropTypes.number.isRequired, PropTypes.func.isRequired
+// }
+//
+// render() {
+// 	const ingredients = this.props.ingredients.map((ing, index) => (
+// 		<li key={index}>{ing}</li>
+// 	));
+// 	return (
+// 		<div className="recipe-card">
+// 			<div className="recipe-card-img">
+// 				<img src={img} alt={title} />
+// 			</div>
+// 			<div className="recipe-card-content">
+// 				<h3 className="recipe-name">{name}</h3>
+// 				<h4>Rating</h4>
+// 				<input type={rating info goes here}/>
+// 				<h4>Ingredients:</h4>
+// 				<ul>
+// 					{ingredients}
+// 				</ul>
+// 				<h4>Description</h4>
+// 				<p>{describe the recipe here}</p>
+// 				<h4>minutes to make</h4>
+// 				<input type={number}/>
+// 				<h4>Instructions:</h4>
+// 				<p>{steps}</p>
+// 			</div>
+// 		</div>
+// 	);
+// }
+// }
