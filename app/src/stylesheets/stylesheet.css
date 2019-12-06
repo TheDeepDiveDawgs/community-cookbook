@@ -7,7 +7,7 @@
 #thank-you {
 	margin-top: 10rem!important;
 	margin-bottom: 19.5rem!important;
-	padding: 8rem!important;
+	padding: 4rem!important;
 	background-color: #eeeeee;
 }
 
@@ -16,6 +16,7 @@
 	height: 60px;
 }
 
+
 @media (max-width: 450px) {
 	#nav-image {
 		width: 240px;
@@ -23,7 +24,7 @@
 	}
 }
 
-@media (max-width: 325px) {
+@media (max-width: 350px) {
 	#nav-image {
 		width: 160px;
 		height: 30px
@@ -34,6 +35,10 @@
 		left:0;
 		bottom:0;
 		right:0;
+	}
+
+	h1 {
+		font-size: 2rem!important;
 	}
 
 }

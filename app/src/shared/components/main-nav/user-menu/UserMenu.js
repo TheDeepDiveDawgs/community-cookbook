@@ -1,6 +1,6 @@
 import React from "react"
 import {ButtonGroup} from "react-bootstrap";
-import {UseJwt, UseJwtUserId, UseJwtUserHandle} from "../../../utils/JwtHelpers";
+import {UseJwt, UseJwtUserHandle} from "../../../utils/JwtHelpers";
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {httpConfig} from "../../../utils/http-config";
@@ -10,7 +10,6 @@ export const UserMenu = (props) => {
 
 	const jwt = UseJwt();
 	const userHandle = UseJwtUserHandle();
-	const userId = UseJwtUserId();
 	console.log(jwt);
 
 	const signOut = ({handleClose}) => {
@@ -31,10 +30,10 @@ export const UserMenu = (props) => {
 		<>
 			{jwt !== null && (
 				<DropdownButton as={ButtonGroup}
+								alignRight
 								title={"Hi, " + userHandle.toUpperCase() + "!"}
 								variant="dark"
-								id="bg-vertical-dropdown-1 alignRight"
-								className="dropdown-menu-right"
+								id="dropdown-basic-button"
 								>
 					<Dropdown.Item>Create Recipe</Dropdown.Item>
 					<Dropdown.Item>My Recipes</Dropdown.Item>
