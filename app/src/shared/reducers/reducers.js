@@ -4,5 +4,5 @@ import interactionReducer from "./interactionReducer";
 
 
 export const combinedReducers = combineReducers({
-	interactions: interactionReducer()
+	interactions: interactionReducer,
 });
