@@ -4,7 +4,6 @@ import './stylesheets/stylesheet.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
-import {HashRouter} from "react-router-dom";
 import {FourOhFour} from "./pages/FourOhFour";
 import {Home} from "./pages/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
@@ -21,7 +20,6 @@ const store = createStore(reducers, applyMiddleware(thunk));
 const Routing = (store) => (
 	<>
 		<Provider store={store}>
-			<HashRouter>
 				<BrowserRouter>
 					<MainNav/>
 					<Switch>
@@ -32,7 +30,6 @@ const Routing = (store) => (
 					</Switch>
 					<Footer/>
 				</BrowserRouter>
-			</HashRouter>
 		</Provider>
 	</>
 );

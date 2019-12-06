@@ -16,22 +16,14 @@ export const SignUpModal = () => {
 				Sign Up
 			</Button>
 
-			<Modal show={show} onHide={handleClose}>
+			<Modal show={show} onHide={handleClose} className="bg-modal">
 				<Modal.Header closeButton>
 					<Modal.Title>Sign Up</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<SignUpForm handleClose={handleClose}/>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-					<Button variant="primary" onClick={handleClose}>
-						Save Changes
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</>
 	);
-}
+};

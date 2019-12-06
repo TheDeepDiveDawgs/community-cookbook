@@ -7,7 +7,7 @@ import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SignInModal";
 import logo from "./images/nav-icon.png";
 import {httpConfig} from "../../utils/http-config";
-import {UserSettings} from "./user-settings/UserSettings";
+import {UserMenu} from "./user-menu/UserMenu";
 
 
 export const MainNav = (props) => {
@@ -35,7 +35,7 @@ export const MainNav = (props) => {
 				<Nav className="ml-auto">
 					<SignUpModal/>
 					{jwt !== null ? (
-						<UserSettings/>
+						<UserMenu/>
 					) : (
 						<SignInModal/>
 					)}

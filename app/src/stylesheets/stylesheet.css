@@ -97,3 +97,7 @@ a:hover, a:visited, a:link, a:active
 #faEmail:hover {
 	color: yellow;
 }
+
+.bg-modal {
+	background-color: rgba(37, 37, 37, 0.7);
+}
