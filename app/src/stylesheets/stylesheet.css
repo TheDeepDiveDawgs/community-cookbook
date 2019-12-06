@@ -4,6 +4,32 @@
 	navbutton_background_color: yellow;
 }
 
+#thank-you {
+	margin-top: 10rem!important;
+	padding: 8rem!important;
+	background-color: #eeeeee;
+}
+
+#nav-image {
+	width: 360px;
+	height: 60px;
+}
+
+@media (max-width: 450px) {
+	#nav-image {
+		width: 240px;
+		height: 40px;
+	}
+}
+
+@media (max-width: 325px) {
+	#nav-image {
+		width: 160px;
+		height: 30px
+	}
+
+}
+
 .navbar-toggler-icon {
 	border: none!important;
 	border-radius: 0!important;
@@ -19,6 +45,11 @@ footer {
 #twitter {
 	text-align: center;
 	color: white;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+	text-decoration: none!important;
 }
 
 #twitter:hover {
@@ -151,4 +182,14 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.bg-modal {
+	background-color: rgba(37, 37, 37, 0.7);
+}
+
+.footer-position {
+	position:absolute;
+	left:0;
+	bottom:0;
+	right:0;
 }
