@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
+import UserReducer from "./UserReducer";
 import interactionReducer from "./interactionReducer";
 
-
-
-export const combinedReducers = combineReducers({
+export default combineReducers({
+	user:UserReducer,
 	interactions: interactionReducer,
-});
+})
