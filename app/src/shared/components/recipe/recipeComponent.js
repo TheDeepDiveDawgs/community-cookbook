@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {getAllRecipes} from "../../actions/RecipeAction";
+import {getAllRecipes} from "../../actions/doWeNeedThis";
 import  Card from "react-bootstrap/Card";
 
 export const RecipeComp = () => {
@@ -24,7 +24,7 @@ export const RecipeComp = () => {
 					<Card	style={{width: '18rem'}}>
 					<Card.Img/>
 					<Card.Body>
-						<Card.Text> recipe text {interaction.recipe}</Card.Text>
+						<Card.Text> recipe text {recipes.recipe}</Card.Text>
 					</Card.Body>
 					</Card>
 						</>
