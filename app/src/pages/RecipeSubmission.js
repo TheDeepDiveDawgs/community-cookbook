@@ -1,24 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 import '../stylesheets/stylesheet.css';
 
  export const RecipeSubmission = () => {
-	class RecipeSubmission extends Component {
-		 defaultProps = {
-			onClose() {
-			},
-			onSave() {
-			}
-		};
+		//  defaultProps = {
+		// 	onClose() {
+		// 	},
+		// 	onSave() {
+		// 	}
+		// };
 
-		constructor(props) {
-			super(props);
-			this.state = {
-				recipeName: '',
-				steps: "",
-				description: [''],
-				img: '',
-				minutes: ''
-			};
+		// constructor(props) {
+		// 	super(props);
+		// 	this.state = {
+		// 		recipeName: '',
+		// 		steps: "",
+		// 		description: [''],
+		// 		img: '',
+		// 		minutes: ''
+		// 	};
 
 			this.handleChange = this.handleChange.bind(this);
 			this.handleNewDescription = this.handleNewDescription.bind(this);
@@ -108,7 +107,7 @@ import '../stylesheets/stylesheet.css';
 							{/*			autoComplete="off"*/}
 							{/*			onChange={this.handleChange}/>*/}
 							{/*</div>*/}
-							{/*do I need to add more of these for the other categorys?*/}
+							{/*do I need to add more of these for the other category?*/}
 							<label htmlFor='recipe-description-input' style={{marginTop: '5px'}}>description</label>
 							<textarea
 								key='description'
