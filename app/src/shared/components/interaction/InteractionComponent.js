@@ -8,8 +8,14 @@ import {handleSessionTimeout} from "../../../shared/misc/handle-session-timeout"
 import _ from "lodash";
 import Card from "react-bootstrap/Card";
 
-export const InteractionComp = () => {
+export const Rating = ({userId, RecipeId}) => {
+	//grab the JWT token for logged in users
+	const jwt =UseJwt();
 
+
+	//return all ratings from the redux store
+	const ratings = useSelector(state => (state.ratings ? state.ratings : []));
+};
 
 
 
