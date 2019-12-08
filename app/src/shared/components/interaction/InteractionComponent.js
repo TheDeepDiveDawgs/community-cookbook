@@ -7,6 +7,7 @@ import {UseJwtUserHandle} from "../../utils/JwtHelpers";
 import {handleSessionTimeout} from "../../../shared/misc/handle-session-timeout"
 import _ from "lodash";
 import Card from "react-bootstrap/Card";
+import {getRecipeByRecipeId} from "../../actions/recipeActions";
 
 export const Rating = ({userId, recipeId}) => {
 	//grab the JWT token for logged in users
@@ -34,6 +35,24 @@ export const Rating = ({userId, recipeId}) => {
 	useEffect(effects, inputs);
 };
 
+/*
+*function for filtering over ratings from the store and sets isRated state variable
+*to "active" if the logged in user  has already rated a recipe
+*makes the button red
+*see lodash.com
+ */
+
+const initializeRatings = (userId) => {
+	const userRatings = ratings.filter(rating => rating.ratingUserId === userId);
+	const rated = _.find(userRatings, {'ratingRecipeId': recipeId});
+	return (_.isEmpty(rated) === false) && setIsRated("active");
+};
+
+/*
+function filters of the the ratings of the recipe
+creating a subset for this recipeId
+the ratingCount state variable is set to the length of this set
+ */
 
 
 
