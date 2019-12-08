@@ -2,6 +2,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 // import {FormDebugger} from "../../FormDebugger";
 import React from "react";
 
+
 export const SignUpFormContent = (props) => {
 	const {
 		submitStatus,
@@ -16,6 +17,7 @@ export const SignUpFormContent = (props) => {
 		handleReset
 	} = props;
 	return (
+
 		<>
 			<form onSubmit={handleSubmit}>
 				{/*controlId must match what is passed to the initialValues prop*/}
@@ -154,13 +156,10 @@ export const SignUpFormContent = (props) => {
 
 				<div className="form-group">
 					<button className="btn btn-primary mb-2"
-							  onSubmit={({ setSubmitting }) => {
-								  alert("Form is validated! Submitting the form...");
-								  setSubmitting(false);
-							  }}
+							  onSubmit={handleSubmit}
 							  type="submit"
 							  disabled={isSubmitting}>
-						{isSubmitting ? "Submitting..." : "Submit"}
+						{isSubmitting ? "Registering..." : "Register"}
 					</button>
 
 					<button

@@ -12,7 +12,7 @@ export const UserMenu = (props) => {
 	const userHandle = UseJwtUserHandle();
 	console.log(jwt);
 
-	const signOut = ({handleClose}) => {
+	const signOut = () => {
 		httpConfig.get("apis/sign-out/")
 			.then(reply => {
 				let {message, type} = reply;
@@ -31,8 +31,9 @@ export const UserMenu = (props) => {
 			{jwt !== null && (
 				<DropdownButton as={ButtonGroup}
 								alignRight
+								className="mx-5 text-white d-none d-lg-block"
 								title={"Hi, " + userHandle.toUpperCase() + "!"}
-								variant="dark"
+								variant="light"
 								id="dropdown-basic-button"
 								>
 					<Dropdown.Item>Create Recipe</Dropdown.Item>

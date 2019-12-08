@@ -40,18 +40,19 @@ export const MainNav = (props) => {
 				/>
 			</LinkContainer>
 
-			<SearchFormContent/>
-			<Navbar.Toggle aria-controls="basic-navbar-nav"/>
-			<Navbar.Collapse id="basic-navbar-nav">
-				<Nav className="ml-auto">
+
+			<SearchFormContent className="ml-auto"/>
+				<Nav>
+					<Navbar.Toggle aria-controls="basic-navbar-nav"/>
+					<Navbar.Collapse id="basic-navbar-nav">
 					<SignUpModal/>
 					{jwt !== null ? (
 						<UserMenu/>
 					) : (
 						<SignInModal/>
 					)}
+					</Navbar.Collapse>
 				</Nav>
-			</Navbar.Collapse>
 		</Navbar>
 	)
 };

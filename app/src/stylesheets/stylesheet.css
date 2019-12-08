@@ -21,6 +21,19 @@
 }
 
 
+@media (max-width: 750px) {
+	#search-button {
+		padding-left: 0.5rem !important;
+		padding-right: 0.5rem !important;
+		margin: 0.5rem !important;
+	}
+
+	#search-text {
+		width: 80px;
+		height: 40px;
+	}
+}
+
 @media (max-width: 450px) {
 
 	#search-button {
@@ -132,4 +145,13 @@ a:hover, a:visited, a:link, a:active
 	left:0;
 	bottom:0;
 	right:0;
+}
+
+#sign-up-label:hover {
+	color: #F5FF38;
+	cursor: pointer;
+}
+
+#sign-up-label {
+	margin-bottom: 0!important;
 }
