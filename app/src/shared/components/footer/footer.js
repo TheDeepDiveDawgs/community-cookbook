@@ -12,7 +12,7 @@ library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare);
 
 export const Footer = () => (
 	<>
-		<footer className="page-footer">
+		<footer className="page-footer footer-position">
 			<Container className="container-fluid">
 				<Row>
 					<Col>

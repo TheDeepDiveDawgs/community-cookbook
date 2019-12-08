@@ -96,7 +96,7 @@ export const SignUpFormContent = (props) => {
 
 
 				<div className="form-group">
-					<label htmlFor="userHandle">@Handle</label>
+					<label htmlFor="userHandle">Username</label>
 					<div className="input-group">
 						<div className="input-group-prepend">
 							<div className="input-group-text">
@@ -108,7 +108,7 @@ export const SignUpFormContent = (props) => {
 							id="userHandle"
 							type="text"
 							value={values.userHandle}
-							placeholder="@Handle"
+							placeholder="Username"
 							onChange={handleChange}
 							onBlur={handleBlur}
 
@@ -172,7 +172,7 @@ export const SignUpFormContent = (props) => {
 				</div>
 
 
-				<FormDebugger {...props} />
+				{/*<FormDebugger {...props} />*/}
 			</form>
 			{console.log(
 				submitStatus
