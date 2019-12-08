@@ -15,6 +15,7 @@
     "jwt-decode": "^2.2.0",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.10",
+    "react-bootstrap-star-rating": "^3.5.5-alpha.0.3",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
