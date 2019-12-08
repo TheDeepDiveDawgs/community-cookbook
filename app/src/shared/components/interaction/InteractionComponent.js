@@ -9,7 +9,7 @@ export const InteractionComp = () => {
 	const dispatch = useDispatch();
 
 	const effects = () => {
-		dispatch(getAllInteractions());
+		// dispatch(getAllInteractions());
 	};
 
 	const inputs = [];
