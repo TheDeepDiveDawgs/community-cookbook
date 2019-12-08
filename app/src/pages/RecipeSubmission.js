@@ -1,7 +1,27 @@
-// import React from 'react';
-// import '../stylesheets/stylesheet.css';
-//
-//  export const RecipeSubmission = () => {
+import React from 'react';
+import '../stylesheets/stylesheet.css';
+
+ export const RecipeSubmission = () => {
+ 	return (
+ 		<div className="bg-modal">
+			<div className="recipe-form-container">
+				testing
+			</div>
+			<div className="close-button">close button</div>
+			<div className="buttons">buttons</div>
+			<div className="recipe-form-line-input">form-line-input</div>
+			<div className="recipe-form-line"></div>
+			<div className="recipe-form-text">form-text</div>
+			<div className="recipe-form">form</div>
+			<div className="recipe-title">title</div>
+			<div className="recipe-card">card</div>
+			<div className="recipe-card-image">card-image</div>
+			<div className="recipe-card-content">card-content</div>
+			<div className="recipe-card-size">card-size</div>
+			<div className="">class-name</div>
+		</div>
+	)
+ };
 // 		//  defaultProps = {
 // 		// 	onClose() {
 // 		// 	},
@@ -133,20 +153,11 @@
 // 									autoComplete='off'
 // 									onChange={this.handleChange}/>
 // 							</div>
-// 							<button
-// 								type="submit"
-// 								className="buttons"
-// 								style={{alignSelf: 'flex-end', marginRight: 0}}
-// 							>
-// 								SAVE
-// 							</button>
-// 						</div>
-// 					</form>
-// 				</div>
+// 		{/*					<button type="submit" className="buttons" style={{alignSelf: 'flex-end', marginRight: 0}}>SAVE</button>*/}
+//  						</div>
+//  					</form>
+//  				</div>
 // 			)
 // 		}
 // 	}
 // }
-
-
-
