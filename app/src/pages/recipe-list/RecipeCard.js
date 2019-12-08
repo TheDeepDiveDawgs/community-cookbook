@@ -17,4 +17,3 @@ export const RecipeCard = () => {
 			</Card>
 		);
 };
-

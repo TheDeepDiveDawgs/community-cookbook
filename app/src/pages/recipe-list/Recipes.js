@@ -1,23 +1,18 @@
 import React, {Component} from 'react';
 import {RecipeCard} from "./RecipeCard";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 
 export const Recipes = () => {
 	return (
-		<main>
-			<Container>
-				<Row>
-					<Col>
+		<Card>
+				<Card.Body>
 						<RecipeCard/>
 						<RecipeCard/>
 						<RecipeCard/>
 						<RecipeCard/>
 						<RecipeCard/>
-					</Col>
-				</Row>
-			</Container>
-		</main>
+				</Card.Body>
+		</Card>
 	)
 };
