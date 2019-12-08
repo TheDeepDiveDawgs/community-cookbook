@@ -11,6 +11,7 @@ import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
 import {RecipeCard} from "./pages/recipe-list/RecipeCard";
 import {CategoryCard} from "./pages/recipe-list/CategoryCard";
+import {Recipes} from "./pages/recipe-list/Recipes";
 import reducers from "./shared/reducers/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
@@ -34,6 +35,7 @@ const Routing = (store) => (
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 						<Route exact path="/recipe-list" component={RecipeCard}/>
 						<Route exact path="/category-list" component={CategoryCard}/>
+						<Route exact path="/recipes" component={Recipes}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
