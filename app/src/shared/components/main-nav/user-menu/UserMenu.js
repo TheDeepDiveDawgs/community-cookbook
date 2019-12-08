@@ -1,9 +1,10 @@
 import React from "react"
-import {ButtonGroup} from "react-bootstrap";
+// import {ButtonGroup} from "react-bootstrap";
 import {UseJwt, UseJwtUserHandle} from "../../../utils/JwtHelpers";
 import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from "react-bootstrap/DropdownButton";
+// import DropdownButton from "react-bootstrap/DropdownButton";
 import {httpConfig} from "../../../utils/http-config";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 export const UserMenu = (props) => {
 
@@ -29,19 +30,17 @@ export const UserMenu = (props) => {
 	return (
 		<>
 			{jwt !== null && (
-				<DropdownButton as={ButtonGroup}
-								alignRight
-								className="mx-3 my-3 text-white d-none d-lg-inline-block"
+				<NavDropdown 	alignRight
+								className="mx-3 my-3 d-none d-lg-inline-block"
 								title={"Hi, " + userHandle.toUpperCase() + "!"}
-								variant= "outline-light"
-								id="dropdown-basic-button"
+								id="collasible-nav-dropdown"
 								>
-					<Dropdown.Item>Create Recipe</Dropdown.Item>
+					<NavDropdown.Item>Create Recipe</NavDropdown.Item>
 					<Dropdown.Item>My Recipes</Dropdown.Item>
 					<Dropdown.Item>Account Settings</Dropdown.Item>
 					<div className="dropdown-divider" />
 					<Dropdown.Item onClick={signOut}>Sign Out</Dropdown.Item>
-				</DropdownButton>
+				</NavDropdown>
 			)}
 		</>
 	)

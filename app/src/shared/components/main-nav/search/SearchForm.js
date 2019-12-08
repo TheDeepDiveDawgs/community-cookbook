@@ -2,9 +2,21 @@ import React from "react";
 import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
+import {httpConfig} from "../../../utils/http-config";
 
 
 export const SearchFormContent = () => {
+
+	const searchTerm = () => {
+		httpConfig.get('apis/recipe/')
+			.then(reply => {
+				let {message, type} = reply;
+				if (reply.status === 200) {
+					console.log(reply);
+					window.location = "/recipe-list";
+				}
+			})
+	};
 
 	return (
 		<>
@@ -14,6 +26,7 @@ export const SearchFormContent = () => {
 						variant="outline-dark"
 						id="search-button"
 						type="submit"
+						onSubmit={searchTerm}
 				>
 					Search</Button>
 			</Form>
