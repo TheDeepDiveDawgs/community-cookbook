@@ -9,7 +9,8 @@ import {Home} from "./pages/home/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
-import reducers from "./shared/reducers";
+import {RecipeCard} from "./pages/recipe-list/RecipeCard";
+import reducers from "./shared/reducers/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
@@ -30,6 +31,7 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
+						<Route exact path="/recipe-list" component={RecipeCard}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
