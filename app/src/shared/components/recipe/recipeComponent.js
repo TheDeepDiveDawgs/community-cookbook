@@ -3,7 +3,23 @@ import {useSelector, useDispatch} from "react-redux";
 import {getAllRecipes} from "../../actions/doWeNeedThis";
 import  Card from "react-bootstrap/Card";
 
-export const RecipeComp = () => {
+return (
+	<>
+		{recipes.map(recipes => {
+			return (
+				<>
+					<Card	style={{width: '18rem'}}>
+						<Card.Img/>
+						<Card.Body>
+							<Card.Text> recipe text {recipes.recipe}</Card.Text>
+						</Card.Body>
+					</Card>
+				</>
+			)
+		})}
+	</>
+)
+};export const RecipeComp = () => {
 
 	const recipes = useSelector(state => state.recipes);
 	const dispatch = useDispatch();
@@ -16,20 +32,3 @@ export const RecipeComp = () => {
 
 	useEffect(effects, inputs);
 
-	return (
-		<>
-			{recipes.map(recipes => {
-				return (
-					<>
-					<Card	style={{width: '18rem'}}>
-					<Card.Img/>
-					<Card.Body>
-						<Card.Text> recipe text {recipes.recipe}</Card.Text>
-					</Card.Body>
-					</Card>
-						</>
-				)
-			})}
-		</>
-	)
-};

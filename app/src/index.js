@@ -14,8 +14,8 @@ import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
-import {RecipeSubmission} from "./pages/RecipeSubmission";
-import {RecipePage} from "./pages/RecipePage";
+import {RecipeSubmission} from "./pages/recipe-submission/RecipeSubmission";
+import {RecipePage} from "./pages/recipe-page/RecipePage";
 
 
 

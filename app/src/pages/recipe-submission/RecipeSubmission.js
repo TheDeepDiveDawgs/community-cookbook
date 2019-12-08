@@ -1,5 +1,7 @@
 import React from 'react';
 import './recipe-submission.css';
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 
  export const RecipeSubmission = () => {
  	return (
@@ -20,6 +22,7 @@ import './recipe-submission.css';
 		</div>
 	)
  };
+
 // 		//  defaultProps = {
 // 		// 	onClose() {
 // 		// 	},
