@@ -1,20 +1,23 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getAllInteractions} from "../../actions/interactionAction";
+import {httpConfig} from "../../utils/http-config";
+import {UseJwtUserId} from "../../utils/JwtHelpers";
+import {UseJwt} from "../../utils/JwtHelpers";
+import {UseJwtUserHandle} from "../../utils/JwtHelpers";
+import {handleSessionTimeout} from "../../../shared/misc/handle-session-timeout"
+import _ from "lodash";
 import Card from "react-bootstrap/Card";
 
 export const InteractionComp = () => {
 
-	const interactions = useSelector(state => state.interactions);
-	const dispatch = useDispatch();
 
-	const effects = () => {
-		// dispatch(getAllInteractions());
-	};
 
-	const inputs = [];
 
-	useEffect(effects, inputs);
+
+
+
+
+
 
 	return (
 		<>
