@@ -13,7 +13,7 @@ export const Rating = ({userId, RecipeId}) => {
 	const jwt =UseJwt();
 
 	/*
-	The isRated state variable sets button to red whether or not the user has rated the recipe
+	The isRated state variable sets stars to red whether or not the user has rated the recipe
 	"active" is a bootstrap class  that will be added later to the star rating
 	 */
 	const [isRated, setIsRated] = useState(null);
@@ -24,7 +24,15 @@ export const Rating = ({userId, RecipeId}) => {
 	const effects = () => {
 		initializeRatings(userId);
 
-	}
+	};
+
+	/* add ratings to inputs - informs react that ratings are being updated from Redux
+	ensures proper component rendering
+	 */
+	const inputs = [ratings, userId, recipeId];
+	useEffect(effects, inputs);
+
+
 };
 
 
