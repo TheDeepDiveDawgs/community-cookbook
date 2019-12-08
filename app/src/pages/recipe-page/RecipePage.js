@@ -2,6 +2,7 @@ import React from 'react';
 import './recipe-page-css.css';
 
 export const RecipePage = () => {
+
 	return (
 		<section>
 			<div className="container-fluid bg-secondary py-5">
@@ -10,7 +11,7 @@ export const RecipePage = () => {
 						<div className="">
 							<div className="recipe-card-size">
 								<div className="recipe-title">
-									<strong>recipe title</strong>
+									<h1>recipe title</h1>
 								</div>
 								<br></br>
 								<div>
@@ -58,5 +59,3 @@ export const RecipePage = () => {
 		</section>
 	)
 };
-
-
