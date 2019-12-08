@@ -9,10 +9,7 @@ import {Home} from "./pages/home/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
-import {RecipeCard} from "./pages/recipe-list/RecipeCard";
-import {CategoryCard} from "./pages/recipe-list/CategoryCard";
-import {Recipes} from "./pages/recipe-list/Recipes";
-import {SearchBar} from "./pages/recipe-list/SearchBar";
+import {RecipeList} from "./pages/recipe-list/RecipeList";
 import reducers from "./shared/reducers/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
@@ -34,10 +31,7 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
-						<Route exact path="/recipe-list" component={RecipeCard}/>
-						<Route exact path="/category-list" component={CategoryCard}/>
-						<Route exact path="/recipes" component={Recipes}/>
-						<Route exact path="/search-bar" component={SearchBar}/>
+						<Route exact path="/recipe-list" component={RecipeList}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
