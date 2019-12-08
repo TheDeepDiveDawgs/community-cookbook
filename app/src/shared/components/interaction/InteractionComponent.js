@@ -25,7 +25,7 @@ export const InteractionComp = () => {
 					<Card style={{width: '18rem'}}>
 					<Card.Img/>
 					<Card.Body>
-						<Card.Text> Rating {interaction.rating}</Card.Text>
+						<Card.Text> Rating </Card.Text>
 					</Card.Body>
 					</Card>
 					</>
