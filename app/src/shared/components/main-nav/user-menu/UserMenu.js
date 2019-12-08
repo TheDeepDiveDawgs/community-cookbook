@@ -31,9 +31,9 @@ export const UserMenu = (props) => {
 			{jwt !== null && (
 				<DropdownButton as={ButtonGroup}
 								alignRight
-								className="mx-5 text-white d-none d-lg-block"
+								className="mx-3 my-3 text-white d-none d-lg-inline-block"
 								title={"Hi, " + userHandle.toUpperCase() + "!"}
-								variant="light"
+								variant= "outline-light"
 								id="dropdown-basic-button"
 								>
 					<Dropdown.Item>Create Recipe</Dropdown.Item>

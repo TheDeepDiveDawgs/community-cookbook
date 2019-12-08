@@ -41,18 +41,18 @@ export const MainNav = (props) => {
 			</LinkContainer>
 
 
-			<SearchFormContent className="ml-auto"/>
-				<Nav>
-					<Navbar.Toggle aria-controls="basic-navbar-nav"/>
-					<Navbar.Collapse id="basic-navbar-nav">
-					<SignUpModal/>
-					{jwt !== null ? (
+			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			<Navbar.Collapse id="responsive-navbar-nav">
+				<Nav className="ml-auto text-right">
+						<SearchFormContent/>
+						<SignUpModal/>
+					{jwt !== null ?
 						<UserMenu/>
-					) : (
+					 :
 						<SignInModal/>
-					)}
-					</Navbar.Collapse>
+					}
 				</Nav>
+			</Navbar.Collapse>
 		</Navbar>
 	)
 };

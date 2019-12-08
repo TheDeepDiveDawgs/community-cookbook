@@ -12,11 +12,15 @@ export const SignInModal = () => {
 
 	return (
 		<>
-			<label className="px-4 py-2" id="sign-up-label" onClick={handleShow}>
+			<label className="py-4" id="sign-in-label" onClick={handleShow}>
 				Sign In
 			</label>
 
-			<Modal show={show} onHide={handleClose} className="bg-modal">
+			<Modal show={show}
+				   onHide={handleClose}
+				   className="bg-modal"
+				   centered
+			>
 				<Modal.Header closeButton>
 					<Modal.Title>Sign In</Modal.Title>
 				</Modal.Header>

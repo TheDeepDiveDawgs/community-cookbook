@@ -12,11 +12,11 @@ export const SignUpModal = () => {
 
 	return (
 		<>
-			<label className="mx-5 px-4 py-2"  onClick={handleShow} id="sign-up-label">
+			<label className="py-4"  onClick={handleShow} id="sign-up-label">
 				Sign Up
 			</label>
 
-			<Modal show={show} onHide={handleClose} className="bg-modal">
+			<Modal show={show} onHide={handleClose} className="bg-modal" centered>
 				<Modal.Header closeButton>
 					<Modal.Title>Sign Up</Modal.Title>
 				</Modal.Header>
