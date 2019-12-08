@@ -13,6 +13,7 @@ import reducers from "./shared/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
+import {RatingStar} from "./pages/PracticeRating";
 import {Footer} from "./shared/components/footer/footer"
 
 
@@ -30,6 +31,7 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
+						<Route exact path="/rating" component={RatingStar}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
