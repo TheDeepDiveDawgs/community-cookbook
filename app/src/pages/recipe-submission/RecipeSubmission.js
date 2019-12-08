@@ -1,24 +1,22 @@
 import React from 'react';
-import '../stylesheets/stylesheet.css';
+import './recipe-submission.css';
 
  export const RecipeSubmission = () => {
  	return (
- 		<div className="bg-modal">
-			<div className="recipe-form-container">
-				testing
+ 		<div className="recipe-form">
+ 			<div className="bg-modal">
+				<div className="close-button">X</div>
+				<div className="recipe-form-container">container</div>
+				<div className="buttons">buttons</div>
+				<div className="recipe-form-line-input">form-line-input</div>
+				<div className="recipe-form-line">form-line</div>
+				<div className="recipe-form-text">form-text</div>
+				<div className="recipe-title">title</div>
+				<div className="recipe-card">card</div>
+				<div className="recipe-card-image">image-url</div>
+				<div className="recipe-card-content">card-content</div>
+				<div className="recipe-card-size">card-size</div>
 			</div>
-			<div className="close-button">close button</div>
-			<div className="buttons">buttons</div>
-			<div className="recipe-form-line-input">form-line-input</div>
-			<div className="recipe-form-line"></div>
-			<div className="recipe-form-text">form-text</div>
-			<div className="recipe-form">form</div>
-			<div className="recipe-title">title</div>
-			<div className="recipe-card">card</div>
-			<div className="recipe-card-image">card-image</div>
-			<div className="recipe-card-content">card-content</div>
-			<div className="recipe-card-size">card-size</div>
-			<div className="">class-name</div>
 		</div>
 	)
  };
