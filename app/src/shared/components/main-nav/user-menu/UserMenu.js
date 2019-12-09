@@ -16,7 +16,6 @@ export const UserMenu = (props) => {
 	const signOut = () => {
 		httpConfig.get("apis/sign-out/")
 			.then(reply => {
-				let {message, type} = reply;
 				if (reply.status === 200) {
 					window.localStorage.removeItem("jwt-token");
 					console.log(reply);

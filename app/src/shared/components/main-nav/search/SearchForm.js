@@ -10,7 +10,6 @@ export const SearchFormContent = () => {
 	const searchTerm = () => {
 		httpConfig.get('apis/recipe/')
 			.then(reply => {
-				let {message, type} = reply;
 				if (reply.status === 200) {
 					console.log(reply);
 					window.location = "/recipe-list";

@@ -8,7 +8,6 @@ import {FourOhFour} from "./pages/FourOhFour";
 import {Home} from "./pages/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 import {MainNav} from "./shared/components/main-nav/MainNav";
-import {Recipe} from "./pages/Recipe";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
 import reducers from "./shared/reducers";
 import {Provider} from "react-redux";
@@ -30,7 +29,6 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
-						<Route exact path="/recipe" component={Recipe}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
