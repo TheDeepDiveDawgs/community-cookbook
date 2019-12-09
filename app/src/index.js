@@ -31,7 +31,6 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
-						<Route exact path="/rating" component={RatingStar}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
