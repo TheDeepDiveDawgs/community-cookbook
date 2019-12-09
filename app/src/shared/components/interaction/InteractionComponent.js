@@ -54,9 +54,9 @@ creating a subset for this recipeId
 the ratingCount state variable is set to the length of this set
  */
 
-const countRatings = (postId) => {
-	const postLikes = ratings.filter(rating => rating.ratingRecipeId === recipeId);
-	return (setRatingCount(postLikes.length));
+const countRatings = (recipeId) => {
+	const recipeRatings = ratings.filter(rating => rating.ratingRecipeId === recipeId);
+	return (setRatingCount(recipeRatings.length));
 };
 
 const data = {
@@ -66,6 +66,23 @@ const data = {
 
 const toggleRating = () => {
 	setIsRated(isRated === null ? "active" : null);
+};
+
+const submitRating = () => {
+	const headers = {'X-JWT-TOKEN': jwt};
+	httpConfig.post("apis/interaction/", data, {
+		headers: headers})
+		.then(reply => {
+			let {message, type} = reply;
+			if(reply.status === 200) {
+				toggleRating();
+				setRatingCount(likeCount + 1);
+			}
+			// if there's an issue with a $_SESSION mismatch with xsrf or jwt, alert user and do a sign out
+			if(reply.status === 401) {
+				handleSessionTimeout();
+			}
+		});
 };
 
 
