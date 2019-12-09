@@ -32,9 +32,10 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
-						<Route exact path="/recipe-page" component={RecipePage}/>
+						{/*<Route exact path="/recipe-page" component={RecipePage}/>*/}
 						<Route exact path="/recipe-submission" component={RecipeSubmission}/>
 						<Route component={FourOhFour}/>
+						<Route exact path="/recipe/:recipeId" component={RecipePage} recipeId=":recipeId"/>
 					</Switch>
 					<Footer/>
 				</BrowserRouter>

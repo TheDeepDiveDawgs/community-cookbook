@@ -4,7 +4,7 @@ import {Route} from 'react-router';
 import {getAllRecipe, getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {connect} from "react-redux";
 
-//attempt to get something to work via other project code
+//attempt to get something to work
 
 export const RecipePage = (props) => {
 	const {match, getAllRecipe, recipes} = props;
@@ -31,8 +31,8 @@ export const RecipePage = (props) => {
 	)
 };
 
-const mapStateToProps = ({recipes}) => {
-	return {recipes: recipes};
+const mapStateToProps = ({recipe}) => {
+	return {recipe: recipe};
 };
 
 export const Recipe = connect(mapStateToProps, {getAllRecipe})(RecipePage);
