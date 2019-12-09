@@ -1,6 +1,6 @@
 import {httpConfig} from "../utils/http-config";
 
-export const getRecipeByRecipeId = (id) => async (dispatch) => {
+export const getRecipeByRecipeId = (recipeId) => async (dispatch) => {
 	const {data} = await httpConfig(`/apis/recipe/${id}`);
 	dispatch({type: "GET_RECIPE_BY_RECIPE_ID", payload: data})
 };

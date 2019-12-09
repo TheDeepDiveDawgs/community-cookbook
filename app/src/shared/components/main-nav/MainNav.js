@@ -21,7 +21,7 @@ export const MainNav = (props) => {
 
 
 	return(
-		<Navbar className="nav-style" expand="lg">
+		<Navbar className="nav-style"  expand="lg" >
 			<LinkContainer exact to="/">
 				<img alt="ABQCOOKBOOK Icon"
 					 src= {logo}
