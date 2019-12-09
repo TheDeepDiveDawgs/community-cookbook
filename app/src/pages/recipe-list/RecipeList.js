@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {CategoryCard} from "./CategoryCard";
 import {SearchBar} from "./SearchBar";
-import {Recipes} from "./Recipes";
+import {Recipes} from "./Recipe";
+import {RecipeCard} from "./RecipeCard";
+
 
 export const RecipeList = () => {
 	return (
