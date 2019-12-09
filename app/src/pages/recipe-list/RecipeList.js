@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import {CategoryCard} from "./CategoryCard";
+import {Categories} from "./Categories";
 import {SearchBar} from "./SearchBar";
-import {Recipes} from "./Recipe";
-import {RecipeCard} from "./RecipeCard";
-
+import {Recipes} from "./Recipes";
 
 export const RecipeList = () => {
 	return (
@@ -14,7 +12,7 @@ export const RecipeList = () => {
 			<div className="container">
 				<div className="row">
 					<div className="col-3">
-						<CategoryCard/>
+						<Categories/>
 					</div>
 					<div className="col-9">
 						<Recipes/>
