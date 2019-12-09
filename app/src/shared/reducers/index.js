@@ -6,5 +6,5 @@ import interactionReducer from "./interactionReducer";
 export default combineReducers({
 	user:UserReducer,
 	interactions: interactionReducer,
-	recipes: RecipeReducer
+	recipe: RecipeReducer
 })
