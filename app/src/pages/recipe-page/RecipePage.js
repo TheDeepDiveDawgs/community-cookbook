@@ -35,7 +35,7 @@ const mapStateToProps = ({recipe}) => {
 	return {recipe: recipe};
 };
 
-export const Recipe = connect(mapStateToProps, {getAllRecipe})(RecipePage);
+export const Recipe = connect(mapStateToProps, {getRecipeByRecipeId})(RecipePage);
 
 
 //old work that im to paranoid to delete
