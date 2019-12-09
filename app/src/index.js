@@ -14,8 +14,7 @@ import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
-import {RecipeSubmission} from "./pages/recipe-submission/RecipeSubmission";
-import {RecipePage} from "./pages/recipe-page/RecipePage";
+import {RecipeList} from "./pages/recipe-list/RecipeList";
 
 
 
@@ -32,8 +31,7 @@ const Routing = (store) => (
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
-						<Route exact path="/recipe-submission" component={RecipeSubmission}/>
-						<Route exact path="/recipe/:recipeId" component={RecipePage} recipeId=":recipeId"/>
+						<Route exact path="/recipe-list" component={RecipeList}/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>

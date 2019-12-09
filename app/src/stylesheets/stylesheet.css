@@ -1,39 +1,87 @@
 .nav-style {
 	background-color: #252525;
 	color: white;
-	navbutton_background_color: yellow;
 }
 
 #thank-you {
 	margin-top: 10rem!important;
-	padding: 8rem!important;
+	margin-bottom: 19.5rem!important;
+	padding: 4rem!important;
 	background-color: #eeeeee;
 }
 
-#nav-image {
-	width: 360px;
-	height: 60px;
+#nav-image-small {
+	width: 64px;
+	height: 64px;
 }
 
-@media (max-width: 450px) {
-	#nav-image {
-		width: 240px;
+#search-button {
+	margin: 0.5rem!important;
+}
+
+
+@media (max-width: 750px) {
+
+	#sign-up-label {
+		margin-right: 0!important;
+		margin-left: 0!important;
+		margin-bottom: 0!important;
+	}
+
+	#sign-in-label {
+		margin-right: .25rem!important;
+		margin-left: 0!important;
+		margin-bottom: 0!important;
+	}
+
+	#search-box {
+		display: none!important;
+	}
+
+	#search-button {
+		padding-left: 0.5rem !important;
+		padding-right: 0.5rem !important;
+		margin: 0.5rem !important;
+	}
+
+	#search-text {
+		width: 140px;
 		height: 40px;
 	}
 }
 
-@media (max-width: 325px) {
-	#nav-image {
-		width: 160px;
-		height: 30px
-	}
+@media (max-width: 500px) {
 
+	#search-button {
+		padding-left: 0.5rem!important;
+		padding-right: 0.5rem!important;
+		margin: 0.5rem!important;
 }
 
-.navbar-toggler-icon {
-	border: none!important;
-	border-radius: 0!important;
-	color: rgba(255, 215, 0, 0.5)!important;
+	#search-text {
+		width: 140px;
+		height: 40px;
+	}
+}
+
+@media (max-width: 400px) {
+
+	.footer-position {
+		position:absolute;
+		left:0;
+		bottom:0;
+		right:0;
+	}
+
+	#search-text {
+		width: 80px;
+		height: 40px;
+	}
+
+	h1 {
+		font-size: 2rem!important;
+	}
+
 }
 
 footer {
@@ -100,8 +148,35 @@ a:hover, a:visited, a:link, a:active
 
 /*this is the stle for footer */
 .footer-position {
-	position:fixed;
+	position: relative;
 	left:0;
 	bottom:0;
 	right:0;
 }
+
+#sign-up-label:hover {
+	color: #F5FF38;
+	cursor: pointer;
+}
+
+#sign-up-label {
+	margin-right: 3rem;
+	margin-left: 3rem!important;
+	margin-bottom: 0!important;
+}
+
+#sign-in-label {
+	margin-right: 3rem;
+	margin-left: 3rem!important;
+	margin-bottom: 0!important;
+}
+
+.navbar-toggler {
+	border: none!important;
+}
+
+.navbar-toggler-icon {
+	background-image: url("https://mdbootstrap.com/img/svg/hamburger2.svg?color=F5FF38")!important;
+	background-size: 64px!important;
+}
+
