@@ -4,6 +4,41 @@ import {Route} from 'react-router';
 import {getAllRecipe, getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {connect} from "react-redux";
 
+//attempt to get something to work via other project code
+
+export const RecipePage = (props) => {
+	const {match, getAllRecipe, recipes} = props;
+	useEffect(()=>  {
+		getAllRecipe()
+	}, [getAllRecipe]);
+	const filterRecipe = recipes.filter(recipe => recipe.recipeId === match.params.recipeId);
+	const recipe = {...filterRecipe[0]};
+
+	return (
+		<section>
+			<div className="card" id="myCard">
+				<h1 id="title"><em>{recipe.recipeName}</em></h1>
+				<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeMedia : "./recipe-page/cap-logo-5.png"}
+					  alt="logo image as default"/>
+				<h3 id="recipeDescription">Description</h3>
+				<p id="description">{recipe.recipeDescription}</p>
+				<h3 id="recipeIngredients">Ingredients</h3>
+				<p id="ingredients">{recipe.recipeIngredients}</p>
+				<h3 id="recipeSteps">Steps</h3>
+				<p id="steps">{recipe.recipeSteps}</p>
+			</div>
+		</section>
+	)
+};
+
+const mapStateToProps = ({recipes}) => {
+	return {recipes: recipes};
+};
+
+export const Recipe = connect(mapStateToProps, {getAllRecipe})(RecipePage);
+
+
+//old work that im to paranoid to delete
 // export const RecipePage = () => {
 //
 // 	return (
@@ -62,36 +97,3 @@ import {connect} from "react-redux";
 // 		</section>
 // 	)
 // };
-
-//attempt to get something to work via other project code
-
-export const RecipePage = (props) => {
-	const {match, getAllRecipes, recipes} = props;
-	useEffect(()=>  {
-		getAllRecipes()
-	}, [getAllRecipes]);
-	const filterRecipe = recipes.filter(recipe => recipe.recipeId === match.params.recipeId);
-	const recipe = {...filterRecipe[0]};
-
-	return (
-		<section>
-			<div className="card" id="myCard">
-				<h1 id="title"><em>{recipe.recipeName}</em></h1>
-				<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeMedia : "./recipe-page/cap-logo-5.png"}
-					  alt="recipe image"/>
-				<h3 id="recipeDescription">Description</h3>
-				<p id="description">{recipe.recipeDescription}</p>
-				<h3 id="recipeIngredients">Ingredients</h3>
-				<p id="ingredients">{recipe.recipeIngredients}</p>
-				<h3 id="recipeSteps">Steps</h3>
-				<p id="steps">{recipe.recipeSteps}</p>
-			</div>
-		</section>
-	)
-};
-
-const mapStateToProps = ({recipes}) => {
-	return {recipes: recipes};
-};
-
-export const Recipe = connect(mapStateToProps, {getAllRecipes})(RecipePage);
