@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
 import './recipe-page-css.css';
 import {Route} from 'react-router';
-import {getAllRecipe, getRecipeByRecipeId} from "../../shared/actions/recipeActions";
-import {connect} from "react-redux";
-
-//attempt to get something to work
+import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
+import { useDispatch, useSelector} from "react-redux";
 
 export const RecipePage = (props) => {
-	const {match, getAllRecipe, recipes} = props;
+	const {match} = props;
+	const dispatch = useDispatch();
+	const recipes = useSelector(state => state.recipe);
 	useEffect(()=>  {
-		getAllRecipe()
-	}, [getAllRecipe]);
+		dispatch(getRecipeByRecipeId(match.params.recipeId))
+	}, [match.params.recipeId]);
 	const filterRecipe = recipes.filter(recipe => recipe.recipeId === match.params.recipeId);
 	const recipe = {...filterRecipe[0]};
 
@@ -31,12 +31,11 @@ export const RecipePage = (props) => {
 	)
 };
 
-const mapStateToProps = ({recipe}) => {
-	return {recipe: recipe};
-};
 
-export const Recipe = connect(mapStateToProps, {getRecipeByRecipeId})(RecipePage);
 
+// export const Recipe = connect(mapStateToProps, {getRecipeByRecipeId})(RecipePage);
+// const dispatch = useDispatch({getRecipeByRecipeId: getRecipeByRecipeId})(RecipePage);
+// const dispatch = useSelector({getRecipeByRecipeId: getRecipeByRecipeId})(RecipePage);
 
 //old work that im to paranoid to delete
 // export const RecipePage = () => {
