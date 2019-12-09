@@ -54,6 +54,19 @@ creating a subset for this recipeId
 the ratingCount state variable is set to the length of this set
  */
 
+const countRatings = (postId) => {
+	const postLikes = ratings.filter(rating => rating.ratingRecipeId === recipeId);
+	return (setRatingCount(postLikes.length));
+};
+
+const data = {
+	ratingRecipeId: recipeId,
+	ratingUserId: userId
+};
+
+const toggleRating = () => {
+	setIsRated(isRated === null ? "active" : null);
+};
 
 
 
