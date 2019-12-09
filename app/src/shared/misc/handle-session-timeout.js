@@ -1,4 +1,4 @@
-import {httpConfig} from "./http-config";
+import {httpConfig} from "../utils/http-config";
 
 export const handleSessionTimeout = () => {
 	alert("Session inactive. Please log in again.");
