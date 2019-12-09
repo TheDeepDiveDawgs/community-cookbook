@@ -103,7 +103,7 @@ a:hover, a:visited, a:link, a:active
 }
 
 .footer-position {
-	position:absolute;
+	position:relative;
 	left:0;
 	bottom:0;
 	right:0;
