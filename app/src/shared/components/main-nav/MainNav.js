@@ -18,7 +18,7 @@ export const MainNav = (props) => {
 
 
 	useEffect( () =>{
-		httpConfig.get("./apis/sessionAPI/")
+		httpConfig.get("/apis/sessionAPI/")
 	});
 
 
