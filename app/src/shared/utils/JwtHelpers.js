@@ -9,7 +9,7 @@ export const UseJwt = () => {
 
 		useEffect(() => {
 			setJwt(window.localStorage.getItem("jwt-token"));
-		});
+		}, []);
 	return jwt;
 };
 
@@ -22,7 +22,7 @@ export const UseJwtUserHandle = () => {
 				const decodeJwt = jwtDecode(token);
 				setUserHandle(decodeJwt.auth.userHandle);
 			}
-		});
+		}, []);
 		return userHandle;
 };
 
@@ -35,6 +35,6 @@ export const UseJwtUserId = () => {
 				const decodeJwt = jwtDecode(token);
 				setUserId(decodeJwt.auth.userId);
 			}
-		});
+		}, []);
 		return userId;
 };

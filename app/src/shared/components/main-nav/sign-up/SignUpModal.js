@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button} from "react-bootstrap";
+// import {Button} from "react-bootstrap";
 import {Modal} from "react-bootstrap";
 import {SignUpForm} from "./sign-up-validation";
 
@@ -12,11 +12,11 @@ export const SignUpModal = () => {
 
 	return (
 		<>
-			<Button className="mx-4 px-4 py-2" variant="dark" onClick={handleShow}>
+			<label className="py-4"  onClick={handleShow} id="sign-up-label">
 				Sign Up
-			</Button>
+			</label>
 
-			<Modal show={show} onHide={handleClose} className="bg-modal">
+			<Modal show={show} onHide={handleClose} className="bg-modal" centered>
 				<Modal.Header closeButton>
 					<Modal.Title>Sign Up</Modal.Title>
 				</Modal.Header>
