@@ -15,7 +15,7 @@ export const RecipePage = (props) => {
 	const recipe = {...filterRecipe[0]};
 
 	return (
-		<section>
+		<section className="margin">
 			<div className="container-fluid bg-secondary py-5">
 				<div className="row">
 					<div className="col-md-9">
