@@ -10,7 +10,7 @@ export const RecipeCard = ({recipe}) => {
 				</div>
 				<div className="col-9">
 					<Card.Title> {recipe.recipeName}</Card.Title>
-					<Card.Subtitle>{recipe.recipeMinutes}</Card.Subtitle>
+					<Card.Subtitle>Cooktime: {recipe.recipeMinutes} mins.</Card.Subtitle>
 					<Card.Text>{recipe.recipeDescription}</Card.Text>
 				</div>
 			</Card.Body>

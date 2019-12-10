@@ -36,14 +36,14 @@ export const MainNav = (props) => {
 	return(
 
 		<Navbar className="nav-style fixed-top"
-				expand="lg"
-				variant="dark"
+				  expand="lg"
+				  variant="dark"
 		>
 			<LinkContainer exact to="/">
 				<img alt="ABQCOOKBOOK Icon"
-					 src= {logo}
-					 id="nav-image"
-					 className="d-none d-lg-inline-block align-top"
+					  src= {logo}
+					  id="nav-image"
+					  className="d-none d-lg-inline-block align-top"
 				/>
 			</LinkContainer>
 
