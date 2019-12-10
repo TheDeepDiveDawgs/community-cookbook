@@ -21,26 +21,30 @@ export const RecipePage = (props) => {
 					<div className="col-md-9">
 							<h3 id="recipeName">Recipe</h3>
 							<p id="name">{recipe.recipeName}</p>
-							<h3 id="recipeRating">rating</h3>
+							<h4 id="recipeRating">rating</h4>
 							<p id="rating">{recipe.recipeRating}</p>
-							<h3 id="recipeDescription">Description</h3>
+							{/*<h4 id="recipeInteraction">interaction</h4>*/}
+							{/*<p id="interaction">{recipe.recipeInteraction}</p>*/}
+						{/*need to add danny's rating above*/}
+							<h4 id="recipeDescription">Description</h4>
 							<p id="description">{recipe.recipeDescription}</p>
-							<h3 id="recipeNumberIngredients">how many ingredients</h3>
+							<h4 id="recipeNumberIngredients">how many ingredients</h4>
 							<p id="numberIngredients">{recipe.recipeNumberIngredients}</p>
-							<h3 id="recipeIngredients">Ingredients</h3>
+							<h4 id="recipeIngredients">Ingredients</h4>
 							<p id="ingredients">{recipe.recipeIngredients}</p>
-							<h3 id="recipeSteps">Steps</h3>
+							<h4 id="recipeSteps">Steps</h4>
 							<p id="steps">{recipe.recipeStep}</p>
-							<h3 id="recipeNutrition">Nutrition</h3>
+							<h4 id="recipeNutrition">Nutrition</h4>
 							<p id="nutrition">{recipe.recipeNutrition}</p>
-							<h3 id="recipeMinutes">minutes to make</h3>
+							<h4 id="recipeMinutes">minutes to make</h4>
 							<p id="minutes">{recipe.recipeMinutes}</p>
-							<h3 id="recipeSubmissionDate">recipe submitted</h3>
+							<h4 id="recipeSubmissionDate">recipe submitted</h4>
 							<p id="submissionDate">{recipe.recipeSubmissionDate}</p>
-						<div className="col-md-3">
-							<h3 id="recipeImageUrl">image</h3>
-							<p id="imageUrl">{recipe.recipeImageUrl}</p>
-						</div>
+					</div>
+					<div className="col-md-3">
+						<h3 id="recipeImageUrl">image</h3>
+						<p id="imageUrl">{recipe.recipeImageUrl}</p>
+						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : "./recipe-page/cap-logo-5.png"} alt="recipe image"/>
 					</div>
 				</div>
 			</div>
