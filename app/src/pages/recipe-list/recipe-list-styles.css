@@ -1,28 +1,3 @@
 main {
 	margin-top: 100px;
 }
-
-.search-bar {
-	position:fixed;
-	width: 100%;
-}
-
-#category-card {
-	position: fixed;
-}
-
-.list {
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-start;
-}
-
-
-#card-body {
-	display: inline-flex;
-	padding: 10px;
-	margin: 30px 30px;
-	border: 5px solid rgb(93, 171, 207);
-	border-radius: 8px;
-	background: lightblue;
-}

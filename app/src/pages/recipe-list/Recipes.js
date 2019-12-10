@@ -13,6 +13,7 @@ export const Recipes = (props) => {
 		dispatch(getAllRecipe())
 	}
 
+
 	const sideEffectsInputs = [];
 
 	useEffect(sideEffects, sideEffectsInputs);

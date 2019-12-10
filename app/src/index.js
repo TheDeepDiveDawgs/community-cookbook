@@ -23,7 +23,6 @@ const store = createStore(reducers, applyMiddleware(thunk));
 const Routing = (store) => (
 	<>
 		<Provider store={store}>
-
 				<BrowserRouter>
 					<MainNav/>
 					<Switch>
