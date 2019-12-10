@@ -21,12 +21,10 @@ export const Categories = (props) => {
 
 	return (
 		<>
-			<main>
 				<div>
 					{categories.map(category => <CategoryCard key={category.categoryId} category={category}/>
 					)}
 				</div>
-			</main>
 		</>
 	)
 };
