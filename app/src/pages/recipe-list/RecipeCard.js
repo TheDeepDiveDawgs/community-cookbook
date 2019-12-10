@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 
 export const RecipeCard = ({recipe}) => {
 	return (
-		<Card class="container">
+		<Card className="container">
 			<Card.Body className="row">
 				<div className="col-3">
 					<Card.Img src="cap-logo-4.png" alt="placeholder"/>

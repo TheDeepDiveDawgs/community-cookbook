@@ -60,7 +60,7 @@ export const MainNav = (props) => {
 				<Nav className="ml-auto text-right">
 						<SearchFormContent/>
 						<Nav.Link href="/recipe-list"
-								  className="mr-1 d-lg-none d-inline-block"
+								  className="py-3 mr-1 d-lg-none d-inline-block"
 						>Search</Nav.Link>
 					{jwt !== null ?
 						<UserMenu/>
