@@ -8,7 +8,7 @@ export const Home = () => {
 			<Jumbotron fluid className="mt-3 jumbo-Image">
 				<div className="row mt-5">
 					<div className="col-xs-6 col-md-3 text-center p-0">
-						<div className="container py-3 px-0 text-bg text-white">
+						<div className="py-3 px-0 text-bg text-white">
 							<Link to="/recipe-list"
 								  className="display-4 text-white"
 								  id="browseRecipes"

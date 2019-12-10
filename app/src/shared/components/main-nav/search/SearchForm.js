@@ -13,7 +13,7 @@ import {getRecipeBySearchTerm} from "../../../actions/recipeActions";
 export const SearchFormContent = ({match}) => {
 
 	// const recipes = useSelector(state => (state.recipe ? state.recipe : []));
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	// const history = useHistory();
 	// const recipeList = getRecipeBySearchTerm();
 	//
@@ -27,7 +27,7 @@ export const SearchFormContent = ({match}) => {
 
 	const searchTerm = (e) => {
 		e.preventDefault();
-		dispatch.getRecipeBySearchTerm(e.target.value);
+		getRecipeBySearchTerm(e.target.value);
 		console.log(e.target.value)
 
 		// httpConfig.get('apis/recipe/')
@@ -49,6 +49,7 @@ export const SearchFormContent = ({match}) => {
 				<input type="text"
 					   placeholder="Search for recipe"
 					   id="search-text"
+						 className="d-none d-lg-inline-block mr-3"
 						 onChange={searchTerm}
 				/>
 				{/*<button className="btn btn-dark mx-4 px-4 py-2 text-white"*/}

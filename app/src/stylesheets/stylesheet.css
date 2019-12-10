@@ -25,6 +25,11 @@
 
 @media (max-width: 750px) {
 
+	#search-text {
+		display: none;
+	}
+
+
 	.display-4 {
 		font-size: 3.5rem!important;
 	}
@@ -56,6 +61,7 @@
 
 @media (max-width: 500px) {
 
+
 	.display-4 {
 		font-size: 2.5rem!important;
 	}
@@ -73,6 +79,10 @@
 }
 
 @media (max-width: 400px) {
+
+	body {
+		overflow-x: hidden;
+	}
 
 	.footer-position {
 		position:absolute;
