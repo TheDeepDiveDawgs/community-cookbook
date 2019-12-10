@@ -5,6 +5,7 @@ import React from "react";
 // import FormControl from "react-bootstrap/FormControl";
 import {httpConfig} from "../../../utils/http-config";
 import {useHistory} from "react-router";
+import {getRecipeBySearchTerm} from "../../../actions/recipeActions";
 
 
 export const SearchFormContent = () => {
@@ -21,12 +22,19 @@ export const SearchFormContent = () => {
 			})
 	};
 
+	const searchValue = getRecipeBySearchTerm();
+
 
 
 	return (
 		<>
 			<form  className="ml-auto" id="search-box">
-				<input type="text" placeholder="Search for recipe" id="search-text" onChange={searchTerm}/>
+				<input type="text"
+					   placeholder="Search for recipe"
+					   id="search-text"
+					   value={searchValue}
+					   onChange={searchTerm}
+				/>
 				<button className="btn btn-dark mx-4 px-4 py-2 text-white"
 						id="search-button"
 						type="reset"
