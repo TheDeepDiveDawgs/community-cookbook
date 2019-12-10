@@ -20,7 +20,7 @@ export const UserMenu = (props) => {
 					window.localStorage.removeItem("jwt-token");
 					console.log(reply);
 					setTimeout(() => {
-						window.location = "/";
+						window.location.reload();
 					}, 1500);
 				}
 			});
