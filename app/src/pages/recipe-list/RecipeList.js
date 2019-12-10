@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {Categories} from "./Categories";
 import {SearchBar} from "./SearchBar";
 import {Recipes} from "./Recipes";
+import './recipe-list-styles.css';
 
 export const RecipeList = () => {
 	return (
-		<main>
-			<div>
+		<main className="list">
+			<div className="search-bar">
 				<SearchBar/>
 			</div>
 			<div className="container">
