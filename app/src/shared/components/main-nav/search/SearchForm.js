@@ -12,9 +12,9 @@ import {getRecipeBySearchTerm} from "../../../actions/recipeActions";
 
 export const SearchFormContent = ({match}) => {
 
-	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
+	// const recipes = useSelector(state => (state.recipe ? state.recipe : []));
 	const dispatch = useDispatch();
-	const history = useHistory();
+	// const history = useHistory();
 	// const recipeList = getRecipeBySearchTerm();
 	//
 	// const effects = () => {
@@ -25,15 +25,19 @@ export const SearchFormContent = ({match}) => {
 	// useEffect(effects);
 
 
-	const searchTerm = () => {
-		httpConfig.get('apis/recipe/')
-			.then( reply => {
-				if (reply.status === 200) {
-					// recipes.filter();
-					console.log(reply);
-					history.push("/recipe-list")
-				}
-			})
+	const searchTerm = (e) => {
+		e.preventDefault();
+		dispatch.getRecipeBySearchTerm(e.target.value);
+		console.log(e.target.value)
+
+		// httpConfig.get('apis/recipe/')
+		// 	.then( reply => {
+		// 		if (reply.status === 200) {
+		// 			// recipes.filter();
+		// 			console.log(reply);
+		// 			history.push("/recipe-list")
+		// 		}
+		// 	})
 	};
 
 
@@ -41,19 +45,20 @@ export const SearchFormContent = ({match}) => {
 
 	return (
 		<>
-			<form  className="search-margin" id="search-box">
+			{/*<form  className="search-margin" id="search-box">*/}
 				<input type="text"
 					   placeholder="Search for recipe"
 					   id="search-text"
+						 onChange={searchTerm}
 				/>
-				<button className="btn btn-dark mx-4 px-4 py-2 text-white"
-						id="search-button"
-						type="reset"
-						onClick={searchTerm}
-						onSubmit={searchTerm}
-				>
-					Search</button>
-			</form>
+				{/*<button className="btn btn-dark mx-4 px-4 py-2 text-white"*/}
+				{/*		id="search-button"*/}
+				{/*		type="submit"*/}
+				{/*		// onClick={searchTerm}*/}
+				{/*		onSubmit={searchTerm}*/}
+				{/*>*/}
+				{/*	Search</button>*/}
+			{/*</form>*/}
 		</>
 	)
 };
