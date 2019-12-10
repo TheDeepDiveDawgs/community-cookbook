@@ -3,7 +3,7 @@ import {httpConfig} from "../../../utils/http-config";
 import {Formik} from "formik/dist/index";
 import * as Yup from "yup";
 import {SignInFormContent} from "./SignInFormContent";
-import {useHistory} from "react-router";
+// import {useHistory} from "react-router";
 
 
 
@@ -16,7 +16,7 @@ export const SignInForm = ({handleClose}) => {
 		};
 
 		//declare history variable and use the axios hook useHistory
-		const history = useHistory();
+		// const history = useHistory();
 
 
 		//validate the inputs for the initial values
@@ -42,7 +42,7 @@ export const SignInForm = ({handleClose}) => {
 						window.localStorage.setItem("jwt-token", reply.headers["x-jwt-token"]);
 						resetForm();
 						handleClose();
-						window.location = "/";
+						window.location.reload();
 					} setStatus({message, type});
 				});
 		};
