@@ -16,7 +16,6 @@ export const MainNav = (props) => {
 
 	const jwt = UseJwt();
 
-
 	useEffect( () =>{
 		httpConfig.get("./apis/sessionAPI/")
 	});
@@ -33,7 +32,6 @@ export const MainNav = (props) => {
 				}
 			});
 	};
-
 
 	return(
 
@@ -57,11 +55,13 @@ export const MainNav = (props) => {
 				/>
 			</LinkContainer>
 
-
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto text-right">
 						<SearchFormContent/>
+						<Nav.Link href="/recipe-list"
+								  className="mr-1 d-lg-none d-inline-block"
+						>Search</Nav.Link>
 					{jwt !== null ?
 						<UserMenu/>
 					 :

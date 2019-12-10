@@ -181,7 +181,7 @@ a:hover, a:visited, a:link, a:active
 }
 
 .navbar-toggler-icon {
-	background-image: url("https://mdbootstrap.com/img/svg/hamburger2.svg?color=F5FF38")!important;
+	background-image: url("../shared/components/main-nav/images/hamburger2.svg")!important;
 	background-size: 64px!important;
 }
 
@@ -211,4 +211,8 @@ a:hover, a:visited, a:link, a:active
 	#menuSignOut {
 		display: inline-block;
 	}
+}
+
+#search-box {
+	padding-top: 0.5rem;
 }
