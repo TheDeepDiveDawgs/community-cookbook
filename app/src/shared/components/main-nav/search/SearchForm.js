@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from "react-redux";
 // import FormControl from "react-bootstrap/FormControl";
 import {httpConfig} from "../../../utils/http-config";
 import {useHistory} from "react-router";
-import {getRecipeBySearchTerm} from "../../../actions/recipeActions";
+import {getAllRecipe, getRecipeBySearchTerm} from "../../../actions/recipeActions";
 
 
 
@@ -23,6 +23,19 @@ export const SearchFormContent = ({match}) => {
 
 
 	// useEffect(effects);
+	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
+
+	const dispatch = useDispatch();
+
+	function sideEffects() {
+		dispatch(getRecipeBySearchTerm(match.params.recipeSearchTerm))
+	}
+
+
+	const sideEffectsInputs = [match.params.recipeSearchTerm];
+
+	useEffect(sideEffects, sideEffectsInputs);
+
 
 
 	const searchTerm = (e) => {
@@ -49,7 +62,6 @@ export const SearchFormContent = ({match}) => {
 				<input type="text"
 					   placeholder="Search for recipe"
 					   id="search-text"
-						 className="d-none d-lg-inline-block mr-3"
 						 onChange={searchTerm}
 				/>
 				{/*<button className="btn btn-dark mx-4 px-4 py-2 text-white"*/}
