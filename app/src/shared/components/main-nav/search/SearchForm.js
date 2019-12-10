@@ -15,21 +15,21 @@ export const SearchFormContent = ({match}) => {
 	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const recipeList = getRecipeBySearchTerm();
+	// const recipeList = getRecipeBySearchTerm();
+	//
+	// const effects = () => {
+	// 	dispatch(recipeList);
+	// };
 
-	const effects = () => {
-		dispatch(recipeList);
-	};
 
-
-	useEffect(effects);
+	// useEffect(effects);
 
 
 	const searchTerm = () => {
 		httpConfig.get('apis/recipe/')
 			.then( reply => {
 				if (reply.status === 200) {
-					recipes.filter();
+					// recipes.filter();
 					console.log(reply);
 					history.push("/recipe-list")
 				}
@@ -49,7 +49,7 @@ export const SearchFormContent = ({match}) => {
 				<button className="btn btn-dark mx-4 px-4 py-2 text-white"
 						id="search-button"
 						type="reset"
-						onClick={useEffect}
+						onClick={searchTerm}
 						onSubmit={searchTerm}
 				>
 					Search</button>
