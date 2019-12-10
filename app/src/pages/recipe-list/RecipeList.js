@@ -7,7 +7,7 @@ import {Recipes} from "./Recipe";
 
 export const RecipeList = () => {
 	return (
-		<main className="mt-5">
+		<main className="mt-5 pt-5">
 			<div>
 				<SearchBar/>
 			</div>

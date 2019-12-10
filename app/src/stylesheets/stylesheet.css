@@ -162,6 +162,11 @@ a:hover, a:visited, a:link, a:active
 	cursor: pointer;
 }
 
+#sign-in-label:hover {
+	color: #F5FF38;
+	cursor: pointer;
+}
+
 #sign-up-label {
 	margin-right: 3rem;
 	margin-left: 3rem!important;
