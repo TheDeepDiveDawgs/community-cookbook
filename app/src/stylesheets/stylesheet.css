@@ -64,7 +64,7 @@
 @media (max-width: 400px) {
 
 	.footer-position {
-		position:absolute;
+		position: relative;
 		left:0;
 		bottom:0;
 		right:0;
@@ -82,14 +82,14 @@
 }
 
 footer {
-	background-color: #252525;
+	background-color: #262626;
 	height: 50px;
 	padding-top: 10px;
 }
 
 #twitter {
 	text-align: center;
-	color: white;
+	color: #FFFFFF;
 }
 
 a:hover, a:visited, a:link, a:active
@@ -98,61 +98,56 @@ a:hover, a:visited, a:link, a:active
 }
 
 #twitter:hover {
-	color: yellow;
+	color: #F5FF38;
 }
 
 #faTweet {
-	color: white;
+	color: #FFFFFF;
 }
 
 #faTweet:hover {
-	color: yellow;
+	color: #F5FF38;
 }
 
 #facebook {
 	text-align: center;
-	color: white;
+	color: #FFFFFF;
 }
 
 #facebook:hover {
-	color: yellow;
+	color: #F5FF38;
 }
 
 #faFb {
-	color: white;
+	color: #FFFFFF;
 }
 
 #faFb:hover {
-	color: yellow;
+	color: #F5FF38;
 }
 
 #email {
 	text-align: center;
-	color: white;
+	color: #FFFFFF;
 }
 
 #email:hover {
-	color: yellow;
+	color: #F5FF38;
 }
 
 #faEmail {
-	color: white;
+	color: #FFFFFF;
 }
 
 #faEmail:hover {
-	color: yellow;
+	color: #F5FF38;
 }
 
 .bg-modal {
 	background-color: rgba(37, 37, 37, 0.7);
 }
 
-.footer-position {
-	position: relative;
-	left:0;
-	bottom:0;
-	right:0;
-}
+
 
 #sign-up-label:hover {
 	color: #F5FF38;
