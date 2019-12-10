@@ -4,15 +4,19 @@ import React from "react";
 // // import {getRecipeBySearchTerm} from "../../../actions/recipeActions";
 // import FormControl from "react-bootstrap/FormControl";
 import {httpConfig} from "../../../utils/http-config";
+import {useHistory} from "react-router";
 
 
 export const SearchFormContent = () => {
 
-	const searchTerm = (e) => {
+	const history = useHistory();
+
+	const searchTerm = () => {
 		httpConfig.get('apis/recipe/')
 			.then( reply => {
 				if (reply.status === 200) {
-					console.log(e);
+					console.log(reply);
+					history.push("/recipe-list?recipeSearchTerm=${recipeIngredients}")
 				}
 			})
 	};
