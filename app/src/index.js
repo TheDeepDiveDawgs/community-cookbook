@@ -18,9 +18,7 @@ import {RecipeList} from "./pages/recipe-list/RecipeList";
 import {RecipePage} from "./pages/recipe-page/RecipePage";
 
 
-
 const store = createStore(reducers, applyMiddleware(thunk));
-
 
 const Routing = (store) => (
 	<>
