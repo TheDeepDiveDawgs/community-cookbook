@@ -7,10 +7,10 @@ export const RecipeCard = ({recipe}) => {
 		<Card>
 			<Card.Body className="row">
 				<div className="col-3">
-					<Card.Img src={recipe.receipeImageUrl ? recipe.receipeImageUrl : ({logo})} alt="placeholder"/>
+					<Card.Img src={recipe.receipeImageUrl ? recipe.receipeImageUrl : logo} alt="placeholder"/>
 				</div>
 				<div className="col-9">
-					<Card.Title id={recipeName}> {recipe.recipeName}</Card.Title>
+					<Card.Title id="recipeName"> {recipe.recipeName}</Card.Title>
 					<Card.Subtitle>Cooktime: {recipe.recipeMinutes} min</Card.Subtitle>
 					<Card.Text>Description: {recipe.recipeDescription}</Card.Text>
 				</div>
