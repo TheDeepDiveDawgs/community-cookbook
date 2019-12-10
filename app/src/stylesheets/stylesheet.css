@@ -34,9 +34,6 @@
 		margin-bottom: 0!important;
 	}
 
-	#search-box {
-		display: none!important;
-	}
 
 	#search-button {
 		padding-left: 0.5rem !important;
@@ -159,6 +156,11 @@ a:hover, a:visited, a:link, a:active
 	cursor: pointer;
 }
 
+#sign-in-label:hover {
+	color: #F5FF38;
+	cursor: pointer;
+}
+
 #sign-up-label {
 	margin-right: 3rem;
 	margin-left: 3rem!important;
@@ -176,7 +178,38 @@ a:hover, a:visited, a:link, a:active
 }
 
 .navbar-toggler-icon {
-	background-image: url("https://mdbootstrap.com/img/svg/hamburger2.svg?color=F5FF38")!important;
+	background-image: url("../shared/components/main-nav/images/hamburger2.svg")!important;
 	background-size: 64px!important;
 }
 
+#menuSignOut {
+	display: none;
+}
+
+@media (max-width: 975px) {
+
+	#sign-up-label {
+		margin-right: 0!important;
+		margin-left: 0!important;
+		margin-bottom: 0!important;
+	}
+
+	#sign-in-label {
+		margin-right: .25rem!important;
+		margin-left: 0!important;
+		margin-bottom: 0!important;
+	}
+
+
+	#search-box {
+		display: none!important;
+	}
+
+	#menuSignOut {
+		display: inline-block;
+	}
+}
+
+#search-box {
+	padding-top: 0.5rem;
+}

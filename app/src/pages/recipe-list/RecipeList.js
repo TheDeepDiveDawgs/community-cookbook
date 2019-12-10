@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {CategoryCard} from "./CategoryCard";
 import {SearchBar} from "./SearchBar";
 import {Recipes} from "./Recipe";
-import {RecipeCard} from "./RecipeCard";
+// import {RecipeCard} from "./RecipeCard";
 
 
 export const RecipeList = () => {
 	return (
-		<main>
+		<main className="mt-5 pt-5">
 			<div>
 				<SearchBar/>
 			</div>
