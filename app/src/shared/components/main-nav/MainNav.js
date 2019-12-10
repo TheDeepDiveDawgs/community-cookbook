@@ -21,10 +21,26 @@ export const MainNav = (props) => {
 		httpConfig.get("./apis/sessionAPI/")
 	});
 
+	const signOut = () => {
+		httpConfig.get("apis/sign-out/")
+			.then(reply => {
+				if (reply.status === 200) {
+					window.localStorage.removeItem("jwt-token");
+					console.log(reply);
+					setTimeout(() => {
+						window.location.reload();
+					}, 1500);
+				}
+			});
+	};
+
 
 	return(
 
-		<Navbar className="nav-style fixed-top" expand="lg">
+		<Navbar className="nav-style fixed-top"
+				expand="lg"
+				variant="dark"
+		>
 			<LinkContainer exact to="/">
 				<img alt="ABQCOOKBOOK Icon"
 					 src= {logo}
@@ -46,11 +62,34 @@ export const MainNav = (props) => {
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto text-right">
 						<SearchFormContent/>
-						<SignUpModal/>
 					{jwt !== null ?
 						<UserMenu/>
 					 :
 						<SignInModal/>
+					}
+
+					{jwt !== null &&
+					<Nav.Item className="py-4"
+							  id="menuSignOut">Create Recipe</Nav.Item>
+					}
+
+					{jwt !== null &&
+					<Nav.Item className="py-4"
+							  id="menuSignOut">My Recipes</Nav.Item>
+					}
+
+					{jwt !== null &&
+					<Nav.Item className="py-4"
+							  id="menuSignOut">Account Settings</Nav.Item>
+					}
+
+					{jwt !== null ?
+						<Nav.Item onClick={signOut}
+								  className="py-4"
+								  id="menuSignOut"
+						>Sign Out</Nav.Item>
+						:
+						<SignUpModal/>
 					}
 				</Nav>
 			</Navbar.Collapse>

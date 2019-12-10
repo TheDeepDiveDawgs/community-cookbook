@@ -34,9 +34,6 @@
 		margin-bottom: 0!important;
 	}
 
-	#search-box {
-		display: none!important;
-	}
 
 	#search-button {
 		padding-left: 0.5rem !important;
@@ -188,3 +185,30 @@ a:hover, a:visited, a:link, a:active
 	background-size: 64px!important;
 }
 
+#menuSignOut {
+	display: none;
+}
+
+@media (max-width: 975px) {
+
+	#sign-up-label {
+		margin-right: 0!important;
+		margin-left: 0!important;
+		margin-bottom: 0!important;
+	}
+
+	#sign-in-label {
+		margin-right: .25rem!important;
+		margin-left: 0!important;
+		margin-bottom: 0!important;
+	}
+
+
+	#search-box {
+		display: none!important;
+	}
+
+	#menuSignOut {
+		display: inline-block;
+	}
+}
