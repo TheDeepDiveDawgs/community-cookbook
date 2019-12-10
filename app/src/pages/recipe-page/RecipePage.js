@@ -19,32 +19,43 @@ export const RecipePage = (props) => {
 			<div className="container-fluid py-5">
 				<div className="row">
 					<div className="col-md-9">
-							<h3 id="recipeName">Recipe</h3>
-							<p id="name">{recipe.recipeName}</p>
+							<h2><strong><p id="name">{recipe.recipeName}</p></strong></h2>
+						<div className="row">
+							<div className="col-md-4">
 							<h4 id="recipeRating">rating</h4>
 							<p id="rating">{recipe.recipeRating}</p>
 							{/*<h4 id="recipeInteraction">interaction</h4>*/}
 							{/*<p id="interaction">{recipe.recipeInteraction}</p>*/}
 				{/*need to add danny's rating above*/}
+							</div>
+							<div className="col-md-4">
+							<h4 id="recipeNumberIngredients"># of ingredients</h4>
+							<p id="numberIngredients">{recipe.recipeNumberIngredients}</p>
+							</div>
+							<div className="col-md-4">
+							<h4 id="recipeMinutes">cook time <small>(minutes)</small></h4>
+							<p id="minutes">{recipe.recipeMinutes}</p>
+							</div>
+						</div>
+					<div className="ingred">
 							<h4 id="recipeDescription">Description</h4>
 							<p id="description">{recipe.recipeDescription}</p>
-							<h4 id="recipeNumberIngredients">how many ingredients</h4>
-							<p id="numberIngredients">{recipe.recipeNumberIngredients}</p>
+						<div className="ul">
 							<h4 id="recipeIngredients">Ingredients</h4>
 							<p id="ingredients">{recipe.recipeIngredients}</p>
+						</div>
 							<h4 id="recipeSteps">Steps</h4>
 							<p id="steps">{recipe.recipeStep}</p>
 							<h4 id="recipeNutrition">Nutrition</h4>
 							<p id="nutrition">{recipe.recipeNutrition}</p>
-							<h4 id="recipeMinutes">cook time</h4>
-							<p id="minutes">{recipe.recipeMinutes}</p>
-							<h4 id="recipeSubmissionDate">recipe submitted</h4>
+							<h5 id="recipeSubmissionDate">recipe submitted</h5>
 							<p id="submissionDate">{recipe.recipeSubmissionDate}</p>
+					</div>
 					</div>
 					<div className="col-md-3">
 						<h3 id="recipeImageUrl">image</h3>
 						<p id="imageUrl">{recipe.recipeImageUrl}</p>
-						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : ({logo})} alt="recipe image"/>
+						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="recipe image"/>
 					</div>
 				</div>
 			</div>
@@ -52,7 +63,6 @@ export const RecipePage = (props) => {
 	)
 };
 
-{/*<h1 id="title"><em>{recipe.recipeName}</em></h1>*/}
 {/*<img className="card-img-top" id="cardImg"*/}
 {/*src={recipe.recipeImageUrl ? recipe.recipeMedia : "./recipe-page/cap-logo-5.png"}*/}
 {/*alt="logo image as default"/>*/}
