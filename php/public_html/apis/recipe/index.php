@@ -57,6 +57,9 @@ try {
 		//get a specific recipe or all recipes and update reply
 		if(empty($recipeId) === false) {
 			$reply->data = Recipe::getRecipeByRecipeId($pdo, $recipeId);
+		} else if(empty($recipeCategoryId) === false) {
+			//get all recipes by the recipe category id
+			$reply->data = Recipe::getRecipeByRecipeCategoryId($pdo, $recipeCategoryId);
 		} else if(empty($recipeUserId) === false) {
 			// if the user is logged in grab all the recipes by that user based on who is logged in
 			$reply->data = Recipe::getRecipeByRecipeUserId($pdo, $recipeUserId);

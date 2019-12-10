@@ -1,20 +1,19 @@
 import React from 'react';
-import {CategoryCard} from "./CategoryCard";
+import {Categories} from "./Categories";
 import {SearchBar} from "./SearchBar";
-import {Recipes} from "./Recipe";
-// import {RecipeCard} from "./RecipeCard";
-
+import {Recipes} from "./Recipes";
+import './recipe-list-styles.css';
 
 export const RecipeList = () => {
 	return (
-		<main className="mt-5 pt-5">
-			<div>
+		<main>
+			<div className="search-bar">
 				<SearchBar/>
 			</div>
-			<div className="container">
+			<div>
 				<div className="row">
 					<div className="col-3">
-						<CategoryCard/>
+						<Categories/>
 					</div>
 					<div className="col-9">
 						<Recipes/>
