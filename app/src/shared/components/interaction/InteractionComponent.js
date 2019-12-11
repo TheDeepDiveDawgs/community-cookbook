@@ -24,7 +24,7 @@ export const InteractionComponent = (props) => {
 	//adds the array of ratings
 	const reducer = (accumulator, interaction) => accumulator + interaction.interactionRating;
 	// performs the math for avg rating
-	const average = (interactions.length ? interactions.reduce(reducer, 0) / interactions.length : 1);
+	const average = (interactions.length ? interactions.reduce(reducer, 0) / interactions.length : .01);
 
 	return (
 		<Card style={{width: '10rem',}}>
