@@ -12,25 +12,25 @@ import Ratings from 'react-ratings-declarative';
 // 		});
 // 	}
 
-	// render() {
-	// 	return (
-	// 		<Ratings
-	// 			rating={this.state.rating}
-	// 			widgetRatedColors="blue"
-	// 			changeRating={this.changeRating}
-	// 		>
-	// 			<Ratings.Widget />
-	// 			<Ratings.Widget />
-	// 			<Ratings.Widget
-	// 				widgetDimension="60px"
-	// 				svgIconViewBox="0 0 5 5"
-	// 				svgIconPath="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z"
-	// 			/>
-	// 			<Ratings.Widget widgetHoverColor="black" />
-	// 			<Ratings.Widget />
-	// 		</Ratings>
-	// 	);
-	// }
+// render() {
+// 	return (
+// 		<Ratings
+// 			rating={this.state.rating}
+// 			widgetRatedColors="blue"
+// 			changeRating={this.changeRating}
+// 		>
+// 			<Ratings.Widget />
+// 			<Ratings.Widget />
+// 			<Ratings.Widget
+// 				widgetDimension="60px"
+// 				svgIconViewBox="0 0 5 5"
+// 				svgIconPath="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z"
+// 			/>
+// 			<Ratings.Widget widgetHoverColor="black" />
+// 			<Ratings.Widget />
+// 		</Ratings>
+// 	);
+// }
 // }
 
 
@@ -65,44 +65,38 @@ export const InteractionComponent = (props) => {
 		//dispatch function takes actions as arguments to make changes to the store/redux
 		dispatch(getRecipeInteractions(recipeId))
 	}
+
 	const sideEffectsInputs = [recipeId];
 
 	useEffect(sideEffects, sideEffectsInputs);
+	//adds the array of ratings
+	const reducer = (accumulator, interaction) => accumulator + interaction.interactionRating;
+	// performs the math for avg rating
 
-	console.log(interactions.length);
-
-	const reducer = (accumulator, interaction) => accumulator.interactionRating + interaction.interactionRating;
-	 // console.log(interactions.reduce(reducer));
-
-	const average = (interactions.length ? interactions.reduce(reducer)/interactions.length : "0");
+	const average = (interactions.length ? interactions.reduce(reducer, 0) / interactions.length : "0");
 
 
-		return (
+	return (
 
-			<Card style={{width: '12rem',}}>
-				<Card.Body >
-					<Ratings
-									rating={+average}
-									widgetRatedColors="#F5FF38"
-									changeRating={+average}
-									widgetHoverColors="#F5FF38"
-									widgetDimensions="1rem"
-								>
-						 			<Ratings.Widget  />
-						 			<Ratings.Widget  />
-						 			<Ratings.Widget
-
-										// svgIconViewBox="0 0 5 5"
-										// svgIconPath="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z"
-									/>
-						 			<Ratings.Widget  />
-						 			<Ratings.Widget  />
-						 		</Ratings>
-
-
-				</Card.Body>
-			</Card>
-		)
+		<Card style={{width: '10rem',}}>
+			<Card.Body>
+				<Ratings
+					rating={+average}
+					widgetRatedColors="#F5FF38"
+					changeRating={+average}
+					widgetHoverColors="#F5FF38"
+					widgetDimensions="1.2rem"
+					widgetSpacings="1px"
+				>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+				</Ratings>
+			</Card.Body>
+		</Card>
+	)
 
 };
 
