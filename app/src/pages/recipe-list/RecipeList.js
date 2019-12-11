@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Categories} from "./Categories";
 import {SearchBar} from "./SearchBar";
 import {Recipes} from "./Recipes";
 import './recipe-list-styles.css';
 
+
 export const RecipeList = () => {
+
+	const [searchTerm, setSearchTerm] = useState('');
+	console.log("RESULT = ", searchTerm);
+
 	return (
 		<main>
 			<div className="search-bar">
-				<SearchBar/>
+				<SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			</div>
 			<div>
 				<div className="row">
@@ -16,7 +21,7 @@ export const RecipeList = () => {
 						<Categories/>
 					</div>
 					<div className="col-9">
-						<Recipes/>
+						<Recipes searchTerm={searchTerm}/>
 					</div>
 				</div>
 			</div>
