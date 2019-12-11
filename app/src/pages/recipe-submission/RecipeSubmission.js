@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './RecipeSubmission.css';
 
+export const RecipeSubmission = (props) => {
 class RecipeSubmission extends Component {
 	static defaultProps = {
 		onClose() {
@@ -78,40 +79,15 @@ class RecipeSubmission extends Component {
 							;
 
 							return (
-							< div
-								className="recipe-form-container">
-								< form
-									className='recipe-form'
-									onSubmit={this.handleSubmit}>
-									< button
-										type="button"
-										className="close-button"
-										onClick={onClose}> X
-									</button>
-									< div className='recipe-form-line'>
+							<div className="recipe-form-container">
+								<form className='recipe-form' onSubmit={this.handleSubmit}>
+									<button type="button" className="close-button" onClick={onClose}>X</button>
 
-										< label
-											htmlFor='recipe-title-submission'> Title </label>
-
-										< submission
-											id='recipe-title-submission'
-											key='title'
-											name='title'
-											type='text'
-											value={title}
-											size={42}
-											autoComplete="off"
-											onChange={this.handleChange}
-										/>
-										< /div>
-											< label
-												htmlFor='recipe-instructions-submission'
-												style={
-													{
-														marginTop: '5px'
-													}
-												}>
-												Instructions < /label>
+									<div className='recipe-form-line'><label htmlFor='recipe-title-submission'> Title </label>
+										<submission id='recipe-title-submission' key='title' name='title' type='text' value={title}
+											size={42} autoComplete="off" onChange={this.handleChange}/>
+									</div>
+											<label htmlFor='recipe-instructions-submission' style={{marginTop: '5px'}}>Instructions</label>
 
 		< textarea
 			key='instructions'
@@ -125,41 +101,18 @@ class RecipeSubmission extends Component {
 			onChange={this.handleChange}
 		/> {submissions}
 
-												< button
-													type="button"
-													onClick={this.handleNewIngredient}
-													className="buttons"> + < /button>
+												<button type="button" onClick={this.handleNewIngredient} className="buttons">+</button>
 
-													< div
-														className='recipe-form-line'>< label
-														htmlFor='recipe-img-submission'> Image
-														Url < /label>
-															< submission
-																id='recipe-img-submission'
-																type='text'
-																placeholder=''
-																name='img'
-																value={img}
-																size={36}
-																autoComplete='off'
-																onChange={this.handleChange}
-															/>
-															< /div>
+													<div className='recipe-form-line'><label htmlFor='recipe-img-submission'>Image Url</label>
+															<submission id='recipe-img-submission' type='text' placeholder='' name='img' value={img}
+																size={36} autoComplete='off' onChange={this.handleChange}/>
+													</div>
 
-																< button
-																	type="submit"
-																	className="buttons"
-																	style={
-																		{
-																			alignSelf: 'flex-end', marginRight:
-																				0
-																		}
-																	}>
-																	SAVE < /button>
+																<button type="submit" className="buttons" style={{alignSelf: 'flex-end', marginRight: 0}}>SAVE</button>
 
-																	< /form>
-																		< /div>
+																	</form>
+																		</div>
 																			}
 																			}
 
-																			export default RecipeSubmission;
+export default RecipeSubmission;}
