@@ -7,15 +7,12 @@ import {RecipeCard} from "./RecipeCard";
 export const Recipes = ({searchTerm}) => {
 
 	// assigning value of filtered recipes to recipes
-	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
+	const recipesState = useSelector(state => (state.recipe ? state.recipe : []));
 
-	const dispatch = useDispatch();
-
-	// assigning value of filtered recipes to recipes
-	const filteredRecipes = recipes.filter(recipe=>recipe.recipeName.includes(searchTerm) || recipe.recipeDescription.includes(searchTerm));
+	const filteredRecipes = recipesState.filter(recipe => recipe.recipeName.includes(searchTerm) || recipe.recipeIngredients.includes(searchTerm) || recipe.recipeStep.includes(searchTerm));
 
 	function sideEffects() {
-		dispatch(getAllRecipe())
+		dispatch(getAllRecipe());
 	}
 
 	const sideEffectsInputs = [];

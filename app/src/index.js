@@ -15,10 +15,11 @@ import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
+import {RecipePage} from "./pages/recipe-page/RecipePage";
+
 
 
 const store = createStore(reducers, applyMiddleware(thunk));
-
 
 const Routing = (store) => (
 	<>
@@ -30,6 +31,7 @@ const Routing = (store) => (
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 						<Route exact path="/recipe-list" component={RecipeList}/>
+						<Route exact path="/recipe-page/:recipeId" component={RecipePage} recipeId=":recipeId"/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>
