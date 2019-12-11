@@ -2,7 +2,10 @@ import React from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import {Link} from "react-router-dom";
 
+
 export const Home = () => {
+
+
 	return (
 		<>
 			<Jumbotron fluid className="mt-3 jumbo-Image">
