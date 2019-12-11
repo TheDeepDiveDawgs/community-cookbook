@@ -211,3 +211,8 @@ a:hover, a:visited, a:link, a:active
 #search-box {
 	padding-top: 0.5rem;
 }
+
+#stars {
+	background-color: #262626;
+}
+
