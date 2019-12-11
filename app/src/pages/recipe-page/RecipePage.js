@@ -3,7 +3,9 @@ import {connect} from "react-redux";
 import './recipe-page-css.css';
 import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
-import logo from "./cap-logo-5.png"
+import logo from "./cap-logo-5.png";
+import {InteractionComponent} from "../../shared/components/interaction/InteractionComponent";
+
 
 export const RecipePage = (props) => {
 	const {match} = props;
