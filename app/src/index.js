@@ -16,7 +16,7 @@ import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
 import {RecipePage} from "./pages/recipe-page/RecipePage";
-
+import {recipeSubmission} from "./pages/recipe-submission/recipeSubmission"
 
 
 const store = createStore(reducers, applyMiddleware(thunk));
