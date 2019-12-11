@@ -9,13 +9,14 @@ import {Home} from "./pages/home/Home";
 import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validation";
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
+import {RecipeList} from "./pages/recipe-list/RecipeList";
 import reducers from "./shared/reducers/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
-import {RecipeList} from "./pages/recipe-list/RecipeList";
 import {RecipePage} from "./pages/recipe-page/RecipePage";
+
 
 
 const store = createStore(reducers, applyMiddleware(thunk));
@@ -23,7 +24,6 @@ const store = createStore(reducers, applyMiddleware(thunk));
 const Routing = (store) => (
 	<>
 		<Provider store={store}>
-
 				<BrowserRouter>
 					<MainNav/>
 					<Switch>
