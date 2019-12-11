@@ -22,7 +22,6 @@ export const SearchFormContent = ({match}) => {
 	// };
 
 
-	// useEffect(effects);
 	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
 
 	const dispatch = useDispatch();
