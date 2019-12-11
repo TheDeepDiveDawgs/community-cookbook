@@ -34,6 +34,7 @@ export const RecipePage = (props) => {
 						<div className="row">
 							<div className="col-md-4">
 								<h4 id="recipeRating">Rating</h4>
+								<div><InteractionComponent recipeId={recipe.recipeId}/></div>
 							</div>
 
 							<div className="col-md-4">

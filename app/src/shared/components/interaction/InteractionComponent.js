@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import Card from "react-bootstrap/Card";
 import {getRecipeInteractions} from "../../actions/interactionAction";
-import Ratings from 'react-ratings-declarative';
+import Ratings from "react-ratings-declarative";
 
 
 export const InteractionComponent = (props) => {
