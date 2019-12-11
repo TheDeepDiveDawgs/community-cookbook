@@ -11,7 +11,6 @@ export const getRecipeByRecipeUserId = (userId) => async (dispatch) => {
 };
 
 export const getRecipeBySearchTerm = (recipeSearchTerm) => async (dispatch) => {
-	console.log(recipeSearchTerm);
 	const {data} = await httpConfig(`/apis/recipe/?recipeSearchTerm=${recipeSearchTerm}`);
 	dispatch({type: "GET_RECIPE_BY_SEARCH_TERM", payload: data})
 };

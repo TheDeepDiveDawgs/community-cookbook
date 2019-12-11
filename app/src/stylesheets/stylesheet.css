@@ -3,6 +3,10 @@
 	color: white;
 }
 
+#search-text {
+	width: 580px!important;
+}
+
 #thank-you {
 	margin-top: 10rem!important;
 	margin-bottom: 19.5rem!important;
@@ -24,10 +28,6 @@
 }
 
 @media (max-width: 750px) {
-
-	#search-text {
-		display: none;
-	}
 
 
 	.display-4 {
@@ -52,11 +52,6 @@
 		padding-right: 0.5rem !important;
 		margin: 0.5rem !important;
 	}
-
-	#search-text {
-		width: 140px;
-		height: 40px;
-	}
 }
 
 @media (max-width: 500px) {
@@ -70,30 +65,17 @@
 		padding-left: 0.5rem!important;
 		padding-right: 0.5rem!important;
 		margin: 0.5rem!important;
-}
-
-	#search-text {
-		width: 140px;
-		height: 40px;
 	}
 }
 
 @media (max-width: 400px) {
 
-	body {
-		overflow-x: hidden;
-	}
 
 	.footer-position {
 		position:absolute;
 		left:0;
 		bottom:0;
 		right:0;
-	}
-
-	#search-text {
-		width: 80px;
-		height: 40px;
 	}
 
 	h1 {

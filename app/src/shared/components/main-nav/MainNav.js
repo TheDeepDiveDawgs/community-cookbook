@@ -9,8 +9,6 @@ import logo from "./images/nav-icon.png";
 import smallLogo from "./images/nav-icon-sm.png"
 import {httpConfig} from "../../utils/http-config";
 import {UserMenu} from "./user-menu/UserMenu";
-import {SearchFormContent} from "./search/SearchForm";
-
 
 export const MainNav = (props) => {
 
@@ -58,7 +56,7 @@ export const MainNav = (props) => {
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto text-right">
-						<SearchFormContent/>
+
 						<Nav.Link href="/recipe-list"
 								  className="py-3 mr-1 d-lg-none d-inline-block"
 						>Search</Nav.Link>

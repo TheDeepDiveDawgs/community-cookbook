@@ -6,7 +6,7 @@ export const RecipeCard = ({recipe}) => {
 	return (
 
 		<Card>
-			<Card.Body className="row">
+			<Card.Body className="row my-3 mx-3">
 				<div className="col-3">
 					<Card.Img src={recipe.receipeImageUrl ? recipe.receipeImageUrl : ({logo})} alt="placeholder"/>
 				</div>
