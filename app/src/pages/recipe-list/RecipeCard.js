@@ -8,7 +8,6 @@ export const RecipeCard = ({recipe}) => {
 
 <Route render={ ({history}) => (
 		<Card>
-			<a href="../recipe-page/">
 			<Card.Body className="row my-3 mx-3" key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
 				<div className="col-3">
 					<Card.Img src={recipe.receipeImageUrl ? recipe.receipeImageUrl : ({logo})} alt="placeholder"/>
@@ -19,7 +18,6 @@ export const RecipeCard = ({recipe}) => {
 					<Card.Text>Description: {recipe.recipeDescription}</Card.Text>
 				</div>
 			</Card.Body>
-			</a>
 		</Card>
 	)}/>
 	)
