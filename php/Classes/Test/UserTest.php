@@ -66,7 +66,7 @@ class UserTest extends CommunityCookbookTest {
 		// run the default setUp() method first
 		parent::setUp();
 		$password = "abc123";
-		$this->VALID_USER_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+		$this->VALID_USER_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 7]);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 	}
 		public function testInsertValidUser() : void {
