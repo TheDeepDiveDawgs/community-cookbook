@@ -9,15 +9,13 @@ import logo from "./images/nav-icon.png";
 import smallLogo from "./images/nav-icon-sm.png"
 import {httpConfig} from "../../utils/http-config";
 import {UserMenu} from "./user-menu/UserMenu";
-import {SearchFormContent} from "./search/SearchForm";
-
 
 export const MainNav = (props) => {
 
 	const jwt = UseJwt();
 
 	useEffect( () =>{
-		httpConfig.get("./apis/sessionAPI/")
+		httpConfig.get("/apis/sessionAPI/")
 	});
 
 	const signOut = () => {
@@ -34,16 +32,16 @@ export const MainNav = (props) => {
 	};
 
 	return(
-
 		<Navbar className="nav-style fixed-top"
-				expand="lg"
-				variant="dark"
+				  expand="lg"
+				  variant="dark"
 		>
+
 			<LinkContainer exact to="/">
 				<img alt="ABQCOOKBOOK Icon"
-					 src= {logo}
-					 id="nav-image"
-					 className="d-none d-lg-inline-block align-top"
+					  src= {logo}
+					  id="nav-image"
+					  className="d-none d-lg-inline-block align-top"
 				/>
 			</LinkContainer>
 
@@ -58,9 +56,9 @@ export const MainNav = (props) => {
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto text-right">
-						<SearchFormContent/>
+
 						<Nav.Link href="/recipe-list"
-								  className="mr-1 d-lg-none d-inline-block"
+								  className="py-3 mr-1 d-lg-none d-inline-block"
 						>Search</Nav.Link>
 					{jwt !== null ?
 						<UserMenu/>

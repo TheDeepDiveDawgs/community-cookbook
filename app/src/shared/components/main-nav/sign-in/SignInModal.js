@@ -13,7 +13,7 @@ export const SignInModal = () => {
 	return (
 		<>
 			<label className="py-4" id="sign-in-label" onClick={handleShow}>
-				Sign In
+				SIGN IN
 			</label>
 
 			<Modal show={show}

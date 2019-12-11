@@ -76,12 +76,12 @@ try {
 					"recipeUserId"=>$recipe->getRecipeUserId(),
 					"recipeDescription"=>$recipe->getRecipeDescription(),
 					"recipeImageUrl"=>$recipe->getRecipeImageUrl(),
-					"recipeIngredients"=>$recipe->getRecipeIngredients(),
+					"recipeIngredients"=>json_decode($recipe->getRecipeIngredients()),
 					"recipeMinutes"=>$recipe->getRecipeMinutes(),
 					"recipeName"=>$recipe->getRecipeName(),
 					"recipeNumberIngredients"=>$recipe->getRecipeNumberIngredients(),
 					"recipeNutrition"=>$recipe->getRecipeNutrition(),
-					"recipeStep"=>$recipe->getRecipeStep(),
+					"recipeStep"=>json_decode($recipe->getRecipeStep()),
 					"recipeSubmissionDate"=>$recipe->getRecipeSubmissionDate()->format("Y-m-d H:i:s")
 				];
 			}
@@ -183,8 +183,8 @@ try {
 
 			// create new recipe and insert into the database
 			$recipe = new Recipe(generateUuidV4(), $requestObject->recipeCategoryId, $_SESSION["user"]->getUserId(), $requestObject->recipeDescription,
-				$requestObject->recipeImageUrl, $requestObject->recipeIngredients, $requestObject->recipeMinutes, $requestObject->recipeName,
-				$requestObject->recipeNumberIngredients, $requestObject->recipeNutrition, $requestObject->recipeStep, null);
+				$requestObject->recipeImageUrl, json_encode($requestObject->recipeIngredients) , $requestObject->recipeMinutes, $requestObject->recipeName,
+				$requestObject->recipeNumberIngredients, $requestObject->recipeNutrition, json_encode($requestObject->recipeStep), null);
 			$recipe->insert($pdo);
 
 			// update reply

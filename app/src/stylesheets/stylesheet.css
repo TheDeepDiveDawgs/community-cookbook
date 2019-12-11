@@ -3,6 +3,10 @@
 	color: white;
 }
 
+#search-text {
+	width: 580px!important;
+}
+
 #thank-you {
 	margin-top: 10rem!important;
 	margin-bottom: 19.5rem!important;
@@ -19,8 +23,22 @@
 	margin: 0.5rem!important;
 }
 
+.display-4 {
+	font-size: 3.5rem!important;
+}
+
+@media (max-width: 900px) {
+	.display-4 {
+		font-size: 2.5rem!important;
+	}
+}
 
 @media (max-width: 750px) {
+
+
+	.display-4 {
+		font-size: 2.5rem!important;
+	}
 
 	#sign-up-label {
 		margin-right: 0!important;
@@ -40,39 +58,30 @@
 		padding-right: 0.5rem !important;
 		margin: 0.5rem !important;
 	}
-
-	#search-text {
-		width: 140px;
-		height: 40px;
-	}
 }
 
 @media (max-width: 500px) {
+
+
+	.display-4 {
+		font-size: 2.5rem!important;
+	}
 
 	#search-button {
 		padding-left: 0.5rem!important;
 		padding-right: 0.5rem!important;
 		margin: 0.5rem!important;
-}
-
-	#search-text {
-		width: 140px;
-		height: 40px;
 	}
 }
 
 @media (max-width: 400px) {
+
 
 	.footer-position {
 		position: relative;
 		left:0;
 		bottom:0;
 		right:0;
-	}
-
-	#search-text {
-		width: 80px;
-		height: 40px;
 	}
 
 	h1 {
@@ -147,7 +156,13 @@ a:hover, a:visited, a:link, a:active
 	background-color: rgba(37, 37, 37, 0.7);
 }
 
-
+/*this is the stle for footer */
+.footer-position {
+	position: relative;
+	left:0;
+	bottom:0;
+	right:0;
+}
 
 #sign-up-label:hover {
 	color: #F5FF38;
@@ -212,7 +227,46 @@ a:hover, a:visited, a:link, a:active
 	padding-top: 0.5rem;
 }
 
-#stars {
-	background-color: #262626;
+
+.search-margin {
+	margin-right: 6rem!important;
+}
+
+#nav-image:hover {
+	cursor: pointer;
+}
+
+.jumbo-Image {
+	background: url("../pages/images/homeBackground1.jpg") no-repeat center center fixed;
+	background-size: cover;
+	background-position-y: 60%;
+	background-position-x: center;
+	height: 100vh;
+	margin-bottom: 0!important;
+}
+
+.text-bg {
+	padding: 3rem;
+	background-color: rgba(80, 80, 80, 0.6);
+	text-shadow: 3px 3px 5px #000000;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#browseRecipes:hover {
+	color: #F5FF38!important;
+}
+
+.landingText-position {
+	position: relative;
+	left:0;
+	bottom:0;
+	right:0;
+}
+
+li {
+	list-style: none;
 }
 
