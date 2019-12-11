@@ -4,7 +4,7 @@ import logo from "./cap-logo-4.png";
 
 export const RecipeCard = ({recipe}) => {
 	return (
-		<Card>
+		<Card className="mb-4 mr-5">
 			<Card.Body className="row my-3 mx-3">
 				<div className="col-3">
 					<Card.Img src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder"/>

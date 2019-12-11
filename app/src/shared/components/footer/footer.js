@@ -4,11 +4,11 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faFacebookF, faTwitter, faTwitterSquare} from '@fortawesome/free-brands-svg-icons';
 
-library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare);
+library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare, faSearch);
 
 export const Footer = () => (
 	<>
