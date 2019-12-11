@@ -6,8 +6,6 @@ export default (state = [], action) => {
 			return action.payload;
 		case "GET_USER_INTERACTIONS":
 			return action.payload;
-		// case "GET_SPECIFIC_INTERACTION":
-		// 	return action.payload;
 		default:
 			return state;
 	}

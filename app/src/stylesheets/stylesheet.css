@@ -4,13 +4,13 @@
 }
 
 #search-text {
-	width: 580px!important;
+	width: 580px !important;
 }
 
 #thank-you {
-	margin-top: 10rem!important;
-	margin-bottom: 19.5rem!important;
-	padding: 4rem!important;
+	margin-top: 10rem !important;
+	margin-bottom: 19.5rem !important;
+	padding: 4rem !important;
 	background-color: #eeeeee;
 }
 
@@ -20,16 +20,16 @@
 }
 
 #search-button {
-	margin: 0.5rem!important;
+	margin: 0.5rem !important;
 }
 
 .display-4 {
-	font-size: 3.5rem!important;
+	font-size: 3.5rem !important;
 }
 
 @media (max-width: 900px) {
 	.display-4 {
-		font-size: 2.5rem!important;
+		font-size: 2.5rem !important;
 	}
 }
 
@@ -37,19 +37,19 @@
 
 
 	.display-4 {
-		font-size: 2.5rem!important;
+		font-size: 2.5rem !important;
 	}
 
 	#sign-up-label {
-		margin-right: 0!important;
-		margin-left: 0!important;
-		margin-bottom: 0!important;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
 	}
 
 	#sign-in-label {
-		margin-right: .25rem!important;
-		margin-left: 0!important;
-		margin-bottom: 0!important;
+		margin-right: .25rem !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
 	}
 
 
@@ -64,13 +64,13 @@
 
 
 	.display-4 {
-		font-size: 2.5rem!important;
+		font-size: 2.5rem !important;
 	}
 
 	#search-button {
-		padding-left: 0.5rem!important;
-		padding-right: 0.5rem!important;
-		margin: 0.5rem!important;
+		padding-left: 0.5rem !important;
+		padding-right: 0.5rem !important;
+		margin: 0.5rem !important;
 	}
 }
 
@@ -79,13 +79,13 @@
 
 	.footer-position {
 		position: relative;
-		left:0;
-		bottom:0;
-		right:0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
 
 	h1 {
-		font-size: 2rem!important;
+		font-size: 2rem !important;
 	}
 
 }
@@ -101,9 +101,8 @@ footer {
 	color: #FFFFFF;
 }
 
-a:hover, a:visited, a:link, a:active
-{
-	text-decoration: none!important;
+a:hover, a:visited, a:link, a:active {
+	text-decoration: none !important;
 }
 
 #twitter:hover {
@@ -159,9 +158,9 @@ a:hover, a:visited, a:link, a:active
 /*this is the stle for footer */
 .footer-position {
 	position: relative;
-	left:0;
-	bottom:0;
-	right:0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
 
 #sign-up-label:hover {
@@ -176,23 +175,23 @@ a:hover, a:visited, a:link, a:active
 
 #sign-up-label {
 	margin-right: 3rem;
-	margin-left: 3rem!important;
-	margin-bottom: 0!important;
+	margin-left: 3rem !important;
+	margin-bottom: 0 !important;
 }
 
 #sign-in-label {
 	margin-right: 3rem;
-	margin-left: 3rem!important;
-	margin-bottom: 0!important;
+	margin-left: 3rem !important;
+	margin-bottom: 0 !important;
 }
 
 .navbar-toggler {
-	border: none!important;
+	border: none !important;
 }
 
 .navbar-toggler-icon {
-	background-image: url("../shared/components/main-nav/images/hamburger2.svg")!important;
-	background-size: 64px!important;
+	background-image: url("../shared/components/main-nav/images/hamburger2.svg") !important;
+	background-size: 64px !important;
 }
 
 #menuSignOut {
@@ -202,20 +201,20 @@ a:hover, a:visited, a:link, a:active
 @media (max-width: 975px) {
 
 	#sign-up-label {
-		margin-right: 0!important;
-		margin-left: 0!important;
-		margin-bottom: 0!important;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
 	}
 
 	#sign-in-label {
-		margin-right: .25rem!important;
-		margin-left: 0!important;
-		margin-bottom: 0!important;
+		margin-right: .25rem !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
 	}
 
 
 	#search-box {
-		display: none!important;
+		display: none !important;
 	}
 
 	#menuSignOut {
@@ -229,7 +228,7 @@ a:hover, a:visited, a:link, a:active
 
 
 .search-margin {
-	margin-right: 6rem!important;
+	margin-right: 6rem !important;
 }
 
 #nav-image:hover {
@@ -242,7 +241,7 @@ a:hover, a:visited, a:link, a:active
 	background-position-y: 60%;
 	background-position-x: center;
 	height: 100vh;
-	margin-bottom: 0!important;
+	margin-bottom: 0 !important;
 }
 
 .text-bg {
@@ -256,14 +255,14 @@ body {
 }
 
 #browseRecipes:hover {
-	color: #F5FF38!important;
+	color: #F5FF38 !important;
 }
 
 .landingText-position {
 	position: relative;
-	left:0;
-	bottom:0;
-	right:0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
 
 li {
