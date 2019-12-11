@@ -3,14 +3,19 @@ import React, {useEffect} from 'react';
 import {getAllRecipe} from "../../shared/actions/recipeActions";
 import {RecipeCard} from "./RecipeCard";
 
-export const Recipes = (props) => {
+export const Recipes = ({searchTerm}) => {
 
-	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
+	const recipesState = useSelector(state => (state.recipe ? state.recipe : []));
 
-	const dispatch = useDispatch();
+	const filteredRecipes = recipesState.filter(recipe=>recipe.recipeName.includes(searchTerm) || recipe.recipeIngredients.includes(searchTerm));
+
+	// check if recipe search term is coming back with a value
+	// console.log("recipe search term = ", searchTerm);
+
+	const recipes = filteredRecipes, dispatch = useDispatch();
 
 	function sideEffects() {
-		dispatch(getAllRecipe())
+		dispatch(getAllRecipe());
 	}
 
 

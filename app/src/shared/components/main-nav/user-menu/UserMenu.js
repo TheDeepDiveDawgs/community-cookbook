@@ -30,8 +30,8 @@ export const UserMenu = (props) => {
 		<>
 			{jwt !== null && (
 				<NavDropdown 	alignRight
-								className="mx-3 my-3 d-none d-lg-inline-block"
-								title={"Hi, " + userHandle.toUpperCase() + "!"}
+								className="mr-5 my-3 d-none d-lg-inline-block"
+								title={"Hello, " + userHandle.toUpperCase() + "!"}
 								id="collasible-nav-dropdown"
 								>
 					<NavDropdown.Item>Create Recipe</NavDropdown.Item>

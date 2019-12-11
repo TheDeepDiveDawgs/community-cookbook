@@ -10,8 +10,8 @@ export const getRecipeByRecipeUserId = (userId) => async (dispatch) => {
 	dispatch({type: "GET_RECIPE_BY_RECIPE_USER_ID", payload: data})
 };
 
-export const getRecipeBySearchTerm = () => async (dispatch) => {
-	const {data} = await httpConfig(`/apis/recipe/`);
+export const getRecipeBySearchTerm = (recipeSearchTerm) => async (dispatch) => {
+	const {data} = await httpConfig(`/apis/recipe/?recipeSearchTerm=${recipeSearchTerm}`);
 	dispatch({type: "GET_RECIPE_BY_SEARCH_TERM", payload: data})
 };
 

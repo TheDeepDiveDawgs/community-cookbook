@@ -13,7 +13,7 @@ export const SignUpModal = () => {
 	return (
 		<>
 			<label className="py-4"  onClick={handleShow} id="sign-up-label">
-				Sign Up
+				SIGN UP
 			</label>
 
 			<Modal show={show} onHide={handleClose} className="bg-modal" centered>
