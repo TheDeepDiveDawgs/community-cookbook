@@ -6,6 +6,7 @@ export const RecipeCard = ({recipe}) => {
 	return (
 
 		<Card>
+			<a href="../recipe-page/RecipePage.js">
 			<Card.Body className="row my-3 mx-3">
 				<div className="col-3">
 					<Card.Img src={recipe.receipeImageUrl ? recipe.receipeImageUrl : ({logo})} alt="placeholder"/>
@@ -17,6 +18,7 @@ export const RecipeCard = ({recipe}) => {
 
 				</div>
 			</Card.Body>
+			</a>
 		</Card>
 	);
 };
