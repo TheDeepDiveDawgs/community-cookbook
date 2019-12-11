@@ -3,6 +3,7 @@ import './recipe-page-css.css';
 import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
 import logo from "./cap-logo-5.png"
+import {InteractionComponent} from "../../shared/components/interaction/InteractionComponent";
 
 export const RecipePage = (props) => {
 	const {match} = props;
@@ -15,6 +16,7 @@ export const RecipePage = (props) => {
 	const recipe = {...filterRecipe[0]};
 	let weHaveData = (!(Object.entries(recipe).length === 0 && recipe.constructor === Object));
 	return (
+		<>
 		<section className="margin">
 			<div className="container-fluid py-5">
 				<div className="row">
@@ -23,11 +25,9 @@ export const RecipePage = (props) => {
 						<div className="row">
 							<div className="col-md-4">
 								<h4 id="recipeRating">Rating</h4>
-								<p id="rating">{recipe.recipeRating}</p>
-								{/*<h4 id="recipeInteraction">interaction</h4>*/}
-								{/*<p id="interaction">{recipe.recipeInteraction}</p>*/}
-								{/*need to add danny's rating above*/}
+								<div><InteractionComponent recipeId={recipe.recipeId}/></div>
 							</div>
+
 							<div className="col-md-4">
 								<h4 id="recipeNumberIngredients"># Of Ingredients</h4>
 								<p id="numberIngredients">{recipe.recipeNumberIngredients}</p>
@@ -64,5 +64,6 @@ export const RecipePage = (props) => {
 				</div>
 			</div>
 		</section>
+		</>
 	)
 };
