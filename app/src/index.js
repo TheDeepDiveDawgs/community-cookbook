@@ -18,7 +18,6 @@ import {Footer} from "./shared/components/footer/footer"
 import {RecipePage} from "./pages/recipe-page/RecipePage";
 
 
-
 const store = createStore(reducers, applyMiddleware(thunk));
 
 const Routing = (store) => (

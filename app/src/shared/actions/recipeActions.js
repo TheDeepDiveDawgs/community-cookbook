@@ -5,6 +5,11 @@ export const getRecipeByRecipeId = (recipeId) => async (dispatch) => {
 	dispatch({type: "GET_RECIPE_BY_RECIPE_ID", payload: data})
 };
 
+export const getRecipeByRecipeCategoryId = (categoryId) => async (dispatch) => {
+	const {data} = await httpConfig(`/apis/recipe/?recipeUserId=${categoryId}`);
+	dispatch({type: "GET_RECIPE_BY_RECIPE_CATEGORY_ID", payload: data})
+};
+
 export const getRecipeByRecipeUserId = (userId) => async (dispatch) => {
 	const {data} = await httpConfig(`/apis/recipe/?recipeUserId=${userId}`);
 	dispatch({type: "GET_RECIPE_BY_RECIPE_USER_ID", payload: data})
