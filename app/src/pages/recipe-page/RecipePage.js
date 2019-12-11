@@ -4,7 +4,6 @@ import './recipe-page-css.css';
 import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
 import logo from "./cap-logo-5.png"
-import recipeReducer from "../../shared/reducers/recipeReducer";
 
 export const RecipePage = (props) => {
 	const {match} = props;
@@ -24,6 +23,7 @@ export const RecipePage = (props) => {
 
 	//this section determines where everything lines up in the recipe DOM and pulls the corresponding info into the correct fields.
 	return (
+		<>
 		<section className="margin">
 			<div className="container-fluid py-5">
 				<div className="row">
@@ -32,11 +32,8 @@ export const RecipePage = (props) => {
 						<div className="row">
 							<div className="col-md-4">
 								<h4 id="recipeRating">Rating</h4>
-								<p id="rating">{recipe.recipeRating}</p>
-								{/*<h4 id="recipeInteraction">interaction</h4>*/}
-								{/*<p id="interaction">{recipe.recipeInteraction}</p>*/}
-								{/*need to add danny's rating above*/}
 							</div>
+
 							<div className="col-md-4">
 								<h4 id="recipeNumberIngredients"># Of Ingredients</h4>
 								<p id="numberIngredients">{recipe.recipeNumberIngredients}</p>
@@ -76,5 +73,6 @@ export const RecipePage = (props) => {
 				</div>
 			</div>
 		</section>
+		</>
 	)
 };
