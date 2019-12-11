@@ -14,7 +14,7 @@ export const SearchFormContent = ({match}) => {
 
 	// const recipes = useSelector(state => (state.recipe ? state.recipe : []));
 	// const dispatch = useDispatch();
-	// const history = useHistory();
+	const history = useHistory();
 	// const recipeList = getRecipeBySearchTerm();
 	//
 	// const effects = () => {
@@ -22,34 +22,35 @@ export const SearchFormContent = ({match}) => {
 	// };
 
 
-	const recipes = useSelector(state => (state.recipe ? state.recipe : []));
-
-	const dispatch = useDispatch();
-
-	function sideEffects() {
-		dispatch(getRecipeBySearchTerm(match.params.recipeSearchTerm))
-	}
-
-
-	const sideEffectsInputs = [match.params.recipeSearchTerm];
-
-	useEffect(sideEffects, sideEffectsInputs);
+	// useEffect(effects);
+	// const recipes = useSelector(state => (state.recipe ? state.recipe : []));
+	//
+	// const dispatch = useDispatch();
+	//
+	// function sideEffects() {
+	// 	dispatch(getRecipeBySearchTerm(match.params.recipeSearchTerm))
+	// }
+	//
+	//
+	// const sideEffectsInputs = [match.params.recipeSearchTerm];
+	//
+	// useEffect(sideEffects, sideEffectsInputs);
 
 
 
 	const searchTerm = (e) => {
 		e.preventDefault();
 		getRecipeBySearchTerm(e.target.value);
-		console.log(e.target.value)
+		console.log(getRecipeBySearchTerm());
 
-		// httpConfig.get('apis/recipe/')
-		// 	.then( reply => {
-		// 		if (reply.status === 200) {
-		// 			// recipes.filter();
-		// 			console.log(reply);
-		// 			history.push("/recipe-list")
-		// 		}
-		// 	})
+		httpConfig.get('apis/recipe/?recipeSearchTerm=${recipeSearchTerm}')
+			.then( reply => {
+				if (reply.status === 200) {
+					// recipes.filter();
+					console.log(reply);
+					history.push("/recipe-list=${recipeSearchTerm}")
+				}
+			})
 	};
 
 
