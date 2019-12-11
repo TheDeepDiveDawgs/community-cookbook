@@ -57,7 +57,6 @@ export const RecipePage = (props) => {
 						</div>
 					</div>
 					<div className="col-md-3">
-						<h3 id="recipeImageUrl">image</h3>
 						<p id="imageUrl">{recipe.recipeImageUrl}</p>
 						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo}
 							  alt="recipe image"/>
@@ -67,10 +66,3 @@ export const RecipePage = (props) => {
 		</section>
 	)
 };
-
-{/*<img className="card-img-top" id="cardImg"*/
-}
-{/*src={recipe.recipeImageUrl ? recipe.recipeMedia : "./recipe-page/cap-logo-5.png"}*/
-}
-{/*alt="logo image as default"/>*/
-}
