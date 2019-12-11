@@ -27,11 +27,17 @@
 	font-size: 3.5rem!important;
 }
 
+@media (max-width: 900px) {
+	.display-4 {
+		font-size: 2.5rem!important;
+	}
+}
+
 @media (max-width: 750px) {
 
 
 	.display-4 {
-		font-size: 3.5rem!important;
+		font-size: 2.5rem!important;
 	}
 
 	#sign-up-label {
@@ -228,7 +234,7 @@ a:hover, a:visited, a:link, a:active
 .jumbo-Image {
 	background: url("../pages/images/homeBackground1.jpg") no-repeat center center fixed;
 	background-size: cover;
-	background-position-y: 80%;
+	background-position-y: 60%;
 	background-position-x: center;
 	height: 100vh;
 	margin-bottom: 0!important;
