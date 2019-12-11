@@ -31,7 +31,7 @@ const Routing = (store) => (
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 						<Route exact path="/recipe-list" component={RecipeList}/>
-						<Route exact path="/recipe-page/:recipeId" component={RecipePage} recipeId=":recipeId"/>
+						<Route exact path="/recipe-page.js/:recipeId" component={RecipePage} recipeId=":recipeId"/>
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer/>

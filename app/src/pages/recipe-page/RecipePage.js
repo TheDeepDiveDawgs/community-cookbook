@@ -1,19 +1,27 @@
 import React, {useEffect} from 'react';
+import {connect} from "react-redux";
 import './recipe-page-css.css';
 import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
 import logo from "./cap-logo-5.png"
+import recipeReducer from "../../shared/reducers/recipeReducer";
 
 export const RecipePage = (props) => {
 	const {match} = props;
+	const recipes = useSelector(state => (state.recipe));
+
 	const dispatch = useDispatch();
-	const recipes = useSelector(state => state.recipe);
-	useEffect(() => {
-		dispatch(getRecipeByRecipeId(match.params.recipeId))
-	}, [match.params.recipeId]);
+	const effects = () => {
+		dispatch(getRecipeByRecipeId(match.params.recipeId));
+	};
+	const inputs = [match.params.recipeId];
+	useEffect(effects, inputs);
+
 	const filterRecipe = recipes.filter(recipe => recipe.recipeId === match.params.recipeId);
 	const recipe = {...filterRecipe[0]};
+
 	let weHaveData = (!(Object.entries(recipe).length === 0 && recipe.constructor === Object));
+
 	return (
 		<section className="margin">
 			<div className="container-fluid py-5">
