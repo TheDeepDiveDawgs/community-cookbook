@@ -22,18 +22,18 @@ export const RecipePage = (props) => {
 						<h2><strong><p id="name">{recipe.recipeName}</p></strong></h2>
 						<div className="row">
 							<div className="col-md-4">
-								<h4 id="recipeRating">rating</h4>
+								<h4 id="recipeRating">Rating</h4>
 								<p id="rating">{recipe.recipeRating}</p>
 								{/*<h4 id="recipeInteraction">interaction</h4>*/}
 								{/*<p id="interaction">{recipe.recipeInteraction}</p>*/}
 								{/*need to add danny's rating above*/}
 							</div>
 							<div className="col-md-4">
-								<h4 id="recipeNumberIngredients"># of ingredients</h4>
+								<h4 id="recipeNumberIngredients"># Of Ingredients</h4>
 								<p id="numberIngredients">{recipe.recipeNumberIngredients}</p>
 							</div>
 							<div className="col-md-4">
-								<h4 id="recipeMinutes">cook time <small>(minutes)</small></h4>
+								<h4 id="recipeMinutes">Cook Time<small> (minutes)</small></h4>
 								<p id="minutes">{recipe.recipeMinutes}</p>
 							</div>
 						</div>
@@ -52,7 +52,7 @@ export const RecipePage = (props) => {
 							</ol>
 							<h4 id="recipeNutrition">Nutrition</h4>
 							<p id="nutrition">{recipe.recipeNutrition}</p>
-							<h5 id="recipeSubmissionDate">recipe submitted</h5>
+							<h5 id="recipeSubmissionDate">Recipe Submitted</h5>
 							<p id="submissionDate">{recipe.recipeSubmissionDate}</p>
 						</div>
 					</div>
