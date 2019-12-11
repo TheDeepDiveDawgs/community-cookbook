@@ -7,7 +7,7 @@ export const Recipes = ({searchTerm}) => {
 
 	const recipesState = useSelector(state => (state.recipe ? state.recipe : []));
 
-	const filteredRecipes = recipesState.filter(recipe=>recipe.recipeName.includes(searchTerm) || recipe.recipeIngredients.includes(searchTerm));
+	const filteredRecipes = recipesState.filter(recipe => recipe.recipeName.includes(searchTerm) || recipe.recipeIngredients.includes(searchTerm) || recipe.recipeStep.includes(searchTerm));
 
 	// check if recipe search term is coming back with a value
 	// console.log("recipe search term = ", searchTerm);
