@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from "react-redux";
 // import FormControl from "react-bootstrap/FormControl";
 import {httpConfig} from "../../../utils/http-config";
 import {useHistory} from "react-router";
-import {getAllRecipe, getRecipeBySearchTerm} from "../../../actions/recipeActions";
+// import {getAllRecipe} from "../../../actions/recipeActions";
 
 
 
@@ -14,7 +14,7 @@ export const SearchFormContent = ({match}) => {
 
 	// const recipes = useSelector(state => (state.recipe ? state.recipe : []));
 	// const dispatch = useDispatch();
-	const history = useHistory();
+	// const history = useHistory();
 	// const recipeList = getRecipeBySearchTerm();
 	//
 	// const effects = () => {
@@ -22,7 +22,7 @@ export const SearchFormContent = ({match}) => {
 	// };
 
 
-	// useEffect(effects);
+	// // useEffect(effects);
 	// const recipes = useSelector(state => (state.recipe ? state.recipe : []));
 	//
 	// const dispatch = useDispatch();
@@ -40,17 +40,17 @@ export const SearchFormContent = ({match}) => {
 
 	const searchTerm = (e) => {
 		e.preventDefault();
-		getRecipeBySearchTerm(e.target.value);
-		console.log(getRecipeBySearchTerm());
+		// getAllRecipe(e.target.value);
+		console.log(e.target.value);
 
-		httpConfig.get('apis/recipe/?recipeSearchTerm=${recipeSearchTerm}')
-			.then( reply => {
-				if (reply.status === 200) {
-					// recipes.filter();
-					console.log(reply);
-					history.push("/recipe-list=${recipeSearchTerm}")
-				}
-			})
+		// httpConfig.get('apis/recipe/?recipeSearchTerm=${recipeSearchTerm}')
+		// 	.then( reply => {
+		// 		if (reply.status === 200) {
+		// 			// recipes.filter();
+		// 			console.log(reply);
+		// 			history.push("/recipe-list")
+		// 		}
+		// 	})
 	};
 
 

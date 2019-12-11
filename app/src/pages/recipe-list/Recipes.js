@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from "react-redux";
 import React, {useEffect} from 'react';
-import {getAllRecipe, getRecipeBySearchTerm} from "../../shared/actions/recipeActions";
+import {getAllRecipe} from "../../shared/actions/recipeActions";
 import {RecipeCard} from "./RecipeCard";
 
 export const Recipes = (props) => {
@@ -10,7 +10,7 @@ export const Recipes = (props) => {
 	const dispatch = useDispatch();
 
 	function sideEffects() {
-		dispatch(getAllRecipe()); dispatch(getRecipeBySearchTerm());
+		dispatch(getAllRecipe());
 	}
 
 
