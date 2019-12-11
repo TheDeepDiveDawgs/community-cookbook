@@ -6,7 +6,7 @@ export const Home = () => {
 		<>
 
 			<h1 className="pt-5 mt-5">Home</h1>
-			<InteractionComponent recipeId="00392c66-dd53-4a7a-85c7-975e100b777a"/>
+			<InteractionComponent recipeId="37efd7ed-953d-4979-aaa9-e89594e0afaa"/>
 
 
 		</>
