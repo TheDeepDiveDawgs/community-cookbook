@@ -27,12 +27,10 @@ export const Categories = (props) => {
 	//return what the virtual DOM should look like
 	return (
 		<>
-				<div>
 					{/*Transformed categories array into other arrays per individual category by category id.
 					 Array is inserted into a category card. */}
 					{categories.map(category => <CategoryCard key={category.categoryId} category={category}/>
 					)}
-				</div>
 		</>
 	)
 };

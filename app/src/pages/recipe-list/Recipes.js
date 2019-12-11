@@ -28,10 +28,8 @@ export const Recipes = ({searchTerm}) => {
 
 	return (
 		<>
-				<div>
 					{recipes.map(recipe => <RecipeCard key={recipe.recipeId} recipe={recipe}/>
 					)}
-				</div>
 		</>
 	)
 };

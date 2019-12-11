@@ -6,11 +6,10 @@ import logo from "./cap-logo-4.png";
 export const RecipeCard = ({recipe}) => {
 	return (
 
-
+//this gives form to the recipes in the list on DOM
 <Route render={ ({history}) => (
-
-		<Card>
-			<Card.Body className="row my-3 mx-3" key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
+		<Card key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
+			<Card.Body className="row my-3 mx-3">
 				<div className="col-3">
 					<Card.Img src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder"/>
 				</div>

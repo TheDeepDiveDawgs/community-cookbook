@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 export const SearchFormContent = ({setSearchTerm}) => {
 		 const setSearch = (e) => {
 		 	//check the input field for which characters are being entered and set them as the search term
-		 	// console.log("hello recipe", e.target.value);
 		 	setSearchTerm(e.target.value);
 }
 

@@ -22,6 +22,7 @@ export const RecipePage = (props) => {
 
 	let weHaveData = (!(Object.entries(recipe).length === 0 && recipe.constructor === Object));
 
+	//this section determines where everything lines up in the recipe DOM and pulls the corresponding info into the correct fields.
 	return (
 		<section className="margin">
 			<div className="container-fluid py-5">
@@ -50,6 +51,7 @@ export const RecipePage = (props) => {
 							<p id="description">{recipe.recipeDescription}</p>
 							<div className="ul">
 								<h4 id="recipeIngredients">Ingredients</h4>
+{/*this allows us to form the data as a list in the DOM*/}
 								<ul>
 									{weHaveData && recipe.recipeIngredients.map(ingredient => <li> {ingredient} </li>)}
 								</ul>
@@ -64,6 +66,8 @@ export const RecipePage = (props) => {
 							<p id="submissionDate">{recipe.recipeSubmissionDate}</p>
 						</div>
 					</div>
+
+{/*this allows users to add pics of there recipe or will default to cookbook logo*/}
 					<div className="col-md-3">
 						<p id="imageUrl">{recipe.recipeImageUrl}</p>
 						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo}
