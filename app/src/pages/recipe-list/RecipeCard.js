@@ -8,7 +8,8 @@ export const RecipeCard = ({recipe}) => {
 
 //this gives form to the recipes in the list on DOM
 <Route render={ ({history}) => (
-		<Card key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
+		<Card className="mb-4 mr-5" key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
+		{/*<Card className="mb-4 mr-5">*/}
 			<Card.Body className="row my-3 mx-3">
 				<div className="col-3">
 					<Card.Img src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder"/>

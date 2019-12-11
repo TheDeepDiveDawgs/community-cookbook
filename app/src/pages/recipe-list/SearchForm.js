@@ -1,5 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
 // import FormControl from "react-bootstrap/FormControl";
 
 export const SearchFormContent = ({setSearchTerm}) => {
@@ -11,8 +13,8 @@ export const SearchFormContent = ({setSearchTerm}) => {
 	return (
 		<>
 			<Form inline className="justify-content-center p-5">
-				<input type="text"
-					    placeholder="Search for recipe"
+				<Form.Control type="text"
+					    placeholder="Search for recipe... "
 						 id="search-text"
 						 onChange={setSearch}
 				/>

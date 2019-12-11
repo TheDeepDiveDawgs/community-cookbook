@@ -3,7 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 export const CategoryCard = ({category}) => {
 	return (
-		<div>
+		<div className="text-center">
 			<ListGroup variant="flush">
 				<ListGroup.Item action variant="category" href="">{category.categoryName}</ListGroup.Item>
 			</ListGroup>
