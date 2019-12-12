@@ -273,7 +273,6 @@ class User implements \JsonSerializable {
 		if($userHashInfo["algoName"] !== "argon2i") {
 			throw(new \InvalidArgumentException("User hash is not a valid hash"));
 		}
-		var_dump($newUserHash);
 		//enforce that the hash is exactly 97 characters.
 		if(strlen($newUserHash) !== 96) {
 			throw(new \RangeException("User hash must be 96 characters"));
