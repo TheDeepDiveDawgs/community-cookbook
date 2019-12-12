@@ -1,0 +1,279 @@
+.nav-style {
+	background-color: #252525;
+	color: white;
+}
+
+.search-input {
+	position: absolute;
+	right: 2px;
+}
+
+#search-text {
+	padding: 1.5rem;
+	border-style: solid;
+	height: 64px;
+	width: 580px !important;
+}
+
+#thank-you {
+	margin-top: 10rem !important;
+	margin-bottom: 19.5rem !important;
+	padding: 4rem !important;
+	background-color: #eeeeee;
+}
+
+#nav-image-small {
+	width: 64px;
+	height: 64px;
+}
+
+#search-button {
+	margin: 0.5rem !important;
+}
+
+.display-4 {
+	font-size: 3.5rem !important;
+}
+
+@media (max-width: 900px) {
+	.display-4 {
+		font-size: 2.5rem !important;
+	}
+}
+
+@media (max-width: 750px) {
+
+
+	.display-4 {
+		font-size: 2.5rem !important;
+	}
+
+	#sign-up-label {
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+	#sign-in-label {
+		margin-right: .25rem !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+
+	#search-button {
+		padding-left: 0.5rem !important;
+		padding-right: 0.5rem !important;
+		margin: 0.5rem !important;
+	}
+}
+
+@media (max-width: 500px) {
+
+
+	.display-4 {
+		font-size: 2.5rem !important;
+	}
+
+	#search-button {
+		padding-left: 0.5rem !important;
+		padding-right: 0.5rem !important;
+		margin: 0.5rem !important;
+	}
+}
+
+@media (max-width: 400px) {
+
+
+	.footer-position {
+		position: relative;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+
+	h1 {
+		font-size: 2rem !important;
+	}
+
+}
+
+footer {
+	background-color: #262626;
+	height: 50px;
+	padding-top: 10px;
+}
+
+#twitter {
+	text-align: center;
+	color: #FFFFFF;
+}
+
+a:hover, a:visited, a:link, a:active {
+	text-decoration: none !important;
+}
+
+#twitter:hover {
+	color: #F5FF38;
+}
+
+#faTweet {
+	color: #FFFFFF;
+}
+
+#faTweet:hover {
+	color: #F5FF38;
+}
+
+#facebook {
+	text-align: center;
+	color: #FFFFFF;
+}
+
+#facebook:hover {
+	color: #F5FF38;
+}
+
+#faFb {
+	color: #FFFFFF;
+}
+
+#faFb:hover {
+	color: #F5FF38;
+}
+
+#email {
+	text-align: center;
+	color: #FFFFFF;
+}
+
+#email:hover {
+	color: #F5FF38;
+}
+
+#faEmail {
+	color: #FFFFFF;
+}
+
+#faEmail:hover {
+	color: #F5FF38;
+}
+
+.bg-modal {
+	background-color: rgba(37, 37, 37, 0.7);
+}
+
+/*this is the stle for footer */
+.footer-position {
+	position: relative;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+#sign-up-label:hover {
+	color: #F5FF38;
+	cursor: pointer;
+}
+
+#sign-in-label:hover {
+	color: #F5FF38;
+	cursor: pointer;
+}
+
+#sign-up-label {
+	margin-right: 3rem;
+	margin-left: 3rem !important;
+	margin-bottom: 0 !important;
+}
+
+#sign-in-label {
+	margin-right: 3rem;
+	margin-left: 3rem !important;
+	margin-bottom: 0 !important;
+}
+
+.navbar-toggler {
+	border: none !important;
+}
+
+.navbar-toggler-icon {
+	background-image: url("../shared/components/main-nav/images/hamburger2.svg") !important;
+	background-size: 64px !important;
+}
+
+#menuSignOut {
+	display: none;
+}
+
+@media (max-width: 975px) {
+
+	#sign-up-label {
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+	#sign-in-label {
+		margin-right: .25rem !important;
+		margin-left: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+
+	#search-box {
+		display: none !important;
+	}
+
+	#menuSignOut {
+		display: inline-block;
+	}
+}
+
+#search-box {
+	padding-top: 0.5rem;
+}
+
+
+.search-margin {
+	margin-right: 6rem !important;
+}
+
+#nav-image:hover {
+	cursor: pointer;
+}
+
+.jumbo-Image {
+	background: url("../pages/images/homeBackground1.jpg") no-repeat center center fixed;
+	background-size: cover;
+	background-position-y: 60%;
+	background-position-x: center;
+	height: 100vh;
+	margin-bottom: 0 !important;
+}
+
+.text-bg {
+	padding: 3rem;
+	background-color: rgba(80, 80, 80, 0.6);
+	text-shadow: 3px 3px 5px #000000;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#browseRecipes:hover {
+	color: #F5FF38 !important;
+}
+
+.landingText-position {
+	position: relative;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.home-list {
+	list-style-type: none;
+}
+
