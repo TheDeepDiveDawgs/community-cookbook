@@ -35,7 +35,7 @@ const Routing = (store) => (
 						<Route exact path="/recipe-page.js/:recipeId" component={RecipePage} recipeId=":recipeId"/>
 						<Route component={FourOhFour}/>
 					</Switch>
-					<Footer/>
+					<Footer className="mt-2"/>
 				</BrowserRouter>
 		</Provider>
 	</>
