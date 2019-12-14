@@ -16,7 +16,7 @@ export const Footer = () => (
 			<Container className="container-fluid">
 				<Row>
 					<Col>
-						<a href="https://www.facebook.com/cook.book.3705157">
+						<a href="https://www.facebook.com/abqcookbook">
 							<h5 className="d-none d-lg-block" id="facebook">
 								Like Us on Facebook
 							</h5>
