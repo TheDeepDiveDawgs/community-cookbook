@@ -113,54 +113,21 @@ a:hover, a:visited, a:link, a:active {
 	text-decoration: none !important;
 }
 
-#twitter:hover {
+#footerIcons:hover {
 	color: #F5FF38;
 }
 
-#faTweet {
+#footerIcons {
 	color: #FFFFFF;
-}
-
-#faTweet:hover {
-	color: #F5FF38;
-}
-
-#facebook {
-	text-align: center;
-	color: #FFFFFF;
-}
-
-#facebook:hover {
-	color: #F5FF38;
-}
-
-#faFb {
-	color: #FFFFFF;
-}
-
-#faFb:hover {
-	color: #F5FF38;
-}
-
-#email {
-	text-align: center;
-	color: #FFFFFF;
-}
-
-#email:hover {
-	color: #F5FF38;
-}
-
-#faEmail {
-	color: #FFFFFF;
-}
-
-#faEmail:hover {
-	color: #F5FF38;
 }
 
 .bg-modal {
 	background-color: rgba(37, 37, 37, 0.7);
+}
+
+.bg-modal .modal-content {
+	color: #FFFFFF;
+	background-color: #252525;
 }
 
 /*this is the stle for footer */
@@ -249,12 +216,11 @@ a:hover, a:visited, a:link, a:active {
 	background-position-y: 60%;
 	background-position-x: center;
 	height: 100vh;
-	margin-bottom: 0 !important;
+	margin-bottom: 0!important;
 }
 
 .text-bg {
 	padding: 1rem;
-	margin: 1rem;
 	background-color: rgba(80, 80, 80, 0.6);
 	text-shadow: 3px 3px 5px #000000;
 }
@@ -277,4 +243,6 @@ body {
 .home-list {
 	list-style-type: none;
 }
+
+
 
