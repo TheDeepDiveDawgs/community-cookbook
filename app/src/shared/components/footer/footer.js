@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faFacebookF, faTwitter, faTwitterSquare} from '@fortawesome/free-brands-svg-icons';
+import {faFacebookF, faGithub, faGithubAlt, faTwitter, faTwitterSquare} from '@fortawesome/free-brands-svg-icons';
 
 library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare, faSearch);
 
@@ -14,36 +14,47 @@ export const Footer = () => (
 	<>
 		<footer className="page-footer footer-position">
 			<Container className="container-fluid">
-				<Row>
+				<Row className="text-center text-white">
 					<Col>
-						<a href="https://www.facebook.com/abqcookbook">
-							<h5 className="d-none d-lg-block" id="facebook">
+						<a href="https://www.facebook.com/abqcookbook"  rel="noopener noreferrer" target="_blank">
+							<h5 className="d-none d-lg-block" id="footerIcons">
 								Like Us on Facebook
 							</h5>
-							<i className="d-lg-none float-left" id="faFb">
+							<i className="d-lg-none d-inline-block" id="footerIcons">
 								<FontAwesomeIcon icon={faFacebookF} size="2x"/>
 							</i>
 						</a>
 					</Col>
 
 					<Col>
-						<a href="https://twitter.com/CookBoo43086652">
-							<h5 className="d-none d-lg-block" id="twitter">
+						<a href="https://twitter.com/CookBoo43086652"  rel="noopener noreferrer" target="_blank">
+							<h5 className="d-none d-lg-block" id="footerIcons">
 								Follow Us on Twitter
 							</h5>
-							<i className="d-lg-none d-flex justify-content-center" id="faTweet">
+							<i className="d-lg-none d-inline-block" id="footerIcons">
 								<FontAwesomeIcon icon={faTwitter} size="2x"/>
 							</i>
 						</a>
 					</Col>
 
 					<Col>
-						<a href="mailto:abqcookbook@gmail.com" rel="noopener noreferrer" target="_blank">
-							<h5 className="d-none d-lg-block" id="email">
+						<a href="mailto:abqcookbook@gmail.com" rel="noopener noreferrer" target="_blank" >
+							<h5 className="d-none d-lg-block" id="footerIcons">
 								Contact Us
 							</h5>
-							<i className="d-lg-none float-right" id="faEmail">
+							<i className="d-lg-none d-inline-block" id="footerIcons">
 								<FontAwesomeIcon icon={faEnvelope} size="2x"/>
+							</i>
+						</a>
+					</Col>
+
+					<Col>
+						<a href="https://github.com/TheDeepDiveDawgs/community-cookbook" rel="noopener noreferrer" target="_blank" >
+							<h5 className="d-none d-lg-block" id="footerIcons">
+								GitHub
+							</h5>
+							<i className="d-lg-none d-inline-block" id="footerIcons">
+								<FontAwesomeIcon icon={faGithubAlt} size="2x"/>
 							</i>
 						</a>
 					</Col>
