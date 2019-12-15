@@ -24,7 +24,7 @@ export const Footer = () => (
 					</Col>
 
 					<Col>
-						<a href="https://twitter.com/CookBoo43086652"  rel="noopener noreferrer" target="_blank">
+						<a href="https://twitter.com/AbqCookbook"  rel="noopener noreferrer" target="_blank">
 							<h5 className="d-none d-lg-block" id="footerIcons">
 								Follow us on Twitter
 							</h5>
@@ -48,7 +48,7 @@ export const Footer = () => (
 					<Col>
 						<a href="https://github.com/TheDeepDiveDawgs/community-cookbook" rel="noopener noreferrer" target="_blank" >
 							<h5 className="d-none d-lg-block" id="footerIcons">
-								GitHub
+								View on GitHub
 							</h5>
 							<i className="d-lg-none d-inline-block" id="footerIcons">
 								<FontAwesomeIcon icon={faGithubAlt} size="2x"/>
