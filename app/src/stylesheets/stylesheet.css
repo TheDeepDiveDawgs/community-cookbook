@@ -249,12 +249,12 @@ a:hover, a:visited, a:link, a:active {
 	background-position-y: 60%;
 	background-position-x: center;
 	height: 100vh;
-	margin-bottom: 0 !important;
+	width: 100vw;
+	margin-bottom: 0!important;
 }
 
 .text-bg {
 	padding: 1rem;
-	margin: 1rem;
 	background-color: rgba(80, 80, 80, 0.6);
 	text-shadow: 3px 3px 5px #000000;
 }
