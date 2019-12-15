@@ -125,6 +125,11 @@ a:hover, a:visited, a:link, a:active {
 	background-color: rgba(37, 37, 37, 0.7);
 }
 
+.bg-modal .modal-content {
+	color: #FFFFFF;
+	background-color: #252525;
+}
+
 /*this is the stle for footer */
 .footer-position {
 	position: relative;
