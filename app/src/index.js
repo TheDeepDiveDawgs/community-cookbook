@@ -17,6 +17,12 @@ import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
 import {RecipePage} from "./pages/recipe-page/RecipePage";
 
+import {faDove, faEnvelope, faKey, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faFacebookF, faGithubAlt, faTwitter, faTwitterSquare} from '@fortawesome/free-brands-svg-icons';
+
+library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare, faSearch, faGithubAlt, faKey, faDove);
+
 
 
 
