@@ -6,9 +6,10 @@ import {faSearch} from "@fortawesome/free-solid-svg-icons";
 
 export const SearchFormContent = ({setSearchTerm}) => {
 		 const setSearch = (e) => {
+		 	e.preventDefault();
 		 	//check the input field for which characters are being entered and set them as the search term
 		 	setSearchTerm(e.target.value);
-}
+};
 
 	return (
 		<>
@@ -17,6 +18,7 @@ export const SearchFormContent = ({setSearchTerm}) => {
 					    placeholder="Search for recipe... "
 						 id="search-text"
 						 onChange={setSearch}
+						 onSubmit={setSearch}
 				/>
 			</Form>
 		</>
