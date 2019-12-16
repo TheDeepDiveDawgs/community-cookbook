@@ -19,12 +19,19 @@ services:
          - php
       ports:
          - 80:80
+         - 443:443
+      volumes:
+         - ./dh-param/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+         - /docker-volumes/pwp/etc/letsencrypt/live/abqcookbook.com/fullchain.pem:/etc/letsencrypt/live/abqcookbook.com/fullchain.pem
+         - /docker-volumes/pwp/etc/letsencrypt/live/abqcookbook.com/privkey.pem:/etc/letsencrypt/live/abqcookbook.com/privkey.pem
+
    sql:
       build: ./sql
       volumes:
          - cookbook-sql:/var/lib/mysql
       env_file:
          - ./docker-compose.env
+      command: --default-authentication-plugin=mysql_native_password
 volumes:
    cookbook-sql:
 
