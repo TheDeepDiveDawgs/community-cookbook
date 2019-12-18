@@ -2,9 +2,9 @@ import React from "react";
 
 import {FormDebugger} from "../../shared/components/FormDebugger";
 
-import {Form} from "react-bootstrap/Form";
-import inputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/es/FormControl";
+import {Form} from "react-bootstrap";
+import {InputGroup} from "react-bootstrap";
+import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
@@ -72,10 +72,119 @@ export const SubmissionFormContent = (props) => {
                                      }
                                  </Form.Group>
 
+                                 <Form.Group>
+                                     <Form.Label className="sr-only">Cook Time</Form.Label>
+                                     <InputGroup>
+                                         <FormControl
+                                            id="recipeMinutes"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="How long is the cook time..."
+                                            type="integer"
+                                            value={values.recipeMinutes}
+                                            />
+                                     </InputGroup>
+                                     {
+                                         errors.recipeMinutes && touched.recipeMinutes && (
+                                            <div className="alert alert-danger">
+                                                {errors.recipeMinutes}
+                                            </div>
+                                         )
+                                     }
+                                 </Form.Group>
+
+                                 <Form.Group>
+                                     <Form.Label className="sr-only">Description</Form.Label>
+                                     <InputGroup>
+                                         <FormControl
+                                            rows="5"
+                                            id="recipeDescription"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="Description of recipe..."
+                                            type="text"
+                                            value={values.recipeDescription}
+                                         />
+                                     </InputGroup>
+                                     {
+                                         errors.recipeDescription && touched.recipeDescription && (
+                                            <div className="alert alert-danger">
+                                                {errors.recipeDescription}
+                                            </div>
+                                         )
+                                     }
+                                 </Form.Group>
+
+                             <Form.Group>
+                                 <Form.Label className="sr-only">Ingredients</Form.Label>
+                                 <InputGroup>
+                                     <FormControl
+                                        id="recipeIngredients"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Ingredients of recipe..."
+                                        type="text"
+                                        value={values.recipeIngredients}
+                                     />
+                                 </InputGroup>
+                                 {
+                                     errors.recipeDescription && touched.recipeDescription && (
+                                        <div className="alert alert-danger">
+                                            {errors.recipeDescription}
+                                        </div>
+                                     )
+                                 }
+                             </Form.Group>
+
+                             <Form.Group>
+                                 <Form.Label className="sr-only">Steps</Form.Label>
+                                 <InputGroup>
+                                     <FormControl
+                                        id="recipeStep"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Cooking steps for recipe..."
+                                        type="text"
+                                        value={values.recipeStep}
+                                     />
+                                 </InputGroup>
+                                 {
+                                     errors.recipeStep && touched.recipeStep && (
+                                        <div className="alert alert-danger">
+                                            {errors.recipeDescription}
+                                        </div>
+                                     )
+                                 }
+                             </Form.Group>
+
+                             <Form.Group>
+                                 <Form.Label className="sr-only">Nutrition</Form.Label>
+                                 <InputGroup>
+                                     <FormControl
+                                        id="recipeNutrition"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Nutrition info for recipe..."
+                                        type="text"
+                                        value={values.recipeNutrition}
+                                     />
+                                 </InputGroup>
+                                 {
+                                     errors.recipeNutrition && touched.recipeNutrition && (
+                                        <div className="alert alert-danger">
+                                            {errors.recipeNutrition}
+                                        </div>
+                                     )
+                                 }
+                             </Form.Group>
+
+
+
+
                              </Form>
                          </Card.Body>
                      </Card>
                  </>
              )
 
-}
+};
