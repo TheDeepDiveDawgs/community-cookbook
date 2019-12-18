@@ -75,7 +75,9 @@ export const SignInFormContent = (props) => {
 
 					<button className="btn btn-dark mx-2 mb-2"
 							type="submit"
-					>Submit
+							disabled={isSubmitting}
+
+					>{isSubmitting ? "logging in..." : "log in"}
 					</button>
 
 					<button
