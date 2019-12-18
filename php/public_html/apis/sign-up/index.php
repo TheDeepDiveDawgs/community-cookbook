@@ -132,6 +132,7 @@ EOF;
 		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign in to your account above.";
 	} else {
 		throw (new InvalidArgumentException("invaled http request"));
+	}
 	} catch(\Exception |\TypeError $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
