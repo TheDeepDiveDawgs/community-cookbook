@@ -28,8 +28,54 @@ export const SubmissionForm = () => {
 			.required("This recipe needs a number of ingredients!")
 			.max(2, "Recipe is too long"),
 		recipeMinutes: Yup.number()
+			.required("This recipe needs an amount of time to cook")
+			.max(3, "Recipe takes too long to cook"),
+		recipeDescription: Yup.string()
+			.required("This recipe needs a description")
+			.max(500, "This description is too long"),
+		recipeIngredients: Yup.string()
+			.required("This recipe needs ingredients")
+			.max(300, "This ingredient is too long"),
+		recipeStep: Yup.string()
+			.required("This recipe needs steps")
+			.max(1000, "These steps are too long"),
+		recipeNutrition: Yup.string()
+			.max(255, "This nutrition info is too long")
+	});
 
+	const submitRecipe = (values, {resetForm, setStatus}) => {
+		//grab jwt token to pass in headers on post request
+		const headers = {
+			'X-JWT-TOKEN': window.localStorage.getItem("jwt-token")
+		};
 
-	})
+		httpConfig.post("apis/recipe/", values, {
+			headers: headers})
+			.then(reply => {
+				let {message, type} = reply;
+				setStatus({message, type});
+				if(reply.status === 200) {
+					resetForm();
+					setStatus({message, type});
+					setTimeout(() => {
+						history.push("/");
+					}, 1500);
+				}
+				if(reply.status === 401) {
+					handleSessionTimeout();
+				}
+			});
+		};
 
-}
+		return (
+			<>
+				<Formik
+					onSubmit={submitRecipe}
+					initialValues={recipe}
+					validationSchema={validator}
+				>
+					{SubmissionFormContent}
+				</Formik>
+			</>
+		)
+};
