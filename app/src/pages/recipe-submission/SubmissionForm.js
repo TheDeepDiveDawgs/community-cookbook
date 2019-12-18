@@ -5,6 +5,7 @@ import {Formik} from "formik";
 
 import {SubmissionFormContent} from "./SubmissionFormContent";
 import {handleSessionTimeout} from "../../shared/misc/handle-session-timeout";
+import {useHistory} from "react-router";
 
 export const SubmissionForm = () => {
 
@@ -26,10 +27,10 @@ export const SubmissionForm = () => {
 			.max(100, "Name is too long"),
 		recipeNumberIngredients: Yup.number()
 			.required("This recipe needs a number of ingredients!")
-			.max(2, "Recipe is too long"),
+			.max(999, "Recipe is too long"),
 		recipeMinutes: Yup.number()
 			.required("This recipe needs an amount of time to cook")
-			.max(3, "Recipe takes too long to cook"),
+			.max(999, "Recipe takes too long to cook"),
 		recipeDescription: Yup.string()
 			.required("This recipe needs a description")
 			.max(500, "This description is too long"),
@@ -42,6 +43,8 @@ export const SubmissionForm = () => {
 		recipeNutrition: Yup.string()
 			.max(255, "This nutrition info is too long")
 	});
+
+	const history = useHistory();
 
 	const submitRecipe = (values, {resetForm, setStatus}) => {
 		//grab jwt token to pass in headers on post request
@@ -58,7 +61,7 @@ export const SubmissionForm = () => {
 					resetForm();
 					setStatus({message, type});
 					setTimeout(() => {
-						history.push("/");
+						history.push("/recipe-list");
 					}, 1500);
 				}
 				if(reply.status === 401) {
