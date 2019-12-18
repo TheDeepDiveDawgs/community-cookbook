@@ -79,7 +79,7 @@ export const SignInFormContent = (props) => {
 					</button>
 
 					<button
-						className="btn btn-danger mb-2"
+						className="btn btn-warning text-white mb-2"
 						onClick={handleReset}
 						disabled={!dirty || isSubmitting}
 					>Cancel
