@@ -20,6 +20,7 @@ import {RecipePage} from "./pages/recipe-page/RecipePage";
 import {faDove, faEnvelope, faKey, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faFacebookF, faGithubAlt, faTwitter, faTwitterSquare} from '@fortawesome/free-brands-svg-icons';
+import RecipeSubmission from "./pages/submission-page/SubmissionPage";
 
 library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare, faSearch, faGithubAlt, faKey, faDove);
 
@@ -39,6 +40,7 @@ const Routing = (store) => (
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 						<Route exact path="/recipe-list" component={RecipeList}/>
 						<Route exact path="/recipe-page.js/:recipeId" component={RecipePage} recipeId=":recipeId"/>
+						{/*<Route exact path="/submission-page/" component={RecipeSubmission}  */}
 						<Route component={FourOhFour}/>
 					</Switch>
 					<Footer className="mt-2"/>
