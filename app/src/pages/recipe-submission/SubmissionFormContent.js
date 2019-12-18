@@ -56,8 +56,20 @@ export const SubmissionFormContent = (props) => {
                                      <InputGroup>
                                          <FormControl
                                              id="recipeNumberIngredients"
+                                             onChange={handleChange}
+                                             onBlur={handleBlur}
+                                             placeholder="How many ingredients..."
+                                             type="integer"
+                                             value={values.recipeNumberIngredients}
                                          />
                                      </InputGroup>
+                                     {
+                                         errors.recipeNumberIngredients && touched.recipeNumberIngredients && (
+                                             <div className="alert alert-danger">
+                                                 {errors.recipeNumberIngredients}
+                                             </div>
+                                         )
+                                     }
                                  </Form.Group>
 
                              </Form>

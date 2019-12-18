@@ -71,20 +71,20 @@ export const SignInFormContent = (props) => {
 					)}
 				</div>
 
-				<div className="form-group">
+				<div className="form-group text-center">
 
-					<button className="btn btn-dark mx-2 mb-2"
+					<button className="btn btn-dark font-weight-bold mx-2 mb-2"
 							type="submit"
 							disabled={isSubmitting}
 
-					>{isSubmitting ? "logging in..." : "log in"}
+					>{isSubmitting ? "Logging in..." : "Log in"}
 					</button>
 
 					<button
-						className="btn btn-warning text-white mb-2"
+						className="btn btn-warning text-black-50 font-weight-bold mb-2"
 						onClick={handleReset}
 						disabled={!dirty || isSubmitting}
-					>Cancel
+					>Reset
 					</button>
 
 				</div>
