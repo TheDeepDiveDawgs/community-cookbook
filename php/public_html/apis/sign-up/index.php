@@ -94,7 +94,7 @@ try {
 
 		//compose message to send with email
 		$message = <<< EOF
-<h2>Welcome to Community CookBook</h2>
+<h2>Welcome to Abq CookBook</h2>
 <p>In order to start posting your own recipes you must confirm your account </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
@@ -131,7 +131,7 @@ EOF;
 		//update reply
 		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign in to your account above.";
 	} else {
-		throw (new InvalidArgumentException("invaled http request"));
+		throw (new InvalidArgumentException("invalid http request"));
 	}
 	} catch(\Exception |\TypeError $exception) {
 		$reply->status = $exception->getCode();
