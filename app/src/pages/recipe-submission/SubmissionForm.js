@@ -16,9 +16,11 @@ export const SubmissionForm = () => {
 		recipeNumberIngredients: "",
 		recipeMinutes: "",
 		recipeDescription: "",
+		recipeImageUrl: null,
 		recipeIngredients: "",
 		recipeStep: "",
-		recipeNutrition: ""
+		recipeNutrition: "",
+		recipeSubmissionDate: null
 	};
 
 	const validator = Yup.object().shape({
@@ -34,6 +36,8 @@ export const SubmissionForm = () => {
 		recipeDescription: Yup.string()
 			.required("This recipe needs a description")
 			.max(500, "This description is too long"),
+		recipeImageUrl: Yup.string()
+			.nullable(null),
 		recipeIngredients: Yup.string()
 			.required("This recipe needs ingredients")
 			.max(300, "This ingredient is too long"),
@@ -41,7 +45,9 @@ export const SubmissionForm = () => {
 			.required("This recipe needs steps")
 			.max(1000, "These steps are too long"),
 		recipeNutrition: Yup.string()
-			.max(255, "This nutrition info is too long")
+			.max(255, "This nutrition info is too long"),
+		recipeSubmissionDate: Yup.date()
+			.nullable(null)
 	});
 
 	const history = useHistory();
