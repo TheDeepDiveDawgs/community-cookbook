@@ -19,10 +19,10 @@ export const RecipeList = () => {
 				<SearchFormContent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			</div>
 				<div className="row">
-					<div className="col-3">
+					<div className="col-4">
 						<Categories/>
 					</div>
-					<div className="col-9">
+					<div className="col-8">
 {/* passing down search term in order for recipes to be searched by it */}
 						<Recipes searchTerm={searchTerm}/>
 					</div>
