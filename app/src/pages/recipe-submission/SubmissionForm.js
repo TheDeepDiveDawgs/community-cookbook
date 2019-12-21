@@ -20,7 +20,7 @@ export const SubmissionForm = () => {
 		recipeIngredients: "",
 		recipeStep: "",
 		recipeNutrition: "",
-		recipeSubmissionDate: null
+		recipeSubmissionDate: ""
 	};
 
 	const validator = Yup.object().shape({

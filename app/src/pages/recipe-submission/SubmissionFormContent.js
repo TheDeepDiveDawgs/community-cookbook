@@ -203,8 +203,8 @@ export const SubmissionFormContent = (props) => {
                          </Card.Body>
                      </Card>
 
-                     {console.log(status)}
-                     {status && (<div className={submitStatus.type}>{submitStatus.message}</div>)}
+                     {console.log(submitStatus)}
+                     {status && (<div className={status.type}>{status.message}</div>)}
 
                  </>
              )
