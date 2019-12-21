@@ -20,7 +20,7 @@ export const SubmissionForm = () => {
 		recipeIngredients: "",
 		recipeStep: "",
 		recipeNutrition: "",
-		recipeSubmissionDate: ""
+		recipeSubmissionDate: null
 	};
 
 	const validator = Yup.object().shape({
@@ -47,7 +47,7 @@ export const SubmissionForm = () => {
 		recipeNutrition: Yup.string()
 			.max(255, "This nutrition info is too long"),
 		recipeSubmissionDate: Yup.date()
-			.nullable(null)
+			.default(() => (new Date()))
 	});
 
 	const history = useHistory();
