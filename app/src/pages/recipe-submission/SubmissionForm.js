@@ -16,11 +16,11 @@ export const SubmissionForm = () => {
 		recipeNumberIngredients: "",
 		recipeMinutes: "",
 		recipeDescription: "",
-		recipeImageUrl: null,
+		recipeImageUrl: "",
 		recipeIngredients: "",
 		recipeStep: "",
 		recipeNutrition: "",
-		recipeSubmissionDate: null
+		recipeSubmissionDate: ""
 	};
 
 	const validator = Yup.object().shape({
@@ -37,7 +37,7 @@ export const SubmissionForm = () => {
 			.required("This recipe needs a description")
 			.max(500, "This description is too long"),
 		recipeImageUrl: Yup.string()
-			.nullable(null),
+			.max(255, "this Url is too long"),
 		recipeIngredients: Yup.string()
 			.required("This recipe needs ingredients")
 			.max(300, "This ingredient is too long"),

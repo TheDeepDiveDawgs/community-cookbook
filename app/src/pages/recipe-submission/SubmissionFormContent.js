@@ -180,8 +180,20 @@ export const SubmissionFormContent = (props) => {
                              </Form.Group>
 
                                  <Form.Group>
-                                     <Button variant="dark" type="submit" className="mr-2">Submit recipe</Button>
-                                     <Button variant="warning" type="reset" onClick={handleReset}>reset form</Button>
+                                     <Button variant="dark"
+                                             type="submit"
+                                             className="mr-2"
+                                             onClick={submitStatus}
+                                     >
+                                         {isSubmitting ? "Submitting..." : "Submit recipe"}
+                                     </Button>
+                                     <Button variant="warning"
+                                             type="reset"
+                                             onClick={handleReset}
+                                             disabled={!dirty || isSubmitting}
+                                     >
+                                         reset form
+                                     </Button>
                                  </Form.Group>
 
                              <FormDebugger {...props}/>
@@ -192,7 +204,7 @@ export const SubmissionFormContent = (props) => {
                      </Card>
 
                      {console.log(status)}
-                     {status && (<div className={status.type}>{status.message}</div>)}
+                     {status && (<div className={submitStatus.type}>{submitStatus.message}</div>)}
 
                  </>
              )
