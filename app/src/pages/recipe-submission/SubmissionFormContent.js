@@ -8,6 +8,7 @@ import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
+
 export const SubmissionFormContent = (props) => {
 
              const {
@@ -23,6 +24,8 @@ export const SubmissionFormContent = (props) => {
                  handleSubmit,
                  handleReset
              } = props;
+
+             const appetizers = "cf3144dd-062d-4f75-92e7-49d0e301a872";
 
              return(
                  <>
@@ -46,6 +49,27 @@ export const SubmissionFormContent = (props) => {
                                          errors.recipeName && touched.recipeName && (
                                              <div className="alert alert-danger">
                                                  {errors.recipeName}
+                                             </div>
+                                         )
+                                     }
+                                 </Form.Group>
+
+                                 <Form.Group>
+                                     <Form.Label className="sr-only">Category</Form.Label>
+                                     <InputGroup>
+                                         <FormControl
+                                             id="recipeCategoryId"
+                                             onChange={handleChange}
+                                             onBlur={handleBlur}
+                                             placeholder="*Category..."
+                                             type="text"
+                                             value={values.recipeCategoryId}
+                                         />
+                                     </InputGroup>
+                                     {
+                                         errors.recipeCategoryId && touched.recipeCategoryId && (
+                                             <div className="alert alert-danger">
+                                                 {errors.recipeCategoryId}
                                              </div>
                                          )
                                      }

@@ -13,6 +13,7 @@ export const SubmissionForm = () => {
 
 	const recipe = {
 		recipeName: "",
+		recipeCategoryId: "",
 		recipeNumberIngredients: "",
 		recipeMinutes: "",
 		recipeDescription: "",
@@ -27,6 +28,8 @@ export const SubmissionForm = () => {
 		recipeName: Yup.string()
 			.required("This recipe needs a name!")
 			.max(100, "Name is too long"),
+		recipeCategoryId: Yup.string()
+			.required("This recipe needs a category!"),
 		recipeNumberIngredients: Yup.number()
 			.required("This recipe needs a number of ingredients!")
 			.max(999, "Recipe is too long"),
