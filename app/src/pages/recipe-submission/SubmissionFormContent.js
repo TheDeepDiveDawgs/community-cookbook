@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import {FormDebugger} from "../../shared/components/FormDebugger";
 
@@ -7,9 +7,12 @@ import {InputGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllCategories} from "../../shared/actions/categoryActions";
+import {CategoryCard} from "../recipe-list/CategoryCard";
 
 
-export const SubmissionFormContent = (props) => {
+export const SubmissionFormContent = (props, {category}) => {
 
              const {
                  submitStatus,
@@ -25,7 +28,23 @@ export const SubmissionFormContent = (props) => {
                  handleReset
              } = props;
 
-             const appetizers = "cf3144dd-062d-4f75-92e7-49d0e301a872";
+    //set category value to extract category data from redux
+    // if there is not category then return an empty array
+    const categories = useSelector(state => (state.category ? state.category : []));
+
+    // declared dispatch function to dispatch information from the redux store
+    const dispatch = useDispatch();
+
+    //declared the sideEffect function to dispatch the data from getAllCategories and input into the array
+    function sideEffects() {
+        dispatch(getAllCategories())
+    }
+
+    //input sideEffectsInputs into an array
+    const sideEffectsInputs = [];
+
+    //encapsulates sideEffects and sideEffectsInputs into code
+    useEffect(sideEffects, sideEffectsInputs);
 
              return(
                  <>
@@ -58,13 +77,10 @@ export const SubmissionFormContent = (props) => {
                                      <Form.Label className="sr-only">Category</Form.Label>
                                      <InputGroup>
                                          <FormControl
-                                             id="recipeCategoryId"
-                                             onChange={handleChange}
-                                             onBlur={handleBlur}
-                                             placeholder="*Category..."
-                                             type="text"
-                                             value={values.recipeCategoryId}
+                                             as="select"
                                          />
+                                         {categories.map(category => <option key={category.categoryId}>{category.categoryName}</option>
+                                         )}
                                      </InputGroup>
                                      {
                                          errors.recipeCategoryId && touched.recipeCategoryId && (
