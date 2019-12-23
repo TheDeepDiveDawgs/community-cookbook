@@ -60,10 +60,13 @@ export const SubmissionFormContent = (props) => {
                                      <Form.Label className="sr-only">Category</Form.Label>
                                      <InputGroup>
                                          <Form.Control
+                                             id="recipeCategoryId"
+                                             onChange={handleChange}
                                              as="select"
+                                             type="text"
                                              values={values.recipeCategoryId}
                                          >
-                                         <CategoriesDropdown values={values.recipeCategoryId}/>
+                                         <CategoriesDropdown/>
                                          </Form.Control>
                                      </InputGroup>
                                      {

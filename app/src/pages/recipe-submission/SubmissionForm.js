@@ -24,6 +24,7 @@ export const SubmissionForm = () => {
 		recipeSubmissionDate: ""
 	};
 
+
 	const validator = Yup.object().shape({
 		recipeName: Yup.string()
 			.required("This recipe needs a name!")
