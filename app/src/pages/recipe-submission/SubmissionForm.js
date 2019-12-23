@@ -6,6 +6,7 @@ import {Formik} from "formik";
 import {SubmissionFormContent} from "./SubmissionFormContent";
 import {handleSessionTimeout} from "../../shared/misc/handle-session-timeout";
 import {useHistory} from "react-router";
+import {getCategoryByCategoryId} from "../../shared/actions/categoryActions";
 
 export const SubmissionForm = () => {
 

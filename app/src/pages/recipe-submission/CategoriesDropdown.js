@@ -28,7 +28,7 @@ export const CategoriesDropdown = (props) => {
         <>
             {/*Transformed categories array into other arrays per individual category by category id.
 					 Array is inserted into a category card. */}
-            {categories.map(category => <option key={category.categoryId}>{category.categoryName}</option>
+            {categories.map(category => <option key={category.categoryid}>{category.categoryId}</option>
             )}
         </>
     )

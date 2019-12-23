@@ -8,12 +8,11 @@ import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {CategoriesDropdown} from "./CategoriesDropdown";
-import {getRecipeByRecipeCategoryId} from "../../shared/actions/recipeActions";
-
 
 
 
 export const SubmissionFormContent = (props) => {
+
 
              const {
                  submitStatus,
@@ -28,6 +27,8 @@ export const SubmissionFormContent = (props) => {
                  handleSubmit,
                  handleReset
              } = props;
+
+
 
              return(
                  <>
@@ -56,18 +57,17 @@ export const SubmissionFormContent = (props) => {
                                      }
                                  </Form.Group>
 
-                                 <Form.Group>
+                                 <Form.Group controlId="recipeCategoryId">
                                      <Form.Label className="sr-only">Category</Form.Label>
                                      <InputGroup>
-                                         <Form.Control
-                                             id="recipeCategoryId"
+                                         <FormControl
                                              onChange={handleChange}
                                              as="select"
-                                             type="text"
-                                             values={values.recipeCategoryId}
+                                             type="key"
+                                             value={values.recipeCategoryId}
                                          >
                                          <CategoriesDropdown/>
-                                         </Form.Control>
+                                         </FormControl>
                                      </InputGroup>
                                      {
                                          errors.recipeCategoryId && touched.recipeCategoryId && (
