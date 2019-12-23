@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import {FormDebugger} from "../../shared/components/FormDebugger";
 
@@ -7,12 +7,13 @@ import {InputGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import {useDispatch, useSelector} from "react-redux";
-import {getAllCategories} from "../../shared/actions/categoryActions";
-import {CategoryCard} from "../recipe-list/CategoryCard";
+import {CategoriesDropdown} from "./CategoriesDropdown";
+import {getRecipeByRecipeCategoryId} from "../../shared/actions/recipeActions";
 
 
-export const SubmissionFormContent = (props, {category}) => {
+
+
+export const SubmissionFormContent = (props) => {
 
              const {
                  submitStatus,
@@ -27,24 +28,6 @@ export const SubmissionFormContent = (props, {category}) => {
                  handleSubmit,
                  handleReset
              } = props;
-
-    //set category value to extract category data from redux
-    // if there is not category then return an empty array
-    const categories = useSelector(state => (state.category ? state.category : []));
-
-    // declared dispatch function to dispatch information from the redux store
-    const dispatch = useDispatch();
-
-    //declared the sideEffect function to dispatch the data from getAllCategories and input into the array
-    function sideEffects() {
-        dispatch(getAllCategories())
-    }
-
-    //input sideEffectsInputs into an array
-    const sideEffectsInputs = [];
-
-    //encapsulates sideEffects and sideEffectsInputs into code
-    useEffect(sideEffects, sideEffectsInputs);
 
              return(
                  <>
@@ -76,11 +59,12 @@ export const SubmissionFormContent = (props, {category}) => {
                                  <Form.Group>
                                      <Form.Label className="sr-only">Category</Form.Label>
                                      <InputGroup>
-                                         <FormControl
+                                         <Form.Control
                                              as="select"
-                                         />
-                                         {categories.map(category => <option key={category.categoryId}>{category.categoryName}</option>
-                                         )}
+                                             values={values.recipeCategoryId}
+                                         >
+                                         <CategoriesDropdown values={values.recipeCategoryId}/>
+                                         </Form.Control>
                                      </InputGroup>
                                      {
                                          errors.recipeCategoryId && touched.recipeCategoryId && (
