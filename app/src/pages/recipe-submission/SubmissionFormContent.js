@@ -87,6 +87,7 @@ export const SubmissionFormContent = (props) => {
                                              type="text"
                                              value={values.recipeCategoryId}
                                          >
+                                             <option>*Categories...</option>
                                          <CategoriesDropdown/>
                                          </FormControl>
                                      </InputGroup>
