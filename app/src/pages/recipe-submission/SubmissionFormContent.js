@@ -107,7 +107,7 @@ export const SubmissionFormContent = (props) => {
                                             id="recipeMinutes"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            placeholder="*How long is the cook time..."
+                                            placeholder="*How many minutes to cook..."
                                             type="integer"
                                             value={values.recipeMinutes}
                                             />
