@@ -16,6 +16,7 @@ import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Footer} from "./shared/components/footer/footer"
 import {RecipePage} from "./pages/recipe-page/RecipePage";
+import {SubmissionForm} from "./pages/recipe-submission/SubmissionForm";
 
 import {faDove, faEnvelope, faKey, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {library} from '@fortawesome/fontawesome-svg-core';
@@ -35,6 +36,7 @@ const Routing = (store) => (
 					<MainNav/>
 					<Switch>
 						<Route exact path="/" component={Home}/>
+						<Route exact path="/recipe-submission" component={SubmissionForm}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>
 						<Route exact path="/recipe-list" component={RecipeList}/>

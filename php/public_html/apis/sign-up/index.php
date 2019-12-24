@@ -29,24 +29,23 @@ try {
 	$secrets = new \Secrets("/etc/apache2/capstone-mysql/cookbook.ini");
 	$pdo = $secrets->getPdoObject();
 
+	//Add: grab mailgun api keys from secrets
+	$mailgun = $secrets->getSecret("mailgun");
+
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	if($method === "POST") {
-
 		//decode the json and turn it into a php object
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
-
 		//user at handle is a required field
 		if(empty($requestObject->userHandle) === true) {
 			throw(new \InvalidArgumentException ("No user @handle", 405));
 		}
-
 		//user email is a required field
 		if(empty($requestObject->userEmail) === true) {
 			throw(new \InvalidArgumentException ("No user email present", 405));
 		}
-
 		//user Full Name is a required field
 		if(empty($requestObject->userFullName) === true) {
 			throw(new \InvalidArgumentException("no user Full Name", 405));
@@ -68,7 +67,7 @@ try {
 //		}
 
 		//make sure the password and confirm password match
-		if ($requestObject->userPassword !== $requestObject->userPasswordConfirm) {
+		if($requestObject->userPassword !== $requestObject->userPasswordConfirm) {
 			throw(new \InvalidArgumentException("passwords do not match"));
 		}
 		$hash = password_hash($requestObject->userPassword, PASSWORD_ARGON2I, ["time_cost" => 7]);
@@ -95,7 +94,7 @@ try {
 
 		//compose message to send with email
 		$message = <<< EOF
-<h2>Welcome to Community CookBook</h2>
+<h2>Welcome to Abq CookBook</h2>
 <p>In order to start posting your own recipes you must confirm your account </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
@@ -123,53 +122,21 @@ EOF;
 		//attach the subject line to the email message
 		$swiftMessage->setSubject($messageSubject);
 
-		/**
-		 * attach the message to the email
-		 * set two versions of the message: a html formatted version and a filter_var()ed version of the message, plain text
-		 * notice the tactic used is to display the entire $confirmLink to plain text
-		 * this lets users who are not viewing the html content to still access the link
-		 */
+		//Instantiate the mailgun api with your api credentials
+		$mailgun = Mailgun::create($mailgun->apiKey);
 
-		//attach the html version fo the message
-		$swiftMessage->setBody($message, "text/html");
+		//configure the mailgun object and send the email
+		$mailgun->messages()->sendMime($mailgun->domain, $requestObject->userEmail, $swiftMessage->toString(), []);
 
-		//attach the plain text version of the message
-		$swiftMessage->addPart(html_entity_decode($message), "text/plain");
-
-		/**
-		 * send the Email via SMTP; the SMTP server here is configured to relay everything upstream via CNM
-		 * this default may or may not be available on all web hosts; consult their documentation/support for details
-		 * SwiftMailer supports many different transport methods; SMTP was chosen because it's the most compatible and has the best error handling
-		 * @see http://swiftmailer.org/docs/sending.html Sending Messages - Documentation - SwitftMailer
-		 **/
-
-		//setup smtp
-		$smtp = new Swift_SmtpTransport(
-			"localhost", 25);
-		$mailer = new Swift_Mailer($smtp);
-
-		//send the message
-		$numSent = $mailer->send($swiftMessage, $failedRecipients);
-
-		/**
-		 * the send method returns the number of recipients that accepted the Email
-		 * so, if the number attempted is not the number accepted, this is an Exception
-		 **/
-		if($numSent !== count($recipients)) {
-
-			// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
-			throw(new RuntimeException("unable to send email", 400));
-		}
-
-		// update reply
-		$reply->message = "Thank you for creating a user with CookBook";
+		//update reply
+		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign in to your account above.";
 	} else {
 		throw (new InvalidArgumentException("invalid http request"));
 	}
-} catch(\Exception |\TypeError $exception) {
-	$reply->status = $exception->getCode();
-	$reply->message = $exception->getMessage();
-	$reply->trace = $exception->getTraceAsString();
-}
-header("Content-type: application/json");
-echo json_encode($reply);
+	} catch(\Exception |\TypeError $exception) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+		$reply->trace = $exception->getTraceAsString();
+	}
+	header("Content-type: application/json");
+	echo json_encode($reply);
