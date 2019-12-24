@@ -12,6 +12,7 @@ export const SubmissionForm = () => {
 
 	const [status, setStatus] = useState(null);
 
+	// declare variable that checks the enter fields for the values
 	const recipe = {
 		recipeName: "",
 		recipeCategoryId: "",
@@ -25,7 +26,7 @@ export const SubmissionForm = () => {
 		recipeSubmissionDate: ""
 	};
 
-
+// validate the entered values and check if it matches what we want
 	const validator = Yup.object().shape({
 		recipeName: Yup.string()
 			.required("This recipe needs a name!")
@@ -54,10 +55,13 @@ export const SubmissionForm = () => {
 		recipeSubmissionDate: Yup.date()
 			.default(() => (new Date()))
 	});
-
+//useHistory hook that retrieves data from index.js
 	const history = useHistory();
 
+	//declare function that checks if user is signed in with jwt token and then uses a POST http request method to post
+	// the values that was entered
 	const submitRecipe = (values, {resetForm, setStatus}) => {
+
 		//grab jwt token to pass in headers on post request
 		const headers = {
 			'X-JWT-TOKEN': window.localStorage.getItem("jwt-token")

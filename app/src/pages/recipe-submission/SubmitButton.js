@@ -9,6 +9,7 @@ export const SubmitButton = () => {
 
     return (
         <>
+            {/*button won't show unless a user is signed in with jwt token*/}
             {jwt !== null &&
 
                 <Link to="/recipe-submission" id="submission-form-button">

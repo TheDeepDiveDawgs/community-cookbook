@@ -1,6 +1,6 @@
 import React from "react";
 
-import {FormDebugger} from "../../shared/components/FormDebugger";
+// import {FormDebugger} from "../../shared/components/FormDebugger";
 
 import {Form} from "react-bootstrap";
 import {InputGroup} from "react-bootstrap";
@@ -14,6 +14,7 @@ import {CategoriesDropdown} from "./CategoriesDropdown";
 export const SubmissionFormContent = (props) => {
 
 
+    //props that will be passed to the JSX elements
              const {
                  submitStatus,
                  status,
@@ -29,7 +30,7 @@ export const SubmissionFormContent = (props) => {
              } = props;
 
 
-
+// JSX that contains the form which is being used in SubmissionForm.js to validate the values being entered
              return(
                  <>
                      <Card bg="light" className="mt-5 pt-5 col-6 text-center text-white mx-auto">
@@ -63,7 +64,7 @@ export const SubmissionFormContent = (props) => {
                                          <FormControl
                                              onChange={handleChange}
                                              as="select"
-                                             type="key"
+                                             type="text"
                                              value={values.recipeCategoryId}
                                          >
                                          <CategoriesDropdown/>
@@ -223,13 +224,16 @@ export const SubmissionFormContent = (props) => {
                                      </Button>
                                  </Form.Group>
 
-                             <FormDebugger {...props}/>
+
+{/*form that shows how the values are being validated and what errors you're getting*/}
+                             {/*<FormDebugger {...props}/>*/}
 
 
                              </Form>
                          </Card.Body>
                      </Card>
 
+                     {/*check status of the submit*/}
                      {console.log(submitStatus)}
                      {status && (<div className={status.type}>{status.message}</div>)}
 
