@@ -9,6 +9,7 @@ import logo from "./images/nav-icon.png";
 import smallLogo from "./images/nav-icon-sm.png"
 import {httpConfig} from "../../utils/http-config";
 import {UserMenu} from "./user-menu/UserMenu";
+import {useHistory} from "react-router";
 
 export const MainNav = (props) => {
 
@@ -30,6 +31,7 @@ export const MainNav = (props) => {
 				}
 			});
 	};
+
 
 	return(
 		<Navbar className="nav-style fixed-top"
@@ -67,8 +69,12 @@ export const MainNav = (props) => {
 					}
 
 					{jwt !== null &&
-					<Nav.Item className="py-4"
-							  id="menuSignOut">Create Recipe</Nav.Item>
+					<Nav.Link className="py-4 d-lg-none d-block"
+							  id="menuSignOut"
+							  href="/recipe-submission"
+					>
+						Create Recipe
+					</Nav.Link>
 					}
 
 					{jwt !== null &&

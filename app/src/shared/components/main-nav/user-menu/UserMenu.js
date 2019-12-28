@@ -34,7 +34,7 @@ export const UserMenu = (props) => {
 								title={"Hello, " + userHandle.toUpperCase() + "!"}
 								id="collasible-nav-dropdown"
 								>
-					<NavDropdown.Item>Create Recipe</NavDropdown.Item>
+					<Dropdown.Item href="/recipe-submission">Create Recipe</Dropdown.Item>
 					<Dropdown.Item>My Recipes</Dropdown.Item>
 					<Dropdown.Item>Account Settings</Dropdown.Item>
 					<div className="dropdown-divider" />
