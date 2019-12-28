@@ -4,6 +4,7 @@ import {Categories} from "./Categories";
 import {Recipes} from "./Recipes";
 import './recipe-list-styles.css';
 import {SearchFormContent} from "./SearchForm";
+import {SubmitButton} from "../recipe-submission/SubmitButton";
 
 
 export const RecipeList = () => {
@@ -14,6 +15,7 @@ export const RecipeList = () => {
 
 	return (
 		<main>
+			<SubmitButton/>
 			<div className="search-bar">
 {/* passing search term and set search term so the search bar can interact with the state*/}
 				<SearchFormContent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
