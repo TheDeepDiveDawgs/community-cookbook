@@ -1,6 +1,6 @@
 import React from "react";
 
-// import {FormDebugger} from "../../shared/components/FormDebugger";
+import {FormDebugger} from "../../shared/components/FormDebugger";
 
 import {Form} from "react-bootstrap";
 import {InputGroup} from "react-bootstrap";
@@ -8,6 +8,7 @@ import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {CategoriesDropdown} from "./CategoriesDropdown";
+import {getActiveElement} from "formik";
 
 
 
@@ -249,7 +250,7 @@ export const SubmissionFormContent = (props) => {
 
 
 {/*form that shows how the values are being validated and what errors you're getting*/}
-                             {/*<FormDebugger {...props}/>*/}
+                             <FormDebugger {...props}/>
 
 
                              </Form>
