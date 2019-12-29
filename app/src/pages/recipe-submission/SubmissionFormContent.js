@@ -177,9 +177,9 @@ export const SubmissionFormContent = (props) => {
                                      />
                                  </InputGroup>
                                  {
-                                     errors.recipeDescription && touched.recipeDescription && (
+                                     errors.recipeIngredients && touched.recipeIngredients && (
                                         <div className="alert alert-danger">
-                                            {errors.recipeDescription}
+                                            {errors.recipeIngredients}
                                         </div>
                                      )
                                  }
