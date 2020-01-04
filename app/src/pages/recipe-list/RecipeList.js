@@ -17,6 +17,7 @@ export const RecipeList = () => {
 		<main>
 			<SubmitButton/>
 			<div className="search-bar">
+
 {/* passing search term and set search term so the search bar can interact with the state*/}
 				<SearchFormContent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			</div>

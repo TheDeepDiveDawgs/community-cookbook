@@ -67,7 +67,7 @@ export const RecipePage = (props) => {
 						</div>
 					</div>
 
-{/*this allows users to add pics of there recipe or will default to cookbook logo*/}
+{/*this allows users to add pics of there recipe otherwise it will default to cookbook logo*/}
 					<div className="col-md-3">
 						<p id="imageUrl">{recipe.recipeImageUrl}</p>
 						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo}
