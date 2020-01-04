@@ -8,7 +8,6 @@ import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {CategoriesDropdown} from "./CategoriesDropdown";
-import {getActiveElement} from "formik";
 
 
 
@@ -30,30 +29,14 @@ export const SubmissionFormContent = (props) => {
                  handleReset
              } = props;
 
-             const addField = (function (e) {
-                 e.preventDefault();
-                 return (
-                     <InputGroup>
-                         <FormControl
-                             id="recipeIngredients"
-                             onChange={handleChange}
-                             onBlur={handleBlur}
-                             placeholder="*Ingredients of recipe..."
-                             type="text"
-                             value={values.recipeIngredients}
-                         />
-                     </InputGroup>
-                 )
-             });
-
-             console.log(addField);
 
 
 
 // JSX that contains the form which is being used in SubmissionForm.js to validate the values being entered
              return(
                  <>
-                     <Card bg="light" className="mt-5 pt-5 col-lg-6 col-sm-12 text-center text-white mx-auto">
+                     <Card bg="light" className="subcard-margin pt-5 col-12 col-lg-6 text-center text-white mx-auto">
+                         <Card.Header class="text-dark"><h2 class="display-4">Submit Recipe</h2></Card.Header>
                          <Card.Body>
                              <Form onSubmit={handleSubmit}>
 
@@ -184,8 +167,6 @@ export const SubmissionFormContent = (props) => {
                                         </div>
                                      )
                                  }
-
-                                 <Button className="btn btn-dark float-left my-2" onClick={addField}>Add Ingredient</Button>
                              </Form.Group>
 
                              <Form.Group>
@@ -201,7 +182,6 @@ export const SubmissionFormContent = (props) => {
                                      />
                                  </InputGroup>
 
-                                 <Button className="btn btn-dark float-left my-2" onClick={addField}>Add Step</Button>
                                  {
                                      errors.recipeStep && touched.recipeStep && (
                                         <div className="alert alert-danger">
@@ -251,7 +231,7 @@ export const SubmissionFormContent = (props) => {
 
 
 {/*form that shows how the values are being validated and what errors you're getting*/}
-                             <FormDebugger {...props}/>
+                             {/* <FormDebugger {...props}/> */}
 
 
                              </Form>
