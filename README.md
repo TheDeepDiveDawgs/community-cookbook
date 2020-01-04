@@ -1,5 +1,5 @@
 # ABQCOOKBOOK
 The Deep Dive Dawgs Capstone repository for community-cookbook
 
-## Email 
+## EMAIL
 ### abqcookbook@gmail.com
