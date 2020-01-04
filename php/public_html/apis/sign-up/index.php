@@ -146,7 +146,7 @@ EOF;
 		$mailgun->messages()->sendMime($mailgunConfig->domain, [$requestObject->userEmail], $swiftMessage->toString(), []);
 
 		//update reply
-		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign in to your account above.";
+		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign into your account above.";
 	} else {
 		throw (new InvalidArgumentException("invalid http request"));
 	}
