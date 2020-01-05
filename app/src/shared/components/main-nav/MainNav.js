@@ -9,7 +9,6 @@ import logo from "./images/nav-icon.png";
 import smallLogo from "./images/nav-icon-sm.png"
 import {httpConfig} from "../../utils/http-config";
 import {UserMenu} from "./user-menu/UserMenu";
-import {useHistory} from "react-router";
 
 export const MainNav = (props) => {
 

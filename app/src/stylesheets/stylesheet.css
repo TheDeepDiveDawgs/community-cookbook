@@ -254,3 +254,7 @@ body {
 	margin-top: 8rem!important;
 	margin-bottom: 8rem!important;
 }
+
+.alternate-bg {
+	background-color: ghostwhite!important;
+}

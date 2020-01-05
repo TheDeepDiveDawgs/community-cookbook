@@ -73,7 +73,6 @@ export const SubmissionForm = () => {
 				setStatus({message, type});
 				if(reply.status === 200) {
 					resetForm();
-					setStatus({message, type});
 					setTimeout(() => {
 						history.push("/recipe-list");
 					}, 1500);

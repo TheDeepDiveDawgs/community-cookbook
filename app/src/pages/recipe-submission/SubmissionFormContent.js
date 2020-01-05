@@ -35,7 +35,7 @@ export const SubmissionFormContent = (props) => {
 // JSX that contains the form which is being used in SubmissionForm.js to validate the values being entered
              return(
                  <>
-                     <Card bg="light" className="subcard-margin pt-5 col-12 col-lg-6 text-center text-white mx-auto">
+                     <Card bg="light" className="subcard-margin pt-5 col-12 col-lg-6 text-center text-dark mx-auto">
                          <Card.Header class="text-dark"><h2 class="display-4">Submit Recipe</h2></Card.Header>
                          <Card.Body>
                              <Form onSubmit={handleSubmit}>
@@ -212,8 +212,8 @@ export const SubmissionFormContent = (props) => {
                                  }
                              </Form.Group>
 
-                                 <Form.Group>
-                                     <input type="file" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
+                                 <Form.Group className="row">
+                                     <input type="file" className="float-left ml-auto" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
                                  </Form.Group>
 
                                  <Form.Group>
