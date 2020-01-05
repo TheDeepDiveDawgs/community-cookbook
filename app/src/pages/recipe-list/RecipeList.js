@@ -15,16 +15,17 @@ export const RecipeList = () => {
 
 	return (
 		<main>
-			<SubmitButton/>
+			
 			<div className="search-bar">
 {/* passing search term and set search term so the search bar can interact with the state*/}
 				<SearchFormContent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			</div>
 				<div className="row">
-					<div className="col-3">
+					<div className="col-12 col-lg-3">
+						<SubmitButton/>
 						<Categories/>
 					</div>
-					<div className="col-9">
+					<div className="col-12 col-lg-9">
 {/* passing down search term in order for recipes to be searched by it */}
 						<Recipes searchTerm={searchTerm}/>
 					</div>

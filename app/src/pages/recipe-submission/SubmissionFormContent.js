@@ -231,7 +231,7 @@ export const SubmissionFormContent = (props) => {
 
 
 {/*form that shows how the values are being validated and what errors you're getting*/}
-                             {/* <FormDebugger {...props}/> */}
+                             <FormDebugger {...props}/>
 
 
                              </Form>

@@ -8,16 +8,16 @@ export const RecipeCard = ({recipe}) => {
 
 //this gives form to the recipes in the list on DOM
 <Route render={ ({history}) => (
-		<Card className="mb-4 mr-5" key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
+		<Card className="my-5 mx-4" key={recipe.recipeId} onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}>
 		{/*<Card className="mb-4 mr-5">*/}
 			<Card.Body className="row my-3 mx-3">
-				<div className="col-3">
+				<div className="col-12 col-lg-3">
 					<Card.Img src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder"/>
 				</div>
-				<div className="col-9" data-categoryId={recipe.recipeCategoryId}>
-					<Card.Title> {recipe.recipeName}</Card.Title>
-					<Card.Subtitle>Cook Time: {recipe.recipeMinutes} mins. Rating: {recipe.recipeRating}</Card.Subtitle>
-					<Card.Text>Description: {recipe.recipeDescription}</Card.Text>
+				<div className="col-12 col-lg-9" data-categoryId={recipe.recipeCategoryId}>
+					<Card.Title className="m-3"> {recipe.recipeName}</Card.Title>
+					<Card.Subtitle className="m-3" >Cook Time: {recipe.recipeMinutes} mins. Rating: {recipe.recipeRating}</Card.Subtitle>
+					<Card.Text className="m-3">Description: {recipe.recipeDescription}</Card.Text>
 				</div>
 			</Card.Body>
 		</Card>

@@ -1,3 +1,7 @@
+body {
+	overflow-x: hidden;
+}
+
 .nav-style {
 	background-color: #252525;
 	color: white;
@@ -244,9 +248,7 @@ body {
 	list-style-type: none;
 }
 
-#submission-form-button {
-	margin-left: 9rem!important;
-}
+
 
 .subcard-margin {
 	margin-top: 8rem!important;
