@@ -60,7 +60,7 @@ export const MainNav = (props) => {
 
 						<Nav.Link href="/recipe-list"
 								  className="py-3 mr-1 d-lg-none d-inline-block"
-						>Search</Nav.Link>
+						>SEARCH</Nav.Link>
 					{jwt !== null ?
 						<UserMenu/>
 					 :
@@ -72,25 +72,25 @@ export const MainNav = (props) => {
 							  id="menuSignOut"
 							  href="/recipe-submission"
 					>
-						Create Recipe
+						CREATE RECIPE
 					</Nav.Link>
 					}
 
 					{jwt !== null &&
 					<Nav.Item className="py-4"
-							  id="menuSignOut">My Recipes</Nav.Item>
+							  id="menuSignOut">MY RECIPES</Nav.Item>
 					}
 
 					{jwt !== null &&
 					<Nav.Item className="py-4"
-							  id="menuSignOut">Account Settings</Nav.Item>
+							  id="menuSignOut">ACCOUNT SETTINGS</Nav.Item>
 					}
 
 					{jwt !== null ?
 						<Nav.Item onClick={signOut}
 								  className="py-4"
 								  id="menuSignOut"
-						>Sign Out</Nav.Item>
+						>SIGN OUT</Nav.Item>
 						:
 						<SignUpModal/>
 					}

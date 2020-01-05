@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router';
 import Card from "react-bootstrap/Card";
-import logo from "./cap-logo-4.png";
+import logo from "./../images/recipe-placeholder.jpg";
 import {InteractionComponent} from "../../shared/components/interaction/InteractionComponent"
 
 export const RecipeCard = ({recipe}) => {
