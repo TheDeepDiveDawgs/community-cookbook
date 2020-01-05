@@ -13,7 +13,7 @@ export const RecipeCard = ({recipe}) => {
 		{/*<Card className="mb-4 mr-5">*/}
 			<Card.Body className="row my-3 mx-3">
 				<div className="col-12 col-lg-3">
-					<Card.Img src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder" onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}/>
+					<Card.Img id="hover-image" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder" onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}/>
 				</div>
 				<div className="col-12 col-lg-9" data-categoryId={recipe.recipeCategoryId}>
 					<Card.Title className="m-3 display-4" id="recipe-card-title" onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}> {recipe.recipeName}</Card.Title>

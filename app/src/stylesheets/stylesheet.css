@@ -263,3 +263,7 @@ body {
 	color: #65717d!important;
 	cursor: pointer;
 }
+
+#hover-image:hover {
+	cursor: pointer;
+}

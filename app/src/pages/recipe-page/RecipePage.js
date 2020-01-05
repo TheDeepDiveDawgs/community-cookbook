@@ -26,7 +26,7 @@ export const RecipePage = (props) => {
 	//this section determines where everything lines up in the recipe DOM and pulls the corresponding info into the correct fields.
 	return (
 		<>
-		<section className="margin">
+		<section className="margin subcard-margin">
 			<div className="container-fluid py-5">
 				<div className="row">
 					<div className="col-md-9">
