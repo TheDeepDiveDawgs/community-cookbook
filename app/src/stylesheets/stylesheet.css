@@ -258,3 +258,8 @@ body {
 .alternate-bg {
 	background-color: ghostwhite!important;
 }
+
+#recipe-card-title:hover {
+	color: #65717d!important;
+	cursor: pointer;
+}

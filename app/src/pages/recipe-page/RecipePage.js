@@ -46,7 +46,7 @@ export const RecipePage = (props) => {
 								<p id="minutes">{recipe.recipeMinutes}</p>
 							</div>
 						</div>
-						<div className="ingred">
+						<div className="alternate-bg p-4">
 							<h4 id="recipeDescription">Description</h4>
 							<p id="description">{recipe.recipeDescription}</p>
 							<div className="ul">
