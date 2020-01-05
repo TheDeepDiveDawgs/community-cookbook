@@ -213,6 +213,10 @@ export const SubmissionFormContent = (props) => {
                              </Form.Group>
 
                                  <Form.Group>
+                                     <input type="file" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
+                                 </Form.Group>
+
+                                 <Form.Group>
                                      <Button variant="dark"
                                              type="submit"
                                              className="mr-2"
