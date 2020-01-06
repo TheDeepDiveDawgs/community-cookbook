@@ -212,8 +212,8 @@ export const SubmissionFormContent = (props) => {
                                  }
                              </Form.Group>
 
-                                 <Form.Group className="row">
-                                     <input type="file" className="float-left ml-auto" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
+                                 <Form.Group className="row float-right">
+                                     <input type="file" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
                                  </Form.Group>
 
                                  <Form.Group>

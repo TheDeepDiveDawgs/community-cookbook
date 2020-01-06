@@ -9,9 +9,9 @@ export const RecipeCard = ({recipe}) => {
 
 //this gives form to the recipes in the list on DOM
 <Route render={ ({history}) => (
-		<Card className="my-5 alternate-bg mx-4" key={recipe.recipeId}>
+		<Card className="my-5 border border-dark alternate-bg mx-5" key={recipe.recipeId}>
 		{/*<Card className="mb-4 mr-5">*/}
-			<Card.Body className="row my-3 mx-3">
+			<Card.Body className="row my-3 px-3">
 				<div className="col-12 col-lg-3">
 					<Card.Img id="hover-image" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder" onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}/>
 				</div>
