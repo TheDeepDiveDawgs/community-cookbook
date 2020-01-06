@@ -27,4 +27,6 @@ Floribella was working as a Software Quality Assurance before the bootcamp. She 
 
 Damian worked in various unrelated fields while attending UNM/CNM before joining the bootcamp. He joined the bootcamp to help him change his career path to a FullstackWeb Developer. His next steps are traveling for the next few months while continuing his learning by creating projects then hopefully landing a coding job here in Albuquerque.
 
-![Home screen](/app-contest-documentation/IMG_3285.PNG)
+![Home screen](/app-contest-documentation/IMG_3286.PNG)
+![Search box and categories](/app-contest-documentation/IMG_3287.PNG)
+![recipe card on recipe list page](/app-contest-documentation/IMG_3288.PNG)
