@@ -32,6 +32,8 @@ export const RecipePage = (props) => {
 					<div className="col-md-9">
 						<h2><strong><p id="name">{recipe.recipeName}</p></strong></h2>
 						<div className="row">
+							<img className="card-img-top d-block d-lg-none" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo}
+								  alt="recipe image"/>
 							<div className="col-md-4">
 								<h4 id="recipeRating">Rating</h4>
 								<div><InteractionComponent recipeId={recipe.recipeId}/></div>
@@ -70,7 +72,7 @@ export const RecipePage = (props) => {
 {/*this allows users to add pics of there recipe or will default to cookbook logo*/}
 					<div className="col-md-3">
 						<p id="imageUrl">{recipe.recipeImageUrl}</p>
-						<img className="card-img-top" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo}
+						<img className="card-img-top d-none d-lg-block" id="cardImg" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo}
 							  alt="recipe image"/>
 					</div>
 				</div>
