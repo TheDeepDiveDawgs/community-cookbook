@@ -11,6 +11,10 @@ The Deep Dive Dawgs Capstone repository for community-cookbook
 What’s one of the things that makes ABQ great and brings the community together? Our Food!
 The purpose of the ABQCOOKBOOK site is to get the Albuquerque community engaged and keep the culture going through a recipe app in order to preserve the New Mexican culinary culture. 
 
+## MEET THE CREW
+
+![Image of the team](/app-contest-documentation/DSC00183.JPG)
+
 ## DANIEL HERNANDEZ
 
 Daniel was previously working at Verizon for 10 years before the bootcamp. He joined the bootcamp to gain experience with code to incorporate with his entrepreneurial education. His next steps are working on his Masters in Information Systems & Assurance concentration is Cyber Security at UNM
