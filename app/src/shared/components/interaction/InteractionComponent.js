@@ -27,8 +27,6 @@ export const InteractionComponent = (props) => {
 	const average = (interactions.length ? interactions.reduce(reducer, 0) / interactions.length : .01);
 
 	return (
-		<Card style={{width: '10rem',}}>
-			<Card.Body>
 				<Ratings
 					rating={+average}
 					widgetRatedColors="#F5FF38"
@@ -43,8 +41,6 @@ export const InteractionComponent = (props) => {
 					<Ratings.Widget/>
 					<Ratings.Widget/>
 				</Ratings>
-			</Card.Body>
-		</Card>
 	)
 };
 

@@ -12,11 +12,11 @@ export const SubmitButton = () => {
             {/*button won't show unless a user is signed in with jwt token*/}
             {jwt !== null &&
 
-                <Link to="/recipe-submission" id="submission-form-button">
+                <Link to="/recipe-submission" className="row">
                     <Button
                         variant="warning"
                         type="submit"
-                        className="mt-5 font-weight-bold p-4"
+                        className="mx-auto font-weight-bold p-4"
                     >
                         Create Recipe
                     </Button>

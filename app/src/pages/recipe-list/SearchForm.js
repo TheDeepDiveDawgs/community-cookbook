@@ -1,7 +1,6 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+
 // import FormControl from "react-bootstrap/FormControl";
 
 export const SearchFormContent = ({setSearchTerm}) => {

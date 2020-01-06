@@ -7,6 +7,7 @@ require_once dirname(__DIR__, 3) . "/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use TheDeepDiveDawgs\CommunityCookbook\User;
+use Mailgun\Mailgun;
 
 /**
  * api for signing up to Community Cookbook
@@ -30,7 +31,8 @@ try {
 	$pdo = $secrets->getPdoObject();
 
 	//Add: grab mailgun api keys from secrets
-	$mailgun = $secrets->getSecret("mailgun");
+	$mailgunConfig = $secrets->getSecret("mailgun");
+
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -122,14 +124,29 @@ EOF;
 		//attach the subject line to the email message
 		$swiftMessage->setSubject($messageSubject);
 
+		/**
+		 * Attach the actual message to the message.
+		 *
+		 * Here we set two versions of the message: the HTML formatted message and a
+		 * special filter_var()'d version of the message that generates a plain text
+		 * version of the HTML content.
+		 *
+		 * Notice one tactic used is to display the entire $confirmLink to plain text;
+		 * this lets users who aren't viewing HTML content in Emails still access your
+		 * links.
+		 **/
+		$swiftMessage->setBody($message, "text/html");
+		$swiftMessage->addPart(html_entity_decode($message), "text/plain");
+
 		//Instantiate the mailgun api with your api credentials
-		$mailgun = Mailgun::create($mailgun->apiKey);
+		$mailgun = Mailgun::create($mailgunConfig->apikey);
+		
 
 		//configure the mailgun object and send the email
-		$mailgun->messages()->sendMime($mailgun->domain, $requestObject->userEmail, $swiftMessage->toString(), []);
+		$mailgun->messages()->sendMime($mailgunConfig->domain, [$requestObject->userEmail], $swiftMessage->toString(), []);
 
 		//update reply
-		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign in to your account above.";
+		$reply->message = "Thanks you for creating a profile with ABQCookbook. Please sign into your account above.";
 	} else {
 		throw (new InvalidArgumentException("invalid http request"));
 	}

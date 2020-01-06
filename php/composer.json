@@ -5,7 +5,10 @@
     "phpunit/phpunit": "@stable",
     "phpseclib/phpseclib": "2.0.11",
     "swiftmailer/swiftmailer": "@stable",
+    "mailgun/mailgun-php": "@stable",
     "lcobucci/jwt": "3.2",
+    "kriswallsmith/buzz": "@stable",
+    "nyholm/psr7": "@stable",
     "ramsey/uuid": "@stable"
   },
   "scripts":{

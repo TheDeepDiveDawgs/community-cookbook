@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import './recipe-page-css.css';
 import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
-import logo from "./cap-logo-5.png";
+import logo from "./../images/recipe-placeholder.jpg";
 import {InteractionComponent} from "../../shared/components/interaction/InteractionComponent";
 
 
@@ -26,7 +26,7 @@ export const RecipePage = (props) => {
 	//this section determines where everything lines up in the recipe DOM and pulls the corresponding info into the correct fields.
 	return (
 		<>
-		<section className="margin">
+		<section className="margin subcard-margin">
 			<div className="container-fluid py-5">
 				<div className="row">
 					<div className="col-md-9">
@@ -46,7 +46,7 @@ export const RecipePage = (props) => {
 								<p id="minutes">{recipe.recipeMinutes}</p>
 							</div>
 						</div>
-						<div className="ingred">
+						<div className="alternate-bg p-4">
 							<h4 id="recipeDescription">Description</h4>
 							<p id="description">{recipe.recipeDescription}</p>
 							<div className="ul">

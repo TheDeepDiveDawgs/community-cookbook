@@ -1,6 +1,6 @@
 import React from "react";
 
-// import {FormDebugger} from "../../shared/components/FormDebugger";
+import {FormDebugger} from "../../shared/components/FormDebugger";
 
 import {Form} from "react-bootstrap";
 import {InputGroup} from "react-bootstrap";
@@ -30,10 +30,13 @@ export const SubmissionFormContent = (props) => {
              } = props;
 
 
+
+
 // JSX that contains the form which is being used in SubmissionForm.js to validate the values being entered
              return(
                  <>
-                     <Card bg="light" className="mt-5 pt-5 col-6 text-center text-white mx-auto">
+                     <Card bg="light" className="subcard-margin pt-5 col-12 col-lg-6 text-center text-dark mx-auto">
+                         <Card.Header class="text-dark"><h2 class="display-4">Submit Recipe</h2></Card.Header>
                          <Card.Body>
                              <Form onSubmit={handleSubmit}>
 
@@ -158,9 +161,9 @@ export const SubmissionFormContent = (props) => {
                                      />
                                  </InputGroup>
                                  {
-                                     errors.recipeDescription && touched.recipeDescription && (
+                                     errors.recipeIngredients && touched.recipeIngredients && (
                                         <div className="alert alert-danger">
-                                            {errors.recipeDescription}
+                                            {errors.recipeIngredients}
                                         </div>
                                      )
                                  }
@@ -178,6 +181,7 @@ export const SubmissionFormContent = (props) => {
                                         value={values.recipeStep}
                                      />
                                  </InputGroup>
+
                                  {
                                      errors.recipeStep && touched.recipeStep && (
                                         <div className="alert alert-danger">
@@ -208,6 +212,10 @@ export const SubmissionFormContent = (props) => {
                                  }
                              </Form.Group>
 
+                                 <Form.Group className="row float-right">
+                                     <input type="file" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
+                                 </Form.Group>
+
                                  <Form.Group>
                                      <Button variant="dark"
                                              type="submit"
@@ -227,7 +235,7 @@ export const SubmissionFormContent = (props) => {
 
 
 {/*form that shows how the values are being validated and what errors you're getting*/}
-                             {/*<FormDebugger {...props}/>*/}
+                             <FormDebugger {...props}/>
 
 
                              </Form>

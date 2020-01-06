@@ -1,3 +1,7 @@
+body {
+	overflow-x: hidden;
+}
+
 .nav-style {
 	background-color: #252525;
 	color: white;
@@ -244,8 +248,25 @@ body {
 	list-style-type: none;
 }
 
-#submission-form-button {
-	margin-left: 9rem!important;
+
+
+.subcard-margin {
+	margin-top: 8rem!important;
+	margin-bottom: 8rem!important;
 }
+
+.alternate-bg {
+	background-color: ghostwhite!important;
+}
+
+#recipe-card-title:hover {
+	color: #65717d!important;
+	cursor: pointer;
+}
+
+#hover-image:hover {
+	cursor: pointer;
+}
+
 
 
