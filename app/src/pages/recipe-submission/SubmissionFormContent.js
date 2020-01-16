@@ -1,6 +1,6 @@
 import React from "react";
 
-import {FormDebugger} from "../../shared/components/FormDebugger";
+// import {FormDebugger} from "../../shared/components/FormDebugger";
 
 import {Form, FormText} from "react-bootstrap";
 import {InputGroup} from "react-bootstrap";
@@ -268,7 +268,7 @@ export const SubmissionFormContent = (props) => {
 
 
 {/*form that shows how the values are being validated and what errors you're getting*/}
-                            <FormDebugger {...props}/>
+{/*                            <FormDebugger {...props}/>*/}
 
 
                              </Form>
