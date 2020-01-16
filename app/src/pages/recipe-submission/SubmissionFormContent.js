@@ -2,12 +2,13 @@ import React from "react";
 
 import {FormDebugger} from "../../shared/components/FormDebugger";
 
-import {Form} from "react-bootstrap";
+import {Form, FormText} from "react-bootstrap";
 import {InputGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {CategoriesDropdown} from "./CategoriesDropdown";
+import { FieldArray } from "formik";
 
 
 
@@ -148,7 +149,7 @@ export const SubmissionFormContent = (props) => {
                                      }
                                  </Form.Group>
 
-                             <Form.Group>
+                             {/* <Form.Group>
                                  <Form.Label className="sr-only">Ingredients</Form.Label>
                                  <InputGroup>
                                      <FormControl
@@ -167,7 +168,38 @@ export const SubmissionFormContent = (props) => {
                                         </div>
                                      )
                                  }
-                             </Form.Group>
+                             </Form.Group> */}
+
+                             <FieldArray name="recipeIngredients">
+                                {arrayHelpers => (
+                                    <div>
+                                        <Button onClick={() =>
+                                            arrayHelpers.push(
+                                                ""
+                                            )
+                                    }
+                                    >
+                                        add ingredient
+                                    </Button>
+                                    {values.recipeIngredients.map((recipe, index) => {
+                                        return(
+                                            <div key={recipe.recipeId}>
+                                                <FormControl placeholder="ingredient" 
+                                                             name={`recipeIngredients.${index}`}
+                                                             value={values.recipeIngredients.push}
+                                                             onBlur={handleBlur}
+                                                             type="text"
+                                                             onChange={handleChange}
+                                                />
+                                                <Button onClick={() => arrayHelpers.remove(index)}>
+                                                    x
+                                                </Button>
+                                            </div>
+                                        );
+                                    })}
+                                    </div>
+                                )}
+                             </FieldArray>
 
                              <Form.Group>
                                  <Form.Label className="sr-only">Steps</Form.Label>

@@ -19,7 +19,7 @@ export const SubmissionForm = () => {
 		recipeMinutes: "",
 		recipeDescription: "",
 		recipeImageUrl: "",
-		recipeIngredients: "",
+		recipeIngredients: [],
 		recipeStep: "",
 		recipeNutrition: "",
 		recipeSubmissionDate: ""
@@ -43,7 +43,7 @@ export const SubmissionForm = () => {
 			.max(500, "This description is too long"),
 		recipeImageUrl: Yup.string()
 			.max(255, "this Url is too long"),
-		recipeIngredients: Yup.string()
+		recipeIngredients: Yup.array()
 			.required("This recipe needs ingredients")
 			.max(300, "This ingredient is too long"),
 		recipeStep: Yup.string()
