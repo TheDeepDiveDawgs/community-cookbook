@@ -12,6 +12,7 @@
     "bootstrap": "^4.4.1",
     "formik": "^1.5.4",
     "http-proxy-middleware": "^0.19.1",
+    "jshint": "^2.11.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "react": "^16.9.0",

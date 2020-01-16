@@ -31,8 +31,6 @@ export const SubmissionFormContent = (props) => {
              } = props;
 
 
-
-
 // JSX that contains the form which is being used in SubmissionForm.js to validate the values being entered
              return(
                  <>
