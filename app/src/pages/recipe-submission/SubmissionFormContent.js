@@ -149,51 +149,38 @@ export const SubmissionFormContent = (props) => {
                                      }
                                  </Form.Group>
 
-                             {/* <Form.Group>
-                                 <Form.Label className="sr-only">Ingredients</Form.Label>
-                                 <InputGroup>
-                                     <FormControl
-                                        id="recipeIngredients"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        placeholder="*Ingredients of recipe..."
-                                        type="text"
-                                        value={values.recipeIngredients}
-                                     />
-                                 </InputGroup>
-                                 {
-                                     errors.recipeIngredients && touched.recipeIngredients && (
-                                        <div className="alert alert-danger">
-                                            {errors.recipeIngredients}
-                                        </div>
-                                     )
-                                 }
-                             </Form.Group> */}
 
                              <FieldArray name="recipeIngredients">
                                 {arrayHelpers => (
                                     <div>
-                                        <Button onClick={() =>
+                                        <Button className="d-block m-3 btn btn-dark row" onClick={() =>
                                             arrayHelpers.push(
                                                 ""
                                             )
                                     }
                                     >
-                                        add ingredient
+                                        Add ingredient
                                     </Button>
                                     {values.recipeIngredients.map((recipe, index) => {
                                         return(
-                                            <div key={recipe.recipeId}>
+                                            <div className="row m-3" key={recipe.recipeId}>
                                                 <FormControl placeholder="ingredient" 
                                                              name={`recipeIngredients.${index}`}
-                                                             value={values.recipeIngredients.push}
+                                                             value={values.recipeIngredients.pop[0]}
                                                              onBlur={handleBlur}
-                                                             type="text"
                                                              onChange={handleChange}
+                                                             className="col-11"
                                                 />
-                                                <Button onClick={() => arrayHelpers.remove(index)}>
+                                                <Button className="col-1 btn btn-dark" onClick={() => arrayHelpers.remove(index)}>
                                                     x
                                                 </Button>
+                                                {
+                                                    errors.recipeIngredients && touched.recipeIngredients && (
+                                                        <div className="alert alert-danger">
+                                                            {errors.recipeIngredients}
+                                                        </div>
+                                                    )
+                                                }
                                             </div>
                                         );
                                     })}
@@ -201,27 +188,43 @@ export const SubmissionFormContent = (props) => {
                                 )}
                              </FieldArray>
 
-                             <Form.Group>
-                                 <Form.Label className="sr-only">Steps</Form.Label>
-                                 <InputGroup>
-                                     <FormControl
-                                        id="recipeStep"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        placeholder="*Cooking steps for recipe..."
-                                        type="text"
-                                        value={values.recipeStep}
-                                     />
-                                 </InputGroup>
-
-                                 {
-                                     errors.recipeStep && touched.recipeStep && (
-                                        <div className="alert alert-danger">
-                                            {errors.recipeDescription}
-                                        </div>
-                                     )
-                                 }
-                             </Form.Group>
+                             <FieldArray name="recipeStep">
+                                {arrayHelpers => (
+                                    <div>
+                                        <Button className="d-block m-3 btn btn-warning row" onClick={() =>
+                                            arrayHelpers.push(
+                                                ""
+                                            )
+                                    }
+                                    >
+                                        Add cooking steps
+                                    </Button>
+                                    {values.recipeStep.map((recipe, index) => {
+                                        return(
+                                            <div className="row m-3" key={recipe.recipeId}>
+                                                <FormControl placeholder="Steps" 
+                                                             name={`recipeStep.${index}`}
+                                                             value={values.recipeStep.pop[0]}
+                                                             onBlur={handleBlur}
+                                                             onChange={handleChange}
+                                                             className="col-11"
+                                                />
+                                                <Button className="col-1 btn btn-dark" onClick={() => arrayHelpers.remove(index)}>
+                                                    x
+                                                </Button>
+                                                {
+                                                    errors.recipeStep && touched.recipeStep && (
+                                                        <div className="alert alert-danger">
+                                                            {errors.recipeStep}
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                        );
+                                    })}
+                                    </div>
+                                )}
+                             </FieldArray>
 
                              <Form.Group>
                                  <Form.Label className="sr-only">Nutrition</Form.Label>
@@ -244,11 +247,11 @@ export const SubmissionFormContent = (props) => {
                                  }
                              </Form.Group>
 
-                                 <Form.Group className="row float-right">
+                                 <Form.Group className="row d-block m-3">
                                      <input type="file" onChange={handleChange} id="recipeImageUrl" value={values.recipeImageUrl}/>
                                  </Form.Group>
 
-                                 <Form.Group>
+                                 <Form.Group className="row d-block m-3">
                                      <Button variant="dark"
                                              type="submit"
                                              className="mr-2"
