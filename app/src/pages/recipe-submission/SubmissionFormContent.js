@@ -169,9 +169,9 @@ export const SubmissionFormContent = (props) => {
                                                              value={values.recipeIngredients.pop[0]}
                                                              onBlur={handleBlur}
                                                              onChange={handleChange}
-                                                             className="col-11"
+                                                             className="col-10 col-lg-11"
                                                 />
-                                                <Button className="col-1 btn btn-dark" onClick={() => arrayHelpers.remove(index)}>
+                                                <Button className="col-2 col-lg-1 btn btn-dark" onClick={() => arrayHelpers.remove(index)}>
                                                     x
                                                 </Button>
                                                 {
@@ -207,9 +207,9 @@ export const SubmissionFormContent = (props) => {
                                                              value={values.recipeStep.pop[0]}
                                                              onBlur={handleBlur}
                                                              onChange={handleChange}
-                                                             className="col-11"
+                                                             className="col-10 col-lg-11"
                                                 />
-                                                <Button className="col-1 btn btn-dark" onClick={() => arrayHelpers.remove(index)}>
+                                                <Button className="col-2 col-lg-1 btn btn-dark" onClick={() => arrayHelpers.remove(index)}>
                                                     x
                                                 </Button>
                                                 {
