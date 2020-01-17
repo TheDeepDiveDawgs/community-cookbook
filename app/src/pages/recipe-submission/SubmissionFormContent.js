@@ -148,6 +148,7 @@ export const SubmissionFormContent = (props) => {
                                  </Form.Group>
 
 
+{/* formik's field array that passes multiple fields to validate in an array of strings with button to add the field and x button to delete ingredient if not wanted  */}
                              <FieldArray name="recipeIngredients">
                                 {arrayHelpers => (
                                     <div>
@@ -186,6 +187,8 @@ export const SubmissionFormContent = (props) => {
                                 )}
                              </FieldArray>
 
+
+{/* formik's field array that passes multiple fields to validate in an array of strings with button to add the field and x button to delete cooking steps if not wanted  */}
                              <FieldArray name="recipeStep">
                                 {arrayHelpers => (
                                     <div>
