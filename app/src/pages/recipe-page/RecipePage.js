@@ -5,6 +5,7 @@ import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
 import logo from "./../images/recipe-placeholder.jpg";
 import {InteractionComponent} from "../../shared/components/interaction/InteractionComponent";
+import { RatingSubmit } from './RatingSubmit';
 
 
 export const RecipePage = (props) => {
@@ -36,7 +37,7 @@ export const RecipePage = (props) => {
 								  alt="recipe image"/>
 							<div className="col-md-4">
 								<h4 id="recipeRating">Rating</h4>
-								<div><InteractionComponent recipeId={recipe.recipeId}/></div>
+								<div><InteractionComponent onClick={RatingSubmit} recipeId={recipe.recipeId}/></div>
 							</div>
 
 							<div className="col-md-4">
