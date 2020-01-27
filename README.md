@@ -50,4 +50,4 @@ Damian worked in various unrelated fields while attending UNM/CNM before joining
 
 ## VIDEO 
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/789IGLe_Lsk/0.jpg)](http://www.youtube.com/watch?v=789IGLe_Lsk)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/789IGLe_Lsk/0.jpg)](http://www.youtube.com/watch?v=0zZyRp869WI)
