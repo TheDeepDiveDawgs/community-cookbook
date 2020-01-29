@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {httpConfig} from "../../shared/utils/http-config"
+import {httpConfig} from "../../utils/http-config"
 
 
 export const RatingSubmit = () => {
@@ -21,6 +21,6 @@ export const RatingSubmit = () => {
                     window.location.reload();
                     console.log(reply)
                 }
-            })
-    }
-}
+            });
+    };
+};

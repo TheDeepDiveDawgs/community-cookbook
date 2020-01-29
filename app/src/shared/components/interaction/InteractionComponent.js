@@ -3,12 +3,13 @@ import {useSelector, useDispatch} from "react-redux";
 import Card from "react-bootstrap/Card";
 import {getRecipeInteractions} from "../../actions/interactionAction";
 import Ratings from "react-ratings-declarative";
+import { RatingSubmit } from './RatingSubmit';
 
 
 export const InteractionComponent = (props) => {
 	const {recipeId} = props;
 	//returns the user(s) from redux and assigns it to the users variable
-	const interactions = useSelector(state => state.interactions ? state.interactions : []);
+	const interactions = useSelector(state => state.interaction ? state.interaction : []);
 	//assigns useDispatch reference to the dispatch variable for late use
 	const dispatch = useDispatch();
 	//define the side effects that will occur in app
@@ -34,12 +35,13 @@ export const InteractionComponent = (props) => {
 					widgetHoverColors="#F5FF38"
 					widgetDimensions="1.2rem"
 					widgetSpacings="1px"
+					value={interactions.interactionRating}
 				>
-					<Ratings.Widget/>
-					<Ratings.Widget/>
-					<Ratings.Widget/>
-					<Ratings.Widget/>
-					<Ratings.Widget/>
+					<Ratings.Widget value="1" onPress={RatingSubmit}/>
+					<Ratings.Widget value="2" onPress={RatingSubmit}/>
+					<Ratings.Widget value="3" onPress={RatingSubmit}/>
+					<Ratings.Widget value="4" onPress={RatingSubmit}/>
+					<Ratings.Widget value="5" onPress={RatingSubmit}/>
 				</Ratings>
 	)
 };
