@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import Card from "react-bootstrap/Card";
 import {getRecipeInteractions} from "../../actions/interactionAction";
 import Ratings from "react-ratings-declarative";
-import { RatingSubmit } from './RatingSubmit';
+
 
 
 export const InteractionComponent = (props) => {
@@ -29,19 +29,20 @@ export const InteractionComponent = (props) => {
 
 	return (
 				<Ratings
-					rating={+average}
+					rating={interactions.interactionRating}
 					widgetRatedColors="#F5FF38"
 					changeRating={+average}
 					widgetHoverColors="#F5FF38"
 					widgetDimensions="1.2rem"
 					widgetSpacings="1px"
-					value={interactions.interactionRating}
 				>
-					<Ratings.Widget value="1" onPress={RatingSubmit}/>
-					<Ratings.Widget value="2" onPress={RatingSubmit}/>
-					<Ratings.Widget value="3" onPress={RatingSubmit}/>
-					<Ratings.Widget value="4" onPress={RatingSubmit}/>
-					<Ratings.Widget value="5" onPress={RatingSubmit}/>
+
+
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
+					<Ratings.Widget/>
 				</Ratings>
 	)
 };

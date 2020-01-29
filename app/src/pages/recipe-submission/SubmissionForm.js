@@ -79,6 +79,7 @@ export const SubmissionForm = () => {
 				}
 				if(reply.status === 401) {
 					handleSessionTimeout();
+					alert("refresh and log back in!")
 				}
 			});
 		};

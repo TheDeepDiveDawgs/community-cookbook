@@ -5,7 +5,7 @@ import {getRecipeByRecipeId} from "../../shared/actions/recipeActions";
 import {useDispatch, useSelector} from "react-redux";
 import logo from "./../images/recipe-placeholder.jpg";
 import {InteractionComponent} from "../../shared/components/interaction/InteractionComponent";
-import { RatingSubmit } from './RatingSubmit';
+import { RatingSubmit } from '../../shared/components/interaction/RatingSubmit';
 
 
 export const RecipePage = (props) => {
@@ -56,12 +56,12 @@ export const RecipePage = (props) => {
 								<h4 id="recipeIngredients">Ingredients</h4>
 {/*this allows us to form the data as a list in the DOM*/}
 								<ul>
-									{weHaveData && recipe.recipeIngredients.map(ingredient => <li> {ingredient} </li>)}
+									{weHaveData && recipe.recipeIngredients.map(ingredient => <li key={recipe.recipeId}> {ingredient} </li>)}
 								</ul>
 							</div>
 							<h4 id="recipeSteps">Steps</h4>
 							<ol id="steps">
-								{weHaveData && recipe.recipeStep.map(step => <li> {step} </li>)}
+								{weHaveData && recipe.recipeStep.map(step => <li key={recipe.recipeId}> {step} </li>)}
 							</ol>
 							<h4 id="recipeNutrition">Nutrition</h4>
 							<p id="nutrition">{recipe.recipeNutrition}</p>
