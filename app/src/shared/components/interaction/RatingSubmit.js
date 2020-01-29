@@ -3,9 +3,10 @@ import {httpConfig} from "../../utils/http-config"
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { InteractionComponent } from "./InteractionComponent";
+import {FormDebugger} from "../FormDebugger";
 
 
-export const RatingSubmit = () => {
+export const RatingSubmit = (props) => {
 
     const rating = {
         interactionDate: "",
@@ -46,6 +47,7 @@ export const RatingSubmit = () => {
                 validationSchema={validator}
             >
                 <InteractionComponent/>
+                <FormDebugger {...props}/>
             </Formik>
         </>
     )
