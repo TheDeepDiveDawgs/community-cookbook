@@ -9,8 +9,6 @@ import {useHistory} from "react-router";
 
 export const SubmissionForm = () => {
 
-
-
 	// declare variable that checks the enter fields for the values
 	const recipe = {
 		recipeName: "",

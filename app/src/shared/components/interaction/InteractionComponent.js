@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import Card from "react-bootstrap/Card";
 import {getRecipeInteractions} from "../../actions/interactionAction";
@@ -10,6 +10,7 @@ import {httpConfig} from "../../utils/http-config"
 
 export const InteractionComponent = (props) => {
 
+	const [status, setStatus] = useState(null)
 
 	const {recipeId} = props;
 	//returns the user(s) from redux and assigns it to the users variable
@@ -23,7 +24,7 @@ export const InteractionComponent = (props) => {
 		dispatch(getRecipeInteractions(recipeId))
 	}
 
-	const sideEffectsInputs = [recipeId];
+	const sideEffectsInputs = [recipeId, setStatus];
 
 	useEffect(sideEffects, sideEffectsInputs);
 	//adds the array of ratings
@@ -31,16 +32,17 @@ export const InteractionComponent = (props) => {
 	// performs the math for avg rating
 	const average = (interactions.length ? interactions.reduce(reducer, 0) / interactions.length : .01);
 
-	const submitRating = (values) => {
+const submitRating = (values, setStatus) => {
         
         const headers = {
             'X-JWT-TOKEN': window.localStorage.getItem("jwt-token")
         };
 
-        httpConfig.post("apis/interaction", values, {
+        httpConfig.post("../apis/interaction", values, {
             headers: headers})
             .then(reply => {
-                let {message, type} = reply;
+				let {message, type} = reply;
+				setStatus({message, type});
                 if(reply.status === 200) {
                     window.location.reload();
                     console.log(reply)
