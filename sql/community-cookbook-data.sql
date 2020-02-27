@@ -78,4 +78,23 @@ create table interaction(
 	primary key (interactionUserId, interactionRecipeId)
 );
 
+-- create new table image
+create table image(
+	--primary key
+	imageId BINARY(16) NOT NULL,
+	--foreign key
+	imageRecipeId BINARY(16) NOT NULL,
+	--token for cloudinary service
+	imageCloudinaryToken VARCHAR(255) NOT NULL,
+	--url of image uploaded
+	imageUrl VARCHAR(128) NOT NULL,
+	--use the primary and foreign key as unique indexes
+	index(imageId),
+	index(imageReceipeId),
+	--this creates the foreign key to impove join performance between image and recipe table 
+	foreign key (imageReceipeId) references recipe(recipeId),
+	--use primary key as unique identifier
+	primary key (imageId)
+
+)character set utf8 COLLATE utf8_unicode_ci;
 
