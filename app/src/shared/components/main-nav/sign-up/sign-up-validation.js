@@ -44,7 +44,14 @@ export const SignUpForm = ({handleClose}) => {
 						history.push("/sign-up-successful")
 					} setStatus({message, type});
 				}
-			);
+			)
+			.catch(reply => {
+				let {message, type} = reply;
+				if(reply.status !== 200) {
+					handleClose();
+					alert("You may already have an account or this information has already been used.");
+				} setStatus({message, type});
+			});
 	};
 
 
