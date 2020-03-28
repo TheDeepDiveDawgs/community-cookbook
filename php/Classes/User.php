@@ -6,11 +6,12 @@ require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
 
+
+
 /**
- * Cross section of a user
- *
- * This is a cross section of what is probably stored about a user. this entity is a top level entity that
- * holds the keys to the other entities
+ * User class and the attributes that will be stored in our Database
+ * 
+ * @author Gino Villalpando GinoVillalpandoWork@gmail.com
  */
 
 class User implements \JsonSerializable {
