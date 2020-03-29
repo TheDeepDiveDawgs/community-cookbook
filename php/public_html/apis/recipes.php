@@ -39,12 +39,12 @@ echo "successful category creation6";
 
 $recipe1 = new Recipe(generateUuidV4(), $breakfast->getCategoryId(), $abqcookbook->getUserId(),  "named after the movie because on their own, 
 each of the fruits used would be rejected, but together they make a popular combination! 
-(amounts are approximate--use whatever you have)", null, ["bananas",
+(amounts are approximate--use whatever you have)", null, "bananas",
 "strawberries",
 "fresh pineapple",
-"low-fat plain yogurt"],
-10, "Breakfast Club Smoothie", 4, null, ["cut fruit in large chunks",
+"low-fat plain yogurt",
+10, "Breakfast Club Smoothie", 4, null, "cut fruit in large chunks",
 "puree in blender until smooth and pink",
-"be refreshed as your bad fruit is redeemed !"], null);
+"be refreshed as your bad fruit is redeemed !", null);
 $recipe1->insert($pdo);
 echo "successful recipe creation1";
