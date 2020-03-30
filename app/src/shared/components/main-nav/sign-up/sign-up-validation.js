@@ -48,13 +48,6 @@ export const SignUpForm = ({handleClose}) => {
 					} setStatus({message, type});
 				}
 			)
-			.catch(response => {
-				console.log(response.status);
-				if(response.status !== 200) {
-					handleClose();
-					alert("You may already have an account! Sign in or use a different username and email.");
-				};
-			});
 	};
 
 
