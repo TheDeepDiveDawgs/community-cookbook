@@ -22,7 +22,7 @@ export const RecipeList = () => {
 			</div>
 				<div className="row">
 					<div className="col-12 col-lg-3">
-						<SubmitButton/>
+						<SubmitButton className="d-flex justify-content-center align-items-center"/>
 						<Categories/>
 					</div>
 					<div className="col-12 col-lg-9">

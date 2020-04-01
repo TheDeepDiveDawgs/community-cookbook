@@ -15,7 +15,7 @@ export const RecipeCard = ({recipe}) => {
 				<div className="col-12 col-lg-3">
 					<Card.Img id="hover-image" src={recipe.recipeImageUrl ? recipe.recipeImageUrl : logo} alt="placeholder" onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}/>
 				</div>
-				<div className="col-12 col-lg-9" data-categoryId={recipe.recipeCategoryId}>
+				<div className="col-12 col-lg-9" data-categoryid={recipe.recipeCategoryId}>
 					<Card.Title className="m-3 display-4" id="recipe-card-title" onClick={() => {history.push(`recipe-page.js/${recipe.recipeId}`)}}> {recipe.recipeName}</Card.Title>
 					<Card.Subtitle className="m-3" >Cook Time: {recipe.recipeMinutes} mins.
 						<div className="my-3"> 
