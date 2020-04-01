@@ -10,6 +10,7 @@ import {SignUpForm} from "./shared/components/main-nav/sign-up/sign-up-validatio
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import {SignUpSuccess} from "./pages/SignUpSuccess";
 import {RecipeList} from "./pages/recipe-list/RecipeList";
+import {Activation} from "./pages/activation/Activation"
 import reducers from "./shared/reducers/reducers";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
@@ -36,6 +37,7 @@ const Routing = (store) => (
 					<MainNav/>
 					<Switch>
 						<Route exact path="/" component={Home}/>
+						<Route exact path="/apis/activation/?activation=:userActivationToken" userActivationToken=":userActivationToken" component={Activation}/>
 						<Route exact path="/recipe-submission" component={SubmissionForm}/>
 						<Route exact path="/sign-up" component={SignUpForm}/>
 						<Route exact path="/sign-up-successful" component={SignUpSuccess}/>

@@ -43,6 +43,7 @@ export const SignUpForm = ({handleClose}) => {
 						handleClose();
 						history.push("/sign-up-successful")
 					} else {
+						resetForm();
 						handleClose();
 						alert("You may already have an account! Sign in or use a different username and email.");
 					} setStatus({message, type});
