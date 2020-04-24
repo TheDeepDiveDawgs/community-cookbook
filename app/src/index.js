@@ -34,7 +34,7 @@ const Routing = (store) => (
 	<>
 		<Provider store={store}>
 				<BrowserRouter>
-					<MainNav/>
+				  <MainNav/>
 					<Switch>
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/apis/activation/?activation=:userActivationToken" userActivationToken=":userActivationToken" component={Activation}/>

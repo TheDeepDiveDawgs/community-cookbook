@@ -18,7 +18,7 @@ export const SearchFormContent = ({setSearchTerm}) => {
 						 id="search-text"
 						 onChange={setSearch}
 						 onSubmit={setSearch}
-				/>
+				/>	
 			</Form>
 		</>
 	);
