@@ -10,6 +10,7 @@ import { RatingSubmit } from '../../shared/components/interaction/RatingSubmit';
 
 export const RecipePage = (props) => {
 	const {match} = props;
+	console.log({match})
 	const recipes = useSelector(state => (state.recipe));
 
 	const dispatch = useDispatch();
@@ -18,6 +19,8 @@ export const RecipePage = (props) => {
 	};
 	const inputs = [match.params.recipeId];
 	useEffect(effects, inputs);
+
+	
 
 	const filterRecipe = recipes.filter(recipe => recipe.recipeId === match.params.recipeId);
 	const recipe = {...filterRecipe[0]};

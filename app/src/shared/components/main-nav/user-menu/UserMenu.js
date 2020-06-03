@@ -1,17 +1,17 @@
 import React from "react"
 // import {ButtonGroup} from "react-bootstrap";
-import {UseJwt, UseJwtUserHandle} from "../../../utils/JwtHelpers";
+import {UseJwt, UseJwtUserHandle, UseJwtUserEmail} from "../../../utils/JwtHelpers";
 import Dropdown from 'react-bootstrap/Dropdown'
 // import DropdownButton from "react-bootstrap/DropdownButton";
 import {httpConfig} from "../../../utils/http-config";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { getUserByUserHandle } from "../../../actions/GetUser";
 
-export const UserMenu = (props) => {
+export const UserMenu = () => {
 
 
 	const jwt = UseJwt();
 	const userHandle = UseJwtUserHandle();
-	console.log(jwt);
 
 	const signOut = () => {
 		httpConfig.get("apis/sign-out/")
@@ -31,7 +31,7 @@ export const UserMenu = (props) => {
 			{jwt !== null && (
 				<NavDropdown 	alignRight
 								className="mr-5 my-3 d-none d-lg-inline-block"
-								title={"Hello, " + userHandle.toUpperCase() + "!"}
+								title={"Hello, " + userHandle.toUpperCase() + "!" }
 								id="collasible-nav-dropdown"
 								>
 					<Dropdown.Item href="/recipe-submission">Create Recipe</Dropdown.Item>

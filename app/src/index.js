@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom'
 import './stylesheets/stylesheet.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -29,6 +29,8 @@ library.add(faFacebookF, faTwitter, faEnvelope, faTwitterSquare, faSearch, faGit
 
 
 const store = createStore(reducers, applyMiddleware(thunk));
+
+
 
 const Routing = (store) => (
 	<>

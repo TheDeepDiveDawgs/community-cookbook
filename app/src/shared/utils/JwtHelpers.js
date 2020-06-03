@@ -5,6 +5,7 @@ import * as jwtDecode from "jwt-decode";
 	// @author ginovillalpando@outlook.com
 
 export const UseJwt = () => {
+	
 		const [jwt, setJwt] = useState(null);
 
 		useEffect(() => {
@@ -12,6 +13,7 @@ export const UseJwt = () => {
 		}, []);
 	return jwt;
 };
+
 
 export const UseJwtUserHandle = () => {
 		const[userHandle, setUserHandle] = useState(null);
@@ -24,6 +26,20 @@ export const UseJwtUserHandle = () => {
 			}
 		}, []);
 		return userHandle;
+};
+
+export const UseJwtUserEmail = () => {
+		const[userEmail, setUserEmail] = useState(null);
+
+		useEffect(() => {
+			const token = window.localStorage.getItem("jwt-token");
+			if(token !== null) {
+				const decodeJwt = jwtDecode(token);
+				setUserEmail(decodeJwt.auth.userEmail);
+				console.log(decodeJwt)
+			}
+		}, []);
+		return userEmail;
 };
 
 export const UseJwtUserId = () => {

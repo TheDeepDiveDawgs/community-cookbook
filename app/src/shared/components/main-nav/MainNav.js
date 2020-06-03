@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap"
@@ -9,10 +9,13 @@ import logo from "./images/nav-icon.png";
 import smallLogo from "./images/nav-icon-sm.png"
 import {httpConfig} from "../../utils/http-config";
 import {UserMenu} from "./user-menu/UserMenu";
+import {SearchFormContent} from "../../../pages/recipe-list/SearchForm"
 
 export const MainNav = (props) => {
 
 	const jwt = UseJwt();
+
+	const [searchTerm, setSearchTerm] = useState('');
 
 	useEffect( () =>{
 		httpConfig.get("/apis/sessionAPI/")
@@ -58,6 +61,8 @@ export const MainNav = (props) => {
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto text-right">
 
+				<SearchFormContent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
 						<Nav.Link href="/recipe-list"
 								  className="py-3 mr-1 d-lg-none d-inline-block"
 						>SEARCH</Nav.Link>
@@ -88,7 +93,7 @@ export const MainNav = (props) => {
 
 					{jwt !== null ?
 						<Nav.Item onClick={signOut}
-								  className="py-4"
+								  className="btn py-4"
 								  id="menuSignOut"
 						>SIGN OUT</Nav.Item>
 						:
